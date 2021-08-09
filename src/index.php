@@ -31,7 +31,7 @@ if ($styr) {
 	echo " --- error --- <br><br>";
 }
 
-fclose($myfile);
+fclose($styr);
 
 
 
