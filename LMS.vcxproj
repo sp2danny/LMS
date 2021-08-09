@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <None Include="src\index.html" />
     <None Include="src\index.php" />
   </ItemGroup>
   <ItemGroup>

@@ -10,6 +10,9 @@
     <None Include="src\index.php">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="src\index.html">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="src\styr.txt">
