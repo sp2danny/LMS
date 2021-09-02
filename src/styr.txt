@@ -7,7 +7,12 @@ q=q2, ja, nej
 s=submit
 
 [segment-2]
-t=Fr&auml;gebatteri A
-q=q1, ja, nej
-q=q2, ja, nej
+f=score.php
+t=Fr&aring;gebatteri B
+q=Fr&aring;ga 1, ja, nej
+q=Fr&aring;ga 2, ja, nej
+q=Fr&aring;ga 3, 1, 2, 3, 4, 5
+q=Fr&aring;ga 4, 1, 2, 3, 4, 5
+q=Fr&aring;ga 5, stor, liten, mellan
+s=klar
 

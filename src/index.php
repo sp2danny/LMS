@@ -12,7 +12,7 @@ $styr = fopen("styr.txt", "r") or die("Unable to open file!");
 
 if ($styr) {
 
-	echo " --- start --- <br><br>";
+	//echo " --- start --- <br><br>";
 
 	$seg = 'segment-' . htmlspecialchars($_GET["seg"]);
 
@@ -70,6 +70,7 @@ if ($styr) {
 
 			} else if ($s1 == 's=') {
 				// submit
+				echo '<input type="submit" value="' . $s2 . '">';
 			} else if ($s1 == 'n=') {
 				// next
 			}
@@ -78,7 +79,7 @@ if ($styr) {
 
 	}
 
-	echo "<br> --- stop --- <br>";
+	//echo "<br> --- stop --- <br>";
 
 } else {
 	echo "<br> --- error --- <br>";
