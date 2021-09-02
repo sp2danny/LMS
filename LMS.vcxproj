@@ -21,6 +21,7 @@
   <ItemGroup>
     <None Include="src\index.html" />
     <None Include="src\index.php" />
+    <None Include="src\score.php" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="src\styr.txt" />

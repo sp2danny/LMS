@@ -13,6 +13,9 @@
     <None Include="src\index.html">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="src\score.php">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="src\styr.txt">

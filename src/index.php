@@ -16,6 +16,7 @@ if ($styr) {
 
 	$seg = 'segment-' . htmlspecialchars($_GET["seg"]);
 
+
 	while (true) {
 
 		$buffer = fgets($styr, 4096); // or break;
@@ -29,17 +30,44 @@ if ($styr) {
 			continue;
 		}
 
+		$qnum = 0;
+
 		if ($curr == $seg) {
 			$s1 = substr( $buffer, 0, 2 );
 			$s2 = substr( $buffer, 2 );
-			echo $s1 . " , " . $s2 . "<br>";
+			//echo $s1 . " , " . $s2 . "<br>";
+
 			if ($s1 == 't=') {
 				// text
 				echo $s2 . "<br>";
-			if ($s1 == 'e=') {
+			} else if ($s1 == 'f=') {
+				echo '<form action="' . $s2 . '" method="post">';
+			} else if ($s1 == 'e=') {
 				// embed
 			} else if ($s1 == 'q=') {
-				// query
+				$qnum++;
+				$valnum = 0;
+				$s3 = '';
+				while (true) {
+					$p = strpos($s2, ',');
+					if ($p) {
+						$s3 = substr($s2, 0, $p);
+						$s2 = substr($s2, $p+1);
+					} else {
+						$s3 = $s2;
+						$s2 = '';
+					}
+					if ($valnum == 0) {
+						echo '<h3>' . $s3 . '</h3>';
+						echo '<div class="form-group"><ol>';
+					} else {
+						echo '<li> <input type="radio" name="' . $qnum . '" value="' . $valnum . '" />' . $s3 . '</li>';
+					}
+					if (!$p) break;
+					$valnum++;
+				}
+				echo '</ol></div>';
+
 			} else if ($s1 == 's=') {
 				// submit
 			} else if ($s1 == 'n=') {

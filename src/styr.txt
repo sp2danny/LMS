@@ -1,8 +1,10 @@
 
 [segment-1]
-t=Fr&auml;gebatteri A
+f=score.php
+t=Fr&aring;gebatteri A
 q=q1, ja, nej
 q=q2, ja, nej
+s=submit
 
 [segment-2]
 t=Fr&auml;gebatteri A
