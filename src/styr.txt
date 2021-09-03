@@ -1,5 +1,6 @@
 
 [segment-1]
+e=597083498
 f=score.php
 t=Fr&aring;gebatteri A
 q=q1, ja, nej
