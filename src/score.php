@@ -48,7 +48,7 @@ echo "person = " . getparam("person") . "<br>\n";
 
 
 
-echo "registrerat i databasen<br>";
+echo "<br>registrerat i databasen<br>";
 
 
 
