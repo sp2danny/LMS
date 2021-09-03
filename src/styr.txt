@@ -8,6 +8,7 @@ q=q2, ja, nej
 s=submit
 
 [segment-2]
+e=597088520
 f=score.php
 t=Fr&aring;gebatteri B
 q=Fr&aring;ga 1, ja, nej

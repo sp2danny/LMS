@@ -76,15 +76,20 @@ if ($styr) {
 				echo '<input type="hidden" value="7211064634" id="person" name="person">' . $eol;
 			} else if ($s1 == 'e=') {
 				// embed
-				//echo '<iframe src="https://player.vimeo.com/video/';
-				//echo $s2;
-				//echo '" width="640" height="360" frameborder="1" allow="autoplay; fullscreen" allowfullscreen></iframe>\n';
+				echo '<iframe src="https://player.vimeo.com/video/';
+				echo $s2;
+				echo '" width="640" height="360" frameborder="1" allow="autoplay; fullscreen" allowfullscreen></iframe>' . $eol;
 
-
+				/*
 				echo '<div style="padding:75% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/597083498?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;h=3c84b2f529"';
 				echo ' frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:75%;height:75%;" title="out_00.mp4"></iframe></div>';
 				echo '<script src="https://player.vimeo.com/api/player.js"></script>' . $eol;
 
+
+				echo '<div style="padding:75% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/597088520?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;h=b085dd237d"';
+				echo ' frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="out_01.mp4"></iframe></div>';
+				echo '<script src="https://player.vimeo.com/api/player.js"></script>' . $eol;
+				*/
 
 			} else if ($s1 == 'q=') {
 				$qnum++;
