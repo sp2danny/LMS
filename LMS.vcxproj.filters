@@ -5,21 +5,30 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Source Files\batt-1.1">
+      <UniqueIdentifier>{550cd09f-4c93-4125-8cf4-57456f779aa5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\index.php">
+    <None Include="src\main.css">
       <Filter>Source Files</Filter>
     </None>
     <None Include="src\index.html">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="src\score.php">
-      <Filter>Source Files</Filter>
+    <None Include="src\batt-1.1\index.php">
+      <Filter>Source Files\batt-1.1</Filter>
+    </None>
+    <None Include="src\batt-1.1\local.css">
+      <Filter>Source Files\batt-1.1</Filter>
+    </None>
+    <None Include="src\batt-1.1\score.php">
+      <Filter>Source Files\batt-1.1</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="src\styr.txt">
-      <Filter>Source Files</Filter>
+    <Text Include="src\batt-1.1\styr.txt">
+      <Filter>Source Files\batt-1.1</Filter>
     </Text>
   </ItemGroup>
 </Project>
