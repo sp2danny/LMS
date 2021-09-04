@@ -1,6 +1,11 @@
 
 <html>
 <head> <title> Index </title> </head>
+
+<link rel="stylesheet" href="../main.css">
+
+<link rel="stylesheet" href="local.css">
+
 <body>
 
 <?php
@@ -41,7 +46,9 @@ $styr = fopen("styr.txt", "r") or die("Unable to open file!");
 
 if ($styr) {
 
-	$seg = 'segment-' . htmlspecialchars(getparam("seg", "1"));
+	$snum = getparam("seg", "1");
+
+	$seg = 'segment-' . $snum;
 
 	$qnum = 0;
 
@@ -68,17 +75,33 @@ if ($styr) {
 
 			if ($s1 == 't=') {
 				// text
-				echo $s2 . "<br>" . $eol;
+				echo $s2 . /*"<br>" .*/ $eol;
+			} else if ($s1 == 's=') {
+				echo '<audio controls>';
+				echo '<source src="' . $s2 . '" type="audio/mp3"></audio>' . $eol;
+				
+			} else if ($s1 == 'h=') {
+				echo '<h1>' . $s2 . '</h1>' . $eol;
+			} else if ($s1 == 'l=') {
+				echo '<hr color="' . $s2 . '" >' . $eol;
+			} else if ($s1 == 'b=') {
+				for ($i=0; $i<$s2; ++$i)
+					echo '<br>';
+				echo $eol;
+			} else if ($s1 == 'i=') {
+				echo '<img width=30%  src="' . $s2 . '"> <br>' . $eol;
+				
+				//  <img src="img_girl.jpg"> 
 			} else if ($s1 == 'f=') {
-				echo '<form action="' . $s2 . '" method="POST">' . $eol;
+				echo '<form action="' . $s2 . '" method="GET">' . $eol;
 				echo '<input type="hidden" value="' . $seg . '" id="seg" name="seg">' . $eol;
 				echo '<input type="hidden" value="' . $s2 . '" id="batteri" name="batteri">' . $eol;
 				echo '<input type="hidden" value="7211064634" id="person" name="person">' . $eol;
 			} else if ($s1 == 'e=') {
 				// embed
-				echo '<iframe src="https://player.vimeo.com/video/';
+				echo '<iframe width="1280" height="720" src="https://player.vimeo.com/video/';
 				echo $s2;
-				echo '" width="640" height="360" frameborder="1" allow="autoplay; fullscreen" allowfullscreen></iframe>' . $eol;
+				echo '"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>' . $eol;
 
 				/*
 				echo '<div style="padding:75% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/597083498?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;h=3c84b2f529"';
@@ -120,6 +143,7 @@ if ($styr) {
 				echo '<input type="submit" value="' . $s2 . '">' . $eol;
 			} else if ($s1 == 'n=') {
 				// next
+				echo '<button onclick="location.href=' . "'" . 'index.php?seg=' . ($snum+1) . "'" . '" type="button"> ' . $s2 . '</button>' . $eol;
 			}
 
 		}
