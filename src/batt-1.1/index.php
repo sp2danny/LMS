@@ -115,7 +115,7 @@ if ($styr) {
 				echo '<script src="https://player.vimeo.com/api/player.js"></script>' . $eol;
 				*/
 
-			} else if ($s1 == 'q=') {
+			} else if ($s1 == 'q=' || $s1 == 'r=') {
 				$qnum++;
 				$valnum = 0;
 				$s3 = '';
@@ -141,7 +141,7 @@ if ($styr) {
 
 			} else if ($s1 == 's=') {
 				// submit
-				echo '<input type="submit" value="' . $s2 . '">' . $eol;
+				echo '<input type="submit" value="' . $s2 . '"> </form>' . $eol;
 			} else if ($s1 == 'n=') {
 				// next
 				echo '<button onclick="location.href=' . "'" . 'index.php?seg=' . ($snum+1) . "'" . '" type="button"> ' . $s2 . '</button>' . $eol;
