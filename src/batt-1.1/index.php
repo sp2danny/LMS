@@ -47,6 +47,8 @@ if ($styr) {
 
 	$seg = 'segment-' . $snum;
 
+	$pnr = getparam("pnr", "0");
+
 	$qnum = 0;
 
 	$eol = "\n";
@@ -77,7 +79,7 @@ if ($styr) {
 				echo $s2 . /*"<br>" .*/ $eol;
 			} else if ($s1 == 'I=') {
 				echo '<iframe src="' . $s2 . '"> </iframe>' . $eol;
-			} else if ($s1 == 's=') {
+			} else if ($s1 == 'a=') {
 				echo '<audio controls>';
 				echo '<source src="' . $s2 . '" type="audio/mp3"></audio>' . $eol;
 				
@@ -90,31 +92,23 @@ if ($styr) {
 					echo '<br>';
 				echo $eol;
 			} else if ($s1 == 'i=') {
-				echo '<img width=30%  src="' . $s2 . '"> <br>' . $eol;
-				
-				//  <img src="img_girl.jpg"> 
+				$p = strpos($s2, ',');
+				if ($p) {
+					$s3 = substr($s2, 0, $p);
+					$s2 = substr($s2, $p+1);
+					echo '<img width=' . $s3 . '%  src="' . $s2 . '"> <br>' . $eol;
+				} else {
+					echo '<img src="' . $s2 . '"> <br>' . $eol;
+				}
 			} else if ($s1 == 'f=') {
 				echo '<form action="' . $s2 . '" method="GET">' . $eol;
-				echo '<input type="hidden" value="' . $seg . '" id="seg" name="seg">' . $eol;
-				echo '<input type="hidden" value="' . $s2 . '" id="batteri" name="batteri">' . $eol;
-				echo '<input type="hidden" value="7211064634" id="person" name="person">' . $eol;
+				echo '<input type="hidden" value="' . $snum . '" id="seg" name="seg" />' . $eol;
+				echo '<input type="hidden" value="' . $pnr . '" id="pnr" name="pnr" />' . $eol;
 			} else if ($s1 == 'e=') {
 				// embed
 				echo '<iframe width="1280" height="720" src="https://player.vimeo.com/video/';
 				echo $s2;
 				echo '"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>' . $eol;
-
-				/*
-				echo '<div style="padding:75% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/597083498?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;h=3c84b2f529"';
-				echo ' frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:75%;height:75%;" title="out_00.mp4"></iframe></div>';
-				echo '<script src="https://player.vimeo.com/api/player.js"></script>' . $eol;
-
-
-				echo '<div style="padding:75% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/597088520?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;h=b085dd237d"';
-				echo ' frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="out_01.mp4"></iframe></div>';
-				echo '<script src="https://player.vimeo.com/api/player.js"></script>' . $eol;
-				*/
-
 			} else if ($s1 == 'q=' || $s1 == 'r=') {
 				$qnum++;
 				$valnum = 0;
@@ -141,7 +135,7 @@ if ($styr) {
 
 			} else if ($s1 == 's=') {
 				// submit
-				echo '<input type="submit" value="' . $s2 . '"> </form>' . $eol;
+				echo '<input type="submit" value="' . $s2 . '"/> </form>' . $eol;
 			} else if ($s1 == 'n=') {
 				// next
 				echo '<button onclick="location.href=' . "'" . 'index.php?seg=' . ($snum+1) . "'" . '" type="button"> ' . $s2 . '</button>' . $eol;
