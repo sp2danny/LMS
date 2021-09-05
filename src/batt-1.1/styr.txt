@@ -11,16 +11,16 @@ b=2
 t=<h3>Svara nu på några frågor om denna film</h3>
 b=1
 f=score.php
-q=Fråga 1 : Tog forntidsmänniskan mer än 10.000 steg varje dag för att få mat?, Ja, Nej
-q=Fråga 2 : Påverkas fokusförmågan av mycket rörelse varje dag?, Ja, Nej
-q=Fråga 3 : Påverkas minnet av du rör på dig varje dag?, Ja, Nej
-q=Fråga 4 : Överlevde forntidsmänniskan i ensamhet?, Ja, Nej
-q=Fråga 5 : Påverkas din stressnivå av många fler intryck varje dag?, Ja, Nej
-q=Fråga 6 : Mår vi bra av att samarbeta varje dag?, Ja, Nej
-q=Fråga 7 : Kan hjärnan tränas på samma vis som en muskel?, Ja, Nej
-q=Fråga 8 : Kan hjärnan hantera fler än 5 djupa relarioner samtidigt?, Ja, Nej
-q=Fråga 9 : Samarbetar vi bäst i grupper över 15 personer?, Ja, Nej
-q=Fråga 10 : Är hjärnans viktigaste drivkraft Överlevnad?, Ja, Nej
+q=Fråga 1 : Tog forntidsmänniskan mer än 10.000 steg varje dag för att få mat?, _Ja, Nej
+q=Fråga 2 : Påverkas fokusförmågan av mycket rörelse varje dag?, _Ja, Nej
+q=Fråga 3 : Påverkas minnet av du rör på dig varje dag?, Ja, _Nej
+q=Fråga 4 : Överlevde forntidsmänniskan i ensamhet?, Ja, _Nej
+q=Fråga 5 : Påverkas din stressnivå av många fler intryck varje dag?, _Ja, Nej
+q=Fråga 6 : Mår vi bra av att samarbeta varje dag?, _Ja, Nej
+q=Fråga 7 : Kan hjärnan tränas på samma vis som en muskel?, _Ja, Nej
+q=Fråga 8 : Kan hjärnan hantera fler än 5 djupa relarioner samtidigt?, _Ja, Nej
+q=Fråga 9 : Samarbetar vi bäst i grupper över 15 personer?, Ja, _Nej
+q=Fråga 10 : Är hjärnans viktigaste drivkraft Överlevnad?, _Ja, Nej
 s=Klar
 
 

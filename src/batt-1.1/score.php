@@ -52,6 +52,8 @@ if ($styr) {
 
 	$eol = "\n";
 
+	$totscore = 0;
+
 	while (true) {
 
 		$buffer = fgets($styr, 4096); // or break;
@@ -75,28 +77,28 @@ if ($styr) {
 				while (true) {
 					$p = strpos($s2, ',');
 					if ($p) {
-						$s3 = substr($s2, 0, $p);
-						$s2 = substr($s2, $p+1);
+						$s3 = trim(substr($s2, 0, $p));
+						$s2 = trim(substr($s2, $p+1));
 					} else {
-						$s3 = $s2;
+						$s3 = trim($s2);
 						$s2 = '';
 					}
-					if ($valnum == 0) {
-						//echo '<h3>' . $s3 . '</h3>' . $eol;
-						//echo '<div class="form-group"><ol> ' . $eol;
-					} else {
-						//echo '<li> <input type="radio" name="' . $qnum . '" value="' . $valnum . '" />' . $s3 . '</li>' . $eol;
+					if ($valnum > 0) {
+						if ($s3[0] == '_') {
+							if (getparam($qnum) == $valnum)
+								$totscore += 1;
+						}
 					}
 					if (!$p) break;
 					$valnum++;
 				}
-				//echo '</ol></div>' . $eol;
 			}
 		}
 
 	}
 
-	echo "<br>registrerat i databasen<br><br>";
+	echo '<br> Score : ' . $totscore . '<br>' . $eol;
+	echo '<br>registrerat i databasen<br><br>' . $eol;
 
 	echo '<a href="' . 'index.php?pnr=' . $pnr . '&seg=' . ($snum+1) . '"> <button> next </button> </a>' . $eol;
 }

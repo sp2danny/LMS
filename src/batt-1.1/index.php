@@ -109,19 +109,21 @@ if ($styr) {
 				echo '<iframe width="1280" height="720" src="https://player.vimeo.com/video/';
 				echo $s2;
 				echo '"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>' . $eol;
-			} else if ($s1 == 'q=' || $s1 == 'r=') {
+			} else if ($s1 == 'q=') {
 				$qnum++;
 				$valnum = 0;
 				$s3 = '';
 				while (true) {
 					$p = strpos($s2, ',');
 					if ($p) {
-						$s3 = substr($s2, 0, $p);
-						$s2 = substr($s2, $p+1);
+						$s3 = trim(substr($s2, 0, $p));
+						$s2 = trim(substr($s2, $p+1));
 					} else {
-						$s3 = $s2;
+						$s3 = trim($s2);
 						$s2 = '';
 					}
+					if ($s3[0] == '_')
+						$s3 = substr($s3, 1);
 					if ($valnum == 0) {
 						echo '<h3>' . $s3 . '</h3>' . $eol;
 						echo '<div class="form-group"><ol> ' . $eol;
