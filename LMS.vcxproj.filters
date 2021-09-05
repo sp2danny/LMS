@@ -25,6 +25,12 @@
     <None Include="src\batt-1.1\score.php">
       <Filter>Source Files\batt-1.1</Filter>
     </None>
+    <None Include="src\login.php">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="src\next.php">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="src\batt-1.1\styr.txt">

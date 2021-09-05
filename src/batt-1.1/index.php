@@ -1,12 +1,9 @@
 
 <html>
-<head> <title> Index </title> </head>
-
+<head> <title> Index </title> 
 <link rel="stylesheet" href="../main.css">
-
 <link rel="stylesheet" href="local.css">
-
-<body>
+</head><body>
 
 <?php
 

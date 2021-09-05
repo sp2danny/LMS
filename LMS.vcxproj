@@ -23,7 +23,9 @@
     <None Include="src\batt-1.1\local.css" />
     <None Include="src\batt-1.1\score.php" />
     <None Include="src\index.html" />
+    <None Include="src\login.php" />
     <None Include="src\main.css" />
+    <None Include="src\next.php" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="src\batt-1.1\styr.txt" />
