@@ -70,9 +70,13 @@ if ($styr) {
 			$s2 = substr( $buffer, 2 );
 			//echo $s1 . " , " . $s2 . "<br>";
 
+
+
 			if ($s1 == 't=') {
 				// text
 				echo $s2 . /*"<br>" .*/ $eol;
+			} else if ($s1 == 'I=') {
+				echo '<iframe src="' . $s2 . '"> </iframe>' . $eol;
 			} else if ($s1 == 's=') {
 				echo '<audio controls>';
 				echo '<source src="' . $s2 . '" type="audio/mp3"></audio>' . $eol;

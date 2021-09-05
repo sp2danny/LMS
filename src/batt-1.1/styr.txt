@@ -63,3 +63,17 @@ q=Hur upplevde du denna kursen, mycket dålig, dålig, neutral, bra, mycket bra
 
 n=Klar
 
+
+
+[segment-4]
+b=1
+i=../logo.png
+b=2
+t=<h2>Stress</h2>
+b=2
+I=stress.pdf
+b=2
+n=Klar
+
+
+
