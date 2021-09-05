@@ -41,7 +41,7 @@ q=Fråga 3 : Hur många tankar kan vi tänka i taget?, 1 tanke, 3 tankar, 5 tank
 q=Fråga 4 : Hur stor del av kroppens energi tar hjärnan?, 10%, 15%, 25%
 q=Fråga 5 : Kan jag ändra mitt sätt att tänka genom träning av min hjärna?, Ja, Nej 
 
-n=Klar
+s=Klar
 
 
 
@@ -56,13 +56,7 @@ b=2
 a=sound-01.mp3
 b=2
 
-
-
-f=score.php
-q=Hur upplevde du denna kursen, mycket dålig, dålig, neutral, bra, mycket bra
-
 n=Klar
-
 
 
 [segment-4]
@@ -75,5 +69,38 @@ I=stress.pdf
 b=2
 n=Klar
 
+[segment-5]
+f=score.php
+q=Påstående 1, _sant, falskt
+q=Påstående 2, _sant, falskt
+q=Påstående 3, _sant, falskt
+q=Påstående 4, _sant, falskt
+
+s=Klar
+
+
+[segment-6]
+b=1
+i=30,../logo.png
+b=2
+t=<h2>Maslov</h2>
+b=2
+i=70,maslov.png
+b=2
+t=text text text text text text text <br>
+t=text text text text text text text <br>
+t=text text text text text text text <br>
+t=text text text text text text text <br>
+
+n=Klar
+
+
+
+
+[segment-7]
+f=score.php
+q=Hur upplevde du denna kursen, mycket dålig, dålig, neutral, bra, mycket bra
+
+s=Klar
 
 
