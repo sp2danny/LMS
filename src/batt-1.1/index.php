@@ -7,39 +7,9 @@
 
 <?php
 
-
-function getparam($key, $def = "")
-{
-	$ok = false;
-	$res = $def;
-
-	try {
-		if (array_key_exists("$key", $_GET)) {
-			$res = $_GET[$key];
-			$ok = true;
-		}
-	} catch(Exception $e) {
-	}
-
-	if (!$ok) try {
-		if (array_key_exists($key, $_POST)) {
-			$res = $_POST[$key];
-			$ok = true;
-		}
-	} catch(Exception $e) {
-	}
-
-	if ($ok)
-	{
-		return $res;
-	} else {
-		return $def;
-	}
-}
-
+include '../php/common.php';
 
 $styr = fopen("styr.txt", "r") or die("Unable to open file!");
-
 
 if ($styr) {
 
@@ -66,13 +36,9 @@ if ($styr) {
 			continue;
 		}
 
-
 		if ($curr == $seg) {
 			$s1 = substr( $buffer, 0, 2 );
 			$s2 = substr( $buffer, 2 );
-			//echo $s1 . " , " . $s2 . "<br>";
-
-
 
 			if ($s1 == 't=') {
 				// text
@@ -147,7 +113,6 @@ if ($styr) {
 
 	}
 
-	//echo "<br> --- stop --- <br>";
 
 } else {
 	echo "<br> --- error --- <br>\r\n";

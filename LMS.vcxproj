@@ -26,6 +26,7 @@
     <None Include="src\login.php" />
     <None Include="src\main.css" />
     <None Include="src\next.php" />
+    <None Include="src\php\common.php" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="src\batt-1.1\styr.txt" />
