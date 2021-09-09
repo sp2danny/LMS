@@ -35,11 +35,11 @@ b=2
 t=<h3>Svara nu på några frågor om denna film</h3>
 b=1
 f=score.php
-q=Fråga 1 : Hur många generationer har människan funnits på jorden?, 100 generationer, 1000 generationer, 10.000 generationer
-q=Fråga 2 : Hur många generationer har människan urbana miljöer?, mindre än 4 generationer, mer än 5 mindre än 10 generationer, mer än 10 mindre än 100 generationeq=Fråga 1 : Hur mga generationer har människan funnits på jorden, 100 generationer, 1000 generationer, 10.000 generationer
-q=Fråga 3 : Hur många tankar kan vi tänka i taget?, 1 tanke, 3 tankar, 5 tankar
-q=Fråga 4 : Hur stor del av kroppens energi tar hjärnan?, 10%, 15%, 25%
-q=Fråga 5 : Kan jag ändra mitt sätt att tänka genom träning av min hjärna?, Ja, Nej 
+q=Fråga 1 : Hur många generationer har människan funnits på jorden?, _100 generationer, 1000 generationer, 10.000 generationer
+q=Fråga 2 : Hur många generationer har människan urbana miljöer?, _mindre än 4 generationer, mer än 5 mindre än 10 generationer, mer än 10 mindre än 100 generationeq=Fråga 1 : Hur mga generationer har människan funnits på jorden, 100 generationer, 1000 generationer, 10.000 generationer
+q=Fråga 3 : Hur många tankar kan vi tänka i taget?, _1 tanke, 3 tankar, 5 tankar
+q=Fråga 4 : Hur stor del av kroppens energi tar hjärnan?, _10%, 15%, 25%
+q=Fråga 5 : Kan jag ändra mitt sätt att tänka genom träning av min hjärna?, _Ja, Nej 
 
 s=Klar
 
