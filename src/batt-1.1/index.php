@@ -23,6 +23,8 @@ if ($styr) {
 
 	$eol = "\n";
 
+	$corr = [];
+
 	while (true) {
 
 		$buffer = fgets($styr, 4096); // or break;
@@ -44,7 +46,16 @@ if ($styr) {
 				// text
 				echo $s2 . /*"<br>" .*/ $eol;
 			} else if ($s1 == 'I=') {
-				echo '<iframe src="' . $s2 . '"> </iframe>' . $eol;
+				// echo '<iframe src="' . $s2 . '"> </iframe>' . $eol;
+				$p = strpos($s2, ',');
+				if ($p) {
+					$s3 = substr($s2, 0, $p);
+					$s2 = substr($s2, $p+1);
+					echo '<iframe width=' . $s3 . '% height=' . $s3 . '%  src="' . $s2 . '"> </iframe>' . $eol;
+				} else {
+					echo '<iframe src="' . $s2 . '"> </iframe>' . $eol;
+				}
+
 			} else if ($s1 == 'a=') {
 				echo '<audio controls>';
 				echo '<source src="' . $s2 . '" type="audio/mp3"></audio>' . $eol;
@@ -70,6 +81,7 @@ if ($styr) {
 				echo '<form action="' . $s2 . '" method="GET">' . $eol;
 				echo '<input type="hidden" value="' . $snum . '" id="seg" name="seg" />' . $eol;
 				echo '<input type="hidden" value="' . $pnr . '" id="pnr" name="pnr" />' . $eol;
+				echo '<table>' . $eol;
 			} else if ($s1 == 'e=') {
 				// embed
 				echo '<iframe width="1280" height="720" src="https://player.vimeo.com/video/';
@@ -88,22 +100,40 @@ if ($styr) {
 						$s3 = trim($s2);
 						$s2 = '';
 					}
-					if ($s3[0] == '_')
+					if ($s3[0] == '_') {
 						$s3 = substr($s3, 1);
+						$corr[$qnum] = $valnum;
+					}
 					if ($valnum == 0) {
-						echo '<h3>' . $s3 . '</h3>' . $eol;
+						echo '<tr> <td colspan="2"> <h4>' . $s3 . ' </h4> </td> </tr> ' . $eol;
+						echo '<tr> <td width="70px" > <img id="' . 'QI-' . $qnum . '" src="blank.png" /> </td> <td> ' . $eol;
 						echo '<div class="form-group"><ol> ' . $eol;
 					} else {
-						echo '<li> <input type="radio" name="' . $qnum . '" value="' . $valnum . '" />' . $s3 . '</li>' . $eol;
+						echo ' <li> <input type="radio" id="' . 'QR-' . $qnum . '" name="' . $qnum . '" value="' . $valnum . '" />' . $s3 . '</li> ' . $eol;
 					}
 					if (!$p) break;
 					$valnum++;
 				}
-				echo '</ol></div>' . $eol;
+				echo '</ol></div></td></tr>' . $eol;
+				echo '<tr><td> &nbsp; </td></tr>' . $eol;
+				//echo '<tr><td> &nbsp; </td></tr>' . $eol;
 
 			} else if ($s1 == 's=') {
 				// submit
-				echo '<input type="submit" value="' . $s2 . '"/> </form>' . $eol;
+				echo '</table>' . $eol;
+				echo '<script>' . $eol;
+				echo 'function  doCorr() {' . $eol;
+				for ($idx = 1; $idx <= $qnum; ++$idx) {
+					echo '  if (document.querySelector(' . "'" . 'input[name="' . $idx . '"]:checked' . "'" . ').value == ' . $corr[$idx] . ') { ' . $eol;
+					echo '    document.getElementById("QI-' . $idx . '").src="corr.png"; } else {' . $eol;
+					echo '    document.getElementById("QI-' . $idx . '").src="err.png"; }' . $eol;
+				}
+					echo '}' . $eol;
+				echo '</script>' . $eol;
+				
+				echo '<input type="submit" value="' . $s2 . '"/> <br>' . $eol;
+				echo '</form>' . $eol;
+				echo '<button onclick="doCorr()"> R&auml;tta </button> <br>' . $eol;
 			} else if ($s1 == 'n=') {
 				// next
 				echo '<button onclick="location.href=' . "'" . 'index.php?seg=' . ($snum+1) . "'" . '" type="button"> ' . $s2 . '</button>' . $eol;

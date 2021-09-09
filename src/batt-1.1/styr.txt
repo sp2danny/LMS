@@ -65,7 +65,7 @@ i=30,../logo.png
 b=2
 t=<h2>Stress</h2>
 b=2
-I=stress.pdf
+I=85,stress.pdf
 b=2
 n=Klar
 
