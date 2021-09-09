@@ -122,13 +122,23 @@ if ($styr) {
 				// submit
 				echo '</table>' . $eol;
 				echo '<script>' . $eol;
+				echo <<<XXX
+function corr1(idnum, corrval) {
+  var elem = document.getElementById('QI-' + idnum);
+  var sel = document.querySelector('input[name="' + idnum + '"]:checked');
+  if (sel === null)
+    elem.src = 'blank.png';
+  else
+    elem.src = (sel.value == corrval) ? "corr.png" : "err.png";
+}
+
+XXX;
+
 				echo 'function  doCorr() {' . $eol;
 				for ($idx = 1; $idx <= $qnum; ++$idx) {
-					echo '  if (document.querySelector(' . "'" . 'input[name="' . $idx . '"]:checked' . "'" . ').value == ' . $corr[$idx] . ') { ' . $eol;
-					echo '    document.getElementById("QI-' . $idx . '").src="corr.png"; } else {' . $eol;
-					echo '    document.getElementById("QI-' . $idx . '").src="err.png"; }' . $eol;
+					echo '  corr1(' . $idx . ', ' . $corr[$idx] . ');' . $eol;
 				}
-					echo '}' . $eol;
+				echo '}' . $eol;
 				echo '</script>' . $eol;
 				
 				echo '<input type="submit" value="' . $s2 . '"/> <br>' . $eol;
