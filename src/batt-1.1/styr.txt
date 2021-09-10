@@ -71,10 +71,18 @@ n=Klar
 
 [segment-5]
 f=score.php
-q=Påstående 1, _sant, falskt
-q=Påstående 2, _sant, falskt
-q=Påstående 3, _sant, falskt
-q=Påstående 4, _sant, falskt
+T=<h3>Fråga 1</h3>
+T=text text text text text text text text text text
+T=text text text text text text text text text text
+q= , _sant, falskt
+T=<h3>Fråga 2:</h3>
+T=text text text text text text text text text text
+T=text text text text text text text text text text
+q= , _sant, falskt
+T=<h3>Fråga 3:</h3>
+T=text text text text text text text text text text
+T=text text text text text text text text text text
+q= , _sant, falskt
 
 s=Klar
 

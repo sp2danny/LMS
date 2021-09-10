@@ -100,7 +100,7 @@ if ($styr) {
 						$s3 = trim($s2);
 						$s2 = '';
 					}
-					if ($s3[0] == '_') {
+					if ($s3 && $s3[0] == '_') {
 						$s3 = substr($s3, 1);
 						$corr[$qnum] = $valnum;
 					}
@@ -117,23 +117,12 @@ if ($styr) {
 				echo '</ol></div></td></tr>' . $eol;
 				echo '<tr><td> &nbsp; </td></tr>' . $eol;
 				//echo '<tr><td> &nbsp; </td></tr>' . $eol;
-
+			} else if ($s1 == 'T=') {
+				echo '<tr> <td colspan="2"> ' . $s2 . ' </td> </tr> ' . $eol;
 			} else if ($s1 == 's=') {
 				// submit
 				echo '</table>' . $eol;
 				echo '<script>' . $eol;
-				echo <<<XXX
-function corr1(idnum, corrval) {
-  var elem = document.getElementById('QI-' + idnum);
-  var sel = document.querySelector('input[name="' + idnum + '"]:checked');
-  if (sel === null)
-    elem.src = 'blank.png';
-  else
-    elem.src = (sel.value == corrval) ? "corr.png" : "err.png";
-}
-
-XXX;
-
 				echo 'function  doCorr() {' . $eol;
 				for ($idx = 1; $idx <= $qnum; ++$idx) {
 					echo '  corr1(' . $idx . ', ' . $corr[$idx] . ');' . $eol;
