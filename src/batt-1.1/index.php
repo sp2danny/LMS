@@ -1,17 +1,22 @@
 
+<!DOCTYPE html>
+
 <html>
 <head> <title> Index </title> 
 <link rel="stylesheet" href="../main.css">
 <link rel="stylesheet" href="local.css">
-</head><body>
 
 <?php
 
 include '../php/common.php';
 
+include '../php/tagOut.php';
+
 $styr = fopen("styr.txt", "r") or die("Unable to open file!");
 
 if ($styr) {
+
+	$to = new tagOut;
 
 	$snum = getparam("seg", "1");
 
@@ -22,6 +27,9 @@ if ($styr) {
 	$qnum = 0;
 
 	$eol = "\n";
+
+	echo '</head>' . $eol;
+	$to->startTag('body');
 
 	$corr = [];
 
@@ -44,16 +52,20 @@ if ($styr) {
 
 			if ($s1 == 't=') {
 				// text
-				echo $s2 . /*"<br>" .*/ $eol;
+				$to->regLine($s2);
 			} else if ($s1 == 'I=') {
 				// echo '<iframe src="' . $s2 . '"> </iframe>' . $eol;
 				$p = strpos($s2, ',');
 				if ($p) {
 					$s3 = substr($s2, 0, $p);
 					$s2 = substr($s2, $p+1);
-					echo '<iframe width=' . $s3 . '% height=' . $s3 . '%  src="' . $s2 . '"> </iframe>' . $eol;
+					$to->startTag('iframe', 'width=' . $s3 . '% height=' . $s3 . '%  src="' . $s2 . '"');
+					//echo '<iframe width=' . $s3 . '% height=' . $s3 . '%  src="' . $s2 . '"> </iframe>' . $eol;
+					$to->stopTag('iframe');
 				} else {
-					echo '<iframe src="' . $s2 . '"> </iframe>' . $eol;
+					//echo '<iframe src="' . $s2 . '"> </iframe>' . $eol;
+					$to->startTag('iframe', 'src="' . $s2 . '"');
+					$to->stopTag('iframe');
 				}
 
 			} else if ($s1 == 'a=') {
@@ -78,10 +90,14 @@ if ($styr) {
 					echo '<img src="' . $s2 . '"> <br>' . $eol;
 				}
 			} else if ($s1 == 'f=') {
-				echo '<form action="' . $s2 . '" method="GET">' . $eol;
-				echo '<input type="hidden" value="' . $snum . '" id="seg" name="seg" />' . $eol;
-				echo '<input type="hidden" value="' . $pnr . '" id="pnr" name="pnr" />' . $eol;
-				echo '<table>' . $eol;
+				$to->startTag('form', 'action="' . $s2 . '" method="GET"');
+				$to->scTag('input', 'type="hidden" value="' . $snum . '" id="seg" name="seg"');
+				$to->scTag('input', 'type="hidden" value="' . $pnr . '" id="pnr" name="pnr"'); 
+				$to->startTag('table');
+				//echo '<form action="' . $s2 . '" method="GET">' . $eol;
+				//echo '<input type="hidden" value="' . $snum . '" id="seg" name="seg" />' . $eol;
+				//echo '<input type="hidden" value="' . $pnr . '" id="pnr" name="pnr" />' . $eol;
+				//echo '<table>' . $eol;
 			} else if ($s1 == 'e=') {
 				// embed
 				echo '<iframe width="1280" height="720" src="https://player.vimeo.com/video/';
@@ -105,34 +121,49 @@ if ($styr) {
 						$corr[$qnum] = $valnum;
 					}
 					if ($valnum == 0) {
-						echo '<tr> <td colspan="2"> <h4>' . $s3 . ' </h4> </td> </tr> ' . $eol;
-						echo '<tr> <td width="70px" > <img id="' . 'QI-' . $qnum . '" src="blank.png" /> </td> <td> ' . $eol;
-						echo '<div class="form-group"><ol> ' . $eol;
+						$to->regLine('<tr> <td colspan="2"> <h4>' . $s3 . ' </h4> </td> </tr>');
+						$to->startTag('tr');
+						$to->regLine('<td width="70px" > <img id="' . 'QI-' . $qnum . '" src="blank.png" /> </td>');
+						$to->startTag('td');
+						$to->startTag('div', 'class="form-group"');
+						$to->startTag('ol');
+						//echo '<tr> <td colspan="2"> <h4>' . $s3 . ' </h4> </td> </tr> ' . $eol;
+						//echo '<tr> <td width="70px" > <img id="' . 'QI-' . $qnum . '" src="blank.png" /> </td> <td> ' . $eol;
+						//echo '<div class="form-group"><ol> ' . $eol;
 					} else {
-						echo ' <li> <input type="radio" id="' . 'QR-' . $qnum . '" name="' . $qnum . '" value="' . $valnum . '" />' . $s3 . '</li> ' . $eol;
+						$to->regLine('<li> <input type="radio" id="' . 'QR-' . $qnum . '" name="' . $qnum . '" value="' . $valnum . '" />' . $s3 . '</li>');
+						//echo ' <li> <input type="radio" id="' . 'QR-' . $qnum . '" name="' . $qnum . '" value="' . $valnum . '" />' . $s3 . '</li> ' . $eol;
 					}
 					if (!$p) break;
 					$valnum++;
 				}
-				echo '</ol></div></td></tr>' . $eol;
-				echo '<tr><td> &nbsp; </td></tr>' . $eol;
+				$to->stopTag('ol');
+				$to->stopTag('div');
+				$to->stopTag('td');
+				$to->stopTag('tr');
+				//echo '</ol></div></td></tr>' . $eol;
+				$to->regLine('<tr><td> &nbsp; </td></tr>');
 				//echo '<tr><td> &nbsp; </td></tr>' . $eol;
 			} else if ($s1 == 'T=') {
-				echo '<tr> <td colspan="2"> ' . $s2 . ' </td> </tr> ' . $eol;
+				$to->regLine('<tr> <td colspan="2"> ' . $s2 . ' </td> </tr>');
 			} else if ($s1 == 's=') {
 				// submit
-				echo '</table>' . $eol;
-				echo '<script>' . $eol;
+				$to->stopTag('table');
+				//echo '</table>' . $eol;
+				$to->startTag('script');
+				//echo '<script>' . $eol;
 				echo 'function  doCorr() {' . $eol;
 				for ($idx = 1; $idx <= $qnum; ++$idx) {
 					echo '  corr1(' . $idx . ', ' . $corr[$idx] . ');' . $eol;
 				}
 				echo '}' . $eol;
-				echo '</script>' . $eol;
+				$to->stopTag('script');
+				//echo '</script>' . $eol;
 				
-				echo '<input type="submit" value="' . $s2 . '"/> <br>' . $eol;
-				echo '</form>' . $eol;
-				echo '<button onclick="doCorr()"> R&auml;tta </button> <br>' . $eol;
+				$to->regLine('<input type="submit" value="' . $s2 . '" /> <br />');
+				$to->stopTag('form');
+				//echo '</form>' . $eol;
+				$to->regLine('<button onclick="doCorr()"> R&auml;tta </button> <br />');
 			} else if ($s1 == 'n=') {
 				// next
 				echo '<button onclick="location.href=' . "'" . 'index.php?seg=' . ($snum+1) . "'" . '" type="button"> ' . $s2 . '</button>' . $eol;
@@ -164,6 +195,7 @@ fclose($styr);
 
 
 
+$to->stopTag('body');
 
 
 
@@ -172,6 +204,5 @@ fclose($styr);
 
 ?> 
 
-</body>
 </html>
 

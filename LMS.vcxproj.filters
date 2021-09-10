@@ -8,6 +8,9 @@
     <Filter Include="Source Files\batt-1.1">
       <UniqueIdentifier>{550cd09f-4c93-4125-8cf4-57456f779aa5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\php">
+      <UniqueIdentifier>{fb970dcb-38ad-413a-95ba-aed50fabfebf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\main.css">
@@ -32,7 +35,10 @@
       <Filter>Source Files</Filter>
     </None>
     <None Include="src\php\common.php">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\php</Filter>
+    </None>
+    <None Include="src\php\tagOut.php">
+      <Filter>Source Files\php</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
