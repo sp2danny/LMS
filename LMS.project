@@ -4,6 +4,10 @@
     <File Name="ftp.txt"/>
   </VirtualDirectory>
   <VirtualDirectory Name="src">
+    <VirtualDirectory Name="php">
+      <File Name="src/php/tagOut.php"/>
+      <File Name="src/php/common.php"/>
+    </VirtualDirectory>
     <File Name="src/next.php"/>
     <File Name="src/login.php"/>
     <VirtualDirectory Name="batt-1.1">
