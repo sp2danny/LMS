@@ -3,8 +3,8 @@
 
 <html>
 <head> <title> Index </title> 
-<link rel="stylesheet" href="../main.css">
-<link rel="stylesheet" href="local.css">
+<link rel="stylesheet" href="../main-v001.css">
+<link rel="stylesheet" href="local-v001.css">
 
 <?php
 
@@ -121,24 +121,25 @@ if ($styr) {
 						$corr[$qnum] = $valnum;
 					}
 					if ($valnum == 0) {
-						$to->regLine('<tr> <td colspan="2"> <h4>' . $s3 . ' </h4> </td> </tr>');
-						$to->startTag('tr');
-						$to->regLine('<td width="70px" > <img id="' . 'QI-' . $qnum . '" src="blank.png" /> </td>');
+						$to->regLine('<tr height="25px"> <td colspan="2"> <B>' . $s3 . ' </B> </td> </tr>');
+						$to->startTag('tr height="45px"');
+						$to->regLine('<td width="45px" > <img id="' . 'QI-' . $qnum . '" src="blank.png" /> </td>');
 						$to->startTag('td');
-						$to->startTag('div', 'class="form-group"');
-						$to->startTag('ol');
+						//$to->startTag('div', 'class="form-group"');
+						//$to->startTag('ol');
 						//echo '<tr> <td colspan="2"> <h4>' . $s3 . ' </h4> </td> </tr> ' . $eol;
 						//echo '<tr> <td width="70px" > <img id="' . 'QI-' . $qnum . '" src="blank.png" /> </td> <td> ' . $eol;
 						//echo '<div class="form-group"><ol> ' . $eol;
 					} else {
-						$to->regLine('<li> <input type="radio" id="' . 'QR-' . $qnum . '" name="' . $qnum . '" value="' . $valnum . '" />' . $s3 . '</li>');
+						if ($valnum > 1) $to->regLine('<br />');
+						$to->regLine('<input type="radio" id="' . 'QR-' . $qnum . '" name="' . $qnum . '" value="' . $valnum . '" />' . $s3 . '');
 						//echo ' <li> <input type="radio" id="' . 'QR-' . $qnum . '" name="' . $qnum . '" value="' . $valnum . '" />' . $s3 . '</li> ' . $eol;
 					}
 					if (!$p) break;
 					$valnum++;
 				}
-				$to->stopTag('ol');
-				$to->stopTag('div');
+				//$to->stopTag('ol');
+				//$to->stopTag('div');
 				$to->stopTag('td');
 				$to->stopTag('tr');
 				//echo '</ol></div></td></tr>' . $eol;

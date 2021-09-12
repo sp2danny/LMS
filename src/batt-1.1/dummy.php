@@ -23,7 +23,7 @@ function corr1(idnum, corrval) {
 
 function doShow() {
   document.getElementById('QueryBox').style.display = "block";
-  document.getElementById('StartBtn').style.display = "hide";
+  document.getElementById('StartBtn').style.display = "none";
 }
 </script>
 
@@ -47,16 +47,14 @@ function doShow() {
     <input type="hidden" value="1" id="seg" name="seg" />
     <input type="hidden" value="721106" id="pnr" name="pnr" />
     <table>
-      <tr> <td colspan="2"> <h4>Fråga 1 : Tog forntidsmänniskan mer än 10.000 steg varje dag för att få mat? </h4> </td> </tr>
-      <tr>
-        <td width="70px" > <img id="QI-1" src="blank.png" /> </td>
+      <tr height="25px" > <td colspan="2"> <B>Fråga 1 : Tog forntidsmänniskan mer än 10.000 steg varje dag för att få mat? </B> </td> </tr>
+      <tr height="45px">
+        <td width="45px" > <img id="QI-1" src="blank.png" /> </td>
         <td>
-          <div class="form-group" >
-            <ol>
-              <li> <input type="radio" id="QR-1" name="1" value="1" />Ja</li>
-              <li> <input type="radio" id="QR-1" name="1" value="2" />Nej</li>
-            </ol>
-          </div>
+          
+              <input type="radio" id="QR-1" name="1" value="1" /> Ja <br />
+              <input type="radio" id="QR-1" name="1" value="2" /> Nej
+          
         </td>
       </tr>
       <tr><td> &nbsp; </td></tr>
@@ -191,15 +189,21 @@ function doShow() {
         corr1(8, 1);
         corr1(9, 2);
         corr1(10, 1);
+        document.getElementById('SubmitBtn').style.display = "block";
+        document.getElementById('CorrBtn').style.display = "none";
       }
     </script>
-    <input type="submit" value="Klar" /> <br />
+	<br />
+    <input id="SubmitBtn" type="submit" value="Klar" style="display:none;" /> <br />
   </form>
-  <button onclick="doCorr()"> R&auml;tta </button> <br />
+  <button  id="CorrBtn" onclick="doCorr()"> R&auml;tta </button> <br />
   </div>
   <br /> <br /> <br /> 
 </body>
  
+<?php
+echo '</html>';
+?> 
 
-</html>
+
 
