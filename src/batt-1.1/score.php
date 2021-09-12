@@ -25,6 +25,8 @@ if ($styr) {
 
 	$totscore = 0;
 
+	$curr = "";
+
 	while (true) {
 
 		$buffer = fgets($styr, 4096); // or break;

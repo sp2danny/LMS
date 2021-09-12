@@ -8,6 +8,7 @@ Username: danielstestdomain.se
 Port: 21 
 
 pass: aceirh18ftp
+pass: aceirh18dtd
 
 
 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

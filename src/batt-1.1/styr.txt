@@ -1,4 +1,8 @@
 
+
+# detta är en kommentar
+
+
 [segment-1]
 b=1
 i=50,../logo.png
@@ -21,7 +25,9 @@ q=Fråga 7 : Kan hjärnan tränas på samma vis som en muskel?, _Ja, Nej
 q=Fråga 8 : Kan hjärnan hantera fler än 5 djupa relarioner samtidigt?, _Ja, Nej
 q=Fråga 9 : Samarbetar vi bäst i grupper över 15 personer?, Ja, _Nej
 q=Fråga 10 : Är hjärnans viktigaste drivkraft överlevnad?, _Ja, Nej
+T= 
 s=Klar
+b=3
 
 
 [segment-2]

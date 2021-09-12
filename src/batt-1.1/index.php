@@ -70,25 +70,26 @@ if ($styr) {
 				}
 
 			} else if ($s1 == 'a=') {
-				echo '<audio controls>';
-				echo '<source src="' . $s2 . '" type="audio/mp3"></audio>' . $eol;
-				
+				$to->startTag('audio', 'controls');
+				$to->regLine('<source src="' . $s2 . '" type="audio/mp3">');
+				$to->stopTag('audio');			
 			} else if ($s1 == 'h=') {
-				echo '<h1>' . $s2 . '</h1>' . $eol;
+				$to->regLine('<h1>' . $s2 . '</h1>');
 			} else if ($s1 == 'l=') {
-				echo '<hr color="' . $s2 . '" >' . $eol;
+				$to->regLine('<hr color="' . $s2 . '" />');
 			} else if ($s1 == 'b=') {
+				$ss = '';
 				for ($i=0; $i<$s2; ++$i)
-					echo '<br>';
-				echo $eol;
+					$ss = $ss . '<br /> ';
+				$to->regLine($ss);
 			} else if ($s1 == 'i=') {
 				$p = strpos($s2, ',');
 				if ($p) {
 					$s3 = substr($s2, 0, $p);
 					$s2 = substr($s2, $p+1);
-					echo '<img width=' . $s3 . '%  src="' . $s2 . '"> <br>' . $eol;
+					$to->regLine('<img width=' . $s3 . '%  src="' . $s2 . '" /> <br />');
 				} else {
-					echo '<img src="' . $s2 . '"> <br>' . $eol;
+					$to->regLine('<img src="' . $s2 . '" /> <br />');
 				}
 			} else if ($s1 == 'f=') {
 				$to->startTag('form', 'action="' . $s2 . '" method="GET"');
@@ -101,9 +102,7 @@ if ($styr) {
 				//echo '<table>' . $eol;
 			} else if ($s1 == 'e=') {
 				// embed
-				echo '<iframe width="1280" height="720" src="https://player.vimeo.com/video/';
-				echo $s2;
-				echo '"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>' . $eol;
+				$to->regLine('<iframe width="1280" height="720" src="https://player.vimeo.com/video/' . $s2 . '"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>');
 			} else if ($s1 == 'q=') {
 				$qnum++;
 				$valnum = 0;
@@ -153,11 +152,11 @@ if ($styr) {
 				//echo '</table>' . $eol;
 				$to->startTag('script');
 				//echo '<script>' . $eol;
-				echo 'function  doCorr() {' . $eol;
+				$to->regLine('function  doCorr() {' );
 				for ($idx = 1; $idx <= $qnum; ++$idx) {
-					echo '  corr1(' . $idx . ', ' . $corr[$idx] . ');' . $eol;
+					$to->regLine('  corr1(' . $idx . ', ' . $corr[$idx] . ');');
 				}
-				echo '}' . $eol;
+				$to->regLine('}');
 				$to->stopTag('script');
 				//echo '</script>' . $eol;
 				
@@ -167,7 +166,13 @@ if ($styr) {
 				$to->regLine('<button onclick="doCorr()"> R&auml;tta </button> <br />');
 			} else if ($s1 == 'n=') {
 				// next
-				echo '<button onclick="location.href=' . "'" . 'index.php?seg=' . ($snum+1) . "'" . '" type="button"> ' . $s2 . '</button>' . $eol;
+				$to->startTag('button', 'onclick="location.href=' . "'" . 'index.php?seg=' . ($snum+1) . "'" . '" type="button"');
+				$to->regLine($s2);
+				$to->stopTag('button');
+			} else {
+				echo ' *** WARNING *** <br />' . $eol;
+				echo ' unrecognized command : ' . $buffer . '<br />' . $eol;
+				echo ' *** WARNING *** <br />' . $eol;
 			}
 
 		}
