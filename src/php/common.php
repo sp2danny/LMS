@@ -8,6 +8,10 @@ function corr1(idnum, corrval) {
   else
     elem.src = (sel.value == corrval) ? "corr.png" : "err.png";
 }
+function doShow() {
+  document.getElementById('QueryBox').style.display = "block";
+  document.getElementById('StartBtn').style.display = "none";
+}
 </script>
 
 <?php

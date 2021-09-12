@@ -1,13 +1,11 @@
 
-<html>
-<head> <title> Index </title> 
-<link rel="stylesheet" href="../main.css">
-<link rel="stylesheet" href="local.css">
-</head><body>
-
 <?php
 
+include '../php/head.php';
+
 include '../php/common.php';
+
+echo '</head> <body>' . "\n";
 
 $styr = fopen("styr.txt", "r") or die("Unable to open file!");
 

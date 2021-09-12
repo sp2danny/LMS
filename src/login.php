@@ -1,15 +1,14 @@
 
-<html>
-<head> <title> Index </title> 
-<link rel="stylesheet" href="../main.css">
-<link rel="stylesheet" href="local.css">
-</head><body>
 
 <?php
+
+include 'php/head.php';
 
 include 'php/common.php';
 
 $eol = "\n";
+
+echo '</head><body>' . $eol;
 
 $dircont = scandir(".");
 

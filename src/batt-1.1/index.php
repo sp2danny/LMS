@@ -1,12 +1,7 @@
 
-<!DOCTYPE html>
-
-<html>
-<head> <title> Index </title> 
-<link rel="stylesheet" href="../main-v001.css">
-<link rel="stylesheet" href="local-v001.css">
-
 <?php
+
+include '../php/head.php';
 
 include '../php/common.php';
 
@@ -157,14 +152,16 @@ if ($styr) {
 				for ($idx = 1; $idx <= $qnum; ++$idx) {
 					$to->regLine('  corr1(' . $idx . ', ' . $corr[$idx] . ');');
 				}
+				$to->regLine('  document.getElementById("SubmitBtn").style.display = "block";');
+				$to->regLine('  document.getElementById("CorrBtn").style.display = "none";');
 				$to->regLine('}');
 				$to->stopTag('script');
 				//echo '</script>' . $eol;
 				
-				$to->regLine('<input type="submit" value="' . $s2 . '" /> <br />');
+				$to->regLine('<input id="SubmitBtn" type="submit" value="' . $s2 . '" style="display:none;" /> <br />');
 				$to->stopTag('form');
 				//echo '</form>' . $eol;
-				$to->regLine('<button onclick="doCorr()"> R&auml;tta </button> <br />');
+				$to->regLine('<button  id="CorrBtn" onclick="doCorr()"> R&auml;tta </button> <br />');
 			} else if ($s1 == 'n=') {
 				// next
 				$to->startTag('button', 'onclick="location.href=' . "'" . 'index.php?seg=' . ($snum+1) . "'" . '" type="button"');
