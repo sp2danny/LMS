@@ -40,6 +40,9 @@
     <None Include="src\php\tagOut.php">
       <Filter>Source Files\php</Filter>
     </None>
+    <None Include="src\php\connect.inc">
+      <Filter>Source Files\php</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="src\batt-1.1\styr.txt">
