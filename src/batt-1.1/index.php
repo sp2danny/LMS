@@ -87,6 +87,12 @@ if ($styr) {
 					$to->regLine('<img src="' . $s2 . '" /> <br />');
 				}
 			} else if ($s1 == 'f=') {
+
+				
+				$to->regLine('<button id="StartBtn" onclick="doShow()"> Starta </button> <br />');
+
+				$to->startTag('div', 'id="QueryBox" style="display:none;"');
+
 				$to->startTag('form', 'action="' . $s2 . '" method="GET"');
 				$to->scTag('input', 'type="hidden" value="' . $snum . '" id="seg" name="seg"');
 				$to->scTag('input', 'type="hidden" value="' . $pnr . '" id="pnr" name="pnr"'); 
@@ -162,6 +168,7 @@ if ($styr) {
 				$to->stopTag('form');
 				//echo '</form>' . $eol;
 				$to->regLine('<button  id="CorrBtn" onclick="doCorr()"> R&auml;tta </button> <br />');
+				$to->stopTag('div');
 			} else if ($s1 == 'n=') {
 				// next
 				$to->startTag('button', 'onclick="location.href=' . "'" . 'index.php?seg=' . ($snum+1) . "'" . '" type="button"');
