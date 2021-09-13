@@ -27,9 +27,10 @@ if ($styr) {
 	$to->startTag('body');
 
 	$corr = [];
+	$lineno = 0;
 
 	while (true) {
-
+        ++$lineno;
 		$buffer = fgets($styr, 4096); // or break;
 		if (!$buffer) break;
 		$buffer = trim($buffer);
@@ -55,7 +56,7 @@ if ($styr) {
 				if ($p) {
 					$s3 = substr($s2, 0, $p);
 					$s2 = substr($s2, $p+1);
-					$to->startTag('iframe', 'width=' . $s3 . '% height=' . $s3 . '%  src="' . $s2 . '"');
+					$to->startTag('iframe', ' ' . $s3 . '  src="' . $s2 . '"');
 					//echo '<iframe width=' . $s3 . '% height=' . $s3 . '%  src="' . $s2 . '"> </iframe>' . $eol;
 					$to->stopTag('iframe');
 				} else {
@@ -176,7 +177,7 @@ if ($styr) {
 				$to->stopTag('button');
 			} else {
 				echo ' *** WARNING *** <br />' . $eol;
-				echo ' unrecognized command : ' . $buffer . '<br />' . $eol;
+				echo ' unrecognized command : "' . htmlspecialchars($buffer) . '" on line ' . $lineno . ' <br />' . $eol;
 				echo ' *** WARNING *** <br />' . $eol;
 			}
 
@@ -216,4 +217,3 @@ $to->stopTag('body');
 ?> 
 
 </html>
-
