@@ -88,11 +88,11 @@ b=1
 i=50,../logo.png
 b=2
 t=<h2>Ditt utbildningsmaterial finns i denna bifogade PDF</h2>
-B=1
+b=1
 t=Ditt lösenord är grabben. Skriv in grabben som lösenord när du öppnar din PDF.
 t=Skriv sedan ut denna pdf och sätt in i din utbildningspärm
 b=2
-I=85,stress.pdf
+I= width="85%" height="850px" ,stress.pdf
 b=2
 t=<h3>Denna utbildning är i flera steg</h3>
 b=1
@@ -207,8 +207,7 @@ T=livsmedelsbutik med 85 olika marmeladsorter. Du kan omöjligen välja och går
 T=Detta bidrar till oro och ibland ångest hos unga i samhällen med hög BNP utveckling<br>
 q= , _sant, falskt
 
-T=<h3>Pås
-tående 17</h3>
+T=<h3>Påstående 17</h3>
 T=I fortidens jägar- och samlarsamhälle så var jämförelse av social status en väg till att överleva längre. Dessa ungdomar kunde jämföra sig med en grupp på kanske 150 individer.<br>
 T=Idag ebjuds unga möjligheten att jämföra sig med hela världens ungdomar i olika sociala medier.<br>
 T=Detta bidrar till oro och ibland ångest hos våra unga i samhällen med hög nivå av IT kunskap<br>
@@ -233,7 +232,7 @@ q= , _sant, falskt
 
 
 q=Har du nu insikt i och motivation för att höja din egen medvetenhet i syfte att maximera din potential och nå dina mål, _yes jag är taggad, lite svagt, varken eller, verkar onödigt jobbigt, verkar ökentrist
-<br><br>
+b=2
 
 s=Klar
 
