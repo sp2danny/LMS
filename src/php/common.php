@@ -11,6 +11,7 @@ function corr1(idnum, corrval) {
 function doShow() {
   document.getElementById('QueryBox').style.display = "block";
   document.getElementById('StartBtn').style.display = "none";
+  document.getElementById("AudioBox").play();
 }
 </script>
 

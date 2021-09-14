@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 
 <html>
@@ -7,7 +6,6 @@
 
 <link rel="stylesheet" href="../main-v001.css">
 <link rel="stylesheet" href="local-v001.css">
-
 
 <script>
 function corr1(idnum, corrval) {
@@ -21,12 +19,11 @@ function corr1(idnum, corrval) {
 function doShow() {
   document.getElementById('QueryBox').style.display = "block";
   document.getElementById('StartBtn').style.display = "none";
+
+  var music = document.getElementById("AudioBox");
+  music.play();
 }
 </script>
-
- 
-
-
 
 </head>
 <body>
@@ -42,6 +39,11 @@ function doShow() {
   <br /> 
   <button id="StartBtn" onclick="doShow()"> Starta </button> <br />
   <div id="QueryBox" style="display:none;" >
+    <div id="PlayBox">
+      <audio id="AudioBox" preload loop>
+        <source src="lugn.mp3" type="audio/mp3">
+      </audio>
+    </div>
     <form action="score.php" method="GET" >
       <input type="hidden" value="1" id="seg" name="seg" />
       <input type="hidden" value="721106" id="pnr" name="pnr" />

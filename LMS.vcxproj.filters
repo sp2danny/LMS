@@ -37,6 +37,9 @@
     <None Include="src\php\connect.inc">
       <Filter>Source Files\php</Filter>
     </None>
+    <None Include="src\batt-1.1\dummy.php">
+      <Filter>Source Files\batt-1.1</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="src\batt-1.1\styr.txt">

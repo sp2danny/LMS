@@ -63,7 +63,7 @@ if ($styr) {
 			} else if ($s1 == 'a=') {
 				$to->startTag('audio', 'controls');
 				$to->regLine('<source src="' . $s2 . '" type="audio/mp3">');
-				$to->stopTag('audio');			
+				$to->stopTag('audio');
 			} else if ($s1 == 'h=') {
 				$to->regLine('<h1>' . $s2 . '</h1>');
 			} else if ($s1 == 'l=') {
@@ -83,9 +83,18 @@ if ($styr) {
 					$to->regLine('<img src="' . $s2 . '" /> <br />');
 				}
 			} else if ($s1 == 'f=') {
-				$to->regLine('<button id="StartBtn" onclick="doShow()"> Starta </button> <br />');
+				// Starta, score.php, 130, lugn.mp3
+				$elems = explode(',', $s2);
+				if (count($elems) != 4) {
+					echo ' *** WARNING *** <br />' . $eol;
+					echo ' malformed "f" command on line ' . $lineno . ', needs 4 parameters <br />' . $eol;
+					echo ' *** WARNING *** <br />' . $eol;
+					$elems = explode(',', 'Starta, score.php, 130, lugn.mp3');
+				}
+				$to->regLine('<button id="StartBtn" onclick="doShow()"> ' . $elems[0] . ' </button> <br />');
 				$to->startTag('div', 'id="QueryBox" style="display:none;"');
-				$to->startTag('form', 'action="' . $s2 . '" method="GET"');
+				$to->regLine('<audio id="AudioBox" preload loop> <source src="' . $elems[3] . '" type="audio/mp3"></audio>');
+				$to->startTag('form', 'action="' . $elems[1] . '" method="GET"');
 				$to->scTag('input', 'type="hidden" value="' . $snum . '" id="seg" name="seg"');
 				$to->scTag('input', 'type="hidden" value="' . $pnr . '" id="pnr" name="pnr"'); 
 				$to->startTag('table');
