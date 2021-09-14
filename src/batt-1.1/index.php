@@ -123,7 +123,9 @@ if ($styr) {
 						$corr[$qnum] = $valnum;
 					}
 					if ($valnum == 0) {
-						$to->regLine('<tr height="25px"> <td colspan="2"> <B>' . $s3 . ' </B> </td> </tr>');
+						$s3 = trim($s3);
+						if (strlen($s3)>0)
+							$to->regLine('<tr height="25px"> <td colspan="2"> <B>' . $s3 . ' </B> </td> </tr>');
 						$to->startTag('tr height="45px"');
 						$to->regLine('<td width="45px" > <img id="' . 'QI-' . $qnum . '" src="blank.png" /> </td>');
 						$to->startTag('td');
