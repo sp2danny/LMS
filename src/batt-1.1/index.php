@@ -30,7 +30,7 @@ if ($styr) {
 	$lineno = 0;
 
 	while (true) {
-        ++$lineno;
+		++$lineno;
 		$buffer = fgets($styr, 4096); // or break;
 		if (!$buffer) break;
 		$buffer = trim($buffer);
@@ -48,23 +48,18 @@ if ($styr) {
 			$s2 = substr( $buffer, 2 );
 
 			if ($s1 == 't=') {
-				// text
 				$to->regLine($s2);
 			} else if ($s1 == 'I=') {
-				// echo '<iframe src="' . $s2 . '"> </iframe>' . $eol;
 				$p = strpos($s2, ',');
 				if ($p) {
 					$s3 = substr($s2, 0, $p);
 					$s2 = substr($s2, $p+1);
 					$to->startTag('iframe', ' ' . $s3 . '  src="' . $s2 . '"');
-					//echo '<iframe width=' . $s3 . '% height=' . $s3 . '%  src="' . $s2 . '"> </iframe>' . $eol;
 					$to->stopTag('iframe');
 				} else {
-					//echo '<iframe src="' . $s2 . '"> </iframe>' . $eol;
 					$to->startTag('iframe', 'src="' . $s2 . '"');
 					$to->stopTag('iframe');
 				}
-
 			} else if ($s1 == 'a=') {
 				$to->startTag('audio', 'controls');
 				$to->regLine('<source src="' . $s2 . '" type="audio/mp3">');
@@ -88,20 +83,12 @@ if ($styr) {
 					$to->regLine('<img src="' . $s2 . '" /> <br />');
 				}
 			} else if ($s1 == 'f=') {
-
-				
 				$to->regLine('<button id="StartBtn" onclick="doShow()"> Starta </button> <br />');
-
 				$to->startTag('div', 'id="QueryBox" style="display:none;"');
-
 				$to->startTag('form', 'action="' . $s2 . '" method="GET"');
 				$to->scTag('input', 'type="hidden" value="' . $snum . '" id="seg" name="seg"');
 				$to->scTag('input', 'type="hidden" value="' . $pnr . '" id="pnr" name="pnr"'); 
 				$to->startTag('table');
-				//echo '<form action="' . $s2 . '" method="GET">' . $eol;
-				//echo '<input type="hidden" value="' . $snum . '" id="seg" name="seg" />' . $eol;
-				//echo '<input type="hidden" value="' . $pnr . '" id="pnr" name="pnr" />' . $eol;
-				//echo '<table>' . $eol;
 			} else if ($s1 == 'e=') {
 				// embed
 				$to->regLine('<iframe width="1280" height="720" src="https://player.vimeo.com/video/' . $s2 . '"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>');
@@ -129,34 +116,22 @@ if ($styr) {
 						$to->startTag('tr height="45px"');
 						$to->regLine('<td width="45px" > <img id="' . 'QI-' . $qnum . '" src="blank.png" /> </td>');
 						$to->startTag('td');
-						//$to->startTag('div', 'class="form-group"');
-						//$to->startTag('ol');
-						//echo '<tr> <td colspan="2"> <h4>' . $s3 . ' </h4> </td> </tr> ' . $eol;
-						//echo '<tr> <td width="70px" > <img id="' . 'QI-' . $qnum . '" src="blank.png" /> </td> <td> ' . $eol;
-						//echo '<div class="form-group"><ol> ' . $eol;
 					} else {
 						if ($valnum > 1) $to->regLine('<br />');
 						$to->regLine('<input type="radio" id="' . 'QR-' . $qnum . '" name="' . $qnum . '" value="' . $valnum . '" />' . $s3 . '');
-						//echo ' <li> <input type="radio" id="' . 'QR-' . $qnum . '" name="' . $qnum . '" value="' . $valnum . '" />' . $s3 . '</li> ' . $eol;
 					}
 					if (!$p) break;
 					$valnum++;
 				}
-				//$to->stopTag('ol');
-				//$to->stopTag('div');
 				$to->stopTag('td');
 				$to->stopTag('tr');
-				//echo '</ol></div></td></tr>' . $eol;
 				$to->regLine('<tr><td> &nbsp; </td></tr>');
-				//echo '<tr><td> &nbsp; </td></tr>' . $eol;
 			} else if ($s1 == 'T=') {
 				$to->regLine('<tr> <td colspan="2"> ' . $s2 . ' </td> </tr>');
 			} else if ($s1 == 's=') {
 				// submit
 				$to->stopTag('table');
-				//echo '</table>' . $eol;
 				$to->startTag('script');
-				//echo '<script>' . $eol;
 				$to->regLine('function  doCorr() {' );
 				for ($idx = 1; $idx <= $qnum; ++$idx) {
 					$to->regLine('  corr1(' . $idx . ', ' . $corr[$idx] . ');');
@@ -165,11 +140,9 @@ if ($styr) {
 				$to->regLine('  document.getElementById("CorrBtn").style.display = "none";');
 				$to->regLine('}');
 				$to->stopTag('script');
-				//echo '</script>' . $eol;
-				
+
 				$to->regLine('<input id="SubmitBtn" type="submit" value="' . $s2 . '" style="display:none;" /> <br />');
 				$to->stopTag('form');
-				//echo '</form>' . $eol;
 				$to->regLine('<button  id="CorrBtn" onclick="doCorr()"> R&auml;tta </button> <br />');
 				$to->stopTag('div');
 			} else if ($s1 == 'n=') {
@@ -182,11 +155,8 @@ if ($styr) {
 				echo ' unrecognized command : "' . htmlspecialchars($buffer) . '" on line ' . $lineno . ' <br />' . $eol;
 				echo ' *** WARNING *** <br />' . $eol;
 			}
-
 		}
-
 	}
-
 
 } else {
 	echo "<br> --- error --- <br>\r\n";
@@ -194,26 +164,7 @@ if ($styr) {
 
 fclose($styr);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 $to->stopTag('body');
-
-
-
-
 
 
 ?> 
