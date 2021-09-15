@@ -27,11 +27,17 @@
     <None Include="src\login.php" />
     <None Include="src\main-v001.css" />
     <None Include="src\next.php" />
+    <None Include="src\nypers.php" />
     <None Include="src\php\common.php" />
-    <None Include="src\php\connect.inc" />
+    <None Include="src\php\connect.php" />
+    <None Include="src\php\convert.php" />
+    <None Include="src\php\getparam.php" />
+    <None Include="src\php\head.php" />
     <None Include="src\php\tagOut.php" />
+    <None Include="src\regpers.php" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="db.txt" />
     <Text Include="src\batt-1.1\styr.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

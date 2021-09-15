@@ -99,7 +99,7 @@ function doShow() {
   <button id="StartBtn" onclick="doShow()"> Starta </button> <br />
   <div id="QueryBox" style="display:none;" >
     <audio id="AudioBox" preload loop> <source src=" lugn.mp3" type="audio/mp3"></audio>
-    <form action=" score.php" method="GET" >
+    <form action="score.php" method="GET" >
       <input type="hidden" value="1" id="seg" name="seg" />
       <input type="hidden" value="721106" id="pnr" name="pnr" />
       <table>

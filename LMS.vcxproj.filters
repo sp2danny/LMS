@@ -34,9 +34,6 @@
     <None Include="src\php\tagOut.php">
       <Filter>Source Files\php</Filter>
     </None>
-    <None Include="src\php\connect.inc">
-      <Filter>Source Files\php</Filter>
-    </None>
     <None Include="src\batt-1.1\dummy.php">
       <Filter>Source Files\batt-1.1</Filter>
     </None>
@@ -46,10 +43,31 @@
     <None Include="src\batt-1.1\local-v001.css">
       <Filter>Source Files\batt-1.1</Filter>
     </None>
+    <None Include="src\nypers.php">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="src\regpers.php">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="src\php\connect.php">
+      <Filter>Source Files\php</Filter>
+    </None>
+    <None Include="src\php\getparam.php">
+      <Filter>Source Files\php</Filter>
+    </None>
+    <None Include="src\php\convert.php">
+      <Filter>Source Files\php</Filter>
+    </None>
+    <None Include="src\php\head.php">
+      <Filter>Source Files\php</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="src\batt-1.1\styr.txt">
       <Filter>Source Files\batt-1.1</Filter>
+    </Text>
+    <Text Include="db.txt">
+      <Filter>Source Files</Filter>
     </Text>
   </ItemGroup>
 </Project>

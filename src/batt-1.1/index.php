@@ -2,10 +2,9 @@
 <?php
 
 include '../php/head.php';
-
 include '../php/common.php';
-
 include '../php/tagOut.php';
+include '../php/connect.php';
 
 $styr = fopen("styr.txt", "r") or die("Unable to open file!");
 
@@ -19,12 +18,26 @@ if ($styr) {
 
 	$pnr = getparam("pnr", "0");
 
+	$name = getparam("name");
+
 	$qnum = 0;
 
 	$eol = "\n";
 
+	echo '<meta name="viewport" content="width=device-width, initial-scale=1">' . $eol;
+
 	echo '</head>' . $eol;
 	$to->startTag('body');
+
+	$to->startTag('div', 'class="sidenav"');
+	$to->startTag('div', 'class="indent"');
+
+	$to->regLine($name . '<br /> <br />');
+
+	$to->stopTag('div');
+	$to->stopTag('div');
+
+	$to->startTag('div', 'class="main"');
 
 	$corr = [];
 	$lineno = 0;
@@ -91,10 +104,10 @@ if ($styr) {
 					echo ' *** WARNING *** <br />' . $eol;
 					$elems = explode(',', 'Starta, score.php, 130, lugn.mp3');
 				}
-				$to->regLine('<button id="StartBtn" onclick="doShow()"> ' . $elems[0] . ' </button> <br />');
+				$to->regLine('<button id="StartBtn" onclick="doShow()"> ' . trim($elems[0]) . ' </button> <br />');
 				$to->startTag('div', 'id="QueryBox" style="display:none;"');
-				$to->regLine('<audio id="AudioBox" preload loop> <source src="' . $elems[3] . '" type="audio/mp3"></audio>');
-				$to->startTag('form', 'action="' . $elems[1] . '" method="GET"');
+				$to->regLine('<audio id="AudioBox" preload loop> <source src="' . trim($elems[3]) . '" type="audio/mp3"></audio>');
+				$to->startTag('form', 'action="' . trim($elems[1]) . '" method="GET"');
 				$to->scTag('input', 'type="hidden" value="' . $snum . '" id="seg" name="seg"');
 				$to->scTag('input', 'type="hidden" value="' . $pnr . '" id="pnr" name="pnr"'); 
 				$to->startTag('table');
@@ -182,6 +195,7 @@ if ($styr) {
 
 fclose($styr);
 
+$to->stopTag('div');
 $to->stopTag('body');
 
 
