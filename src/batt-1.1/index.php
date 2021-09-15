@@ -139,9 +139,18 @@ if ($styr) {
 				$to->regLine('<tr> <td colspan="2"> ' . $s2 . ' </td> </tr>');
 			} else if ($s1 == 's=') {
 				// submit
+				// Rätta, Klar
+				$elems = explode(',', $s2);
+				if (count($elems) != 2) {
+					echo ' *** WARNING *** <br />' . $eol;
+					echo ' malformed "s" command on line ' . $lineno . ', needs 2 parameters <br />' . $eol;
+					echo ' *** WARNING *** <br />' . $eol;
+					$elems = explode(',', 'Rätta, Klar');
+				}
+
 				$to->stopTag('table');
 				$to->startTag('script');
-				$to->regLine('function  doCorr() {' );
+				$to->regLine('function doCorr() {' );
 				for ($idx = 1; $idx <= $qnum; ++$idx) {
 					$to->regLine('  corr1(' . $idx . ', ' . $corr[$idx] . ');');
 				}
@@ -150,9 +159,9 @@ if ($styr) {
 				$to->regLine('}');
 				$to->stopTag('script');
 
-				$to->regLine('<input id="SubmitBtn" type="submit" value="' . $s2 . '" style="display:none;" /> <br />');
+				$to->regLine('<input id="SubmitBtn" type="submit" value="' . $elems[1] . '" style="display:none;" /> <br />');
 				$to->stopTag('form');
-				$to->regLine('<button  id="CorrBtn" onclick="doCorr()"> R&auml;tta </button> <br />');
+				$to->regLine('<button  id="CorrBtn" onclick="doCorr()">' . $elems[0] . '</button> <br />');
 				$to->stopTag('div');
 			} else if ($s1 == 'n=') {
 				// next

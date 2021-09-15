@@ -21,9 +21,11 @@
   <ItemGroup>
     <None Include="src\batt-1.1\dummy.php" />
     <None Include="src\batt-1.1\index.php" />
+    <None Include="src\batt-1.1\local-v001.css" />
     <None Include="src\batt-1.1\score.php" />
     <None Include="src\index.html" />
     <None Include="src\login.php" />
+    <None Include="src\main-v001.css" />
     <None Include="src\next.php" />
     <None Include="src\php\common.php" />
     <None Include="src\php\connect.inc" />

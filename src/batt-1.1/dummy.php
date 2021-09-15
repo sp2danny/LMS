@@ -4,8 +4,59 @@
 <html>
 <head> <title> Index </title> 
 
-<link rel="stylesheet" href="../main-v001.css">
-<link rel="stylesheet" href="local-v001.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+
+body {
+  background-color: #ffffff;
+  
+  margin-top:   50px;
+  margin-right: 450px;
+  margin-left:  200px;
+}
+
+table, th, td {
+  border: 0px;
+  margin-top: 2px;
+}
+
+.hide { display: none; }
+
+.show { display: block; }
+
+.sidenav {
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  background-color: #F1F2F6;
+  overflow-x: hidden;
+  padding-top: 20px;
+  color: black;
+  font-size: 22px;
+
+  background-image: url("side.png");
+  background-repeat: repeat-y;
+}
+
+.indent {
+  margin-left: 60px;
+}
+
+.main {
+  /*margin-left: 160px;  Same as the width of the sidenav */
+  font-size: 28px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+</style>
 
 <script>
 function corr1(idnum, corrval) {
@@ -19,14 +70,22 @@ function corr1(idnum, corrval) {
 function doShow() {
   document.getElementById('QueryBox').style.display = "block";
   document.getElementById('StartBtn').style.display = "none";
-
-  var music = document.getElementById("AudioBox");
-  music.play();
+  document.getElementById("AudioBox").play();
 }
 </script>
 
 </head>
 <body>
+
+<div class="sidenav">
+  <div class="indent">
+    Daniel Nystr&ouml;m <br /> <br />
+    Fas 1  <br /> <br />
+    176 po&auml;ng <br /> <br />
+  </div>
+</div>
+
+<div class="main">
   <br /> 
   <img width=50%  src="../logo.png" /> <br />
   <br /> <br /> 
@@ -39,12 +98,8 @@ function doShow() {
   <br /> 
   <button id="StartBtn" onclick="doShow()"> Starta </button> <br />
   <div id="QueryBox" style="display:none;" >
-    <div id="PlayBox">
-      <audio id="AudioBox" preload loop>
-        <source src="lugn.mp3" type="audio/mp3">
-      </audio>
-    </div>
-    <form action="score.php" method="GET" >
+    <audio id="AudioBox" preload loop> <source src=" lugn.mp3" type="audio/mp3"></audio>
+    <form action=" score.php" method="GET" >
       <input type="hidden" value="1" id="seg" name="seg" />
       <input type="hidden" value="721106" id="pnr" name="pnr" />
       <table>
@@ -168,10 +223,10 @@ function doShow() {
       </script>
       <input id="SubmitBtn" type="submit" value="Klar" style="display:none;" /> <br />
     </form>
-    <button  id="CorrBtn" onclick="doCorr()"> R&auml;tta </button> <br />
+    <button id="CorrBtn" onclick="doCorr()"> R&auml;tta </button> <br />
   </div>
-  <br /> <br /> <br /> 
-</body>
- 
+  <br /> <br /> <br />
 
+</div>
+</body>
 </html>
