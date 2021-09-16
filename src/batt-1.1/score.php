@@ -68,7 +68,12 @@ if ($styr) {
 
 	}
 
-	echo '<br> Score : ' . $totscore . '<br>' . $eol;
+	echo '<br> Score 1 : ' . $totscore . '<br>' . $eol;
+
+	echo '<br> Score 2 : ' . getparam('score') . '<br>' . $eol;
+
+	echo '<br> Det tog ' . ((getparam('timestop')-getparam('timestart')) / 1000.0) . ' s att genomf&ouml;ra <br>' . $eol;
+
 	echo '<br>registrerat i databasen<br><br>' . $eol;
 
 	echo '<a href="' . 'index.php?pnr=' . $pnr . '&seg=' . ($snum+1) . '"> <button> next </button> </a>' . $eol;

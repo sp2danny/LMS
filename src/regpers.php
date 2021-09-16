@@ -59,7 +59,9 @@ if ($row = mysqli_fetch_array($res)) {
 }
 
 
-echo convert('Nu är det klart') . " <br />";
+//echo convert('Nu är det klart') . " <br />";
+
+echo '<br /><br /><a href="login.php"><button>Logga in</button></a>';
 
 ?>
 

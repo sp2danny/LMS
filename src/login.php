@@ -22,6 +22,25 @@ foreach ($dircont as $key => $value) {
 	$batts[] = $a;
 }
 
+
+$dagens = array();
+$ord = fopen("ord.txt", "r");
+if ($ord)
+{
+	while (true) {
+		$buffer = fgets($ord, 4096);
+		if (!$buffer) break;
+		$buffer = trim($buffer);
+		$len = strlen($buffer);
+		if ($len == 0) continue;
+		$cc = 0;
+		for ($idx=0; $idx<$len; ++$idx)
+			$cc = $cc ^ ord($buffer[$idx]);
+		if ($len != 105 || $cc != 8)
+			$dagens[] = $buffer;
+	}
+}
+
 echo '<img width=30%  src="logo.png"> <br>' . $eol;
 
 echo '<form action="' . 'next.php' . '" method="GET">' . $eol;
@@ -39,6 +58,13 @@ echo '</ol></div>' . $eol;
 echo '<input type="submit" value="' . 'Starta' . '">' . $eol;
 
 echo '</form>' . $eol;
+
+$n = count($dagens);
+if ($n > 0) {
+	$i = rand(0, $n-1);
+	echo '<br /><br />' . $eol;
+	echo '<center>' . $dagens[$i] . '</center>' . $eol;
+}
 
 ?> 
 

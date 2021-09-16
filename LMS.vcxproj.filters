@@ -37,12 +37,6 @@
     <None Include="src\batt-1.1\dummy.php">
       <Filter>Source Files\batt-1.1</Filter>
     </None>
-    <None Include="src\main-v001.css">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="src\batt-1.1\local-v001.css">
-      <Filter>Source Files\batt-1.1</Filter>
-    </None>
     <None Include="src\nypers.php">
       <Filter>Source Files</Filter>
     </None>
