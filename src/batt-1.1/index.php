@@ -117,6 +117,7 @@ if ($styr) {
 				$to->scTag('input', 'type="hidden" value="' . $pnr . '" id="pnr" name="pnr"');
 				$to->scTag('input', 'type="hidden" value="" id="TimeStart" name="timestart"');
 				$to->scTag('input', 'type="hidden" value="" id="TimeStop" name="timestop"');
+				$to->scTag('input', 'type="hidden" value="' . trim($elems[2]) . '" id="TimeMax" name="timemax"');
 				$to->scTag('input', 'type="hidden" value="0" id="Score" name="score"');
 				$to->startTag('table');
 			} else if ($s1 == 'e=') {
