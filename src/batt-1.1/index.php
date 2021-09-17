@@ -30,11 +30,16 @@ if ($styr) {
 	$to->startTag('body');
 
 	$to->startTag('div', 'class="sidenav"');
+
 	$to->startTag('div', 'class="indent"');
-
-	$to->regLine($name . '<br /> <br />');
-
+	$to->regLine($name);
 	$to->stopTag('div');
+	$to->regLine('<br /> <br />');
+
+	$to->startTag('div', 'class="indent" id="TimerDisplay"');
+	$to->stopTag('div');
+	$to->regLine('<br /> <br />');
+
 	$to->stopTag('div');
 
 	$to->startTag('div', 'class="main"');
@@ -109,7 +114,10 @@ if ($styr) {
 				$to->regLine('<audio id="AudioBox" preload loop> <source src="' . trim($elems[3]) . '" type="audio/mp3"></audio>');
 				$to->startTag('form', 'action="' . trim($elems[1]) . '" method="GET"');
 				$to->scTag('input', 'type="hidden" value="' . $snum . '" id="seg" name="seg"');
-				$to->scTag('input', 'type="hidden" value="' . $pnr . '" id="pnr" name="pnr"'); 
+				$to->scTag('input', 'type="hidden" value="' . $pnr . '" id="pnr" name="pnr"');
+				$to->scTag('input', 'type="hidden" value="" id="TimeStart" name="timestart"');
+				$to->scTag('input', 'type="hidden" value="" id="TimeStop" name="timestop"');
+				$to->scTag('input', 'type="hidden" value="0" id="Score" name="score"');
 				$to->startTag('table');
 			} else if ($s1 == 'e=') {
 				// embed
@@ -164,11 +172,15 @@ if ($styr) {
 				$to->stopTag('table');
 				$to->startTag('script');
 				$to->regLine('function doCorr() {' );
+				$to->regLine('  document.getElementById("TimeStop").value = (new Date()).getTime().toString();');
+				$to->regLine('  var scr = 0;');
 				for ($idx = 1; $idx <= $qnum; ++$idx) {
-					$to->regLine('  corr1(' . $idx . ', ' . $corr[$idx] . ');');
+					$to->regLine('  if( corr1(' . $idx . ', ' . $corr[$idx] . ')) scr += 1;');
 				}
 				$to->regLine('  document.getElementById("SubmitBtn").style.display = "block";');
 				$to->regLine('  document.getElementById("CorrBtn").style.display = "none";');
+				$to->regLine('  document.getElementById("Score").value = scr.toString();');
+
 				$to->regLine('}');
 				$to->stopTag('script');
 

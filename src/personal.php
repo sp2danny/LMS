@@ -66,7 +66,13 @@ function segments($battname)
 
 		$res[$curr][] = $buffer;
 	}
+	fclose($styr);
 	return $res;
+}
+
+function mklink($batt, $seg, $row)
+{
+	return 'batt-' . $batt . '/index.php?seg=' . $seg . '&pnr=' . $row['pnr'] . 'pid=' . $row['pers_id'] . '&name='  . $row['name'] ;
 }
 
 function all()
@@ -78,6 +84,7 @@ function all()
 	$query = "SELECT * FROM pers WHERE pnr='" . $pnr . "'";
 
 	$res = mysqli_query($emperator, $query);
+	$row = false;
 
 	if ($row = mysqli_fetch_array($res)) {
 		ptbl($row);
@@ -109,6 +116,7 @@ function all()
 			echo '<td class="visitab" >' . $value . '</td>' . $eol;
 			$segs = segments($value);
 			echo '<td class="visitab" >' . count($segs) . ' segment </td>' . $eol;
+			echo '<td class="visitab" > <a href="' . mklink($value, 1, $row) . '" > <button> Starta </button> </a> </td>' . $eol;
 			echo '</tr>' . $eol;
 		}
 		echo '</table>' . $eol;
