@@ -55,6 +55,9 @@
     <None Include="src\php\head.php">
       <Filter>Source Files\php</Filter>
     </None>
+    <None Include="src\personal.php">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="src\batt-1.1\styr.txt">

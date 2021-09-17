@@ -26,6 +26,7 @@
     <None Include="src\login.php" />
     <None Include="src\next.php" />
     <None Include="src\nypers.php" />
+    <None Include="src\personal.php" />
     <None Include="src\php\common.php" />
     <None Include="src\php\connect.php" />
     <None Include="src\php\convert.php" />

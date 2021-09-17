@@ -12,3 +12,12 @@ table, th, td {
   margin-top: 2px;
 }
 
+.visitab {
+  border: 1px solid black;
+  margin-top: 2px;
+  border-collapse: collapse;
+}
+
+
+
+
