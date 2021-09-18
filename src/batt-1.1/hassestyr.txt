@@ -1,0 +1,467 @@
+
+
+#
+# teckenförklaring:
+# 
+#  b=3                                     3 st <br>
+#  i=75,img.bmp                            img.bmp i 75% storlek
+#  t=hej hopp                              'hej hopp' som textrad. får innehålla html-taggar
+#  e=597209255                             en inbäddad film från vimeo, med id 597209255
+#  a=snd.mp3                               en ljuduppspelare. filen ska vara lokal
+#  I=attr,fil                              en inbäddad fil, med html attribut
+#  l=black                                 en färgsatt horisontell linje
+#
+#  f=Starta, score.php, 130, lugn.mp3      startar ett frågeformulär
+#  T=text                                  en text rad inne i ett fråge-formulär
+#  q=fråga, svar1, _svar2                  en fråga med 2 svarsalternativ. 'svar2' är rätt
+#  s=Rätta, Klar                           en rättnings knapp, med texten 'Rätta' och en submit-knapp med texten Klar. Stänger frågeformuläret och går till poäng
+#
+#  n=Nästa                                 en knapp med texten 'Nästa', för att gå till nästa sida, utan frågerättning
+#
+
+
+
+[segment-1]
+b=1
+i=50,../logo.png
+b=2
+t=<h2>Mindmanagement. Så här påverkar ditt DNA din hjärnas begränsningar</h2>
+t=<h3>Du skall i denna Mindmanagementkurs lära dig varför du behöver uppgradera din hjärnas operativsystem i syfte att maximera din egen potential och nå dina mål.</h3>
+b=2
+e=597209255
+b=2
+t=<h3>Svara nu på några frågor om denna film varför du behöver träna din hjärna och uppgradera din hjärnas operativsystem</h3>
+b=1
+f=Starta, score.php, 130, lugn.mp3
+q=Fråga 1 : Tog forntidsmänniskan mer än 15 000 steg i genomsnitt varje dag för att få mat?, _Ja, Nej
+q=Fråga 2 : Påverkas socialaförmågan- samarbetsförmågan och fokusförmågan i positiv riktning av mycket rörelse och träning varje dag?, _Ja, Nej
+q=Fråga 3 : Påverkas minnet i positiv riktning av att du rör på dig ca 10 000 steg varje dag?, _Ja, Nej
+q=Fråga 4 : Överlevde forntidsmänniskan i ensamhet utan hjälp från gruppen?, Ja, _Nej
+q=Fråga 5 : Påverkas din stressnivå i negativ riktning i nutiden av 10 000 tals fler intryck varje dag?, _Ja, Nej
+q=Fråga 6 : Mår vi bra av att socialisera och samarbeta varje dag med andra?, _Ja, Nej
+q=Fråga 7 : Kan hjärnan tränas på samma vis som en muskel?, _Ja, Nej
+q=Fråga 8 : Kan hjärnan hantera fler än 5 djupa relationer samtidigt?, Ja, _Nej
+q=Fråga 9 : Samarbetar vi bäst i grupper över 12-15 personer?, Ja, _Nej
+q=Fråga 10 : Var medelåldern mer är 30 år för 150 år sedan?, Ja, _Nej
+q=Fråga 11 : Är hjärnans viktigaste drivkraft att vi reproducerar oss och överlever?, _Ja, Nej
+s=Rätta, Klar
+
+
+[segment-2]
+b=1
+i=50,../logo.png
+b=2
+t=<h2>Mindmanagement. Eftersnack med Hasse och Jimmy</h2>
+b=2
+e=597211633
+b=2
+t=<h3>Svara nu på några frågor om denna film om varför du behöver uppgradera din hjärnas operativsystem</h3>
+b=1
+f=Starta, score.php, 130, lugn.mp3
+q=Fråga 1 : Hur många generationer har människan funnits på jorden?, 100 generationer, 1 000 generationer, _10 000 generationer
+q=Fråga 2 : Hur många generationer har människan levt i urbana miljöer?, _mindre än 4 generationer, mer än 5 mindre än 10 generationer, mer än 10 mindre än 100 generationer
+q=Fråga 3 : Hur många tankar tänker vi varje dag?, 5 000 tankar, 10 000 tankar, _60 000 till 80 000 tankar
+q=Fråga 4 : Hur många % av våra tankar kan vara samma som igår?, _90%, 60%, 40%
+q=Fråga 5 : Hur många % av våra tankar kan vara negativa tankar. Hotbildstankar som syftar till att hålla oss vid liv?, _80%, 60%, 40%
+q=Fråga 6 : Hotbilder uppfattas många gånger starkare av hjärnan än positiva budskap. Hur många gånger starkare?, _6ggr, 10ggr, 20ggr
+q=Fråga 7 : Hur många tankar kan vi tänka just i denna stund?, _1 tanke, 3 tankar, 5 tankar
+q=Fråga 8 : Hur stor del av kroppens energi tar hjärnan?, 10%, 15%, _25%
+q=Fråga 9 : Kan din trötta hjärna tänka i nya spår?, Ja, _Nej
+q=Fråga 10 : Kan jag ändra mitt sätt att tänka genom träning av min hjärna?, _Ja, Nej 
+q=Fråga 11 : Får vår hjärna mångfalt fler intryck varje dag idag i vårt urbana samhälle jämfört med livet på savannen?, _Ja, Nej 
+q=Fråga 12 : Träffar vi många fler människor varje dag idag i vårt urbana samhälle jämfört med livet på savannen?, _Ja, Nej 
+q=Fråga 13 : Hur mycket minskar vår hjärnas kapacitet när vi gör flera saker samtidigt?, _25%, 10%, Inte alls 
+q=Fråga 14 : Har vi många fler uppgifter och deadlines i vårt urbana samhälle jämfört med livet på savannen?, _Ja mångfalt fler, Några fler, Inte alls 
+
+s=Rätta, Klar
+
+
+
+[segment-3]
+b=1
+i=50,../logo.png
+
+b=2
+t=<h2>Mindmanagement. Här producerar vi Podden "Hemma hos Lars G"</h2>
+b=2
+i=70,hemmahos.png
+b=2
+a=sound-01.mp3
+b=2
+
+t=<h3>Podden "Hemma hos Lars G" finns på flera Poddplattformar</h3>
+b=1
+f=Starta, score.php, 130, lugn.mp3
+q=Fråga 1 : Har det varit svårt att hitta poddavsnitten?, _Ja, Nej
+q=Fråga 2 : Har det varit givande att lyssna på "Hemma hos Lars G" podd?, _Ja, Nej
+
+b=2
+i=60,5_n.png
+b=2
+t=Våra utbildningar tar dig uppåt i 5 nivåer<br><br>
+s=Rätta, Klar
+
+[segment-4]
+b=1
+i=50,../logo.png
+b=2
+t=<h2>Mindmanagement. Träna din hjärna och uppgradera din hjärnas operativsystem</h2><h3> Ditt utbildningsmaterial finns i denna bifogade PDF</h3>
+b=1
+t=Ditt lösenord är grabben. Skriv in grabben som lösenord när du öppnar din PDF.
+t=Skriv sedan ut denna pdf och sätt in i din utbildningspärm. 
+t=För att skriva ut dokumentet högerklickar du på dokumentet/utbildningsmaterialet och sedan klickar du på "öppna med förhandsvisning". Skriv sedan ut  dokumentet/utbildningsmaterialet ifrån din PDF läsare i datorn
+b=2
+I=width="85%" height="850px" ,stress.pdf
+b=2
+t=<h3>Denna utbildning är i flera moduler i varje enskilt steg. Det är 5 steg tills du når målet.</h3>
+b=1
+f=Starta, score.php, 130, lugn.mp3
+q=Fråga 1 : Har du förberett din utbildningspärm i A4-storlek med plats för flera utbildningar?, _Ja, Nej
+q=Fråga 2 : Har du skrivit ut denna utbildning och satt in i rätt flik i pärmen?, _Ja, Nej
+s=Rätta, Klar
+
+[segment-5]
+b=1
+i=50,../logo.png
+b=2
+t=<h2>Mindmanagement. Träna din hjärna och uppgradera din hjärnas operativsystem</h2><br>
+i=60,savann.jpg
+b=1
+t=<h3>Nedan kommer ett antal påståenden. Du skall avgöra om de är sanna eller falska</h3>
+
+f=Starta, score.php, 130, lugn.mp3
+
+T=<h3>Påstående 1</h3>
+T=Människan har levt i grupper i naturen i 10 000 generationer.
+T=Levt av vatten och mat i skogar, sjöar och hav. Tagit skydd i skogen från olika faror, väder och vind.
+T=Elden har varit ett sätt att hålla värmen och hålla mörker och faror borta.
+T=Detta är skälet till varför människan idag mår bra av att vara i naturen, se på naturbilder och material från naturen. Att vara i naturen, se på naturen balanserar stressnivån, blodtrycket och ökar tillfredsställelsen hos oss och är en anledning till att trygghet, lung och ro är en stark drivkraft än idag.<br>Japan har kommit långt i forskning kring naturens påverkan på människan idag. I Japan kallas det skogsbad. Dessa har vetenskapligt tydlig positiv effekt på nutidens människor. Ha växter hemma, se på bilder av natur, notera naturen utanför ditt fönsker, gå en extra runda i parken på väg till arbetet och andas. <br>
+T=Största effekten får vi när vi är i naturen minst 5 timmar i veckan  <br>
+q= , _sant, falskt
+
+
+T=<h3>Påstående 2</h3>
+T=Människan har levt som samlare och jägare i naturen i 10 000 generationer. <br>
+T=Vår fördel emot djuren vi jagade är att vi är uthålligare än de är och vi kan samarbeta bättre. Det har gett oss en fördel i jakten <br>
+T= Jakten tog lång tid och vi behövde röra oss över stora ytor <br>
+T= För att till sist kunna fälla bytet har det krävts fullt fokus från oss och maximalt samarbete. Eftersom vi vandrat långa sträckor, i snitt 17000 steg var dag, har bättre minne behövts för att hitta hem till byn igen. <br>
+T=Detta är skälet till varför hjärnans hippocampus och frontallob ökar i storlek när vi rör på oss och med det ökar vår förmåga att fokusera, vår samarbetsförmåga stärks och vårt minne skärps och är en anledning till att fysisk aktivitet är en stark drivkraft hos människan än idag. <br>Att går 10 000 steg varje dag är det enskilt viktigaste rådet för din goda hälsa <br>
+q= , _sant, falskt
+
+
+T=<h3>Påstående 3</h3>
+T=Vår jaktlycka, fiskelycka och förmåga att hitta frukter och bär kunde såklart variera från vecka till vecka, årstid till årstid. <br>
+T=Om vi inte kunde bevara fångsten och samla den, organiserat spara den till en dålig dag, så ökade svälten. Vi behövde samla på ett klokt sätt för att överleva <br>
+T=Detta är skälet till att många än idag, har som drivkraft, och älskar att, samla och hålla ordning på gamla grejer.<br>
+T=Att hålla ordning och reda runt omring sig i hemmet har därför en positiv effekt på hur du och din familj mår. <br>
+q= , _sant, falskt
+
+T=<h3>Påstående 4</h3>
+T=Forntidsmänniskan kunde ibland jaga ett djur, ibland fånga fisk, ibland hitta frukt och bär <br>
+T=Detta är skälet till att många idag mår bäst av att variera kosten och äta balanserat från hela kostcirkeln.<br>
+q= , _sant, falskt
+
+T=<h3>Påstående 5</h3>
+T=Om forntidsmänniskan inte kunde samarbeta i jakten för att fånga ett byte så fick inte gruppen hemma någon mat och kunde ej överleva.<br>
+T=Detta är skälet till att många idag mår dåligt om sociala spelet och samarbetet i gruppen inte fungerar.<br>
+T=När samarbetet med andra i vårt TEAM fungerar bra får oss att må bra.<br>
+q= , _sant, falskt
+
+T=<h3>Påstående 6</h3>
+T=Om någon i gruppen blev utesluten ur gruppen så klarade inte sig den individen på egen hand utan blev snart ett offer för rovdjur eller svält.<br>
+T=Denna känsla av hotbild kan vi bli påminda om när vi idag står ensamma framför en grupp människor som betraktar oss, såsom när forntidsmänniskan blev utesluten från sin grupp.<br>
+T=Detta är ett av skälen till att många idag är rädda för att stå framför och presentera något framför en grupp. <br>
+T=Att vara medveten om detta faktum hjälper många föreläsare att känna mindre stress inför sitt framträdande. <br>
+q= , _sant, falskt
+
+T=<h3>Påstående 7</h3>
+T=När människan blev anfallen av ett lejon på savannen i forntiden så larmade hjärnans brandlarm amygdalan. Detta innebär att hjärnans kontakt med fontalloben kapas och att reptilhjärnan tar över. Reptilhjärnan ger oss då 3 val: 1 Fly, 2 Slåss, 3 Spela död <br>
+T=Vi tappar då vår sociala förmåga, samarbetsförmåga och vår logiska förmåga och maginnehållet kan tömmas för vi ska kunna springa fortare och slåss bättre. När amyglalan kapar kontakten med fontalloben på nutidsmänniskan idag, tar reptilhjärnan över och många idag har svårt att hantera svårt stressfyllda situationer.<br>
+T=När Lars-Johan Åge utbildar FBI agenter till att lyckas frita gisslan i gisslansituationer i USA så lär han att agenten skall att amygdala redan har kapat kontakten med frontalloben på gisslantagaren. Då är agentens första steg att hjälpa gisslantagaren att återfå kontakten med sin fronallob. För att sedan kunna föra ett rationellt samtal. <br>  
+q= , _sant, falskt
+
+T=<h3>Påstående 8</h3>
+T=När forntidsmänniskan letade efter byten, bär eller frukt och TRODDE att hen hittade, så fick hjärnans belöningssystem ett tillskott av Dopamin, en dos som ger oss en känsla få saker gjort.
+T=Detta bidrog till att vi orkade fortsätta leta både här och där, timme ut och timme in. När vi till slut hittade bytet, frukten eller bären så kom belöningen med både mat till gruppen och en dos endorfin som ger hjärnan en känsla av eufori och lycka. <br>
+T= Detta Dopaminpåslag som hjärnan ger oss kraft då vi TROR att vi skall hitta något som ger en belöning, pengar, endorfin ligger till grund för de individer som idag utvecklar spelberoende.<br>
+q= , _sant, falskt
+
+T=<h3>Påstående 9</h3>
+T=Om någon blev utesluten ur gruppen så klarade sig inte den individen på egen hand utan blev snart ett offer för rovdjur eller svält.<br>
+T=Denna ensamhet är idag är inte livshotande på samma sätt idag som i dåtiden. I dag har exempelvis ensamma pensionärer hemhjälp, bistånd, toa, tvättmaskin, kylskåp, tv som sällskap och sjukhusvård<br>
+T=Det är trots detta är det lika farligt för hen att vara ensam idag som att hen börjar röka och röker 5-7 cigaretter varje dag<br>
+q= , _sant, falskt
+
+T=<h3>Påstående 10</h3>
+T=I jägar- och samlarsamhället så mördades ca 10% i gruppen av andra människor. När bondesamhället senare utvecklades och människan ägde sin mark, så ökade andelen mord till ca 20%. Gruppen var ditt enda skydd. Det är skälet till att sociala kontakter, samarbete och grupptillhörighet som i sin tur ger trygghet, är en av våra starkaste drivkrafter än idag <br>
+T=Detta bidrog också till att det har var livsavgörande att vi kunde avgöra om vi "känner igen" människan vi möter och om det är en vän eller fiende<br>
+T=Det är skälet till att vi idag dömer människor så snabbt och är snabba på att kategorisera människor.  <br>
+q= , _sant, falskt
+
+T=<h3>Påstående 11</h3>
+T=Om vi inte kan "känna igen" ett ansikte på en människa, eller ansiktet är olikt "vårt eget" ansikte så visar mätningar idag att hjärnans amygdala larmar och varnar oss för fara. 
+T=Om vi sätter på en keps från ditt favoritlag på huvudet på en helt okänd människa, oavsett hudfärg, så larmar INTE amygdala fara. <br>
+T=Denna nedärvda larmfunktion från amygdala förstärker känslan av rädsla hos oss människor för okända människor som är olika oss och kan vara en del i grunden till rasism. <br>
+q= , _sant, falskt
+
+T=<h3>Påstående 12</h3>
+T=Nedärvda hotbilder från dåtidens hotbilder. I mörkret till exempel lurade många faror, djur och insekter. Detta bidrar till att vår amyglala larmar ännu i dags dato och varnar oss för akutfara samt kapar direkt kontakten med frontalloben. Då träder som bekant retilhjärnan direkt in och vi reagerar med rädsla helt utan att tänka och med det värdera hotet. <br>
+T=Det är en del i förklaringen av att många är rädda för mörker, djur eller insekter som var ett hot i dåtiden men som inte alls utgör ett hot mot människan idag. <br>
+q= , _sant, falskt
+
+T=<h3>Påstående 13</h3>
+T=Att uppvisa makt och social status i dåtidens samhälle var ett sätt att öka chansen till överlevnad som individ i jägar- och samlarsamhällets grupper. Hövdingen var skyddad och trälarna fick ta smällarna.
+T=Denna överlevnadsinstinkt påverkar våra behov av makt och social jämförelse än idag. Trots att detta idag inte påverkar vår överlevnad, så är vi hårt präglade. Därför är makt och social status en av våra grundläggande drivkrafter är idag. Ibland kan denna prägling rentav vara negativ för oss. Att visa behov av makt och status i gruppen kan förstöra stämningen i ett väl fungerande TEAM. Vi kan genom medvetenhet och självkontroll kontrollera denna drivkraft i oss, så vi inte blir kontraproduktiva i vår roll i vårt TEAM.<br>
+q= , _sant, falskt
+
+T=<h3>Påstående 14</h3>
+T=Skvaller som kommunikationsform fyllde en viktig funktion i forntidens jägar- och samlargrupper och gav gruppen information och individen som delade informationen makt och social status.
+T=Skvaller påverkar många människor och grupper än idag. Ofta används det idag för att individen vill stärka sin status gruppen, men ses idag inte så positivt och kan snarare söndra en grupp och ett väl fungerande TEAM. <br>
+q= , _sant, falskt
+
+T=<h3>Påstående 15</h3>
+T=Nyfikenhet, utveckling, hjälpa andra och lärande var en mycket viktig överlevnadsfaktor då gruppen man levde i ständigt var hotad av andra grupper, svält och naturens krafter. Gruppen i dåtiden utvecklade sina jaktsätt, sätt att odla, säkrare boende, effektivare vapen, bättre material. Denna grundläggande drivkraft är lika viktig för oss än idag i såväl entreprenöskap som i forskning och utveckling. <br>
+q= , _sant, falskt
+
+T=<h3>Påstående 16</h3>
+T=I fortidens jägar- och samlarsamhälle så erbjöds bara ett enda "framtidsyrke" eller få framtida "yrkesmöjligheter". Idag erbjuds unga vuxna 100-tals olika möjliga framtider i sitt liv och skall dessutom ta besluten tidigt i sitt liv.
+T=Detta faktum belastar hjärnan då vi ska utvärdera alla olika möjligheter, hot, fördelar och nackdelar. Det kan få samma effekt som när du kommer in i en 
+T=livsmedelsbutik med 85 olika marmeladsorter. Du kan kanske inte alls välja utan går hem med en tub kaviar istället.<br>
+T=Detta är en anledning till den oro och ibland ångest som unga i samhällen med hög BNP utveckling känner inför alla sina framtidsmöjligheter och livsval.<br>
+q= , _sant, falskt
+
+T=<h3>Påstående 17</h3>
+T=I forntidens jägar- och samlarsamhälle så var jämförelse med andra människor, jämförelse med andras framgångsfaktorer och social status en viktig väg till att överleva längre och på ett bättre och trevligare sätt. Dåtidens ungdomar kunde jämföra sig med sin grupp på kanske 150 individer.<br>
+T=Idag erbjuds våra unga möjligheten att jämföra sig med hela världens ungdomar i olika sociala medier. På detta vis blir alltid någon annan individ alltid bättre.
+T=Detta kan bidra till oro och ibland ångest hos våra unga idag. Ofta i miljöer med hög nivå av användande av sociala medier. Vi borde därför lära oss att medvetet värdera dessa jämförelser i sociala medier eller välja bort dem helt.<br>
+q= , _sant, falskt
+
+T=<h3>Påstående 18</h3>
+T= Hjärnan är som en muskel du kan träna varje dag. Ju mer du tränar ju bättre fungerar din hjärna<br>
+T=Du kan träna in nya minnesspår som du präglar i hjärnan. När minnesspåren blir djupa av träningen, fungerar hjärnan som du vill även när du blir stressad, pressad eller när hjärnan bara är trött. Det du skall träna på är framtida utmaningar, hot och konfliktbilder. Du är på så sätt förberedd när konflikten står på din tröskel. Tänk på att vila din hjärna regelbundet så att du klarar att fokusera fullt ut när det behövs som bäst. Ett exempel. Tränar du på att tänka positivt blir du bra på det och tvärtom såklart.
+T=Vi kallar detta mindmanagement<br>
+q= , _sant, falskt
+
+T=<h3>Påstående 19</h3>
+T= Eftersom människan inte fick tag i mat varje dag har kroppen under 10 000 generationer lärt sig att det är bra att göra uppehåll i intagandet av mat. Kroppen har lärt sig rensa många inre organ under de perioder som är mellan måltiderna.
+T=Idag kallar vi det för att fasta. Vissa hälsoexperter säger att det är bäst att äta i 12 timmars fönster och fasta i 12 timmars fönster. Exempelvis att vi äter våra mål mat mellan 07:00 - 19:00<br>
+q= , _sant, falskt
+
+T=<h3>Påstående 20</h3>
+T= Kylan, mörkret och hoten på nätterna var livshotande för dåtidens människa och gruppen. Därför var det livsviktigt att någon i gruppen var eldvakt och vakade mot faror. Ofta sov man i skift i gruppen. Det kan vara ett av skälen till att vi idag har olika dygnsrytm. När gruppen kom till nya lägerplatser visste vi inte om att den nya den platsen var säker för gruppen att övernatta på.
+T=Det är en av anledningarna till att vi idag ibland har svårt att sova på nya platser. Att sova ordentligt, 7-8 timmar varje natt, är viktigt då hjärnan storstädas under sömnen och alla nya minnen sorteras. Sover vi dåligt, mår vi dåligt.<br>
+q= , _sant, falskt
+
+T=<h3>Påstående 21</h3>
+T= Rädsla och ångest är en naturlig överlevnadsinstinkt i oss människor. Utan dessa egenskaper hade vi i dåtidens savannsamhälle, jollrande glada, joggat rakt in i lejonets gap med ett brett leende på läpparna. <br> I dagens urbana samhälle har vi samma känslor kvar, inprogrammerade i oss. Dessa känslor kommer i dag ofta fram idag i oss utan att vi har konkreta, direkta hotbilder riktade emot oss. Vi borde därför vi lära oss, genom träning, släppa alla måsten, värdera flera perspektiv innan vi gör våra val och ofta/ibland distansera oss från våra känslor och tankar och EGO. Vi kallar detta mindmanagement.<br>
+q= , _sant, falskt
+
+T=<h3>Påstående 22</h3>
+T= Negativa budskap, hotbilder, är 6 ggr starkare för hjärnan är positiva, stödjande budskap är. Orsaken är att detta är en naturlig nedärvd överlevnadsinstinkt hos oss människor. <br> I dagens urbana samhälle påverkas vi på samma sätt av hjärnans programmering. Detta påverkar oss negativt idag. Från morgontv-soffan till sista Rapportsändningen på kvällen påverkas vi, utan att vi har direkta hotbilder riktade emot oss. Vi borde därför lära oss att medvetet värdera dessa negativa informationsflöden eller välja bort dem ibland. Vi bör lära oss att distansera oss från dessa känslor och tankar och öva på att välja positiva perspektiv samt ge positiv feedback. Vi kan efter träning välja att förstärka positiva beteenden istället för att gnälla och klaga på sådant som är fel. Det skapar en mycket bättre atmosfär i vårt TEAM.<br>
+q= , _sant, falskt
+
+T=<h3>Påstående 23</h3>
+T= När forntidsmänniskan var på jakt och valde en ny helt otrampad stig på sin jakt för att fälla ett byte, kunde denna nya stig vara fylld av nya okända potentiella hotbilder. Hen hade ingen aning vilka faror eller möjligheter som väntade utmed nya stigen. Denna prägling av oss människor bidrar till att många av oss är rädda att göra nya val och ta nya stigar i våra nutida liv trots att hotbilden för nya vägval i dagens samhälle inte är så stora. Vi kan i dag se att länder med ett bra socialt skyddsnät bidrar till en högre grad av nyetableringar och fler entreprenörer som vågar ta risker än i länder utan socialt skyddsnät. Detta faktum bidrar till en högre BNP utveckling i dessa länder. Vi bör därför träna på att förbereda oss på förändringar i våra liv och stå redo för nya vägval då förändringar kommer oftare och oftare i vår nutid. Det får oss att må bättre om vi har en grundplan i livet/karriären och kanske också en plan B och C. <br>
+q= , _sant, falskt
+
+T=<h3>Påstående 24</h3>
+T= Då genomsnittsåldern var 30 år så var det bråttom att skaffa barn och då gällde det såklart att snabbt finna en lämplig partner. Kvinnorna valde gärna en pappa som kunde skydda barnen o ge dem mat och värme och mannen valde gärna någon kvinna som kunde producera friska och starka barn. Barnadödligheten var hög så det gällde att skaffa många barn, 5-7 var vanligt, så att några överlevde och kunde ta hand om hen när hen blev gammal. <br>
+T=För att detta skulle vara möjligt så var sociala kontakter, sex, kärlek, närhet och att hålla ihop familjen (flocken) viktigt. Detta är än idag viktiga drivkrafter hos oss nutidsmänniskor trots att vi överlever utan dem.<br> 
+T=För att sedan inte bli utstött från flocken var medkänsla, acceptans, heder, god karaktär, rättvisepatos viktigt. Det var viktigt att göra rätt för sig och vara omtyckt för att överleva och inte bli utstött och dömd till döden. Dessa drivkrafter är ännu idag viktiga hos oss. <br>
+T=Det visar sig i undersökningar idag att de människor i dagens samhälle som upplever sig omtyckta och har fler djupa sociala kontakter mår bättre och är friskare.
+q= , _sant, falskt
+
+T=<h3>Påstående 25</h3>
+T= Gruppen i forntiden kunde vara upp till 150 individer men var ofta mindre. På den tiden fanns inga utbildningar, samtalsterapeuter eller kurser i personlig utveckling. Gruppen leddes ofta av ”de vise männen”, kanske kvinnor också för den delen. <br>Det var viktigt för gruppens överlevnad att kunskap styrde och att alla hjälpte varandra att utvecklas, det behövdes lösningar på alla möjliga problem. Gruppen sökte sanningen på frågor och något inspirerande, kanske bra att tro på. Gruppen var i behov av att vara lite smartare är andra grupper i strid, av att jaga och fiska på ett bättre sätt. Material, verktyg och kläder behövde förbättras. <br>På dagens moder jord visar studier på att utbildning av befolkningen, kunskapsutveckling, är den enskilt viktigaste grundläggande orsaken till jämlikhet, utveckling, rättvisa och välstånd i en region. När befolkningen väl har tak över huvudet och kan äta sig mätta förstås.   
+q= , _sant, falskt
+
+T=<h3>Påstående 26</h3>
+T=
+T= Nedan är människans grundläggande dolda drivkrafter listade.<br> 
+T= <b>Relationer  </b>
+T= -Sociala kontakter
+T= - Kärlek
+T= - Familj
+T= - Acceptans, tillhörighet
+T= - Heder, god karaktär, lojalitet
+T= - Idealism, rättvisa, förbättra samhället, medkänsla, rent spel
+T=
+T= <b>Status  </b>
+T= - Status
+T= - Makt, inflytande, påverkande, kunskap, prestera, ledarskap
+T= - Oberoende, frihet, självständighet
+T= - Hämdlystnad, ilska, hat
+T=
+T= <b>Kunskap  </b>
+T= - Nyfikenhet
+T= - Söka lösningar, utveckla processer och metoder
+T= - Söka sanningen
+T= - Hitta föda, undvika faror
+T=
+T= <b>Övriga dolda drivkrafter </b>
+T= - Fysisk Aktivitet, Styrka, fånga bytet och vara stark för att överleva
+T= - Mat
+T= - Ordning, Organisera, strukturera skapar säkerhet och stabilitet och anses främja hälsan genom tex renlighetsprocesser
+T= - Lugn, undviker rädsla och oro
+T=
+T=
+T=Våra grundläggnde drivkrafter kallas dolda eftersom de är präglade i oss genom arv i vårt DNA. De flesta av oss människor låter oss påverkas av dessa genom vårt undermedvetna utan kontroll på utfallet.
+T=Genom att göra oss medvetna om våra dolda drivkrafter och hur de kan påverka oss negativt, kan vi istället låta dem påverka oss positivt och ge oss kraft i rätt riktning mot våra mål idag.
+q= , _sant, falskt
+
+q=Har du nu insikt i och motivation för att höja din egen medvetenhet värdera och göra dina bästa val i syfte att maximera din potential och nå dina mål, _yes jag är taggad, lite svagt, varken eller, verkar onödigt jobbigt, verkar ökentrist
+
+b=2
+
+s=Rätta, Klar
+
+
+[segment-6]
+b=1
+i=50,../logo.png
+b=2
+t=<h2>Mindmanagement. Maslovs behovspyramid</h2>
+b=2
+i=70,maslows-behovstrappa.jpg
+b=2
+t=Abraham Maslow (1908-1970) var en av våra största forskare kring motivation och han är mest <br>
+t=känd för sin behovstrappa som kommit till nytta inom alla områden från försvarsmakt till reklamforskning. <br>
+t=Det unika med Maslows forskning var att han försökte sammanfoga forskning från olika områden som berörde<br>
+t=motivation medan forskare innan honom främst fokuserat på enskilda områden. Maslow var en av sin tids stora <br>
+t=förespråkare för det humanistiska perspektivet och han trodde på en i grunden god människa med en medfödd uppgift,<br> 
+t=självförverkligande.
+
+t=Behovstrappan<br>
+
+t=Maslows behovstrappa eller behovshierarki som den också kallas är en modell som förklarar hur de mänskliga behoven prioriteras.<br>
+t=Trots brist på empiriskt stöd har teorin fått stor genomslagskraft och har haft stor inverkan på efterföljande forskning.<br>
+t=Alla en människas behov kan enligt Maslow delas in i fem kategorier och varje kategori har en viss nivå av prioritering för människan.<br> 
+t=Alltså behoven kan existera samtidigt men behov i de högre kategorierna blir inte viktiga för individen förrän lägre placerade behov uppfyllts.<br><br>
+
+f=Starta, score.php, 130, lugn.mp3
+
+T=<h3>Påstående</h3>
+
+T=Människan kognitiva förmåga minskar när hen inte kan säkerställa Maslows första steg. För att sedan öka igen när förutsättningarna förbättras. <br><br>
+
+
+T=Med kognition menas förmågan att minnas, orientera sig i tid och rum, lösa problem, använda siffror och språk med mera. Kognitiv förmåga är inte det
+T=samma som intelligens men den har betydelse för hur man kan använda sin intelligens eller begåvning.
+T= 
+T=Brister i den kognitiva förmågan hos personer skapar problem i vardagen, bland annat:
+
+T=-Inlärningssvårigheter
+T=-Dåligt minne
+T=-Svårigheter att förstå sammanhang, orsak och verkan, motsatser och likheter
+T=-Dålig förmåga att generalisera
+T= 
+
+q= , _sant, falskt
+
+
+q=Fråga 1 : Kan du som person ta dig uppåt i Maslovs behovstrappa utan att höja din medvetenhet och välja perspektiv?, ja, kanske, _nej
+q=Fråga 2 : Kan du som person vidare uppåt i Maslovs behovstrappa utan att träna din hjärna?, ja, kanske, _nej
+T=<B>Fråga 3 : Kan du som person nå toppen av Maslovs behovstrappa utan att bli betraktare av ditt EGO, dina tankar, känslor och händelser runt dig?</B>
+q= , ja, kanske, _nej
+
+
+T=<h3>En insikt vi kan göra</h3>
+T=Våra grundläggande drivkrafter hos oss som människor, kallar Angela Ahola i sin bok Dina dolda drivkrafter, just dolda. Kanske för att många av dessa drivkrafter påverkar dig mer än vad du är medveten om och är dolda för dig genom att de påverkar dig ditt undermedvetna. 90% av dina tankar kommer från ditt undermedvetna.
+T=Rädslor idag som att inte passa in, duga till, bli utesluten, bli gammal, vara ensam kan vara grundade från dåtidens hårda straff. Gå mot döden i ensamhet genom att bli utesluten ur gruppen.
+T=Rädslan idag som att inte prestera bra nog, inte vara sedd i gruppen, inte känna sig betydelsefull kommer kanske från det hårda straffet att vara träl i gruppen och vara hårt utsatt istället för hövding och skyddad av gruppen. Alltså makt och status.
+T=Rädslor idag som att inte kunna få barn, få kärlek , känna gemenskap eller ha sociala kontakter kan vara präglat av att det var omöjligt att reproducera sig och överleva som gammal om nte familjen blev ditt skydd.<br><br>
+T=Rädslan i dag att inte få mat, värme, tak över huvudet och skydd från överfall är  i dagens svenska samhälle ingenting som vi direkt oroar oss för i vardagen. Förutom om vi bor i socialt utsatta områden, eller om vi slår på nyheterna och ser all världens elände. 
+T=Vi kan fundera kring hur vi nu kan träna på att höja vår medvetenhet, leva vårt liv utan att påverkas av dessa, ofta obefogade, rädslor och med det faktum att hjärnan förstärker negativa budskap 6 ggr. Du själv kan må bättre genom att välja att leva ett liv med mer känsla av personlig frihet genom att träna vår hjärna att värdera dina rädslor innan du gör dina val och sedan vara en betraktare av dina känslor och tankar.
+
+b=1
+q= , _ja jag håller med, låter helknas
+
+T=<h3>Några perspektiv du, just nu, kan välja att se världen utifrån</h3>
+
+T=Vi hoppas att världen blir bättre eller som Hans Rosling skriver i boken Factfulness. Världen har blivit bättre och bättre om vi mäter hur många fler människor som lyfts ur fattigdom och in i utbildning varje år. 
+T=Leif GW Persson säger att Polisen kommer att få bukt på gängkriminaliteten inom några år. Lösningen är på väg. 
+T=Bill Gates och andra tänkare sägs ha ett förslag på hur vi tillsammans skall få bukt på klimatkrisen om vi bara hjälps åt. 
+T=Forskare lyckades få fram Coronavaccin på ett drygt år när de hjälptes åt. Det brukar normalt ta 10 år för vaccin att nå marknaden.
+T=Skulle du själv må bättre om du valde ett perspektiv i olika frågor som gynnar dig själv och hur du mår? 
+
+q= , _javisst skulle jag det, låter helknas
+
+s=Rätta, Klar
+
+
+[segment-7]
+b=1
+i=50,../logo.png
+b=2
+t=<h2>Mindmanagement. Träna din hjärna och uppgradera din hjärnas operativsystem</h2><br>
+f=Starta, score.php, 130, lugn.mp3
+q=Har du nu fått förståelse för hur människlans historia har präglat vårt DNA och sätter begränsningar i vår egen hjärna, fattar inte alls, dålig förståelse, varken eller, bra förståelse, mycket bra förståelse, _förstår precis
+q=Vill du gå vidare till nästa kurs som syftar till att lära dig hantera negativ stress och börja din resa att uppgradera din hjärnas operativsystem, _yes jag är taggad, lite svagt, varken eller, verkar onödigt jobbigt, verkar ökentrist
+
+s=Rätta, Klar
+
+
+b=2
+
+t=<h3>Ditt kursdiplom</h3>
+t=Skriv ut ditt kursdiplom och skriv på med ditt eget namn. Rama in det och häng det sedan på väggen<br>
+t=För att skriva ut dokumentet högerklickar du på ditt Diplom och sedan klickar du på "spara bild som". Skriv sedan ut  ditt Diplom  ifrån ditt bildprogram i datorn
+b=2
+i=70,Diplom_Ditt_Ursprung_Ditt_Dna.jpg
+b=2
+
+t=Källförteckning<br><br>
+
+t=Next Level Leadership training, 2016<br>
+t=Våga leda med hjärnan. Malin Trossing 2016<br>
+t=Vanans makt, Charles Duhigg 2014<br>
+t=Tänka, snabbt och långsamt, Brus Daniel Kahneman 2013-21<br>
+t=Lycka! : en handbok i konsten att leva, Dalai Lama, 2016<br>
+t=Hjärnstark, Fördel ADHD, Skärmhjärnan Anders Hanssen 2017-21<br>
+t=Tänk låsningar och lösningar, Kjell Enhager 2015<br>
+t=Lycka! : en handbok i konsten att leva, Eckhart Tolle, 2015<br>
+t= En ny jord, Ditt inre syfte, Eckhart Tolle, 2015<br>
+t=Motivationskoden, Tommy Lundberg 2016<br>
+t=The source, förstå din hjärna förändra ditt liv, Dr Tara Swart, 2020<br>
+t=Mer mindfulnes i vardagen, Ola Schenström, 2010 <br>
+t=7 Habits of highly efficient people, Steven Covey 2013 <br>
+t=Men Hallå, Lena Nevander Friström<br>
+t=Sömngåtan, Matthew Walker, 2018<br>
+t=Drivkraft, Daniel H Pink, 2010.<br>
+t=Dina dolda drivkrafter, Angela Ahola, 2020.<br>
+t=Hälsobalansen Rangan Chatterjee, 2019<br>
+t=Stressbalansen Rangan Chatterjee, 2019<br>
+t=Förändra ditt liv 5 min i taget. Rangan Chatterjee, 2020<br>
+t=Hjärnfokus, Johan Bergstrand 2020<br>
+t=Hälsogåtan, Anders Wallensten 2020<br>
+t=Lejonagendan, Elefanteffekten Cecilia Duberg 2020<br>
+t=Förste man in, Fear Bubble, Ant Middleton, 2018, 2020<br>
+t=Min Hemlighet, Äntligen Vardag Petter A Stordalen 2016, 2019<br>
+t=Sapiens, Homodeus, 21 tankar.. Yuval Noah Harari 2012, 2015, 2018 <br>
+t=5 Am Club, Munken son sålde sin ferrari, Vem gråter vid din grav, The greatness guide, Ledare utan titel Robin Sharma, 2007-20<br>
+t=Good to Great, Jim Collins, 2006 <br>
+t=Vägen till karaktär, David Brooks 2016 <br>
+t=Jag kan ha fel, 3 vägledda meditationer, Björn Nattiko Lindeblad, 2016 <br>
+t=De 4 disciplinerna för exekvering, Chris Mcchesney mfl 2015 <br>
+t=Så blir ditt team framgångsrikt Google people analytics 2012 <br>
+t=Självstyra 5 principer Johan AI Eriksson 2018<br>
+T=Shinrin yoku -Bli lugn och harmonisk med skogsterapi, Yoshfumi Miyazaki 2018 
+t=Reload,Henrik Fexelius, Catarina Enblad 2019 <br>
+t=Min Europeiska familj, Karin Bojs 2015 <br>
+t=Tänk om, en studie i oro, Roland Paulssen 2020 <br>
+t=Tänk som en munk, Jay Shetty, 2020 <br>
+T=Omgiven av...Idioter, Dåliga chefer, Motgångar, Psykopater, Narcissister Thomas Eriksson 2018-21<br>
+T=Handbok i Biohacking. Lär dig förstå och nå din fulla potential. Martina Johansson, Mattias Hansson 2021<br>
+T=
+t= - Lars G Karlsson Mentor<br>
+t= - Hans Engberg Mentor <br>
+t= - Leif Strömberg Mentor<br>
+t= - Jimmy Ernström Mentor<br><br>
+
+
+
+
+[segment-8]
+t= 
+
+

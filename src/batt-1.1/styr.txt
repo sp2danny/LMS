@@ -1,22 +1,22 @@
 
-
+#
 # teckenförklaring:
 # 
-#  b=3                               3 st <br>
-#  i=75,img.bmp                      img.bmp i 75% storlek
-#  t=hej hopp                        'hej hopp' som textrad. får innehålla html-taggar
-#  e=597209255                       en inbäddad film från vimeo, med id 597209255
-#  a=snd.mp3                         en ljuduppspelare. filen ska vara lokal
-#  I=attr,fil                        en inbäddad fil, med html attribut
-#  l=black                           en färgsatt horisontell linje
-
-#  f=score.php                       startar ett frågeformulär
-#  T=text                            en text rad inne i ett fråge-formulär
-#  q=fråga, svar1, _svar2            en fråga med 2 svarsalternativ. 'svar2' är rätt
-#  s=Klar                            submit knapp med texten Klar. Stänger frågeformuläret
-
-#  n=Nästa                           en knapp, med texten 'Nästa', för att gå till nästa sida, utan frågerättning
-
+#  b=3                                     3 st <br>
+#  i=75,img.bmp                            img.bmp i 75% storlek
+#  t=hej hopp                              'hej hopp' som textrad. får innehålla html-taggar
+#  e=597209255                             en inbäddad film från vimeo, med id 597209255
+#  a=snd.mp3                               en ljuduppspelare. filen ska vara lokal
+#  I=attr,fil                              en inbäddad fil, med html attribut
+#  l=black                                 en färgsatt horisontell linje
+#
+#  f=Starta, score.php, 130, lugn.mp3      startar ett frågeformulär
+#  T=text                                  en text rad inne i ett fråge-formulär
+#  q=fråga, svar1, _svar2                  en fråga med 2 svarsalternativ. 'svar2' är rätt
+#  s=Rätta, Klar                           en rättnings knapp, med texten 'Rätta' och en submit-knapp med texten Klar. Stänger frågeformuläret och går till poäng
+#
+#  n=Nästa                                 en knapp med texten 'Nästa', för att gå till nästa sida, utan frågerättning
+#
 
 
 [segment-1]
