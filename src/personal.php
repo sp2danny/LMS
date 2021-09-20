@@ -6,14 +6,19 @@ include 'php/head.php';
 
 echo <<<EOT
 <style>
+table tr td {
+  padding-left:   5px;
+  padding-right:  5px;
+  padding-top:    5px;
+  padding-bottom: 5px;
+}
 table.visitab {
   border: 2px solid black;
   margin-top: 2px;
   border-collapse: collapse;
 }
 td.visitab {
-  border: 1px solid black;
-  margin-top: 2px;
+  border: 1px solid grey;
   border-collapse: collapse;
 }
 </style>

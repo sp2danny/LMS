@@ -5,6 +5,17 @@ include '../php/head.php';
 
 include '../php/common.php';
 
+echo <<<EOT
+
+<style>
+	table {
+	  margin:   7px;
+	}
+</style>
+EOT;
+
+
+
 echo '</head> <body>' . "\n";
 
 $styr = fopen("styr.txt", "r") or die("Unable to open file!");

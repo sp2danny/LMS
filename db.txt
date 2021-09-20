@@ -10,18 +10,19 @@ data
 	date      datetime auto
 	pers      int pers_id
 	type      int
-	value     int
+	value_a   int
+	value_b   int
 
 
 
 
 typer
-	1   fas innevarande
-	2   fas kompleterad
-	3   disk hv
-	4   disk ud
-	5   mynt
-	11  segment 1 poäng
-	12  segment 2 poäng
-	13  segment 3 poäng
-	14  segment 4 poäng
+
+	namn        type         a            b          
+	progress    1 u          batteri      segment    
+	klargjord   2            batteri      segment    
+	disk        3 u          hv           ud         
+	mynt tot    4 u          antal        -          
+	mynt event  5            antal        -          
+
+
