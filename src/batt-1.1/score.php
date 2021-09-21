@@ -86,35 +86,51 @@ if ($styr) {
 				}
 			}
 		}
-
 	}
 
-	$pnr = getparam('pnr');
+	$ok = true;
+	echo '<table><tr><td> <img width=50% height=50% src="';
+	if ($totscore == $qnum) {
+		echo "corr";
+	} else {
+		echo "err";
+		$ok = false;
+	}
+	echo '.png" > </td> <td> Po&auml;ng : ' . $totscore . ' / ' . $qnum . '</td></tr>' . $eol;
+	echo '<td> <img width=50% height=50% src="';
+	$dintid = ((getparam('timestop')-getparam('timestart')) / 1000.0);
+	$dintid = ((int)($dintid*10)) / 10.0;
+	$maxt = getparam('timemax');
+	if ($dintid < $maxt) {
+		echo "corr";
+	} else {
+		echo "err";
+		$ok = false;
+	}
+	echo '.png" > </td> <td> Tid : ' . $dintid . ' / ' . $maxt . '</td></tr>' . $eol;
+	echo '</table>' . $eol;
 
-	$query = "SELECT * FROM pers WHERE pnr='" . $pnr . "'";
-	echo "trying : <br /> <code>\n" . $query . "\n</code><br />\n";
-	$res = mysqli_query($emperator, $query);
+	if ($ok) {
+		$pnr = getparam('pnr');
 
-	if ($row = mysqli_fetch_array($res)) {
-
-		$query = "INSERT INTO data (pers, type, value_a, value_b) VALUES (" . $row['pers_id'] . ", 2, " . $bnum . ", " . $snum . ");";
+		$query = "SELECT * FROM pers WHERE pnr='" . $pnr . "'";
 		echo "trying : <br /> <code>\n" . $query . "\n</code><br />\n";
 		$res = mysqli_query($emperator, $query);
-		if ($res) {
-			echo '<br>registrerat i databasen<br><br>' . $eol;
+
+		if ($row = mysqli_fetch_array($res)) {
+
+			$query = "INSERT INTO data (pers, type, value_a, value_b) VALUES (" . $row['pers_id'] . ", 2, " . $bnum . ", " . $snum . ");";
+			echo "trying : <br /> <code>\n" . $query . "\n</code><br />\n";
+			$res = mysqli_query($emperator, $query);
+			if ($res) {
+				echo '<br>registrerat i databasen<br><br>' . $eol;
+			}
 		}
+
+		echo '<a href="' . 'index.php?pnr=' . $pnr . '&seg=' . ($snum+1) . '"> <button> next </button> </a>' . $eol;
+	} else {
+		echo '<a href="' . 'index.php?pnr=' . $pnr . '&seg=' . ($snum) . '"> <button> igen </button> </a>' . $eol;
 	}
-
-
-
-
-
-	echo '<br> Score 1 : ' . $totscore . '<br>' . $eol;
-	echo '<br> Score 2 : ' . getparam('score') . '<br>' . $eol;
-	echo '<br> Det tog ' . ((getparam('timestop')-getparam('timestart')) / 1000.0) . ' s att genomf&ouml;ra <br>' . $eol;
-
-
-	echo '<a href="' . 'index.php?pnr=' . $pnr . '&seg=' . ($snum+1) . '"> <button> next </button> </a>' . $eol;
 }
 
 fclose($styr);
