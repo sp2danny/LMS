@@ -39,10 +39,10 @@ function ptbl($prow)
 {
 	global $eol;
 	echo '<table>' . $eol;
-	echo '<tr> <td> pid  </td> <td> ' . $prow[ 'pers_id' ] . '</td></tr>' . $eol;
-	echo '<tr> <td> date </td> <td> ' . $prow[ 'date'    ] . '</td></tr>' . $eol;
-	echo '<tr> <td> name </td> <td> ' . $prow[ 'name'    ] . '</td></tr>' . $eol;
-	echo '<tr> <td> pnr  </td> <td> ' . $prow[ 'pnr'     ] . '</td></tr>' . $eol;
+	echo '<tr> <td> Kundnummer    </td> <td> ' . $prow[ 'pers_id' ] . '</td></tr>' . $eol;
+	echo '<tr> <td> Namn          </td> <td> ' . $prow[ 'name'    ] . '</td></tr>' . $eol;
+	echo '<tr> <td> Personnummer  </td> <td> ' . $prow[ 'pnr'     ] . '</td></tr>' . $eol;
+	echo '<tr> <td> Medlem sedan  </td> <td> ' . $prow[ 'date'    ] . '</td></tr>' . $eol;
 	echo '</table>' . $eol;
 }
 
@@ -90,10 +90,12 @@ function all()
 	$query = "SELECT * FROM pers WHERE pnr='" . $pnr . "'";
 
 	$res = mysqli_query($emperator, $query);
-	$row = false;
+	$prow = false;
+	$pid = 0;
 
-	if ($row = mysqli_fetch_array($res)) {
-		ptbl($row);
+	if ($prow = mysqli_fetch_array($res)) {
+		ptbl($prow);
+		$pid = $prow['pers_id'];
 	} else {
 		echo convert('Denna person hittades inte i databasen.') . " <br />" . $eol;
 		return;
@@ -111,6 +113,7 @@ function all()
 		$batts[] = $a;
 	}
 
+	/*
 	echo '<br /> <br /> ' . $eol;
 	if (count($batts) <= 0) {
 		echo convert('Inga tillgängliga batteri.') . " <br />" . $eol;
@@ -122,11 +125,59 @@ function all()
 			echo '<td class="visitab" >' . $value . '</td>' . $eol;
 			$segs = segments($value);
 			echo '<td class="visitab" >' . count($segs) . ' segment </td>' . $eol;
-			echo '<td class="visitab" > <a href="' . mklink($value, 1, $row) . '" > <button> Starta </button> </a> </td>' . $eol;
+			echo '<td class="visitab" > <a href="' . mklink($value, 1, $prow) . '" > <button> Starta </button> </a> </td>' . $eol;
 			echo '</tr>' . $eol;
 		}
 		echo '</table>' . $eol;
 	}
+	*/
+
+	$allsofar = true;
+
+	echo '<br /> <br /> <ul> ' . $eol;
+	foreach ($batts as $key => $value) {
+		echo '<li> ' . $value . '<ul style="list-style-type:none;" >';
+
+		$segs = segments($value);
+		$done = [];
+		for ($i=1; $i<=count($segs); ++$i) {
+			$done[$i] = false;
+		}
+
+		$query = 'SELECT * FROM data WHERE pers=' . $pid . ' AND type=2 AND value_a=' . ($key+1) ;
+		$res = mysqli_query($emperator, $query);
+		while ($row = mysqli_fetch_array($res)) {
+			$done[$row['value_b']] = true;
+		}
+
+		for ($i=1; $i<=count($segs); ++$i) {
+			$thisok = false;
+			if (array_key_exists($i, $done) && $done[$i])
+				$thisok = true;
+
+			$wantlink = false;
+			echo '<li> <img width="12px" height="12px" src="';
+			if ($thisok) {
+				echo "corr";
+			} else if ($allsofar) {
+				echo "here";
+				$allsofar = false;
+				$wantlink = true;
+			} else {
+				echo "err";
+			}
+			echo '.png" > ';
+			if ($wantlink)
+				echo '<a href="' . mklink($value, $i, $prow) . '" > ';
+			echo 'Segment ' . $i;
+			if ($wantlink)
+				echo ' </a> ';
+			'</li>';
+		}
+		echo '</ul>';
+	}
+	echo '</ul>';
+
 }
 
 all();

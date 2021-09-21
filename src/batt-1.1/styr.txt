@@ -74,7 +74,7 @@ q=Fråga 11: Träffar vi många fler människor varje dag idag i vårt urbana sa
 q=Fråga 12 : Hur mycket minskar vår hjärnas kapacitet när vi gör flera saker samtidigt?, _25%, 10%, Inte alls 
 q=Fråga 13 : Har vi många fler uppgifter och deadlines i vårt urbana samhälle jämfört med livet på savannen?, _Ja mångfalt fler, Några fler, Inte alls 
 
-s=Klar
+s=Rätta, Klar
 
 
 
@@ -95,7 +95,7 @@ b=1
 f=Starta, score.php, 130, lugn.mp3
 q=Fråga 1 : Har det varit svårt att hitta poddavsnitten?, _Ja, Nej
 q=Fråga 2 : Har det varit givande att lyssna på "Hemma hos Lars G" podd?, _Ja, Nej
-s=Klar
+s=Rätta, Klar
 b=2
 i=60,5_a.png
 b=2
@@ -118,7 +118,7 @@ b=1
 f=Starta, score.php, 130, lugn.mp3
 q=Fråga 1 : Har du förberett din utbilningspärm i A4-storlek med plats för flera utbildningar?, _Ja, Nej
 q=Fråga 2 : Har du skrivit ut denna utbildning och satt in i rätt flik i pärmen?, _Ja, Nej
-s=Klar
+s=Rätta, Klar
 
 [segment-5]
 b=1
@@ -253,7 +253,7 @@ q= , _sant, falskt
 q=Har du nu insikt i och motivation för att höja din egen medvetenhet i syfte att maximera din potential och nå dina mål, _yes jag är taggad, lite svagt, varken eller, verkar onödigt jobbigt, verkar ökentrist
 b=2
 
-s=Klar
+s=Rätta, Klar
 
 
 [segment-6]
@@ -295,7 +295,7 @@ t=-Dålig förmåga att generalisera<br><br>
 
 f=score.php
 q= , _sant, falskt
-s=Klar
+s=Rätta, Klar
 
 
 
@@ -307,7 +307,7 @@ b=2
 f=score.php
 q=Har du nu fått förståelse för hur människlans historia har präglat vårt DNA och sätter begränsningar i vår egen hjärna, fattar inte alls, dålig förståelse, varken eller, bra förståelse, mycket bra förståelse, _förstår precis
 q=Vill du gå vidare till nästa kurs som syftar till att lära dig hantera negativ stress och börja din resa att uppgradera din hjärnas operativsystem, _yes jag är taggad, lite svagt, varken eller, verkar onödigt jobbigt, verkar ökentrist
-s=Klar
+s=Rätta, Klar
 
 
 b=2

@@ -43,18 +43,18 @@ if ($ord)
 
 echo '<img width=30%  src="logo.png"> <br>' . $eol;
 
-echo '<form action="' . 'next.php' . '" method="GET">' . $eol;
+echo '<form action="' . 'personal.php' . '" method="GET">' . $eol;
 
 echo '<br><br><label for="pnr">Personnummer:</label>' . $eol;
 echo '<input type="text" id="pnr" name="pnr"><br><br>' . $eol;
 
-echo '<h3>' . 'Fr&aring;gebatteri' . '</h3>' . $eol;
-echo '<div class="form-group"><ol> ' . $eol;
+//echo '<h3>' . 'Fr&aring;gebatteri' . '</h3>' . $eol;
+//echo '<div class="form-group"><ol> ' . $eol;
+//foreach ($batts as $key => $value) {
+//	echo '<li> <input type="radio" name="' . 'batt' . '" value="' . $value . '" />' . $value . '</li>' . $eol;
+//}
+//echo '</ol></div>' . $eol;
 
-foreach ($batts as $key => $value) {
-	echo '<li> <input type="radio" name="' . 'batt' . '" value="' . $value . '" />' . $value . '</li>' . $eol;
-}
-echo '</ol></div>' . $eol;
 echo '<input type="submit" value="' . 'Starta' . '">' . $eol;
 
 echo '</form>' . $eol;
