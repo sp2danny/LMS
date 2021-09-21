@@ -42,7 +42,7 @@ if ($row = mysqli_fetch_array($res)) {
 		echo "trying : <br /> <code>\n" . $query . "\n</code><br />\n";
 		$res = mysqli_query($emperator, $query);
 		if ($row = mysqli_fetch_array($res)) {
-			$query = "INSERT INTO data (pers, type, value) VALUES (" . $row['pers_id'] . ", 1, 1);";
+			$query = "INSERT INTO data (pers, type, value_a, value_b) VALUES (" . $row['pers_id'] . ", 1, 1, 1);";
 			echo "trying : <br /> <code>\n" . $query . "\n</code><br />\n";
 			$res = mysqli_query($emperator, $query);
 			if ($res) {

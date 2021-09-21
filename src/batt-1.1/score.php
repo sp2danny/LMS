@@ -2,8 +2,8 @@
 <?php
 
 include '../php/head.php';
-
 include '../php/common.php';
+include '../php/connect.php';
 
 echo <<<EOT
 
@@ -13,8 +13,6 @@ echo <<<EOT
 	}
 </style>
 EOT;
-
-
 
 echo '</head> <body>' . "\n";
 
@@ -35,6 +33,8 @@ if ($styr) {
 	$totscore = 0;
 
 	$curr = "";
+	$bnum = 0;
+	$max = 0;
 
 	while (true) {
 
@@ -43,6 +43,15 @@ if ($styr) {
 		$buffer = trim($buffer);
 		$len = strlen($buffer);
 		if ($len == 0) continue;
+		if ($buffer[0] == '#') continue;
+		if ($buffer[0] == '!') {
+			$s = substr($buffer, 1);
+			$e = explode(' ', $s);
+			if ($e[0] == 'batt') {
+				$bnum = $e[1];
+			}
+			continue;
+		}
 
 		if ( ($buffer[0] == '[') && ($buffer[$len-1] == ']') ) {
 			$curr = substr( $buffer, 1, $len-2 );
@@ -54,6 +63,7 @@ if ($styr) {
 			$s2 = substr( $buffer, 2 );
 			if ($s1 == 'q=') {
 				$qnum++;
+				$max++;
 				$valnum = 0;
 				$s3 = '';
 				while (true) {
@@ -79,13 +89,30 @@ if ($styr) {
 
 	}
 
+	$pnr = getparam('pnr');
+
+	$query = "SELECT * FROM pers WHERE pnr='" . $pnr . "'";
+	echo "trying : <br /> <code>\n" . $query . "\n</code><br />\n";
+	$res = mysqli_query($emperator, $query);
+
+	if ($row = mysqli_fetch_array($res)) {
+
+		$query = "INSERT INTO data (pers, type, value_a, value_b) VALUES (" . $row['pers_id'] . ", 2, " . $bnum . ", " . $snum . ");";
+		echo "trying : <br /> <code>\n" . $query . "\n</code><br />\n";
+		$res = mysqli_query($emperator, $query);
+		if ($res) {
+			echo '<br>registrerat i databasen<br><br>' . $eol;
+		}
+	}
+
+
+
+
+
 	echo '<br> Score 1 : ' . $totscore . '<br>' . $eol;
-
 	echo '<br> Score 2 : ' . getparam('score') . '<br>' . $eol;
-
 	echo '<br> Det tog ' . ((getparam('timestop')-getparam('timestart')) / 1000.0) . ' s att genomf&ouml;ra <br>' . $eol;
 
-	echo '<br>registrerat i databasen<br><br>' . $eol;
 
 	echo '<a href="' . 'index.php?pnr=' . $pnr . '&seg=' . ($snum+1) . '"> <button> next </button> </a>' . $eol;
 }

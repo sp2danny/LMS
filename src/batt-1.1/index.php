@@ -46,6 +46,7 @@ if ($styr) {
 
 	$corr = [];
 	$lineno = 0;
+	$bnum = 0;
 
 	while (true) {
 		++$lineno;
@@ -55,6 +56,14 @@ if ($styr) {
 		$len = strlen($buffer);
 		if ($len == 0) continue;
 		if ($buffer[0] == '#') continue;
+		if ($buffer[0] == '!') {
+			$s = substr($buffer, 1);
+			$e = explode(' ', $s);
+			if ($e[0] == 'batt') {
+				$bnum = (int)$e[1];
+			}
+			continue;
+		}
 
 		if ( ($buffer[0] == '[') && ($buffer[$len-1] == ']') ) {
 			$curr = substr( $buffer, 1, $len-2 );

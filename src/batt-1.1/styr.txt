@@ -18,6 +18,8 @@
 #  n=Nästa                                 en knapp med texten 'Nästa', för att gå till nästa sida, utan frågerättning
 #
 
+!batt 1
+
 
 [segment-1]
 b=1
@@ -57,7 +59,7 @@ e=597211633
 b=2
 t=<h3>Svara nu på några frågor om denna film</h3>
 b=1
-f=score.php
+f=Starta, score.php, 130, lugn.mp3
 q=Fråga 1 : Hur många generationer har människan funnits på jorden?, 100 generationer, 1.000 generationer, _10.000 generationer
 q=Fråga 2 : Hur många generationer har människan levt i urbana miljöer?, _mindre än 4 generationer, mer än 5 mindre än 10 generationer, mer än 10 mindre än 100 generationer
 q=Fråga 3 : Hur många tankar tänker vi varje dag?, 5.000 tankar, 10.000 tankar, _80.000 tankar
@@ -90,7 +92,7 @@ b=2
 
 t=<h3>Podden "Hemma hos Lars G" finns på flera Poddplattformar</h3>
 b=1
-f=score.php
+f=Starta, score.php, 130, lugn.mp3
 q=Fråga 1 : Har det varit svårt att hitta poddavsnitten?, _Ja, Nej
 q=Fråga 2 : Har det varit givande att lyssna på "Hemma hos Lars G" podd?, _Ja, Nej
 s=Klar
@@ -113,7 +115,7 @@ I= width="85%" height="850px" ,stress.pdf
 b=2
 t=<h3>Denna utbildning är i flera steg</h3>
 b=1
-f=score.php
+f=Starta, score.php, 130, lugn.mp3
 q=Fråga 1 : Har du förberett din utbilningspärm i A4-storlek med plats för flera utbildningar?, _Ja, Nej
 q=Fråga 2 : Har du skrivit ut denna utbildning och satt in i rätt flik i pärmen?, _Ja, Nej
 s=Klar
@@ -126,7 +128,7 @@ i=60,savann.jpg
 b=2
 t=<h2>Nedan kommer ett antal påståenden. Du skall avgöra om de är sanna eller falska</h2>
 
-f=score.php
+f=Starta, score.php, 130, lugn.mp3
 
 T=<h3>Påstående 1</h3>
 T=Människan har levt i grupper i naturen i 10 000 generationer. <br>

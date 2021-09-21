@@ -62,6 +62,7 @@ function segments($battname)
 		$len = strlen($buffer);
 		if ($len == 0) continue;
 		if ($buffer[0] == '#') continue;
+		if ($buffer[0] == '!') continue;
 
 		if ( ($buffer[0] == '[') && ($buffer[$len-1] == ']') ) {
 			$curr = substr( $buffer, 1, $len-2 );
