@@ -114,16 +114,22 @@ if ($styr) {
 		$pnr = getparam('pnr');
 
 		$query = "SELECT * FROM pers WHERE pnr='" . $pnr . "'";
-		echo "trying : <br /> <code>\n" . $query . "\n</code><br />\n";
+		//echo "trying : <br /> <code>\n" . $query . "\n</code><br />\n";
 		$res = mysqli_query($emperator, $query);
 
 		if ($row = mysqli_fetch_array($res)) {
 
 			$query = "INSERT INTO data (pers, type, value_a, value_b) VALUES (" . $row['pers_id'] . ", 2, " . $bnum . ", " . $snum . ");";
-			echo "trying : <br /> <code>\n" . $query . "\n</code><br />\n";
+			//echo "trying : <br /> <code>\n" . $query . "\n</code><br />\n";
 			$res = mysqli_query($emperator, $query);
 			if ($res) {
 				echo '<br>registrerat i databasen<br><br>' . $eol;
+				$query = 'UPDATE data SET value_a = value_a + 5 WHERE pers=' . $row['pers_id'] . ' AND type=4';
+				//echo "trying : <br /> <code>\n" . $query . "\n</code><br />\n";
+				$res = mysqli_query($emperator, $query);
+				if ($res) {
+					echo "all ok <br>\n";
+				}
 			}
 		}
 

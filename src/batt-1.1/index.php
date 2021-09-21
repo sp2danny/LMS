@@ -18,6 +18,19 @@ if ($styr) {
 
 	$pnr = getparam("pnr", "0");
 
+	$query = "SELECT * FROM pers WHERE pnr='" . $pnr . "'";
+	//echo "trying : <br /> <code>\n" . $query . "\n</code><br />\n";
+	$res = mysqli_query($emperator, $query);
+	$prow = mysqli_fetch_array($res);
+
+	$query = 'SELECT * FROM data WHERE pers=' . $prow['pers_id'] . ' AND type=4';
+	//echo "trying : <br /> <code>\n" . $query . "\n</code><br />\n";
+	$res = mysqli_query($emperator, $query);
+	$mynt = 0;
+	if ($row = mysqli_fetch_array($res))
+		$mynt = $row['value_a'];
+
+
 	$name = getparam("name");
 
 	$qnum = 0;
@@ -32,7 +45,9 @@ if ($styr) {
 	$to->startTag('div', 'class="sidenav"');
 
 	$to->startTag('div', 'class="indent"');
-	$to->regLine($name);
+	$to->regLine($prow['name']);
+	$to->regLine('<br /> <br />');
+	$to->regLine($mynt . ' mynt.');
 	$to->stopTag('div');
 	$to->regLine('<br /> <br />');
 

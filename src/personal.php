@@ -78,7 +78,7 @@ function segments($battname)
 
 function mklink($batt, $seg, $row)
 {
-	return 'batt-' . $batt . '/index.php?seg=' . $seg . '&pnr=' . $row['pnr'] . 'pid=' . $row['pers_id'] . '&name='  . $row['name'] ;
+	return 'batt-' . $batt . '/index.php?seg=' . $seg . '&pnr=' . $row['pnr'] . '&pid=' . $row['pers_id'] . '&name='  . $row['name'] ;
 }
 
 function all()

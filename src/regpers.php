@@ -26,7 +26,7 @@ $pnr = getparam('pnr');
 $name = getparam('name');
 
 $query = "SELECT * FROM pers WHERE pnr='" . $pnr . "'";
-echo "trying : <br /> <code>\n" . $query . "\n</code><br />\n";
+//echo "trying : <br /> <code>\n" . $query . "\n</code><br />\n";
 $res = mysqli_query($emperator, $query);
 
 if ($row = mysqli_fetch_array($res)) {
@@ -34,20 +34,27 @@ if ($row = mysqli_fetch_array($res)) {
 	ptbl($row);
 } else {
 	$query = "INSERT INTO pers (name, pnr) VALUES ('" . $name . "', '" . $pnr . "');";
-	echo "trying : <br /> <code>\n" . $query . "\n</code><br />\n";
+	//echo "trying : <br /> <code>\n" . $query . "\n</code><br />\n";
 	$res = mysqli_query($emperator, $query);
 	$ok = false;
 	if ($res) {
 		$query = "SELECT * FROM pers WHERE pnr='" . $pnr . "'";
-		echo "trying : <br /> <code>\n" . $query . "\n</code><br />\n";
+		//echo "trying : <br /> <code>\n" . $query . "\n</code><br />\n";
 		$res = mysqli_query($emperator, $query);
 		if ($row = mysqli_fetch_array($res)) {
 			$query = "INSERT INTO data (pers, type, value_a, value_b) VALUES (" . $row['pers_id'] . ", 1, 1, 1);";
-			echo "trying : <br /> <code>\n" . $query . "\n</code><br />\n";
+			//echo "trying : <br /> <code>\n" . $query . "\n</code><br />\n";
 			$res = mysqli_query($emperator, $query);
 			if ($res) {
 				$ok = true;
 				ptbl($row);
+				// mynt tot    4 u          antal        - 
+				$query = "INSERT INTO data (pers, type, value_a) VALUES (" . $row['pers_id'] . ", 4, 0);";
+				//echo "trying : <br /> <code>\n" . $query . "\n</code><br />\n";
+				$res = mysqli_query($emperator, $query);
+				if ($res) {
+					$ok = true;
+				}
 			}
 		}
 	}
