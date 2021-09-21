@@ -59,6 +59,8 @@ echo '<input type="submit" value="' . 'Starta' . '">' . $eol;
 
 echo '</form>' . $eol;
 
+echo '<br><br><a href="nypers.php"> Registrera ny </a><br>' . $eol;
+
 $n = count($dagens);
 if ($n > 0) {
 	$i = rand(0, $n-1);
