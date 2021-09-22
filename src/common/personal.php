@@ -2,7 +2,7 @@
 
 <?php
 
-include 'php/head.php';
+include 'head.php';
 
 echo <<<EOT
 <style>
@@ -25,8 +25,8 @@ td.visitab {
 EOT;
 
 
-include 'php/common.php';
-include 'php/connect.php';
+include 'common.php';
+include 'connect.php';
 
 $eol = "\n";
 
@@ -48,7 +48,7 @@ function ptbl($prow)
 
 function segments($battname)
 {
-	$styr = fopen('batt-' . $battname . "/styr.txt", "r");
+	$styr = fopen('../batt-' . $battname . "/styr.txt", "r");
 	if ($styr === false) return false;
 
 	$res = [];
@@ -78,7 +78,7 @@ function segments($battname)
 
 function mklink($batt, $seg, $row)
 {
-	return 'batt-' . $batt . '/index.php?seg=' . $seg . '&pnr=' . $row['pnr'] . '&pid=' . $row['pers_id'] . '&name='  . $row['name'] ;
+	return '../batt-' . $batt . '/index.php?seg=' . $seg . '&pnr=' . $row['pnr'] . '&pid=' . $row['pers_id'] . '&name='  . $row['name'] ;
 }
 
 function all()
@@ -101,7 +101,7 @@ function all()
 		return;
 	}
 
-	$dircont = scandir(".");
+	$dircont = scandir("..");
 
 	$batts = array();
 
@@ -112,25 +112,6 @@ function all()
 		$a = substr($value, 5);
 		$batts[] = $a;
 	}
-
-	/*
-	echo '<br /> <br /> ' . $eol;
-	if (count($batts) <= 0) {
-		echo convert('Inga tillgängliga batteri.') . " <br />" . $eol;
-	} else {
-		echo convert('Tillgängliga batteri :') . " <br />" . $eol;
-		echo '<table class="visitab" >' . $eol;
-		foreach ($batts as $key => $value) {
-			echo '<tr>' . $eol;
-			echo '<td class="visitab" >' . $value . '</td>' . $eol;
-			$segs = segments($value);
-			echo '<td class="visitab" >' . count($segs) . ' segment </td>' . $eol;
-			echo '<td class="visitab" > <a href="' . mklink($value, 1, $prow) . '" > <button> Starta </button> </a> </td>' . $eol;
-			echo '</tr>' . $eol;
-		}
-		echo '</table>' . $eol;
-	}
-	*/
 
 	$allsofar = true;
 

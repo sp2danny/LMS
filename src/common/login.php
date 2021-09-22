@@ -2,9 +2,9 @@
 
 <?php
 
-include 'php/head.php';
+include 'head.php';
 
-include 'php/common.php';
+include 'common.php';
 
 $eol = "\n";
 
@@ -21,7 +21,6 @@ foreach ($dircont as $key => $value) {
 	$a = substr($value, 5);
 	$batts[] = $a;
 }
-
 
 $dagens = array();
 $ord = fopen("ord.txt", "r");
@@ -47,13 +46,6 @@ echo '<form action="' . 'personal.php' . '" method="GET">' . $eol;
 
 echo '<br><br><label for="pnr">Personnummer:</label>' . $eol;
 echo '<input type="text" id="pnr" name="pnr"><br><br>' . $eol;
-
-//echo '<h3>' . 'Fr&aring;gebatteri' . '</h3>' . $eol;
-//echo '<div class="form-group"><ol> ' . $eol;
-//foreach ($batts as $key => $value) {
-//	echo '<li> <input type="radio" name="' . 'batt' . '" value="' . $value . '" />' . $value . '</li>' . $eol;
-//}
-//echo '</ol></div>' . $eol;
 
 echo '<input type="submit" value="' . 'Starta' . '">' . $eol;
 

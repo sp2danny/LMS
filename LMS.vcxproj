@@ -19,21 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\batt-1.1\dummy.php" />
     <None Include="src\batt-1.1\index.php" />
-    <None Include="src\batt-1.1\score.php" />
+    <None Include="src\common\head.php" />
+    <None Include="src\common\index.php" />
+    <None Include="src\common\login.php" />
+    <None Include="src\common\personal.php" />
     <None Include="src\index.html" />
-    <None Include="src\login.php" />
-    <None Include="src\next.php" />
-    <None Include="src\nypers.php" />
-    <None Include="src\personal.php" />
-    <None Include="src\php\common.php" />
-    <None Include="src\php\connect.php" />
-    <None Include="src\php\convert.php" />
-    <None Include="src\php\getparam.php" />
-    <None Include="src\php\head.php" />
-    <None Include="src\php\tagOut.php" />
-    <None Include="src\regpers.php" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="db.txt" />

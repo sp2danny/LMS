@@ -23,7 +23,7 @@
 
 [segment-1]
 b=1
-i=50,../logo.png
+i=50,../common/logo.png
 b=2
 t=<h2>Så här påverkar ditt DNA din hjärnas begränsningar</h2>
 t=<h3>Du skall i denna kurs lära dig varför du behöver uppgradera din hjärnas operativsystem i syfte att maximera din egen potential och nå dina mål.</h3>
@@ -33,7 +33,7 @@ b=2
 t=<h3>Svara nu på några frågor om denna film</h3>
 b=1
 
-f=Starta, score.php, 130, lugn.mp3
+f=Starta, score.php, 130, ../common/lugn.mp3
 q=Fråga 1 : Tog forntidsmänniskan mer än 10.000 steg varje dag för att få mat?, _Ja, Nej
 q=Fråga 2 : Påverkas fokusförmågan av mycket rörelse varje dag?, _Ja, Nej
 q=Fråga 3 : Påverkas minnet av du rör på dig varje dag?, Ja, _Nej
@@ -51,7 +51,7 @@ b=3
 
 [segment-2]
 b=1
-i=50,../logo.png
+i=50,../common/logo.png
 b=2
 t=<h2>Eftersnack med Hasse och Jimmy</h2>
 b=2
@@ -59,7 +59,7 @@ e=597211633
 b=2
 t=<h3>Svara nu på några frågor om denna film</h3>
 b=1
-f=Starta, score.php, 130, lugn.mp3
+f=Starta, score.php, 130, ../common/lugn.mp3
 q=Fråga 1 : Hur många generationer har människan funnits på jorden?, 100 generationer, 1.000 generationer, _10.000 generationer
 q=Fråga 2 : Hur många generationer har människan levt i urbana miljöer?, _mindre än 4 generationer, mer än 5 mindre än 10 generationer, mer än 10 mindre än 100 generationer
 q=Fråga 3 : Hur många tankar tänker vi varje dag?, 5.000 tankar, 10.000 tankar, _80.000 tankar
@@ -80,7 +80,7 @@ s=Rätta, Klar
 
 [segment-3]
 b=1
-i=50,../logo.png
+i=50,../common/logo.png
 
 b=2
 t=<h2>Här producerar vi Podden "Hemma hos Lars G"</h2>
@@ -92,7 +92,7 @@ b=2
 
 t=<h3>Podden "Hemma hos Lars G" finns på flera Poddplattformar</h3>
 b=1
-f=Starta, score.php, 130, lugn.mp3
+f=Starta, score.php, 130, ../common/lugn.mp3
 q=Fråga 1 : Har det varit svårt att hitta poddavsnitten?, _Ja, Nej
 q=Fråga 2 : Har det varit givande att lyssna på "Hemma hos Lars G" podd?, _Ja, Nej
 s=Rätta, Klar
@@ -104,7 +104,7 @@ t=Våra utbildningar tar dig uppåt i 5 nivåer<br><br>
 
 [segment-4]
 b=1
-i=50,../logo.png
+i=50,../common/logo.png
 b=2
 t=<h2>Ditt utbildningsmaterial finns i denna bifogade PDF</h2>
 b=1
@@ -115,14 +115,14 @@ I= width="85%" height="850px" ,stress.pdf
 b=2
 t=<h3>Denna utbildning är i flera steg</h3>
 b=1
-f=Starta, score.php, 130, lugn.mp3
+f=Starta, score.php, 130, ../common/lugn.mp3
 q=Fråga 1 : Har du förberett din utbilningspärm i A4-storlek med plats för flera utbildningar?, _Ja, Nej
 q=Fråga 2 : Har du skrivit ut denna utbildning och satt in i rätt flik i pärmen?, _Ja, Nej
 s=Rätta, Klar
 
 [segment-5]
 b=1
-i=50,../logo.png
+i=50,../common/logo.png
 b=4
 i=60,savann.jpg
 b=2
