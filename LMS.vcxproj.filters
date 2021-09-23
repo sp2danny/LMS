@@ -28,6 +28,15 @@
     <None Include="src\common\connect.php">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="src\common\common.php">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="src\common\score.php">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="src\batt-1.1\score.php">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="db.txt">

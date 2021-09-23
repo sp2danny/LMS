@@ -4,11 +4,11 @@ function corr1(idnum, corrval) {
   var elem = document.getElementById('QI-' + idnum);
   var sel = document.querySelector('input[name="' + idnum + '"]:checked');
   if (sel === null) {
-    elem.src = 'blank.png';
+    elem.src = '../common/blank.png';
     return false;
   } else {
     var ok = (sel.value == corrval);
-    elem.src = ok ? "corr.png" : "err.png";
+    elem.src = ok ? "../common/corr.png" : "../common/err.png";
     return ok;
   }
 }

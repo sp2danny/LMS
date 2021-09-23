@@ -167,7 +167,7 @@ function index($styr, $local, $common)
 						if (strlen($s3)>0)
 							$to->regLine('<tr height="25px"> <td colspan="2"> <B>' . $s3 . ' </B> </td> </tr>');
 						$to->startTag('tr height="45px"');
-						$to->regLine('<td width="45px" > <img id="' . 'QI-' . $qnum . '" src="blank.png" /> </td>');
+						$to->regLine('<td width="45px" > <img id="' . 'QI-' . $qnum . '" src="../common/blank.png" /> </td>');
 						$to->startTag('td');
 					} else {
 						if ($valnum > 1) $to->regLine('<br />');

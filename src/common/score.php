@@ -1,24 +1,19 @@
 
 <?php
 
-include '../php/head.php';
-include '../php/common.php';
-include '../php/connect.php';
-
-echo <<<EOT
-
+function score($styr, $local, $common)
+{
+	echo <<<EOT
 <style>
 	table {
-	  margin:   7px;
+		margin:   7px;
 	}
 </style>
+</head> <body>
 EOT;
 
-echo '</head> <body>' . "\n";
+	global $emperator;
 
-$styr = fopen("styr.txt", "r") or die("Unable to open file!");
-
-if ($styr) {
 
 	$snum = getparam("seg", "1");
 
@@ -89,7 +84,7 @@ if ($styr) {
 	}
 
 	$ok = true;
-	echo '<table><tr><td> <img width=50% height=50% src="';
+	echo '<table><tr><td> <img width=50% height=50% src="../common/';
 	if ($totscore == $qnum) {
 		echo "corr";
 	} else {
@@ -97,7 +92,7 @@ if ($styr) {
 		$ok = false;
 	}
 	echo '.png" > </td> <td> Po&auml;ng : ' . $totscore . ' / ' . $qnum . '</td></tr>' . $eol;
-	echo '<td> <img width=50% height=50% src="';
+	echo '<td> <img width=50% height=50% src="../common/';
 	$dintid = ((getparam('timestop')-getparam('timestart')) / 1000.0);
 	$dintid = ((int)($dintid*10)) / 10.0;
 	$maxt = getparam('timemax');
@@ -138,8 +133,6 @@ if ($styr) {
 		echo '<a href="' . 'index.php?pnr=' . $pnr . '&seg=' . ($snum) . '"> <button> igen </button> </a>' . $eol;
 	}
 }
-
-fclose($styr);
 
 ?> 
 
