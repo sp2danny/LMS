@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="src\batt-1.1\index.php" />
+    <None Include="src\common\connect.php" />
     <None Include="src\common\head.php" />
     <None Include="src\common\index.php" />
     <None Include="src\common\login.php" />
