@@ -16,9 +16,6 @@
     <None Include="src\common\login.php">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="src\common\personal.php">
-      <Filter>Source Files</Filter>
-    </None>
     <None Include="src\batt-1.1\index.php">
       <Filter>Source Files</Filter>
     </None>
@@ -35,6 +32,9 @@
       <Filter>Source Files</Filter>
     </None>
     <None Include="src\batt-1.1\score.php">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="src\common\personal.php">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>

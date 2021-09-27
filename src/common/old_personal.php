@@ -5,9 +5,6 @@
 include 'head.php';
 
 echo <<<EOT
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
 <style>
 table tr td {
   padding-left:   5px;
@@ -23,28 +20,6 @@ table.visitab {
 td.visitab {
   border: 1px solid grey;
   border-collapse: collapse;
-}
-
-.collapsible {
-  background-color: #FFF;
-  color: black;
-  cursor: pointer;
-  padding: 8px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 15px;
-}
-
-.collapsible:hover {
-  background-color: #EEE;
-}
-.content {
-  padding: 3px 8px;
-  display: none;
-  overflow: hidden;
-  background-color: white;
 }
 </style>
 EOT;
@@ -140,12 +115,9 @@ function all()
 
 	$allsofar = true;
 
-	$runnum = 0;
-	$atnum = 0;
-	echo '<br /> <br />  ' . $eol;
+	echo '<br /> <br /> <ol> ' . $eol;
 	foreach ($batts as $key => $value) {
-		++$runnum;
-		echo '<button type="button" class="collapsible"> ' . $runnum . '. &nbsp;&nbsp; ' . $value . ' </button> <div class="content" id="CntDiv' . $runnum .'" >';
+		echo '<li> ' . $value . '<ul style="list-style-type:none;" >';
 
 		$segs = segments($value);
 		$done = [];
@@ -158,7 +130,7 @@ function all()
 		while ($row = mysqli_fetch_array($res)) {
 			$done[$row['value_b']] = true;
 		}
-		echo '<ul style="list-style-type:none">';
+
 		for ($i=1; $i<=count($segs); ++$i) {
 			$thisok = false;
 			if (array_key_exists($i, $done) && $done[$i])
@@ -173,44 +145,19 @@ function all()
 				$allsofar = false;
 				$wantlink = true;
 			} else {
-				echo "blank";
+				echo "err";
 			}
 			echo '.png" > ';
-			if ($wantlink) {
+			if ($wantlink)
 				echo '<a href="' . mklink($value, $i, $prow) . '" > ';
-				$atnum = $runnum;
-			}
-			echo 'Del ' . $i;
+			echo 'Segment ' . $i;
 			if ($wantlink)
 				echo ' </a> ';
 			'</li>';
 		}
-		echo '</ul></div>';
+		echo '</ul>';
 	}
-	//echo '</ul>';
-
-	echo '<script> ';
-	echo ' document.getElementById("CntDiv' . $atnum . '").style.display = "block";';
-
-	echo <<<EOT
-
-var coll = document.getElementsByClassName("collapsible");
-var i;
-
-for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function() {
-    //this.classList.toggle("active");
-    var content = this.nextElementSibling;
-    if (content.style.display === "block") {
-      content.style.display = "none";
-    } else {
-      content.style.display = "block";
-    }
-  });
-}
-</script>
-
-EOT;
+	echo '</ul>';
 
 }
 
@@ -220,11 +167,3 @@ all();
 
 </body>
 </html>
-
-
-
-
-
-
-
-
