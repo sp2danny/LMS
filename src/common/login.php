@@ -51,7 +51,7 @@ echo '<input type="submit" value="' . 'Starta' . '">' . $eol;
 
 echo '</form>' . $eol;
 
-echo '<br><br><a href="nypers.php"> Registrera ny </a><br>' . $eol;
+echo '<br><br><a href="nypers.php"> Ny anv&auml;ndare: Registrera dig h&auml;r </a><br>' . $eol;
 
 $n = count($dagens);
 if ($n > 0) {
