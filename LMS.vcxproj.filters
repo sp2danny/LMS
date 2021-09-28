@@ -37,6 +37,9 @@
     <None Include="src\common\personal.php">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="src\common\main.css">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="db.txt">

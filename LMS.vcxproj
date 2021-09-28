@@ -26,6 +26,7 @@
     <None Include="src\common\head.php" />
     <None Include="src\common\index.php" />
     <None Include="src\common\login.php" />
+    <None Include="src\common\main.css" />
     <None Include="src\common\personal.php" />
     <None Include="src\common\score.php" />
     <None Include="src\index.html" />
