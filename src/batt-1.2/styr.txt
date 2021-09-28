@@ -1,4 +1,7 @@
 
+!seg 2
+!max 3
+
 [segment-1]
 b=1
 

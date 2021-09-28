@@ -60,7 +60,7 @@ echo '<br />' . $eol;
 echo '<img width=50%  src="logo.png" /> <br />';
 echo '<br /> <br />' . $eol;
 
-function ptbl($prow)
+function ptbl($prow, $mynt)
 {
 	global $eol;
 	echo '<table>' . $eol;
@@ -68,6 +68,7 @@ function ptbl($prow)
 	echo '<tr> <td> Namn          </td> <td> ' . $prow[ 'name'    ] . '</td></tr>' . $eol;
 	echo '<tr> <td> Personnummer  </td> <td> ' . $prow[ 'pnr'     ] . '</td></tr>' . $eol;
 	echo '<tr> <td> Medlem sedan  </td> <td> ' . $prow[ 'date'    ] . '</td></tr>' . $eol;
+	echo '<tr> <td> Guldmynt      </td> <td> ' . $mynt              . '</td></tr>' . $eol;
 	echo '</table>' . $eol;
 }
 
@@ -79,6 +80,7 @@ function segments($battname)
 	$res = [];
 	$curr = '';
 	$lineno = 0;
+	$maxs = 999;
 	while (true) {
 		++$lineno;
 		$buffer = fgets($styr, 4096); // or break;
@@ -87,7 +89,14 @@ function segments($battname)
 		$len = strlen($buffer);
 		if ($len == 0) continue;
 		if ($buffer[0] == '#') continue;
-		if ($buffer[0] == '!') continue;
+		if ($buffer[0] == '!') {
+			$s = substr($buffer, 1);
+			$e = explode(' ', $s);
+			if ($e[0] == 'max') {
+				$maxs = (int)$e[1];
+			}
+			continue;
+		}
 
 		if ( ($buffer[0] == '[') && ($buffer[$len-1] == ']') ) {
 			$curr = substr( $buffer, 1, $len-2 );
@@ -119,7 +128,14 @@ function all()
 	$pid = 0;
 
 	if ($prow = mysqli_fetch_array($res)) {
-		ptbl($prow);
+
+		$query = 'SELECT * FROM data WHERE pers=' . $prow['pers_id'] . ' AND type=4';
+		$res = mysqli_query($emperator, $query);
+		$mynt = 0;
+		if ($row = mysqli_fetch_array($res))
+			$mynt = $row['value_a'];
+
+		ptbl($prow, $mynt);
 		$pid = $prow['pers_id'];
 	} else {
 		echo convert('Denna person hittades inte i databasen.') . " <br />" . $eol;
@@ -167,12 +183,35 @@ function all()
 
 	$allsofar = true;
 
+	$alldata = [];
+
+	class Line {
+		public bool $isLink = false;
+		public string $link;
+		public bool $hasDone;
+		public int $segment;
+		public string $name;
+	}
+
+	class Block {
+		public $lines = [];
+		public bool $allDone = false;
+		public bool $someDone = false;
+		public int $battNum;
+		public string $name;
+	}
+
 	$runnum = 0;
 	$atnum = 0;
-	echo '<br /> <br />  ' . $eol;
+	//echo '<br /> <br />  ' . $eol;
 	foreach ($batts as $key => $value) {
 		++$runnum;
-		echo '<button type="button" class="collapsible"> ' . $runnum . '. &nbsp;&nbsp; ' . $value . ' </button> <div class="content" id="CntDiv' . $runnum .'" >';
+
+		$alldata[$runnum] = new Block;
+		$alldata[$runnum]->battNum = $runnum;
+		$alldata[$runnum]->name = $value;
+
+		//echo '<button type="button" class="collapsible"> ' . $runnum . '. &nbsp;&nbsp; ' . $value . ' </button> <div class="content" id="CntDiv' . $runnum .'" >';
 
 		$segs = segments($value);
 		$done = [];
@@ -185,36 +224,86 @@ function all()
 		while ($row = mysqli_fetch_array($res)) {
 			$done[$row['value_b']] = true;
 		}
-		echo '<ul style="list-style-type:none">';
+		//echo '<ul style="list-style-type:none">';
 		for ($i=1; $i<=count($segs); ++$i) {
+
+			$alldata[$runnum]->lines[$i] = new Line;
+			$alldata[$runnum]->lines[$i]->segment = $i;
+			$alldata[$runnum]->lines[$i]->name = 'Del ' . $i;
+
 			$thisok = false;
 			if (array_key_exists($i, $done) && $done[$i])
 				$thisok = true;
 
+			$alldata[$runnum]->lines[$i]->hasDone = $thisok;
+
 			$wantlink = false;
-			echo '<li> <img width="12px" height="12px" src="';
+			//echo '<li> <img width="12px" height="12px" src="';
 			if ($thisok) {
-				echo "corr";
+				//echo "corr";
 			} else if ($allsofar) {
-				echo "here";
+				//echo "here";
 				$allsofar = false;
 				$wantlink = true;
+				$alldata[$runnum]->lines[$i]->isLink = true;
 			} else {
-				echo "blank";
+				//echo "blank";
 			}
-			echo '.png" > ';
+			//echo '.png" > ';
 			if ($wantlink) {
-				echo '<a href="' . mklink($value, $i, $prow) . '" > ';
+				$lnk = mklink($value, $i, $prow);
+				$alldata[$runnum]->lines[$i]->link = $lnk;
+				//echo '<a href="' . $lnk . '" > ';
 				$atnum = $runnum;
+				$alldata[$runnum]->someDone = true;
 			}
-			echo 'Del ' . $i;
-			if ($wantlink)
+			//echo 'Del ' . $i;
+			//if ($wantlink)
+			//	echo ' </a> ';
+			//'</li>';
+		}
+		//echo '</ul></div>';
+		if ($allsofar)
+			$alldata[$runnum]->allDone = true;
+	}
+	//echo '</ul>';
+
+	//var_dump($alldata);
+
+
+	foreach ($alldata as $block) {
+		echo '<button type="button" class="collapsible"> ' . $block->battNum . '. &nbsp; ';
+		echo '<img width="12px" height="12px" src="';
+		if ($block->someDone)
+			echo 'here';
+		else if ($block->allDone)
+			echo "corr";
+		else
+			echo "blank";
+		echo '.png" > ';
+		echo $block->name . ' </button>';
+		echo '<div class="content" id="CntDiv' . $block->battNum .'" >';
+		echo '<ul style="list-style-type:none">';
+		foreach ($block->lines as $line) {
+			echo '<li> <img width="12px" height="12px" src="';
+			if ($line->isLink)
+				echo 'here';
+			else if($line->hasDone)
+				echo "corr";
+			else
+				echo "blank";
+			echo '.png" > ';
+			if ($line->isLink)
+				echo '<a href="' . $line->link . '" > ';
+			echo $line->name;
+			if ($line->isLink)
 				echo ' </a> ';
-			'</li>';
+			echo '</li>';
 		}
 		echo '</ul></div>';
 	}
-	//echo '</ul>';
+	echo '</ul>';
+
 
 	echo '<script> ';
 	echo ' document.getElementById("CntDiv' . $atnum . '").style.display = "block";';
@@ -236,6 +325,7 @@ for (i = 0; i < coll.length; i++) {
   });
 }
 </script>
+
 
 EOT;
 

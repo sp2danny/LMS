@@ -30,6 +30,7 @@ EOT;
 	$curr = "";
 	$bnum = 0;
 	$max = 0;
+	$maxseg = 0;
 
 	while (true) {
 
@@ -44,6 +45,9 @@ EOT;
 			$e = explode(' ', $s);
 			if ($e[0] == 'batt') {
 				$bnum = $e[1];
+			}
+			if ($e[0] == 'max') {
+				$maxseg = (int)$e[1];
 			}
 			continue;
 		}
@@ -128,7 +132,10 @@ EOT;
 			}
 		}
 
-		echo '<a href="' . 'index.php?pnr=' . $pnr . '&seg=' . ($snum+1) . '"> <button> next </button> </a>' . $eol;
+		if ($snum >= $maxseg)
+			echo '<a href="' . '../common/personal.php?pnr=' . $pnr . '"> <button> next </button> </a>' . $eol;
+		else
+			echo '<a href="' . 'index.php?pnr=' . $pnr . '&seg=' . ($snum+1) . '"> <button> next </button> </a>' . $eol;
 	} else {
 		echo '<a href="' . 'index.php?pnr=' . $pnr . '&seg=' . ($snum) . '"> <button> igen </button> </a>' . $eol;
 	}

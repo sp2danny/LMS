@@ -181,7 +181,7 @@ function index($styr, $local, $common)
 				$to->regLine('<tr><td> &nbsp; </td></tr>');
 			} else if ($s1 == 'T=') {
 				$to->regLine('<tr> <td colspan="2"> ' . $s2 . ' </td> </tr>');
-			} else if ($s1 == 's=') {
+			} else if (($s1 == 's=') || ($s1 == 'S=')) {
 				// submit
 				// Rätta, Klar
 				$elems = explode(',', $s2);
