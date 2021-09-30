@@ -37,7 +37,7 @@
     <None Include="src\common\personal.php">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="src\common\main.css">
+    <None Include="src\common\main-v01.css">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>

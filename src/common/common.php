@@ -23,10 +23,14 @@ function showTime() {
   var rem = parseFloat(t3) - (diff/1000.0);
   rem = Math.round(rem * 10) / 10;
 
-  if (rem < 0)
-    document.getElementById("TimerDisplay").innerHTML = '';
-  else
-    document.getElementById("TimerDisplay").innerHTML = rem.toString();
+  if (rem < 0) {
+    document.getElementById("TimerDisplay").innerHTML = 'Tiden Slut';
+  } else {
+    st = rem.toString();
+    if (!st.includes("."))
+        st = st + '.0';
+    document.getElementById("TimerDisplay").innerHTML = 'Tid: ' + st + ' s';
+  }
 }
 
 function doShow() {

@@ -8,9 +8,9 @@
 
 <?php
 
-include 'php/connect.php';
-include 'php/getparam.php';
-include 'php/convert.php';
+include 'connect.php';
+include 'getparam.php';
+include 'convert.php';
 
 function ptbl($prow)
 {

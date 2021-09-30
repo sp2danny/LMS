@@ -60,15 +60,14 @@ echo '<br />' . $eol;
 echo '<img width=50%  src="logo.png" /> <br />';
 echo '<br /> <br />' . $eol;
 
-function ptbl($prow, $mynt)
+function ptbl($prow, $mynt, $score=0)
 {
 	global $eol;
 	echo '<table>' . $eol;
-	echo '<tr> <td> Kundnummer    </td> <td> ' . $prow[ 'pers_id' ] . '</td></tr>' . $eol;
-	echo '<tr> <td> Namn          </td> <td> ' . $prow[ 'name'    ] . '</td></tr>' . $eol;
-	echo '<tr> <td> Personnummer  </td> <td> ' . $prow[ 'pnr'     ] . '</td></tr>' . $eol;
-	echo '<tr> <td> Medlem sedan  </td> <td> ' . $prow[ 'date'    ] . '</td></tr>' . $eol;
-	echo '<tr> <td> Guldmynt      </td> <td> ' . $mynt              . '</td></tr>' . $eol;
+	echo '<tr> <td> Kundnummer    </td> <td> ' . $prow[ 'pers_id' ] . '</td> <td> &nbsp;&nbsp;&nbsp; </td> <td> Guldmynt     </td> <td> ' . $mynt   . '</td></tr>' . $eol;
+	echo '<tr> <td> Namn          </td> <td> ' . $prow[ 'name'    ] . '</td> <td> &nbsp;&nbsp;&nbsp; </td> <td> Po&auml;ng   </td> <td> ' . $score  . '</td></tr>' . $eol;
+	echo '<tr> <td> Personnummer  </td> <td> ' . $prow[ 'pnr'     ] . '</td> <td> &nbsp;&nbsp;&nbsp; </td> <td> </td> <td> </td> </tr>' . $eol;
+	echo '<tr> <td> Medlem sedan  </td> <td> ' . $prow[ 'date'    ] . '</td> <td> &nbsp;&nbsp;&nbsp; </td> <td> </td> <td> </td> </tr>' . $eol;
 	echo '</table>' . $eol;
 }
 
@@ -203,15 +202,12 @@ function all()
 
 	$runnum = 0;
 	$atnum = 0;
-	//echo '<br /> <br />  ' . $eol;
 	foreach ($batts as $key => $value) {
 		++$runnum;
 
 		$alldata[$runnum] = new Block;
 		$alldata[$runnum]->battNum = $runnum;
 		$alldata[$runnum]->name = $value;
-
-		//echo '<button type="button" class="collapsible"> ' . $runnum . '. &nbsp;&nbsp; ' . $value . ' </button> <div class="content" id="CntDiv' . $runnum .'" >';
 
 		$segs = segments($value);
 		$done = [];
@@ -224,7 +220,6 @@ function all()
 		while ($row = mysqli_fetch_array($res)) {
 			$done[$row['value_b']] = true;
 		}
-		//echo '<ul style="list-style-type:none">';
 		for ($i=1; $i<=count($segs); ++$i) {
 
 			$alldata[$runnum]->lines[$i] = new Line;
@@ -238,37 +233,21 @@ function all()
 			$alldata[$runnum]->lines[$i]->hasDone = $thisok;
 
 			$wantlink = false;
-			//echo '<li> <img width="12px" height="12px" src="';
-			if ($thisok) {
-				//echo "corr";
-			} else if ($allsofar) {
-				//echo "here";
+			if (!$thisok && $allsofar) {
 				$allsofar = false;
 				$wantlink = true;
 				$alldata[$runnum]->lines[$i]->isLink = true;
-			} else {
-				//echo "blank";
 			}
-			//echo '.png" > ';
 			if ($wantlink) {
 				$lnk = mklink($value, $i, $prow);
 				$alldata[$runnum]->lines[$i]->link = $lnk;
-				//echo '<a href="' . $lnk . '" > ';
 				$atnum = $runnum;
 				$alldata[$runnum]->someDone = true;
 			}
-			//echo 'Del ' . $i;
-			//if ($wantlink)
-			//	echo ' </a> ';
-			//'</li>';
 		}
-		//echo '</ul></div>';
 		if ($allsofar)
 			$alldata[$runnum]->allDone = true;
 	}
-	//echo '</ul>';
-
-	//var_dump($alldata);
 
 
 	foreach ($alldata as $block) {

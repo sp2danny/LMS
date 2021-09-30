@@ -4,6 +4,16 @@
 
 [segment-1]
 b=1
+i=50,../common/logo.png
+b=1
+t=En liten text
+b=1
+
+f=Starta, score.php, 13, ../common/lugn.mp3
+q=Fråga 1 : Bla, _Ja, Nej
+q=Fråga 2 : Bla, _Ja, Nej
+q=Fråga 3 : Bla, _Ja, Nej
+s=Rätta, Klar
 
 [segment-2]
 b=1
