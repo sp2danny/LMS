@@ -9,6 +9,8 @@
 #include <algorithm>
 #include <ranges>
 
+using namespace std::literals;
+
 #include <boost/algorithm/string.hpp>
 
 std::string tolower(const std::string& str)
@@ -51,7 +53,7 @@ int main(int argc, char* argv[])
 		nm = nm.substr(5);
 		std::cout << nm << std::endl;
 		std::ifstream ifs{de.path() / "styr.txt"};
-		std::vector<std::string> want_files;
+		std::vector<std::string> want_files = { "index.php"s, "local.css"s, "styr.txt" };
 		std::string line;
 		while (std::getline(ifs, line))
 		{
@@ -64,14 +66,13 @@ int main(int argc, char* argv[])
 			switch (line[0])
 			{
 			case 'i':
-				want_files.push_back(expl.back());
-				break;
 			case 'a':
-				want_files.push_back(expl.back());
+			case 'I':
+				want_files.push_back(boost::trim_copy(expl.back()));
 				break;
 			case 'f':
-				want_files.push_back(expl[1]);
-				want_files.push_back(expl[3]);
+				want_files.push_back(boost::trim_copy(expl[1]));
+				want_files.push_back(boost::trim_copy(expl[3]));
 				break;
 			}
 		}
@@ -79,16 +80,32 @@ int main(int argc, char* argv[])
 		std::ranges::sort(want_files);
 		auto r = std::ranges::unique(want_files);
 		want_files.erase(r.begin(), r.end());
-		std::cout << "Want:";
+
 		for (const auto& s : want_files)
 		{
-			std::cout << "\t" << s << "\n";
+			std::filesystem::path p = de.path() / s;
+			if (!std::filesystem::exists(p)) {
+				if (s[0] == '.')
+					std::cout << "\tExternal file missing : " << s << "\n";
+				else
+					std::cout << "\tLocal file missing : " << s << "\n";
+			}
 		}
 
-		//std::filesystem::directory_iterator di2{de};
+		std::filesystem::directory_iterator di2{de};
 		//std::vector<std::string> have_files;
+		for (auto&& de2 : di2) {
+			if (de2.is_regular_file()) {
+				std::string fn = de2.path().filename().string();
+				if (!std::ranges::binary_search(want_files, fn)) {
+					std::cout << "\tExcess local file : " << fn << "\n";
+				}
+			}
+		}
 	}
 
+	std::cout << "\nDone.\n";
+	fgetc(stdin);
 }
 
 
