@@ -53,7 +53,7 @@ int main(int argc, char* argv[])
 		nm = nm.substr(5);
 		std::cout << nm << std::endl;
 		std::ifstream ifs{de.path() / "styr.txt"};
-		std::vector<std::string> want_files = { "index.php"s, "local.css"s, "styr.txt" };
+		std::vector<std::string> want_files = { "index.php"s, "local.css"s, "styr.txt"s };
 		std::string line;
 		while (std::getline(ifs, line))
 		{
