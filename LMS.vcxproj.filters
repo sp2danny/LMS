@@ -40,6 +40,12 @@
     <None Include="src\common\main-v01.css">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="src\common\pulselst.php">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="src\debug.php">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="db.txt">

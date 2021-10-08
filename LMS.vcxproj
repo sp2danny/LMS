@@ -28,7 +28,9 @@
     <None Include="src\common\login.php" />
     <None Include="src\common\main-v01.css" />
     <None Include="src\common\personal.php" />
+    <None Include="src\common\pulselst.php" />
     <None Include="src\common\score.php" />
+    <None Include="src\debug.php" />
     <None Include="src\index.html" />
   </ItemGroup>
   <ItemGroup>
