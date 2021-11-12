@@ -4,6 +4,24 @@
     <File Name="ftp.txt"/>
   </VirtualDirectory>
   <VirtualDirectory Name="src">
+    <VirtualDirectory Name="common">
+      <File Name="src/common/utbsel.php"/>
+      <File Name="src/common/tagOut.php"/>
+      <File Name="src/common/score.php"/>
+      <File Name="src/common/regpers.php"/>
+      <File Name="src/common/pulselst.php"/>
+      <File Name="src/common/personal.php"/>
+      <File Name="src/common/nypers.php"/>
+      <File Name="src/common/next.php"/>
+      <File Name="src/common/login.php"/>
+      <File Name="src/common/index.php"/>
+      <File Name="src/common/head.php"/>
+      <File Name="src/common/getparam.php"/>
+      <File Name="src/common/evaluator.php"/>
+      <File Name="src/common/convert.php"/>
+      <File Name="src/common/connect.php"/>
+      <File Name="src/common/common.php"/>
+    </VirtualDirectory>
     <VirtualDirectory Name="php">
       <File Name="src/php/tagOut.php"/>
       <File Name="src/php/common.php"/>
