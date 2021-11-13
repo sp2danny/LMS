@@ -1,0 +1,9 @@
+
+!logo
+!login "Personnummer:"
+!start "Starta"
+
+!newlink "Ny användare: Registrera dig här"
+!motd
+
+!image "trappa.png"

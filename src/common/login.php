@@ -166,25 +166,80 @@ echo <<<EOT
 
 EOT;
 
-echo '<img width=30%  src="logo.png"> <br>' . $eol;
 
-echo '<form action="' . 'personal.php' . '" method="GET">' . $eol;
-
-echo '<br><br><label for="pnr">Personnummer:</label>' . $eol;
-echo '<input type="text" id="pnr" name="pnr"><br><br>' . $eol;
-
-echo '<input type="submit" value="' . 'Starta' . '">' . $eol;
-
-echo '</form>' . $eol;
-
-echo '<br><br><a href="nypers.php"> Ny anv&auml;ndare: Registrera dig h&auml;r </a><br>' . $eol;
-
-$n = count($dagens);
-if ($n > 0) {
-	$i = rand(0, $n-1);
-	echo '<br /><br />' . $eol;
-	echo '<center>' . $dagens[$i] . '</center>' . $eol;
+$logtxt = fopen("login.txt", "r");
+if ($logtxt)
+{
+	while (true) {
+		$buffer = fgets($logtxt, 4096);
+		if (!$buffer) break;
+		$buffer = trim($buffer);
+		$len = strlen($buffer);
+		if ($len == 0) {
+			echo '<br>' . $eol;
+			continue;
+		}
+		if ($buffer[0] == '!') {
+			$buffer = substr($buffer, 1);
+			$expl = str_getcsv($buffer, ' ');
+			switch ($expl[0]) {
+				case "logo":
+					echo '<img width=30%  src="logo.png"> <br>' . $eol;
+					break;
+				case "login":
+					echo '<form action="' . 'personal.php' . '" method="GET">' . $eol;
+					echo '<br><br><label for="pnr">' . $expl[1] . '</label>' . $eol;
+					echo '<input type="text" id="pnr" name="pnr"><br>' . $eol;
+					break;
+				case "start":
+					echo '<input type="submit" value="' . $expl[1] . '">' . $eol;
+					echo '</form>' . $eol;
+					break;
+				case "newlink":
+					echo '<br><br><a href="nypers.php"> ' . $expl[1] . '</a><br>' . $eol;
+					break;
+				case "motd":
+					$n = count($dagens);
+					if ($n > 0) {
+						$i = rand(0, $n-1);
+						echo '<br /><br />' . $eol;
+						echo '<center>' . $dagens[$i] . '</center>' . $eol;
+					}
+					break;
+				case "image":
+					echo '<img src="' . $expl[1] . '"> <br>' . $eol;
+					break;
+			}
+			
+		} else {
+			echo $buffer . $eol;
+			echo '<br>' . $eol;
+		}
+	}
 }
+
+// 
+// echo '<img width=30%  src="logo.png"> <br>' . $eol;
+// 
+// echo '<form action="' . 'personal.php' . '" method="GET">' . $eol;
+// 
+// echo '<br><br><label for="pnr">Personnummer:</label>' . $eol;
+// echo '<input type="text" id="pnr" name="pnr"><br><br>' . $eol;
+// 
+// echo '<input type="submit" value="' . 'Starta' . '">' . $eol;
+// 
+// echo '</form>' . $eol;
+// 
+// echo '<br><br><a href="nypers.php"> Ny anv&auml;ndare: Registrera dig h&auml;r </a><br>' . $eol;
+// 
+// $n = count($dagens);
+// if ($n > 0) {
+// 	$i = rand(0, $n-1);
+// 	echo '<br /><br />' . $eol;
+// 	echo '<center>' . $dagens[$i] . '</center>' . $eol;
+// }
+// 
+
 
 ?> 
 
