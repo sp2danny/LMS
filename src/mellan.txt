@@ -1,0 +1,17 @@
+
+[pass]
+
+!score
+!time
+
+!dbmsg
+
+!next "Nästa"
+
+[fail]
+
+!score
+!time
+
+!again "Igen"
+

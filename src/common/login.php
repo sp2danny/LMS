@@ -206,7 +206,7 @@ if ($logtxt)
 						echo '<center>' . $dagens[$i] . '</center>' . $eol;
 					}
 					break;
-				case "image"
+				case "image":
 					echo '<img src="' . $expl[1] . '"> <br>' . $eol;
 					break;
 			}
