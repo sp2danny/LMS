@@ -214,7 +214,11 @@ EOT;
 						echo $dbtext . ' <br>' . $eol;
 						break;
 					case "image":
-						echo '<img src="../' . $expl[1] . '"> <br>' . $eol;
+						$expl = explode(",", $expl);
+						if (count($expl) == 1)
+							echo '<img src="../' . $expl[0] . '"> <br>' . $eol;
+						else 
+							echo '<img width="' . $expl[0] . '%" src="../' . $expl[1] . '"> <br>' . $eol;
 						break;
 				}
 				
