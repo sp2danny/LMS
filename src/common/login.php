@@ -184,7 +184,7 @@ if ($logtxt)
 			$expl = str_getcsv($buffer, ' ');
 			switch ($expl[0]) {
 				case "logo":
-					echo '<img width=30%  src="logo.png"> <br>' . $eol;
+					echo '<img width=70% src="logo.png"> <br>' . $eol;
 					break;
 				case "login":
 					echo '<form action="' . 'personal.php' . '" method="GET">' . $eol;
@@ -207,7 +207,11 @@ if ($logtxt)
 					}
 					break;
 				case "image":
-					echo '<img src="' . $expl[1] . '"> <br>' . $eol;
+					$expl = explode(",", $expl[1]);
+					if (count($expl) == 1)
+						echo '<img src="../' . $expl[0] . '"> <br>' . $eol;
+					else 
+						echo '<img width="' . $expl[0] . '%" src="../' . $expl[1] . '"> <br>' . $eol;
 					break;
 			}
 			

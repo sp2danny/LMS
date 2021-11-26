@@ -214,7 +214,7 @@ EOT;
 						echo $dbtext . ' <br>' . $eol;
 						break;
 					case "image":
-						$expl = explode(",", $expl);
+						$expl = explode(",", $expl[1]);
 						if (count($expl) == 1)
 							echo '<img src="../' . $expl[0] . '"> <br>' . $eol;
 						else 
