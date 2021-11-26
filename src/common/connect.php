@@ -12,7 +12,7 @@
 		$password_emperator,
 		$database_emperator
 	);
-	
+
 	if(!$emperator)
 	{
 		echo " DB connect failed <br /> \n ";
