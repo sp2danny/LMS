@@ -5,6 +5,7 @@
   </VirtualDirectory>
   <VirtualDirectory Name="src">
     <VirtualDirectory Name="common">
+      <File Name="src/common/progress.php"/>
       <File Name="src/common/utbsel.php"/>
       <File Name="src/common/tagOut.php"/>
       <File Name="src/common/score.php"/>

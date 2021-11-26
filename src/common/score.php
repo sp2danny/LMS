@@ -1,5 +1,12 @@
 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 <?php
+
+include 'progress.php';
+
 
 function score($styr, $local, $common)
 {
@@ -191,6 +198,16 @@ EOT;
 						echo '.png" > </td> <td> Po&auml;ng : ' . $totscore . ' / ' . $qnum . '</td></tr>' . $eol;
 						echo '</table>' . $eol;
 						break;
+					case "prog":
+						// TODO here
+						$pro = progress($bnum, $maxseg);
+
+						echo '<div class="container"> <div class="progress">' . $eol;
+						echo '<div class="progress-bar" role="progressbar" aria-valuenow="' . $pro;
+						echo '" aria-valuemin="0" aria-valuemax="100" style="width:' . $pro . '%">' . $eol;
+						echo '<span class="sr-only">' . $pro . '% Complete</span>' . $eol;
+						echo '</div></div></div>' . $eol;
+						break;
 					case "time":
 						echo '<table><tr><td> <img width=50% height=50% src="../common/';
 						if ($dintid < $maxt) {
@@ -231,17 +248,6 @@ EOT;
 	fclose($mellan);
 
 }
-
-/*
-[pass]
-!score
-!time
-!next "Nästa"
-[fail]
-!score
-!time
-!again "Igen"
-*/
 
 
 ?> 
