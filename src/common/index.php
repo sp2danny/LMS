@@ -83,6 +83,9 @@ function index($styr, $local, $common)
 			continue;
 		}
 
+		if ($buffer[0] == '!') {
+
+
 		if ($curr == $seg) {
 			$s1 = substr( $buffer, 0, 2 );
 			$s2 = substr( $buffer, 2 );
