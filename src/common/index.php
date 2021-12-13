@@ -5,12 +5,17 @@
 // include 'tagOut.php';
 // include 'connect.php';
 
-function process_cmd($to, $corr, $cmd, $args)
+class Data
 {
-	global $emperator;
+	public $qnum = 0;
+	public $snum = 0;
+	public $pnr = '';
+	public $corr = [];
+	public $lineno = 0;
+}
 
-	static $qnum = 0;
-
+function process_cmd($to, $data, $cmd, $args)
+{
 	$eol = "\n";
 
 	switch ($cmd)
@@ -44,18 +49,18 @@ function process_cmd($to, $corr, $cmd, $args)
 			break;
 		case 'begin':
 		
-			//if (count($args) != 4) {
-			//	echo ' *** WARNING *** <br />' . $eol;
-			//	echo ' malformed "begin" command on line ' . $lineno . ', needs 4 parameters <br />' . $eol;
-			//	echo ' *** WARNING *** <br />' . $eol;
-			//	$args = explode(',', 'Starta, score.php, 130, lugn.mp3');
-			//}
+			if (count($args) != 4) {
+				echo ' *** WARNING *** <br />' . $eol;
+				echo ' malformed "begin" command on line ' . $data->lineno . ', needs 4 parameters <br />' . $eol;
+				echo ' *** WARNING *** <br />' . $eol;
+				$args = explode(',', 'Starta, score.php, 130, lugn.mp3');
+			}
 			$to->regLine('<button id="StartBtn" onclick="doShow()"> ' . trim($args[0]) . ' </button> <br />');
 			$to->startTag('div', 'id="QueryBox" style="display:none;"');
 			$to->regLine('<audio id="AudioBox" preload loop> <source src="' . trim($args[3]) . '" type="audio/mp3"></audio>');
 			$to->startTag('form', 'action="' . trim($args[1]) . '" method="GET"');
-			$to->scTag('input', 'type="hidden" value="' . $snum . '" id="seg" name="seg"');
-			$to->scTag('input', 'type="hidden" value="' . $pnr . '" id="pnr" name="pnr"');
+			$to->scTag('input', 'type="hidden" value="' . $data->snum . '" id="seg" name="seg"');
+			$to->scTag('input', 'type="hidden" value="' . $data->pnr . '" id="pnr" name="pnr"');
 			$to->scTag('input', 'type="hidden" value="" id="TimeStart" name="timestart"');
 			$to->scTag('input', 'type="hidden" value="" id="TimeStop" name="timestop"');
 			$to->scTag('input', 'type="hidden" value="' . trim($args[2]) . '" id="TimeMax" name="timemax"');
@@ -66,23 +71,23 @@ function process_cmd($to, $corr, $cmd, $args)
 			$to->regLine('<iframe width="1280" height="720" src="https://player.vimeo.com/video/' . $args[0] . '"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>');
 			break;
 		case 'query':
-			$qnum++;
+			$data->qnum++;
 			$valnum = 0;
 			
 			$to->regLine('<tr height="25px"> <td colspan="2"> <B>' . $args[0] . ' </B> </td> </tr>');
 			$to->startTag('tr height="45px"');
-			$to->regLine('<td width="45px" > <img id="' . 'QI-' . $qnum . '" src="../common/blank.png" /> </td>');
+			$to->regLine('<td width="45px" > <img id="' . 'QI-' . $data->qnum . '" src="../common/blank.png" /> </td>');
 			$to->startTag('td');
 			
 			$n = count($args);
 			for ($i=1; $i<$n; ++$i) {
-				$ss = $args[$i];
+				$ss = trim($args[$i]);
 				if ($ss && $ss[0] == '_') {
 					$ss = substr($ss, 1);
-					$corr[$qnum] = $valnum;
+					$data->corr[$data->qnum] = $valnum;
 				}
 				if ($valnum > 1) $to->regLine('<br />');
-				$to->regLine('<input type="radio" id="' . 'QR-' . $qnum . '" name="' . $qnum . '" value="' . $valnum . '" />' . $ss . '');
+				$to->regLine('<input type="radio" id="' . 'QR-' . $data->qnum . '" name="' . $data->qnum . '" value="' . $valnum . '" />' . $ss . '');
 				$valnum++;
 			}
 			$to->stopTag('td');
@@ -93,20 +98,20 @@ function process_cmd($to, $corr, $cmd, $args)
 		case 'submit':
 			// submit
 			// Rätta, Klar
-			//if (count($args) != 2) {
-			//	echo ' *** WARNING *** <br />' . $eol;
-			//	echo ' malformed "s" command on line ' . $lineno . ', needs 2 parameters <br />' . $eol;
-			//	echo ' *** WARNING *** <br />' . $eol;
-			//	$args = explode(',', 'Rätta, Klar');
-			//}
+			if (count($args) != 2) {
+				echo ' *** WARNING *** <br />' . $eol;
+				echo ' malformed "s" command on line ' . $data->lineno . ', needs 2 parameters <br />' . $eol;
+				echo ' *** WARNING *** <br />' . $eol;
+				$args = explode(',', 'Rätta, Klar');
+			}
 
 			$to->stopTag('table');
 			$to->startTag('script');
 			$to->regLine('function doCorr() {' );
 			$to->regLine('  document.getElementById("TimeStop").value = (new Date()).getTime().toString();');
 			$to->regLine('  var scr = 0;');
-			for ($idx = 1; $idx <= $qnum; ++$idx) {
-				$to->regLine('  if( corr1(' . $idx . ', ' . $corr[$idx] . ')) scr += 1;');
+			for ($idx = 1; $idx <= $data->qnum; ++$idx) {
+				$to->regLine('  if( corr1(' . $idx . ', ' . $data->corr[$idx] . ')) scr += 1;');
 			}
 			$to->regLine('  document.getElementById("SubmitBtn").style.display = "block";');
 			$to->regLine('  document.getElementById("CorrBtn").style.display = "none";');
@@ -131,7 +136,7 @@ function process_cmd($to, $corr, $cmd, $args)
 			
 		default:
 			echo ' *** WARNING *** <br />' . $eol;
-			echo ' unrecognized command : "' . htmlspecialchars($cmd) . /*'" on line ' . $lineno .*/ ' <br />' . $eol;
+			echo ' unrecognized command : "' . htmlspecialchars($cmd) . '" on line ' . $data->lineno . ' <br />' . $eol;
 			echo ' *** WARNING *** <br />' . $eol;
 	}
 	
@@ -143,14 +148,16 @@ function index($styr, $local, $common)
 	global $emperator;
 
 	$to = new tagOut;
+	
+	$data = new Data;
 
-	$snum = getparam("seg", "1");
+	$data->snum = getparam("seg", "1");
 
-	$seg = 'segment-' . $snum;
+	$seg = 'segment-' . $data->snum;
 
-	$pnr = getparam("pnr", "0");
+	$data->pnr = getparam("pnr", "0");
 
-	$query = "SELECT * FROM pers WHERE pnr='" . $pnr . "'";
+	$query = "SELECT * FROM pers WHERE pnr='" . $data->pnr . "'";
 	//echo "trying : <br /> <code>\n" . $query . "\n</code><br />\n";
 	$res = mysqli_query($emperator, $query);
 	$prow = mysqli_fetch_array($res);
@@ -163,8 +170,6 @@ function index($styr, $local, $common)
 		$mynt = $row['value_a'];
 
 	$name = getparam("name");
-
-	$qnum = 0;
 
 	$eol = "\n";
 
@@ -190,12 +195,11 @@ function index($styr, $local, $common)
 
 	$to->startTag('div', 'class="main"');
 
-	$corr = [];
-	$lineno = 0;
 	$bnum = 0;
+	$curr = '';
 
 	while (true) {
-		++$lineno;
+		++$data->lineno;
 		$buffer = fgets($styr, 4096); // or break;
 		if (!$buffer) break;
 		$buffer = trim($buffer);
@@ -230,12 +234,12 @@ function index($styr, $local, $common)
 				$cmd = substr($buffer, 1);
 			} else {
 				$cmd = substr($buffer, 1, $sp-1);
-				$args = explode(';', substr($buffer, $sp+1));
+				$args = str_getcsv(substr($buffer, $sp+1), ';');
 			}
 				
-			process_cmd($to, $corr, $cmd, $args);
+			process_cmd($to, $data, $cmd, $args);
 		} else {
-			to->regLine($buffer);
+			$to->regLine($buffer);
 		}
 	}
 	$to->stopTag('div');
