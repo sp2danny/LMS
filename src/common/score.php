@@ -183,8 +183,11 @@ EOT;
 				
 			if ($buffer[0] == '!') {
 				$buffer = substr($buffer, 1);
-				$expl = str_getcsv($buffer, ' ');
-				switch ($expl[0]) {
+				$pos = strpos($buffer, ' ');
+				$cmd = substr($buffer, 0, $pos);
+				$rest = substr($buffer, $pos+1);
+				$expl = str_getcsv($rest, ';');
+				switch ($cmd) {
 					case "logo":
 						echo '<img width=90% src="logo.png"> <br>' . $eol;
 						break;
@@ -220,18 +223,17 @@ EOT;
 						break;
 					case "next":
 						if ($snum >= $maxseg)
-							echo '<a href="' . '../common/personal.php?pnr=' . $pnr . '"> <button> ' . $expl[1] . ' </button> </a>' . $eol;
+							echo '<a href="' . '../common/personal.php?pnr=' . $pnr . '"> <button> ' . $expl[0] . ' </button> </a>' . $eol;
 						else
-							echo '<a href="' . 'index.php?pnr=' . $pnr . '&seg=' . ($snum+1) . '"> <button> ' . $expl[1] . ' </button> </a>' . $eol;
+							echo '<a href="' . 'index.php?pnr=' . $pnr . '&seg=' . ($snum+1) . '"> <button> ' . $expl[0] . ' </button> </a>' . $eol;
 						break;
 					case "again":
-						echo '<a href="' . 'index.php?pnr=' . $pnr . '&seg=' . ($snum) . '"> <button> ' . $expl[1] . ' </button> </a>' . $eol;
+						echo '<a href="' . 'index.php?pnr=' . $pnr . '&seg=' . ($snum) . '"> <button> ' . $expl[0] . ' </button> </a>' . $eol;
 						break;
 					case "dbmsg":
 						echo $dbtext . ' <br>' . $eol;
 						break;
 					case "image":
-						$expl = explode(",", $expl[1]);
 						if (count($expl) == 1)
 							echo '<img src="../' . $expl[0] . '"> <br>' . $eol;
 						else 
