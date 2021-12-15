@@ -1,11 +1,8 @@
 
 <?php
 
-// include 'common.php';
-// include 'tagOut.php';
-// include 'connect.php';
-
 include 'process_cmd.php';
+include 'cmdparse.php';
 
 function index($styr, $local, $common)
 {
@@ -22,12 +19,12 @@ function index($styr, $local, $common)
 	$data->pnr = getparam("pnr", "0");
 
 	$query = "SELECT * FROM pers WHERE pnr='" . $data->pnr . "'";
-	//echo "trying : <br /> <code>\n" . $query . "\n</code><br />\n";
+
 	$res = mysqli_query($emperator, $query);
 	$prow = mysqli_fetch_array($res);
 
 	$query = 'SELECT * FROM data WHERE pers=' . $prow['pers_id'] . ' AND type=4';
-	//echo "trying : <br /> <code>\n" . $query . "\n</code><br />\n";
+
 	$res = mysqli_query($emperator, $query);
 	$mynt = 0;
 	if ($row = mysqli_fetch_array($res))
@@ -66,42 +63,24 @@ function index($styr, $local, $common)
 		++$data->lineno;
 		$buffer = fgets($styr, 4096); // or break;
 		if (!$buffer) break;
-		$buffer = trim($buffer);
-		$len = strlen($buffer);
-		if ($len == 0) continue;
-		if ($buffer[0] == '#') continue;
-		if ($buffer[0] == '!') {
-			$p = strpos($buffer, ' ');
-			if (!$p) continue;
-			$cmd = substr($buffer, 1, $p-2);
-			$rest = substr($buffer, $p+1);
-			if ($cmd == 'batt') {
-				$bnum = (int)$rest;
+		$cmd = cmdparse($buffer);
+		if ($cmd->is_empty) continue;
+		if ($cmd->is_command) {
+			if ($cmd->command == 'batt') {
+				$bnum = (int)$cmd->rest;
 				continue;
 			}
-			
 		}
 
-		if ( ($buffer[0] == '[') && ($buffer[$len-1] == ']') ) {
-			$curr = substr($buffer, 1, $len-2);
+		if ($cmd->is_segment) {
+			$curr = $cmd->segment;
 			continue;
 		}
-		
+
 		if ($curr != $seg) continue;
 
-		if ($buffer[0] == '!') {
-			
-			$sp = strpos($buffer, ' ');
-			$cmd = '';
-			$args = [];
-			if (!$sp) {
-				$cmd = substr($buffer, 1);
-			} else {
-				$cmd = substr($buffer, 1, $sp-1);
-				$args = str_getcsv(substr($buffer, $sp+1), ';');
-			}
-				
-			$w = process_cmd($to, $data, $cmd, $args);
+		if ($cmd->is_command) {
+			$w = process_cmd($to, $data, $cmd->command, $cmd->params);
 			if (!($w===true))
 				echo $w;
 		} else {

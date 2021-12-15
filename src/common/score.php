@@ -7,6 +7,7 @@
 
 include '../common/progress.php';
 include '../common/process_cmd.php';
+include '../common/cmdparse.php';
 
 class tagNul
 {
@@ -45,8 +46,7 @@ EOT;
 	$to = new tagNul;
 	
 	$data = new Data;
-	
-	
+
 	$curr = "";
 	$bnum = 0;
 	$maxseg = 0;
@@ -56,60 +56,33 @@ EOT;
 		++$data->lineno;
 		$buffer = fgets($styr, 4096); // or break;
 		if (!$buffer) break;
-		$buffer = trim($buffer);
-		$len = strlen($buffer);
-		if ($len == 0) continue;
-		if ($buffer[0] == '#') continue;
-		if ($buffer[0] == '!') {
-			$p = strpos($buffer, ' ');
-			if (!$p) continue;
-			$cmd = substr($buffer, 1, $p-2);
-			$rest = substr($buffer, $p+1);
-			
-			$s = substr($buffer, 1);
-			$e = explode(' ', $s);
-			if ($e[0] == 'batt') {
-				$bnum = $e[1];
+		$cmd = cmdparse($buffer);
+		if ($cmd->is_empty) continue;
+		if ($cmd->is_command) {
+			if ($cmd->command == 'batt') {
+				$bnum = (int)$cmd->rest;
 				continue;
 			}
-			if ($e[0] == 'max') {
-				$maxseg = (int)$e[1];
+			if ($cmd->command == 'max') {
+				$maxseg = (int)$cmd->rest;
 				continue;
 			}
 		}
 
-		if ( ($buffer[0] == '[') && ($buffer[$len-1] == ']') ) {
-			$curr = substr($buffer, 1, $len-2);
+		if ($cmd->is_segment) {
+			$curr = $cmd->segment;
 			continue;
 		}
 		
 		if ($curr != $seg) continue;
 
-		if ($buffer[0] == '!') {
-			
-			$sp = strpos($buffer, ' ');
-			$cmd = '';
-			$args = [];
-			if (!$sp) {
-				$cmd = substr($buffer, 1);
-			} else {
-				$cmd = substr($buffer, 1, $sp-1);
-				$args = str_getcsv(substr($buffer, $sp+1), ';');
-			}
-				
-			$w = process_cmd($to, $data, $cmd, $args);
+		if ($cmd->is_command) {
+			$w = process_cmd($to, $data, $cmd->command, $cmd->params);
 			if (!($w===true))
 				echo $w;
 		}
 	}
 
-	//				if ($valnum > 0) {
-	//					if ($s3[0] == '_') {
-	//						if (getparam($qnum) == $valnum)
-	//							$totscore += 1;
-	//					}
-	//				}
-	
 	$qnum = count($data->corr);
 	for ($i=1; $i<=$qnum; ++$i)
 	{
@@ -117,67 +90,37 @@ EOT;
 			++$totscore;
 	}
 
+	$ok = ($totscore == $qnum);
 
-	$ok = true;
-	//echo '<table><tr><td> <img width=50% height=50% src="../common/';
-	if ($totscore == $qnum) {
-		//echo "corr";
-	} else {
-		//echo "err";
-		$ok = false;
-	}
-	//echo '.png" > </td> <td> Po&auml;ng : ' . $totscore . ' / ' . $qnum . '</td></tr>' . $eol;
-	//echo '<td> <img width=50% height=50% src="../common/';
 	$dintid = ((getparam('timestop')-getparam('timestart')) / 1000.0);
 	$dintid = ((int)($dintid*10)) / 10.0;
 	$maxt = getparam('timemax');
-	if ($dintid < $maxt) {
-		//echo "corr";
-	} else {
-		//echo "err";
+	if ($dintid > $maxt) {
 		$ok = false;
 	}
-	//echo '.png" > </td> <td> Tid : ' . $dintid . ' / ' . $maxt . '</td></tr>' . $eol;
-	//echo '</table>' . $eol;
 
 	$dbtext = "db-operation not performed";
 
 	if ($ok) {
-		
 		$dbtext = "db-operation failed";
-		
 		$pnr = getparam('pnr');
-
 		$query = "SELECT * FROM pers WHERE pnr='" . $pnr . "'";
-		//echo "trying : <br /> <code>\n" . $query . "\n</code><br />\n";
+		$dbtext = "db-operation >>" . $query . "<< failed.\n";
 		$res = mysqli_query($emperator, $query);
-
 		if ($row = mysqli_fetch_array($res)) {
-
 			$query = "INSERT INTO data (pers, type, value_a, value_b) VALUES (" . $row['pers_id'] . ", 2, " . $bnum . ", " . $snum . ");";
-			//echo "trying : <br /> <code>\n" . $query . "\n</code><br />\n";
+			$dbtext = "db-operation >>" . $query . "<< failed.\n";
 			$res = mysqli_query($emperator, $query);
 			if ($res) {
-				//echo '<br>registrerat i databasen<br><br>' . $eol;
 				$query = 'UPDATE data SET value_a = value_a + 5 WHERE pers=' . $row['pers_id'] . ' AND type=4';
-				//echo "trying : <br /> <code>\n" . $query . "\n</code><br />\n";
+				$dbtext = "db-operation >>" . $query . "<< failed.\n";
 				$res = mysqli_query($emperator, $query);
 				if ($res) {
-					//echo "all ok <br>\n";
-					$dbtext = "db-operation succeeded";
+					$dbtext = "all db-operations succeeded";
 				}
 			}
 		}
-
-		//if ($snum >= $maxseg)
-		//	echo '<a href="' . '../common/personal.php?pnr=' . $pnr . '"> <button> next </button> </a>' . $eol;
-		//else
-		//	echo '<a href="' . 'index.php?pnr=' . $pnr . '&seg=' . ($snum+1) . '"> <button> next </button> </a>' . $eol;
-	} else {
-		//echo '<a href="' . 'index.php?pnr=' . $pnr . '&seg=' . ($snum) . '"> <button> igen </button> </a>' . $eol;
 	}
-
-	//echo '<hr>' . $eol;
 
 	$active = $ok ? "pass" : "fail";
 
@@ -188,37 +131,21 @@ EOT;
 		while (true) {
 			$buffer = fgets($mellan, 4096);
 			if (!$buffer) break;
-			$buffer = trim($buffer);
-			$len = strlen($buffer);
-			if ($len == 0) {
-				if ($curr == $active)
+			$cmd = cmdparse($buffer);
+			if ($cmd->is_empty) {
+				if (($curr == $active) && !$cmd->is_comment)
 					echo '<br>' . $eol;
 				continue;
 			}
-			if ($buffer[0] == '#') {
-				continue;
-			}
-			if ($buffer[0] == '[') {
-				$curr = substr($buffer, 1, $len-2);
+			if ($cmd->is_segment) {
+				$curr = $cmd->segment;
 				continue;
 			}
 			if ($curr != $active)
 				continue;
 				
-			if ($buffer[0] == '!') {
-				$buffer = substr($buffer, 1);
-				$pos = strpos($buffer, ' ');
-				$cmd = '';
-				$rest = '';
-				$expl = [];
-				if ($pos) {
-					$cmd = substr($buffer, 0, $pos);
-					$rest = substr($buffer, $pos+1);
-					$expl = str_getcsv($rest, ';');
-				} else {
-					$cmd = $buffer;
-				}
-				switch ($cmd) {
+			if ($cmd->is_command) {
+				switch ($cmd->command) {
 					case "logo":
 						echo '<img width=90% src="logo.png"> <br>' . $eol;
 						break;
@@ -234,7 +161,7 @@ EOT;
 						break;
 						
 					case 'text':
-						echo $rest . ' <br/> ' . $eol;
+						echo $cmd->rest . ' <br/> ' . $eol;
 						break;
 	
 					case "prog":
@@ -259,21 +186,21 @@ EOT;
 						break;
 					case "next":
 						if ($snum >= $maxseg)
-							echo '<a href="' . '../common/personal.php?pnr=' . $pnr . '"> <button> ' . $expl[0] . ' </button> </a>' . $eol;
+							echo '<a href="' . '../common/personal.php?pnr=' . $pnr . '"> <button> ' . $cmd->rest . ' </button> </a>' . $eol;
 						else
-							echo '<a href="' . 'index.php?pnr=' . $pnr . '&seg=' . ($snum+1) . '"> <button> ' . $expl[0] . ' </button> </a>' . $eol;
+							echo '<a href="' . 'index.php?pnr=' . $pnr . '&seg=' . ($snum+1) . '"> <button> ' . $cmd->rest . ' </button> </a>' . $eol;
 						break;
 					case "again":
-						echo '<a href="' . 'index.php?pnr=' . $pnr . '&seg=' . ($snum) . '"> <button> ' . $expl[0] . ' </button> </a>' . $eol;
+						echo '<a href="' . 'index.php?pnr=' . $pnr . '&seg=' . ($snum) . '"> <button> ' . $cmd->rest . ' </button> </a>' . $eol;
 						break;
 					case "dbmsg":
 						echo $dbtext . ' <br>' . $eol;
 						break;
 					case "image":
-						if (count($expl) == 1)
-							echo '<img src="../' . $expl[0] . '"> <br>' . $eol;
+						if (count($cmd->params) == 1)
+							echo '<img src="../' . $cmd->params[0] . '"> <br>' . $eol;
 						else 
-							echo '<img width="' . $expl[0] . '%" src="../' . $expl[1] . '"> <br>' . $eol;
+							echo '<img width="' . $cmd->params[0] . '%" src="../' . $cmd->params[1] . '"> <br>' . $eol;
 						break;
 				}
 				
