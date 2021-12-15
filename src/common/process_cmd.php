@@ -56,7 +56,6 @@ function process_cmd($to, $data, $cmd, $args)
 				$to->regLine('<iframe src="' . $args[0] . '" /> </iframe> <br />');	
 			} 
 			break;
-			
 		case 'begin':
 			$data->inq = true;
 			if (count($args) != 4) {
