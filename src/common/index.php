@@ -38,21 +38,59 @@ function index($styr, $local, $common)
 
 	echo '</head>' . $eol;
 	$to->startTag('body');
+	
+	{
+		$side = fopen("kant.txt", "r") or die("Unable to open file!");
 
-	$to->startTag('div', 'class="sidenav"');
+		$to->startTag('div', 'class="sidenav"');
+		$to->startTag('div', 'class="indent"');
+		
+		while (true) {
+			$buffer = fgets($side, 4096); // or break;
+			if (!$buffer) break;
+			$cmd = cmdparse($buffer);
+			if ($cmd->is_command) {
+				switch ($cmd->command) {
+					case 'text':
+						$to->regLine($cmd->rest);
+						break;
+					case 'line':
+						$to->regLine('<hr color="' . $cmd->rest . '" />');
+						break;
+					case 'image':
+						if (count($cmd->params)>1) {
+							$to->regLine('<img width=' . $cmd->params[0] . '%  src="' . $cmd->params[1] . '" /> <br />');
+						} else {
+							$to->regLine('<img src="' . $cmd->params[0] . '" /> <br />');				
+						}
+						break;
+					case 'name':
+						$to->regLine($prow['name']);
+						break;
+					case 'coin':
+						$to->regLine($mynt . ' mynt.');
+						break;
+					case 'seg':
+						$to->regLine('segment ' . $data->snum);
+						break;
+					case 'time':
+						$to->startTag('div', 'class="indent" id="TimerDisplay"');
+						$to->stopTag('div');
+						break;
+					case 'break':
+						$n = (int)$cmd->rest;
+						for ($i=0; $i<$n; ++$i)
+							$to->regLine('<br />');
+						break;
+				}
+			}
+		}
 
-	$to->startTag('div', 'class="indent"');
-	$to->regLine($prow['name']);
-	$to->regLine('<br /> <br />');
-	$to->regLine($mynt . ' mynt.');
-	$to->stopTag('div');
-	$to->regLine('<br /> <br />');
+		$to->stopTag('div');
+		$to->stopTag('div');
 
-	$to->startTag('div', 'class="indent" id="TimerDisplay"');
-	$to->stopTag('div');
-	$to->regLine('<br /> <br />');
-
-	$to->stopTag('div');
+		fclose($side);
+	}
 
 	$to->startTag('div', 'class="main"');
 

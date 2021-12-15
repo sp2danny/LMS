@@ -1,0 +1,29 @@
+#
+# teckenförklaring:
+#
+# !text
+#	skriv ut text
+# !line color
+#	hor linje
+# !break nr
+#	antal blankrader
+# !image size; image
+#	bild
+# !coin
+#	visa mynt
+# !name
+#	visa namn
+# !prog
+#	visa progress
+# !seg
+#	visa segment
+# !time
+#	timer display
+
+!text detta är en text som ska visas upp
+!seg
+!name
+!coin
+!prog
+
+!time

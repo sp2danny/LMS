@@ -1,4 +1,9 @@
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../common/main-v01.css">
+
 <?php
 
 // <?
@@ -199,9 +204,9 @@ EOT;
 						break;
 					case "image":
 						if (count($cmd->params) == 1)
-							echo '<img src="../' . $cmd->params[0] . '"> <br>' . $eol;
+							echo '<img src="' . $cmd->params[0] . '"> <br>' . $eol;
 						else 
-							echo '<img width="' . $cmd->params[0] . '%" src="../' . $cmd->params[1] . '"> <br>' . $eol;
+							echo '<img width="' . $cmd->params[0] . '%" src="' . $cmd->params[1] . '"> <br>' . $eol;
 						break;
 				}
 				

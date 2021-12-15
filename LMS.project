@@ -33,6 +33,7 @@
     <File Name="src/next.php"/>
     <File Name="src/login.php"/>
     <VirtualDirectory Name="batt-1.1">
+      <File Name="src/batt-1.1/kant.txt"/>
       <File Name="src/batt-1.1/local.css"/>
       <File Name="src/batt-1.1/score.php"/>
       <File Name="src/batt-1.1/styr.txt"/>
