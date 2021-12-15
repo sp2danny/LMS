@@ -4,7 +4,9 @@
     <File Name="ftp.txt"/>
   </VirtualDirectory>
   <VirtualDirectory Name="src">
+    <File Name="src/mellan.txt"/>
     <VirtualDirectory Name="common">
+      <File Name="src/common/process_cmd.php"/>
       <File Name="src/common/progress.php"/>
       <File Name="src/common/utbsel.php"/>
       <File Name="src/common/tagOut.php"/>

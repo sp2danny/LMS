@@ -5,143 +5,7 @@
 // include 'tagOut.php';
 // include 'connect.php';
 
-class Data
-{
-	public $qnum = 0;
-	public $snum = 0;
-	public $pnr = '';
-	public $corr = [];
-	public $lineno = 0;
-}
-
-function process_cmd($to, $data, $cmd, $args)
-{
-	$eol = "\n";
-
-	switch ($cmd)
-	{
-		case 'text':
-			$to->regLine($args[0]);
-			break;
-		case 'sound':
-			$to->startTag('audio', 'controls');
-			$to->regLine('<source src="' . $args[0] . '" type="audio/mp3">');
-			$to->stopTag('audio');
-			break;
-		case 'header':
-			$to->regLine('<h1>' . $args[0] . '</h1>');
-			break;
-		case 'line':
-			$to->regLine('<hr color="' . $args[0] . '" />');
-			break;
-		case 'break';
-			$ss = '';
-			for ($i=0; $i<$args[0]; ++$i)
-				$ss = $ss . '<br /> ';
-			$to->regLine($ss);
-			break;
-		case 'image':
-			if (count($args)>1) {
-				$to->regLine('<img width=' . $args[0] . '%  src="' . $args[1] . '" /> <br />');
-			} else {
-				$to->regLine('<img src="' . $args[0] . '" /> <br />');				
-			}
-			break;
-		case 'begin':
-		
-			if (count($args) != 4) {
-				echo ' *** WARNING *** <br />' . $eol;
-				echo ' malformed "begin" command on line ' . $data->lineno . ', needs 4 parameters <br />' . $eol;
-				echo ' *** WARNING *** <br />' . $eol;
-				$args = explode(',', 'Starta, score.php, 130, lugn.mp3');
-			}
-			$to->regLine('<button id="StartBtn" onclick="doShow()"> ' . trim($args[0]) . ' </button> <br />');
-			$to->startTag('div', 'id="QueryBox" style="display:none;"');
-			$to->regLine('<audio id="AudioBox" preload loop> <source src="' . trim($args[3]) . '" type="audio/mp3"></audio>');
-			$to->startTag('form', 'action="' . trim($args[1]) . '" method="GET"');
-			$to->scTag('input', 'type="hidden" value="' . $data->snum . '" id="seg" name="seg"');
-			$to->scTag('input', 'type="hidden" value="' . $data->pnr . '" id="pnr" name="pnr"');
-			$to->scTag('input', 'type="hidden" value="" id="TimeStart" name="timestart"');
-			$to->scTag('input', 'type="hidden" value="" id="TimeStop" name="timestop"');
-			$to->scTag('input', 'type="hidden" value="' . trim($args[2]) . '" id="TimeMax" name="timemax"');
-			$to->scTag('input', 'type="hidden" value="0" id="Score" name="score"');
-			$to->startTag('table');
-			break;
-		case 'video':
-			$to->regLine('<iframe width="1280" height="720" src="https://player.vimeo.com/video/' . $args[0] . '"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>');
-			break;
-		case 'query':
-			$data->qnum++;
-			$valnum = 0;
-			
-			$to->regLine('<tr height="25px"> <td colspan="2"> <B>' . $args[0] . ' </B> </td> </tr>');
-			$to->startTag('tr height="45px"');
-			$to->regLine('<td width="45px" > <img id="' . 'QI-' . $data->qnum . '" src="../common/blank.png" /> </td>');
-			$to->startTag('td');
-			
-			$n = count($args);
-			for ($i=1; $i<$n; ++$i) {
-				$ss = trim($args[$i]);
-				if ($ss && $ss[0] == '_') {
-					$ss = substr($ss, 1);
-					$data->corr[$data->qnum] = $valnum;
-				}
-				if ($valnum > 1) $to->regLine('<br />');
-				$to->regLine('<input type="radio" id="' . 'QR-' . $data->qnum . '" name="' . $data->qnum . '" value="' . $valnum . '" />' . $ss . '');
-				$valnum++;
-			}
-			$to->stopTag('td');
-			$to->stopTag('tr');
-			$to->regLine('<tr><td> &nbsp; </td></tr>');
-			break;
-			
-		case 'submit':
-			// submit
-			// Rätta, Klar
-			if (count($args) != 2) {
-				echo ' *** WARNING *** <br />' . $eol;
-				echo ' malformed "s" command on line ' . $data->lineno . ', needs 2 parameters <br />' . $eol;
-				echo ' *** WARNING *** <br />' . $eol;
-				$args = explode(',', 'Rätta, Klar');
-			}
-
-			$to->stopTag('table');
-			$to->startTag('script');
-			$to->regLine('function doCorr() {' );
-			$to->regLine('  document.getElementById("TimeStop").value = (new Date()).getTime().toString();');
-			$to->regLine('  var scr = 0;');
-			for ($idx = 1; $idx <= $data->qnum; ++$idx) {
-				$to->regLine('  if( corr1(' . $idx . ', ' . $data->corr[$idx] . ')) scr += 1;');
-			}
-			$to->regLine('  document.getElementById("SubmitBtn").style.display = "block";');
-			$to->regLine('  document.getElementById("CorrBtn").style.display = "none";');
-			$to->regLine('  document.getElementById("Score").value = scr.toString();');
-
-			$to->regLine('}');
-			$to->stopTag('script');
-
-			$to->regLine('<input id="SubmitBtn" type="submit" value="' . $args[1] . '" style="display:none;" /> <br />');
-			$to->stopTag('form');
-			$to->regLine('<button  id="CorrBtn" onclick="doCorr()">' . $args[0] . '</button> <br />');
-			$to->stopTag('div');
-			
-			break;
-			
-		case 'next':
-			// next
-			$to->startTag('button', 'onclick="location.href=' . "'" . 'index.php?seg=' . ($snum+1) . "'" . '" type="button"');
-			$to->regLine($args[0]);
-			$to->stopTag('button');
-			break;
-			
-		default:
-			echo ' *** WARNING *** <br />' . $eol;
-			echo ' unrecognized command : "' . htmlspecialchars($cmd) . '" on line ' . $data->lineno . ' <br />' . $eol;
-			echo ' *** WARNING *** <br />' . $eol;
-	}
-	
-}
-
+include 'process_cmd.php';
 
 function index($styr, $local, $common)
 {
@@ -237,7 +101,9 @@ function index($styr, $local, $common)
 				$args = str_getcsv(substr($buffer, $sp+1), ';');
 			}
 				
-			process_cmd($to, $data, $cmd, $args);
+			$w = process_cmd($to, $data, $cmd, $args);
+			if (!($w===true))
+				echo $w;
 		} else {
 			$to->regLine($buffer);
 		}

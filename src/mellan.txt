@@ -1,6 +1,8 @@
 
 [pass]
 
+!text PASS
+
 !score
 !time
 
@@ -9,6 +11,8 @@
 !next "Nästa"
 
 [fail]
+
+!text FAIL
 
 !score
 !time

@@ -5,8 +5,16 @@
 
 <?php
 
-include 'progress.php';
+include '../common/progress.php';
+include '../common/process_cmd.php';
 
+class tagNul
+{
+	public function startTag ($tag, $attr = '') {}
+	public function stopTag  ($tag)             {}
+	public function scTag    ($tag, $attr = '') {}
+	public function regLine  ($line)            {}
+}
 
 function score($styr, $local, $common)
 {
@@ -33,14 +41,19 @@ EOT;
 	$eol = "\n";
 
 	$totscore = 0;
-
+	
+	$to = new tagNul;
+	
+	$data = new Data;
+	
+	
 	$curr = "";
 	$bnum = 0;
-	$max = 0;
 	$maxseg = 0;
+	$curr = '';
 
 	while (true) {
-
+		++$data->lineno;
 		$buffer = fgets($styr, 4096); // or break;
 		if (!$buffer) break;
 		$buffer = trim($buffer);
@@ -48,51 +61,62 @@ EOT;
 		if ($len == 0) continue;
 		if ($buffer[0] == '#') continue;
 		if ($buffer[0] == '!') {
+			$p = strpos($buffer, ' ');
+			if (!$p) continue;
+			$cmd = substr($buffer, 1, $p-2);
+			$rest = substr($buffer, $p+1);
+			
 			$s = substr($buffer, 1);
 			$e = explode(' ', $s);
 			if ($e[0] == 'batt') {
 				$bnum = $e[1];
+				continue;
 			}
 			if ($e[0] == 'max') {
 				$maxseg = (int)$e[1];
+				continue;
 			}
-			continue;
 		}
 
 		if ( ($buffer[0] == '[') && ($buffer[$len-1] == ']') ) {
-			$curr = substr( $buffer, 1, $len-2 );
+			$curr = substr($buffer, 1, $len-2);
 			continue;
 		}
+		
+		if ($curr != $seg) continue;
 
-		if ($curr == $seg) {
-			$s1 = substr( $buffer, 0, 2 );
-			$s2 = substr( $buffer, 2 );
-			if ($s1 == 'q=') {
-				$qnum++;
-				$max++;
-				$valnum = 0;
-				$s3 = '';
-				while (true) {
-					$p = strpos($s2, ',');
-					if ($p) {
-						$s3 = trim(substr($s2, 0, $p));
-						$s2 = trim(substr($s2, $p+1));
-					} else {
-						$s3 = trim($s2);
-						$s2 = '';
-					}
-					if ($valnum > 0) {
-						if ($s3[0] == '_') {
-							if (getparam($qnum) == $valnum)
-								$totscore += 1;
-						}
-					}
-					if (!$p) break;
-					$valnum++;
-				}
+		if ($buffer[0] == '!') {
+			
+			$sp = strpos($buffer, ' ');
+			$cmd = '';
+			$args = [];
+			if (!$sp) {
+				$cmd = substr($buffer, 1);
+			} else {
+				$cmd = substr($buffer, 1, $sp-1);
+				$args = str_getcsv(substr($buffer, $sp+1), ';');
 			}
+				
+			$w = process_cmd($to, $data, $cmd, $args);
+			if (!($w===true))
+				echo $w;
 		}
 	}
+
+	//				if ($valnum > 0) {
+	//					if ($s3[0] == '_') {
+	//						if (getparam($qnum) == $valnum)
+	//							$totscore += 1;
+	//					}
+	//				}
+	
+	$qnum = count($data->corr);
+	for ($i=1; $i<=$qnum; ++$i)
+	{
+		if (getparam($i) == $data->corr[$i])
+			++$totscore;
+	}
+
 
 	$ok = true;
 	//echo '<table><tr><td> <img width=50% height=50% src="../common/';
@@ -184,9 +208,16 @@ EOT;
 			if ($buffer[0] == '!') {
 				$buffer = substr($buffer, 1);
 				$pos = strpos($buffer, ' ');
-				$cmd = substr($buffer, 0, $pos);
-				$rest = substr($buffer, $pos+1);
-				$expl = str_getcsv($rest, ';');
+				$cmd = '';
+				$rest = '';
+				$expl = [];
+				if ($pos) {
+					$cmd = substr($buffer, 0, $pos);
+					$rest = substr($buffer, $pos+1);
+					$expl = str_getcsv($rest, ';');
+				} else {
+					$cmd = $buffer;
+				}
 				switch ($cmd) {
 					case "logo":
 						echo '<img width=90% src="logo.png"> <br>' . $eol;
@@ -201,6 +232,11 @@ EOT;
 						echo '.png" > </td> <td> Po&auml;ng : ' . $totscore . ' / ' . $qnum . '</td></tr>' . $eol;
 						echo '</table>' . $eol;
 						break;
+						
+					case 'text':
+						echo $rest . ' <br/> ' . $eol;
+						break;
+	
 					case "prog":
 						// TODO here
 						$pro = progress($bnum, $maxseg);
