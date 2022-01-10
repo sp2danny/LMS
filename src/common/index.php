@@ -3,6 +3,7 @@
 
 include 'process_cmd.php';
 include 'cmdparse.php';
+include 'progress.php';
 
 function index($styr, $local, $common)
 {
@@ -121,9 +122,12 @@ function index($styr, $local, $common)
 							$to->regLine('<br />');
 						break;
 					case 'prog':
+						$pro = (int)progress($data->snum, $maxseg);
+						if ($pro<0) $pro = 0;
+						if ($pro>100) $pro = 100;
 						$to->regLine('<canvas id="myCanvas" width="200" height="120" ></canvas>');
 						$to->regLine('<script>');
-						$to->regLine('var pro = ' . 80 . ';');
+						$to->regLine('var pro = ' . $pro . ';');
 						$to->regLine('var canvas = document.getElementById("myCanvas");');
 						$to->regLine('var ctx = canvas.getContext("2d");');
 						$to->regLine('ctx.fillStyle = "#F2F3F7";');
