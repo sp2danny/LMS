@@ -1,4 +1,6 @@
 
+<!-- inlude score.php -->
+
 <?php
 
 include '../common/head.php';
@@ -16,9 +18,9 @@ score($styr, $local, $common);
 
 fclose($styr);
 
+echo '</body></html>';
+
 ?> 
 
 
-</body>
-</html>
 

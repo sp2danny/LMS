@@ -1,4 +1,6 @@
 
+<!-- inlude index.php -->
+
 <?php
 
 include 'process_cmd.php';
@@ -29,7 +31,7 @@ function index($styr, $local, $common)
 	} else {
 		$prow = mysqli_fetch_array($res);
 		
-		if (!prow) {
+		if (!$prow) {
 			$to->regLine('DB Error');
 		} else {
 			$query = 'SELECT * FROM data WHERE pers=' . $prow['pers_id'] . ' AND type=4';
@@ -128,6 +130,9 @@ function index($styr, $local, $common)
 						$n = (int)$cmd->rest;
 						for ($i=0; $i<$n; ++$i)
 							$to->regLine('<br />');
+						break;
+					case 'sound':
+					
 						break;
 					case 'prog':
 						$pro = (int)progress($data->snum, $maxseg);

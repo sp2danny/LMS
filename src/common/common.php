@@ -1,4 +1,6 @@
 
+<!-- inlude common.php -->
+
 <script>
 function corr1(idnum, corrval) {
   var elem = document.getElementById('QI-' + idnum);

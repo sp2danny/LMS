@@ -1,4 +1,6 @@
 
+<!-- inlude cmdparse.php -->
+
 <?php
 
 class Cmd

@@ -1,4 +1,6 @@
 
+<!-- inlude progress.php -->
+
 <?php
 
 function progress($num, $tot)

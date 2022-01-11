@@ -1,8 +1,11 @@
 
+<!-- inlude score.php -->
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="../common/main-v01.css">
+
 
 <?php
 
@@ -34,6 +37,9 @@ function score($styr, $local, $common)
 </style>
 </head> <body>
 EOT;
+
+	//<style> audio {display:none;} </style>
+
 
 	global $emperator;
 
@@ -105,7 +111,7 @@ EOT;
 		$ok = false;
 	}
 
-	$dbtext = "db-operation not performed";
+	$dbtext = "db-operation was not performed";
 
 	if ($ok) {
 		$dbtext = "db-operation failed";
@@ -206,7 +212,22 @@ EOT;
 						if (count($cmd->params) == 1)
 							echo '<img src="' . $cmd->params[0] . '"> <br>' . $eol;
 						else 
-							echo '<img width="' . $cmd->params[0] . '%" src="' . $cmd->params[1] . '"> <br>' . $eol;
+							echo '<img width="' . $cmd->params[0] . '%" src="' . trim($cmd->params[1]) . '"> <br>' . $eol;
+						break;
+					case 'break':
+						$n = (int)$cmd->rest;
+						for ($i=0; $i<$n; ++$i)
+							echo '<br />';
+						echo $eol;
+						break;
+					case 'sound':
+						echo '<audio id="audiocontrol" autoplay="true" preload src="' . $cmd->params[0] . '" > </audio>' . $eol;
+						echo '<script>' . $eol;
+						echo '  setTimeout(function() {' . $eol;
+						echo '    var au = document.getElementById("audiocontrol");' . $eol;
+						echo '    au.play();' . $eol;
+						echo '  }, 250)' . $eol;
+						echo '</script>' . $eol;
 						break;
 				}
 				
@@ -223,6 +244,4 @@ EOT;
 
 ?> 
 
-</body>
-</html>
 
