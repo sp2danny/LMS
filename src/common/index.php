@@ -22,14 +22,22 @@ function index($styr, $local, $common)
 	$query = "SELECT * FROM pers WHERE pnr='" . $data->pnr . "'";
 
 	$res = mysqli_query($emperator, $query);
-	$prow = mysqli_fetch_array($res);
-
-	$query = 'SELECT * FROM data WHERE pers=' . $prow['pers_id'] . ' AND type=4';
-
-	$res = mysqli_query($emperator, $query);
 	$mynt = 0;
-	if ($row = mysqli_fetch_array($res))
-		$mynt = $row['value_a'];
+	if (!$res)
+	{
+		$to->regLine('DB Error');
+	} else {
+		$prow = mysqli_fetch_array($res);
+		
+		if (!prow) {
+			$to->regLine('DB Error');
+		} else {
+			$query = 'SELECT * FROM data WHERE pers=' . $prow['pers_id'] . ' AND type=4';
+			$res = mysqli_query($emperator, $query);
+			if ($row = mysqli_fetch_array($res))
+				$mynt = $row['value_a'];
+		}
+	}
 
 	$name = getparam("name");
 
@@ -126,7 +134,7 @@ function index($styr, $local, $common)
 						if ($pro<0) $pro = 0;
 						if ($pro>100) $pro = 100;
 						$to->regLine('<canvas id="myCanvas" width="200" height="120" ></canvas>');
-						$to->regLine('<script>');
+						$to->startTag('script');
 						$to->regLine('var pro = ' . $pro . ';');
 						$to->regLine('var canvas = document.getElementById("myCanvas");');
 						$to->regLine('var ctx = canvas.getContext("2d");');
@@ -154,7 +162,7 @@ function index($styr, $local, $common)
 						$to->regLine('ctx.textAlign = "center"; ');
 						$to->regLine('ctx.fillText( pro.toString() + " %", 100, 98); ');
 						$to->regLine('ctx.strokeText( pro.toString() + " %", 100, 98); ');
-						$to->regLine('</script>');
+						$to->stopTag('script');
 						break;
 				}
 			}
