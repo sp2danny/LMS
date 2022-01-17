@@ -1,5 +1,4 @@
 
-
 <?php
 
 include 'head.php';
@@ -163,9 +162,7 @@ echo <<<EOT
 <div class="xbody">
 <br /><br /><br /><br /><br /><br />
 
-
 EOT;
-
 
 $logtxt = fopen("login.txt", "r");
 if ($logtxt)
@@ -198,6 +195,9 @@ if ($logtxt)
 				case "newlink":
 					echo '<br><br><a href="nypers.php"> ' . $expl[1] . '</a><br>' . $eol;
 					break;
+				case "link":
+					echo '<br><a href="' . $expl[1] . '"> ' . $expl[2] . '</a><br>' . $eol;
+					break;
 				case "motd":
 					$n = count($dagens);
 					if ($n > 0) {
@@ -221,29 +221,6 @@ if ($logtxt)
 		}
 	}
 }
-
-// 
-// echo '<img width=30%  src="logo.png"> <br>' . $eol;
-// 
-// echo '<form action="' . 'personal.php' . '" method="GET">' . $eol;
-// 
-// echo '<br><br><label for="pnr">Personnummer:</label>' . $eol;
-// echo '<input type="text" id="pnr" name="pnr"><br><br>' . $eol;
-// 
-// echo '<input type="submit" value="' . 'Starta' . '">' . $eol;
-// 
-// echo '</form>' . $eol;
-// 
-// echo '<br><br><a href="nypers.php"> Ny anv&auml;ndare: Registrera dig h&auml;r </a><br>' . $eol;
-// 
-// $n = count($dagens);
-// if ($n > 0) {
-// 	$i = rand(0, $n-1);
-// 	echo '<br /><br />' . $eol;
-// 	echo '<center>' . $dagens[$i] . '</center>' . $eol;
-// }
-// 
-
 
 ?> 
 

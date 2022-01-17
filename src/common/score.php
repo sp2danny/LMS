@@ -136,7 +136,9 @@ EOT;
 
 	$active = $ok ? "pass" : "fail";
 
-	$mellan = fopen("../mellan.txt", "r");
+	$mellan = fopen("mellan.txt", "r");
+	if (!$mellan)
+		$mellan = fopen("../mellan.txt", "r");
 	if ($mellan)
 	{
 		$curr = "none";
