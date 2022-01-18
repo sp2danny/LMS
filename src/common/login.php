@@ -5,6 +5,8 @@ include 'head.php';
 
 include 'common.php';
 
+include 'cmdparse.php';
+
 $eol = "\n";
 
 echo <<<EOT
@@ -176,27 +178,27 @@ if ($logtxt)
 			echo '<br>' . $eol;
 			continue;
 		}
-		if ($buffer[0] == '!') {
-			$buffer = substr($buffer, 1);
-			$expl = str_getcsv($buffer, ' ');
-			switch ($expl[0]) {
+		if (!$buffer) break;
+		$cmd = cmdparse($buffer);
+		if ($cmd->is_command) {
+			switch ($cmd->command) {
 				case "logo":
 					echo '<img width=70% src="logo.png"> <br>' . $eol;
 					break;
 				case "login":
 					echo '<form action="' . 'personal.php' . '" method="GET">' . $eol;
-					echo '<br><br><label for="pnr">' . $expl[1] . '</label>' . $eol;
+					echo '<br><br><label for="pnr">' . $cmd->params[0] . '</label>' . $eol;
 					echo '<input type="text" id="pnr" name="pnr"><br>' . $eol;
 					break;
 				case "start":
-					echo '<input type="submit" value="' . $expl[1] . '">' . $eol;
+					echo '<input type="submit" value="' . $cmd->params[0] . '">' . $eol;
 					echo '</form>' . $eol;
 					break;
 				case "newlink":
-					echo '<br><br><a href="nypers.php"> ' . $expl[1] . '</a><br>' . $eol;
+					echo '<br><br><a href="nypers.php"> ' . $cmd->params[0] . '</a><br>' . $eol;
 					break;
 				case "link":
-					echo '<br><a href="' . $expl[1] . '"> ' . $expl[2] . '</a><br>' . $eol;
+					echo '<br><a href="' . $cmd->params[0] . '"> ' . $cmd->params[1] . '</a><br>' . $eol;
 					break;
 				case "motd":
 					$n = count($dagens);
@@ -207,11 +209,10 @@ if ($logtxt)
 					}
 					break;
 				case "image":
-					$expl = explode(",", $expl[1]);
-					if (count($expl) == 1)
-						echo '<img src="../' . $expl[0] . '"> <br>' . $eol;
+					if (count($cmd->params) == 1)
+						echo '<img src="../' . $cmd->params[0] . '"> <br>' . $eol;
 					else 
-						echo '<img width="' . $expl[0] . '%" src="../' . $expl[1] . '"> <br>' . $eol;
+						echo '<img width="' . $cmd->params[0] . '%" src="../' . $cmd->params[1] . '"> <br>' . $eol;
 					break;
 			}
 			
