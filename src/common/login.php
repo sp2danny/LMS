@@ -164,9 +164,11 @@ echo <<<EOT
 <div class="xbody">
 <br /><br /><br /><br /><br /><br />
 
-EOT;
+EOT; 
 
-$logtxt = fopen("login.txt", "r");
+$logtxt = @fopen("login.txt", "r");
+if (!$logtxt)
+	$logtxt = fopen("../login.txt", "r");
 if ($logtxt)
 {
 	while (true) {
