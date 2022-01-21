@@ -1,5 +1,5 @@
 
-<!-- inlude index.php -->
+<!-- inlude one_post.php -->
 
 <?php
 
@@ -88,6 +88,11 @@ function index($styr, $local, $common)
 	$to->regLine('function doOne() {');
 	$to->regLine('  window.location.replace("index.php?seg=' . $data->snum . '&pnr=' . $data->pnr . '&pid=' . $pid . '&name=' . $name . '&atq=1");');
 	$to->regLine('}');
+	$to->regLine('function setA(i) {');
+	$to->regLine('  document.getElementById("q' . $atq . '").value = i;');
+	$to->regLine('  document.submit();');
+	$to->regLine('}');
+
 	$to->stopTag('script');
 
 
@@ -214,6 +219,7 @@ function index($styr, $local, $common)
 		$to->scTag('input', 'type="hidden" value="' . $data->pnr  . '" id="pnr"  name="pnr"' );
 		$to->scTag('input', 'type="hidden" value="' . $pid        . '" id="pid"  name="pid"' );
 		$to->scTag('input', 'type="hidden" value="' . $name       . '" id="name" name="name"');
+		$to->scTag('input', 'type="hidden" value="' . ($atq+1)    . '" id="atq"  name="atq"' );
 
 		if ($atq > 1) {
 			for ($ii=1; $ii<$atq; ++$ii) {
@@ -222,6 +228,39 @@ function index($styr, $local, $common)
 				$to->scTag('input', 'type="hidden" value="' . $qq . '" id="' . $qn . '" name="' . $qn . '"');
 			}
 		}
+		
+		$to->scTag('input', 'type="hidden" value="' . -1 . '" id="q' . $atq . '" name="q' . $atq . '"');
+		
+		$qi = 0;
+		$qcmd = (object)[];
+		foreach ($cmdlst as $value) {
+			if ($value->is_command) {
+				if ($value->command == 'query') {
+					++$qi;
+					if ($qi == $atq) {
+						$qcmd = $value;
+						break;
+					}
+				}
+			}
+		}
+		
+		$n = count($qcmd->params);
+		
+		$to->regLine('<h1> ' . $qcmd->params[0] . ' </h1> <br>');
+		
+		for ($i=1; $i<$n; ++$i) {
+			$s = $qcmd->params[$i];
+			$s = trim($s);
+			if ($s[0] == '_')
+				$s = substr($s, 1);
+				
+			$to->regLine('&nbsp; &nbsp; &nbsp; <button onclick="setA(' . $i . ')"> <font size="+3"> ' . $s . ' </font> </button>');
+
+		}
+		
+		$to->stopTag('form');
+
 	}
 
 	$to->stopTag('body');
