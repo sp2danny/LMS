@@ -51,7 +51,7 @@ function process_cmd($to, $data, $cmd, $args)
 				$to->regLine('<img src="' . $args[0] . '" /> <br />');				
 			}
 			break;
-		case 'embed':	
+		case 'embed':
 			if (count($args)>1) {
 				$to->regLine('<iframe ' . $args[0] . '  src="' . $args[1] . '" /> </iframe> <br />');
 			} else {
@@ -77,6 +77,9 @@ function process_cmd($to, $data, $cmd, $args)
 			$to->scTag('input', 'type="hidden" value="' . trim($args[2]) . '" id="TimeMax" name="timemax"');
 			$to->scTag('input', 'type="hidden" value="0" id="Score" name="score"');
 			$to->startTag('table');
+			break;
+		case 'one':
+			$to->regLine('<button id="OneBtn" onclick="doOne()"> ' . trim($args[0]) . ' </button> <br />');
 			break;
 		case 'video':
 			$to->regLine('<iframe width="1280" height="720" src="https://player.vimeo.com/video/' . $args[0] . '"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>');

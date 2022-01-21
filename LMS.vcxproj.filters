@@ -52,6 +52,9 @@
     <None Include="src\common\process_cmd.php">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="src\common\one_post.php">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="db.txt">
