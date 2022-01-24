@@ -86,11 +86,42 @@ function index($styr, $local, $common)
 
 	$to->startTag('script');
 	$to->regLine('function doOne() {');
-	$to->regLine('  window.location.replace("index.php?seg=' . $data->snum . '&pnr=' . $data->pnr . '&pid=' . $pid . '&name=' . $name . '&atq=1");');
-	$to->regLine('}');
-	$to->regLine('function setA(i) {');
-	$to->regLine('  document.getElementById("q' . $atq . '").value = i;');
-	$to->regLine('  document.submit();');
+	$to->regLine('  div = document.getElementById("QueryDivider");');
+	$to->regLine('  s = "<br> <B> in one </B> <br>";');
+
+	$qi = 0;
+	$qcmd = (object)[];
+	foreach ($cmdlst as $value) {
+		if ($value->is_command) {
+			if ($value->command == 'query') {
+				++$qi;
+				if ($qi == 1) {
+					$qcmd = $value;
+					break;
+				}
+			}
+		}
+	}
+
+	$n = count($qcmd->params);
+	$to->regLine('  s += "<h1> ' . $qcmd->params[0] . ' </h1> <br>";');
+	for ($i=1; $i<$n; ++$i) {
+		$s = $qcmd->params[$i];
+		$s = trim($s);
+		if ($s[0] == '_')
+			$s = substr($s, 1);
+				
+		$to->regLine('  s += "&nbsp; &nbsp; &nbsp; <button onclick=\'setA(' . $i . ')\'> <font size=\'+3\'> ' . $s . ' </font> </button>";');
+	}
+
+	$to->regLine('  div.innerHTML = s;');
+
+	//$to->regLine('  window.location.replace("index.php?seg=' . $data->snum . '&pnr=' . $data->pnr . '&pid=' . $pid . '&name=' . $name . '&atq=1");');
+	//$to->regLine('}');
+	//$to->regLine('function setA(i) {');
+	//$to->regLine('  document.getElementById("q' . $atq . '").value = i;');
+	//$to->regLine('  document.submit();');
+
 	$to->regLine('}');
 
 	$to->stopTag('script');

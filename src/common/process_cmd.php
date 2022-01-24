@@ -21,6 +21,12 @@ function process_cmd($to, $data, $cmd, $args)
 
 	switch ($cmd)
 	{
+		case 'qstart':
+			$to->startTag('div', 'id="QueryDivider"');
+			break;
+		case 'qstop':
+			$to->stopTag('<div');
+			break;
 		case 'text':
 			if ($data->inq)
 				$to->regLine('<tr> <td colspan="2"> ' . $args[0] . ' </td> </tr>');
