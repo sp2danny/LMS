@@ -289,39 +289,43 @@ function index($styr, $local, $common)
 				$to->scTag('input', 'type="hidden" value="' . $qq . '" id="' . $qn . '" name="' . $qn . '"');
 			}
 		}
-		
-		$to->scTag('input', 'type="hidden" value="' . -1 . '" id="q' . $atq . '" name="q' . $atq . '"');
-		
+
 		$qi = 0;
 		$qcmd = (object)[];
+		$found = false;
 		foreach ($cmdlst as $value) {
 			if ($value->is_command) {
 				if ($value->command == 'query') {
 					++$qi;
 					if ($qi == $atq) {
 						$qcmd = $value;
+						$found = true;
 						break;
 					}
 				}
 			}
 		}
 		
-		$n = count($qcmd->params);
-		
-		$to->regLine('<h1> ' . $qcmd->params[0] . ' </h1> <br>');
-		
-		for ($i=1; $i<$n; ++$i) {
-			$s = $qcmd->params[$i];
-			$s = trim($s);
-			if ($s[0] == '_')
-				$s = substr($s, 1);
-				
-			$to->regLine('&nbsp; &nbsp; &nbsp; <button onclick="setA(' . $i . ')"> <font size="+3"> ' . $s . ' </font> </button>');
-
+		if ($found) {
+			$to->scTag('input', 'type="hidden" value="' . -1 . '" id="q' . $atq . '" name="q' . $atq . '"');
+					
+			$n = count($qcmd->params);
+			
+			$to->regLine('<h1> ' . $qcmd->params[0] . ' </h1> <br>');
+			
+			for ($i=1; $i<$n; ++$i) {
+				$s = $qcmd->params[$i];
+				$s = trim($s);
+				if ($s[0] == '_')
+					$s = substr($s, 1);
+					
+				$to->regLine('&nbsp; &nbsp; &nbsp; <button onclick="setA(' . $i . ')"> <font size="+3"> ' . $s . ' </font> </button>');
+			}
+		} else {
+			$to->regLine('<input type="submit" value="Klar" >');
 		}
 		
 		$to->stopTag('form');
-
 	}
 
 	$to->stopTag('body');
