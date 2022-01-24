@@ -111,10 +111,11 @@ function index($styr, $local, $common)
 		if ($s[0] == '_')
 			$s = substr($s, 1);
 				
-		$to->regLine('  s += "&nbsp; &nbsp; &nbsp; <button onclick=\'setA(' . $i . ')\'> <font size=\'+3\'> ' . $s . ' </font> </button>";');
+		$to->regLine('  s += "&nbsp; &nbsp; &nbsp; <button onclick=\'setA(2, ' . $i . ')\'> <font size=\'+3\'> ' . $s . ' </font> </button>";');
 	}
 
 	$to->regLine('  div.innerHTML = s;');
+	$to->regLine('}');
 
 	//$to->regLine('  window.location.replace("index.php?seg=' . $data->snum . '&pnr=' . $data->pnr . '&pid=' . $pid . '&name=' . $name . '&atq=1");');
 	//$to->regLine('}');
@@ -122,10 +123,39 @@ function index($styr, $local, $common)
 	//$to->regLine('  document.getElementById("q' . $atq . '").value = i;');
 	//$to->regLine('  document.submit();');
 
+
+	$to->regLine('function setA(i, a) {');
+	$to->regLine('  div = document.getElementById("QueryDivider");');
+	$to->regLine('  s = "<br> <B> in one </B> <br>";');
+	$to->regLine('  switch (i) {');
+
+	$qi = 0;
+	$qcmd = (object)[];
+	foreach ($cmdlst as $value) {
+		if ($value->is_command) {
+			if ($value->command == 'query') {
+				++$qi;
+				if ($qi > 1) {
+					$to->regLine('    case ' . $qi . ':');
+					$to->regLine('      s += "<h1> ' . $value->params[0] . ' </h1> <br>";');
+					for ($i=1; $i<$n; ++$i) {
+						$s = $value->params[$i];
+						$s = trim($s);
+						if ($s[0] == '_')
+							$s = substr($s, 1);
+						$to->regLine('      s += "&nbsp; &nbsp; &nbsp; <button onclick=\'setA(' . ($qi+1) . ', ' . $i . ')\'> <font size=\'+3\'> ' . $s . ' </font> </button>";');
+					}
+					$to->regLine('      break;');
+				}
+			}
+		}
+	}
+	$to->regLine('  }');
+	$to->regLine('  div.innerHTML = s;');
 	$to->regLine('}');
 
-	$to->stopTag('script');
 
+	$to->stopTag('script');
 
 	echo '</head>' . $eol;
 	$to->startTag('body');
