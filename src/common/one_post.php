@@ -152,6 +152,10 @@ function index($styr, $local, $common)
 	}
 	$to->regLine('  }');
 	$to->regLine('  div.innerHTML = s;');
+	
+	$to->regLine('  div2 = document.getElementById("QueryDivider");');
+	
+	
 	$to->regLine('}');
 
 
