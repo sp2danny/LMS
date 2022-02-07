@@ -98,14 +98,15 @@ EOT;
 	$qnum = count($data->corr);
 	for ($i=1; $i<=$qnum; ++$i)
 	{
-		if (getparam($i) == $data->corr[$i])
+		if ( getparam('q' . $i) == ($data->corr[$i]+1) )
 			++$totscore;
 	}
 
 	$ok = ($totscore == $qnum);
 
-	$dintid = ((getparam('timestop')-getparam('timestart')) / 1000.0);
-	$dintid = ((int)($dintid*10)) / 10.0;
+	//$dintid = ((getparam('timestop')-getparam('timestart')) / 1000.0);
+	//$dintid = ((int)($dintid*10)) / 10.0;
+	$dintid = 1;
 	$maxt = getparam('timemax');
 	if ($dintid > $maxt) {
 		$ok = false;

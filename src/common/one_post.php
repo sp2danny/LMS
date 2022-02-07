@@ -86,8 +86,11 @@ function index($styr, $local, $common)
 
 	$to->startTag('script');
 	$to->regLine('function doOne() {');
+	$to->regLine('  div1 = document.getElementById("OneBtn");');
+	$to->regLine('  div1.style.visibility = "hidden";');
+
 	$to->regLine('  div = document.getElementById("QueryDivider");');
-	$to->regLine('  s = "<br> <B> in one </B> <br>";');
+	$to->regLine('  s = "<br> <br>";');
 
 	$qi = 0;
 	$qcmd = (object)[];
@@ -126,7 +129,8 @@ function index($styr, $local, $common)
 
 	$to->regLine('function setA(i, a) {');
 	$to->regLine('  div = document.getElementById("QueryDivider");');
-	$to->regLine('  s = "<br> <B> in one </B> <br>";');
+	$to->regLine('  s = "<br> <br>";');
+	$to->regLine('  f = true;');
 	$to->regLine('  switch (i) {');
 
 	$qi = 0;
@@ -150,16 +154,25 @@ function index($styr, $local, $common)
 			}
 		}
 	}
+
+	++$qi;
+	$to->regLine('    case ' . $qi . ':');
+	//$to->regLine('      s = "<input type=\'submit\' value=\'Klar\' >";');
+	//$to->regLine('      s = "<button  id=\'CorrBtn\' onclick=\'submit'> Klar </button> <br />";');
+	$to->regLine('      f = false;');
+	$to->regLine('      break;');
+
 	$to->regLine('  }');
 	$to->regLine('  div.innerHTML = s;');
 	
 	$to->regLine('  div2 = document.getElementById("AnswerDiv");');
 	$to->regLine('  ans = "\'" + a.toString() + "\'";');
-	$to->regLine('  nam = "\'q" + i.toString() + "\'";');
-	$to->regLine('  div2 += "<input type=\'hidden\' value=" + ans + " id=" + nam + "name=" + nam + " />";');
+	$to->regLine('  nam = "\'q" + (i-1).toString() + "\'";');
+	//$to->regLine('  div2 += "<input type=\'hidden\' value=" + ans + " id=" + nam + "name=" + nam + " />";');
+	$to->regLine('  div2.innerHTML += "<input type=\'hidden\' value=" + ans + " id=" + nam + " name=" + nam + " />";');
+	$to->regLine('  if (!f) div2.innerHTML += "<input type=\'submit\' value=\'Klar\' >";');
 
 	$to->regLine('}');
-
 
 	$to->stopTag('script');
 
@@ -278,9 +291,9 @@ function index($styr, $local, $common)
 
 	} else {
 
-		$to->regLine('<br> <B> in one </B> <br>');
+		$to->regLine('<br> <br>');
 
-		$to->startTag('form', 'action="index.php" method="GET"');
+		$to->startTag('form', 'action="score.php" method="GET"');
 
 		$to->scTag('input', 'type="hidden" value="' . $data->snum . '" id="seg"  name="seg"' );
 		$to->scTag('input', 'type="hidden" value="' . $data->pnr  . '" id="pnr"  name="pnr"' );
@@ -328,7 +341,7 @@ function index($styr, $local, $common)
 				$to->regLine('&nbsp; &nbsp; &nbsp; <button onclick="setA(' . $i . ')"> <font size="+3"> ' . $s . ' </font> </button>');
 			}
 		} else {
-			$to->regLine('<input type="submit" value="Klar" >');
+			//$to->regLine('<input type="submit" value="Klar" >');
 		}
 		
 		$to->stopTag('form');

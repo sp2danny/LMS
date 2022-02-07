@@ -25,7 +25,7 @@ function process_cmd($to, $data, $cmd, $args)
 			$to->startTag('div', 'id="QueryDivider"');
 			break;
 		case 'qstop':
-			$to->stopTag('<div');
+			$to->stopTag('div');
 			break;
 		case 'text':
 			if ($data->inq)
@@ -85,6 +85,7 @@ function process_cmd($to, $data, $cmd, $args)
 			$to->startTag('table');
 			break;
 		case 'one':
+			$data->inq = true;
 			$to->regLine('<button id="OneBtn" onclick="doOne()"> ' . trim($args[0]) . ' </button> <br />');
 
 			$to->startTag('form', 'action="' . trim($args[1]) . '" method="GET"');
@@ -94,9 +95,9 @@ function process_cmd($to, $data, $cmd, $args)
 			$to->scTag('input', 'type="hidden" value="" id="TimeStop" name="timestop"');
 			$to->scTag('input', 'type="hidden" value="' . trim($args[2]) . '" id="TimeMax" name="timemax"');
 			$to->scTag('input', 'type="hidden" value="0" id="Score" name="score"');
-			$to->startTag('div', 'id=AnswerDiv');
+			$to->startTag('div', 'id="AnswerDiv"');
 			$to->stopTag('div');
-
+			$to->stopTag('form');
 			break;
 		case 'video':
 			$to->regLine('<iframe width="1280" height="720" src="https://player.vimeo.com/video/' . $args[0] . '"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>');
@@ -105,10 +106,10 @@ function process_cmd($to, $data, $cmd, $args)
 			$data->qnum++;
 			$valnum = 0;
 			
-			$to->regLine('<tr height="25px"> <td colspan="2"> <B>' . $args[0] . ' </B> </td> </tr>');
-			$to->startTag('tr height="45px"');
-			$to->regLine('<td width="45px" > <img id="' . 'QI-' . $data->qnum . '" src="../common/blank.png" /> </td>');
-			$to->startTag('td');
+			// $to->regLine('<tr height="25px"> <td colspan="2"> <B>' . $args[0] . ' </B> </td> </tr>');
+			// $to->startTag('tr height="45px"');
+			// $to->regLine('<td width="45px" > <img id="' . 'QI-' . $data->qnum . '" src="../common/blank.png" /> </td>');
+			// $to->startTag('td');
 			
 			$n = count($args);
 			for ($i=1; $i<$n; ++$i) {
@@ -117,13 +118,13 @@ function process_cmd($to, $data, $cmd, $args)
 					$ss = substr($ss, 1);
 					$data->corr[$data->qnum] = $valnum;
 				}
-				if ($valnum > 1) $to->regLine('<br />');
-				$to->regLine('<input type="radio" id="' . 'QR-' . $data->qnum . '" name="' . $data->qnum . '" value="' . $valnum . '" />' . $ss . '');
+				//if ($valnum > 1) $to->regLine('<br />');
+				//$to->regLine('<input type="radio" id="' . 'QR-' . $data->qnum . '" name="' . $data->qnum . '" value="' . $valnum . '" />' . $ss . '');
 				$valnum++;
 			}
-			$to->stopTag('td');
-			$to->stopTag('tr');
-			$to->regLine('<tr><td> &nbsp; </td></tr>');
+			//$to->stopTag('td');
+			//$to->stopTag('tr');
+			//$to->regLine('<tr><td> &nbsp; </td></tr>');
 			break;
 			
 		case 'submit':
