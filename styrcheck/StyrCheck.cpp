@@ -8,6 +8,7 @@
 #include <fstream>
 #include <algorithm>
 #include <ranges>
+#include <map>
 
 using namespace std::literals;
 
@@ -35,29 +36,36 @@ std::vector<std::string> explode(std::string const& s, char delim)
 	return result;
 }
 
-int main(int argc, char* argv[])
+typedef std::vector<std::string> StrVec;
+
+typedef std::map<std::string, StrVec> IniFile;
+
+IniFile readin(std::ifstream& ifs)
 {
-	std::filesystem::path base{"."};
-	if (argc == 2)
-		base = argv[1];
-
-	std::filesystem::directory_iterator di{base};
-	for (auto&& de : di)
+	IniFile ini;
+	std::string segment = "";
+	std::string line;
+	while (std::getline(ifs, line))
 	{
-		if (!de.is_directory())
+		boost::trim(line);
+		if (line.empty()) continue;
+		if (line[0] == '#') continue;
+		if (line[0] == '[') {
+			segment = line.substr(1, line.size() - 2);
 			continue;
-		std::string nm = de.path().filename().string();
+		}
+		ini[segment].push_back(line);
+	}
+	return ini;
+}
 
-		if (tolower(nm.substr(0, 5)) != "batt-")
-			continue;
-		nm = nm.substr(5);
-		std::cout << nm << std::endl;
-		std::ifstream ifs{de.path() / "styr.txt"};
-		std::vector<std::string> want_files = { "index.php"s, "local.css"s, "styr.txt"s };
-		std::string line;
-		while (std::getline(ifs, line))
+void want_1(const IniFile& ini, StrVec& want_files)
+{
+	for (auto&& mi : ini)
+	{
+		auto&& sv = mi.second;
+		for (auto&& line : sv)
 		{
-			boost::trim(line);
 			if (line.size() < 2)
 				continue;
 			if (line[1] != '=')
@@ -76,6 +84,86 @@ int main(int argc, char* argv[])
 				break;
 			}
 		}
+	}
+}
+
+void want_2(const IniFile& ini, StrVec& want_files)
+{
+	for (auto&& mi : ini)
+	{
+		auto&& sv = mi.second;
+		for (auto&& line : sv)
+		{
+			if (line.size() < 2)
+				continue;
+			if (line[1] != '!')
+				continue;
+			auto expl = explode(line.substr(1), ' ');
+			if (expl.size() < 2)
+				continue;
+			auto command = expl[0];
+			expl = explode(expl[1], ';');
+			if (expl[0] == "image") {
+				want_files.push_back(boost::trim_copy(expl.back()));
+			} else if (expl[0] == "audio") {
+				want_files.push_back(boost::trim_copy(expl.back()));
+			} else if (expl[0] == "one") {
+				want_files.push_back(boost::trim_copy(expl[1]));
+				want_files.push_back(boost::trim_copy(expl[3]));
+			}
+		}
+	}
+}
+
+int fval(const IniFile& ini, const std::string& seg, const std::string& name, int def)
+{
+	auto mi = ini.find(seg);
+	if (mi == ini.end())
+		return def;
+	StrVec sv = mi->second;
+	for (auto&& s : sv)
+	{
+		if (s.empty()) continue;
+		if (s[0] != '!') continue;
+		auto expl = explode(s.substr(1), ' ');
+		if (expl.size() < 2) continue;
+		if (expl[0] != name) continue;
+		try {
+			return std::stoi(expl[1]);
+		} catch (...) {
+			return def;
+		}
+	}
+	return def;
+}
+
+int main(int argc, char* argv[])
+{
+
+	std::filesystem::path base{"."};
+	if (argc == 2)
+		base = argv[1];
+
+	std::filesystem::directory_iterator di{base};
+	for (auto&& de : di)
+	{
+		if (!de.is_directory())
+			continue;
+		std::string nm = de.path().filename().string();
+
+		if (tolower(nm.substr(0, 5)) != "batt-")
+			continue;
+		nm = nm.substr(5);
+		std::cout << nm << std::endl;
+		std::ifstream ifs{de.path() / "styr.txt"};
+		StrVec want_files = { "index.php"s, "local.css"s, "styr.txt"s };
+		auto ini = readin(ifs);
+		ifs.close();
+		int ver = fval(ini, "", "format", 1);
+		if (ver==1)
+			want_1(ini, want_files);
+		else if (ver == 2)
+			want_2(ini, want_files);
 
 		std::ranges::sort(want_files);
 		auto r = std::ranges::unique(want_files);
