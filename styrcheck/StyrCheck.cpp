@@ -40,6 +40,42 @@ typedef std::vector<std::string> StrVec;
 
 typedef std::map<std::string, StrVec> IniFile;
 
+struct Post
+{
+	std::string cmd;
+	StrVec param;
+};
+
+struct Segment
+{
+	std::string name;
+	std::vector<Post> posts;
+};
+
+struct StyrFil
+{
+	auto begin() { return segs.begin(); }
+	auto end() { return segs.end(); }
+	auto begin() const { return segs.cbegin(); }
+	auto end() const { return segs.cend(); }
+
+	std::vector<Post>& operator[](const std::string& name)
+	{
+		auto&& p = segs[name];
+		p.name = name;
+		return p.posts;
+	}
+
+	const std::vector<Post>& operator[](const std::string& name)  const
+	{
+		auto i = segs.find(name);
+		if (i == segs.end()) throw "error";
+		return i->second.posts;
+	}
+
+	std::map<std::string, Segment> segs;
+};
+
 IniFile readin(std::ifstream& ifs)
 {
 	IniFile ini;
@@ -57,6 +93,120 @@ IniFile readin(std::ifstream& ifs)
 		ini[segment].push_back(line);
 	}
 	return ini;
+}
+
+extern int fval(const IniFile& ini, const std::string& seg, const std::string& name, int def);
+
+StyrFil readstyr(const IniFile& ini)
+{
+	StyrFil styr;
+	styr["default"];
+
+	const auto np = std::string::npos;
+
+	for (auto&& mi : ini)
+	{
+		std::string seg = mi.first;
+		if (seg == "") seg = "default";
+		for (auto vi : mi.second)
+		{
+			if (vi[0] == '!')
+			{
+				auto p = vi.find(' ');
+				std::string cmd;
+				StrVec param;
+				if (p == np) {
+					cmd = vi.substr(1);
+				}
+				else {
+					cmd = vi.substr(1, p - 1);
+					std::string rst = vi.substr(p + 1);
+					param = explode(rst, ';');
+				}
+				Post pp;
+				pp.cmd = cmd;
+				pp.param = param;
+				styr[seg].push_back(pp);
+			}
+			else if (auto p = vi.find('='); p != np)
+			{
+				std::string cmd;
+				cmd = vi.substr(0, p);
+				std::string rst = vi.substr(p + 1);
+				Post pp;
+				pp.cmd = cmd;
+				pp.param = explode(rst, ',');
+				styr[seg].push_back(pp);
+			}
+		}
+	}
+}
+
+
+// !batt 4
+// !max 7
+// !format 2
+
+std::string params(const StrVec& sv)
+{
+	if (sv.empty()) return "";
+	std::string out;
+	int i = 0, n = std::ssize(sv);
+	while (true)
+	{
+		out += sv[i];
+		++i;
+		if (i < n)
+			out += "; ";
+		else
+			break;
+	}
+	return out;
+}
+
+void writestyr(const StyrFil& styr, std::ostream& out)
+{
+	auto&& def = styr["default"];
+
+	int max = -1;
+	int batt = -1;
+	for (auto&& v : def)
+	{
+		if (v.cmd == "batt")
+			batt = std::stoi(v.param[0]);
+		if (v.cmd == "max")
+			max = std::stoi(v.param[0]);
+	}
+
+	if (max <= 0)
+		max = std::ssize(styr.segs) - 1;
+
+	out << "format 2" << std::endl;
+	out << "max " << max << std::endl;
+	out << "batt " << batt << std::endl;
+
+	for (auto&& seg : styr)
+	{
+		if (seg.first == "default")
+			continue;
+		out << "[" << seg.first << "]" << std::endl;
+		for (auto&& cmd : seg.second.posts)
+		{
+			/**/ if (cmd.cmd == "b" || cmd.cmd == "break")
+				out << "!break " << params(cmd.param) << std::endl;
+			else if (cmd.cmd == "t" || cmd.cmd == "text")
+				out << "!text " << params(cmd.param) << std::endl;
+			else if (cmd.cmd == "q" || cmd.cmd == "query")
+				out << "!query " << params(cmd.param) << std::endl;
+			else if (cmd.cmd == "i" || cmd.cmd == "image")
+				out << "!image " << params(cmd.param) << std::endl;
+			else if (cmd.cmd == "I" || cmd.cmd == "embed")
+				out << "!embed " << params(cmd.param) << std::endl;
+			else {
+				out << "error " << cmd.cmd << " " << params(cmd.param) << std::endl;
+			}
+		}
+	}
 }
 
 void want_1(const IniFile& ini, StrVec& want_files)
