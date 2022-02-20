@@ -190,20 +190,46 @@ void writestyr(const StyrFil& styr, std::ostream& out)
 		if (seg.first == "default")
 			continue;
 		out << "[" << seg.first << "]" << std::endl;
+		bool ftxt = false;
+		bool stpt = false;
+		StrVec ff;
 		for (auto&& cmd : seg.second.posts)
 		{
-			/**/ if (cmd.cmd == "b" || cmd.cmd == "break")
+			/**/ if (cmd.cmd == "b" || cmd.cmd == "break") {
 				out << "!break " << params(cmd.param) << std::endl;
-			else if (cmd.cmd == "t" || cmd.cmd == "text")
+			} else if (cmd.cmd == "t" || cmd.cmd == "text") {
+				if (!ftxt) {
+					ftxt = true;
+					out << "!qstart" << std::endl;
+				}
 				out << "!text " << params(cmd.param) << std::endl;
-			else if (cmd.cmd == "q" || cmd.cmd == "query")
+			} else if (cmd.cmd == "qstart") {
+				if (!ftxt) {
+					ftxt = true;
+					out << "!qstart" << std::endl;
+				}
+			} else if (cmd.cmd == "q" || cmd.cmd == "query") {
 				out << "!query " << params(cmd.param) << std::endl;
-			else if (cmd.cmd == "i" || cmd.cmd == "image")
+			} else if (cmd.cmd == "i" || cmd.cmd == "image") {
 				out << "!image " << params(cmd.param) << std::endl;
-			else if (cmd.cmd == "I" || cmd.cmd == "embed")
+			} else if (cmd.cmd == "I" || cmd.cmd == "embed") {
 				out << "!embed " << params(cmd.param) << std::endl;
-			else {
-				out << "error " << cmd.cmd << " " << params(cmd.param) << std::endl;
+			} else if (cmd.cmd == "qstop") {
+				if (!stpt) {
+					stpt = true;
+					out << "!qstop" << std::endl;
+				}
+			} else if (cmd.cmd == "f" || cmd.cmd == "one") {
+				ff = cmd.param;
+				if (ftxt && !stpt) {
+					stpt = true;
+					out << "!qstop" << std::endl;
+				}
+				out << "!one " << params(cmd.param) << std::endl;
+			} else if (cmd.cmd == "q" || cmd.cmd == "query") {
+				out << "!query " << params(cmd.param) << std::endl;
+			} else {
+				out << "#error " << cmd.cmd << " " << params(cmd.param) << std::endl;
 			}
 		}
 	}
