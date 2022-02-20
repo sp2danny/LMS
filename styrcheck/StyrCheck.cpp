@@ -140,6 +140,7 @@ StyrFil readstyr(const IniFile& ini)
 			}
 		}
 	}
+	return styr;
 }
 
 
@@ -151,7 +152,7 @@ std::string params(const StrVec& sv)
 {
 	if (sv.empty()) return "";
 	std::string out;
-	int i = 0, n = std::ssize(sv);
+	long long i = 0, n = std::ssize(sv);
 	while (true)
 	{
 		out += sv[i];
@@ -179,17 +180,17 @@ void writestyr(const StyrFil& styr, std::ostream& out)
 	}
 
 	if (max <= 0)
-		max = std::ssize(styr.segs) - 1;
+		max = (int)std::ssize(styr.segs) - 1;
 
-	out << "format 2" << std::endl;
-	out << "max " << max << std::endl;
-	out << "batt " << batt << std::endl;
+	out << "!format 2" << std::endl;
+	out << "!max " << max << std::endl;
+	out << "!batt " << batt << std::endl;
 
 	for (auto&& seg : styr)
 	{
 		if (seg.first == "default")
 			continue;
-		out << "[" << seg.first << "]" << std::endl;
+		out << std::endl << "[" << seg.first << "]" << std::endl;
 		bool ftxt = false;
 		bool stpt = false;
 		StrVec ff;
@@ -214,6 +215,8 @@ void writestyr(const StyrFil& styr, std::ostream& out)
 				out << "!image " << params(cmd.param) << std::endl;
 			} else if (cmd.cmd == "I" || cmd.cmd == "embed") {
 				out << "!embed " << params(cmd.param) << std::endl;
+			} else if (cmd.cmd == "e" || cmd.cmd == "video") {
+				out << "!video " << params(cmd.param) << std::endl;
 			} else if (cmd.cmd == "qstop") {
 				if (!stpt) {
 					stpt = true;
@@ -341,6 +344,10 @@ int main(int argc, char* argv[])
 		else if (ver == 2)
 			want_2(ini, want_files);
 
+		std::ofstream ofs{de.path() / "styr_ny.txt"};
+		writestyr(readstyr(ini), ofs);
+		ofs.close();
+
 		std::ranges::sort(want_files);
 		auto r = std::ranges::unique(want_files);
 		want_files.erase(r.begin(), r.end());
@@ -361,8 +368,9 @@ int main(int argc, char* argv[])
 		for (auto&& de2 : di2) {
 			if (de2.is_regular_file()) {
 				std::string fn = de2.path().filename().string();
-				if (!std::ranges::binary_search(want_files, fn)) {
-					std::cout << "\tExcess local file : " << fn << "\n";
+				if (fn != "styr_ny.txt"s)
+					if (!std::ranges::binary_search(want_files, fn)) {
+						std::cout << "\tExcess local file : " << fn << "\n";
 				}
 			}
 		}
