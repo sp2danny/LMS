@@ -7,8 +7,60 @@
 #include <cstring>
 #include <fstream>
 #include <algorithm>
-#include <ranges>
+//#include <ranges>
 #include <map>
+#include <cstddef>
+#include <version>
+#include <iterator>
+
+#ifndef __cpp_lib_ssize
+namespace std {
+
+	template<typename T>
+	long long ssize(const T& t)
+	{
+		return (long long)std::size(t);
+	}
+}
+#endif
+
+namespace {
+	
+	template<typename T>
+	auto sort(T& t)
+		-> decltype(t.sort(), void())
+	{
+		t.sort();
+	}
+	template<typename T>
+	void sort(T& t, ...)
+	{
+		std::sort(std::begin(t), std::end(t));
+	}
+	
+	template<typename T>
+	auto unique(T& t)
+		-> decltype(t.unique(), void())
+	{
+		t.unique();
+	}
+	template<typename T>
+	void unique(T& t, ...)
+	{
+		auto itr = std::unique(std::begin(t), std::end(t));
+		t.erase(itr, std::end(t));
+	}
+	
+	template<typename T, typename U>
+	bool binary_search(const T& t, const U& u)
+	{
+		return std::binary_search(std::begin(t), std::end(t), u);
+	}
+	
+	
+	
+}
+
 
 using namespace std::literals;
 
@@ -250,16 +302,20 @@ void want_1(const IniFile& ini, StrVec& want_files)
 			if (line[1] != '=')
 				continue;
 			auto expl = explode(line.substr(2), ',');
+			auto sz = std::ssize(expl);
 			switch (line[0])
 			{
 			case 'i':
 			case 'a':
 			case 'I':
-				want_files.push_back(boost::trim_copy(expl.back()));
+				if (sz>0)
+					want_files.push_back(boost::trim_copy(expl.back()));
 				break;
 			case 'f':
-				want_files.push_back(boost::trim_copy(expl[1]));
-				want_files.push_back(boost::trim_copy(expl[3]));
+				if (sz>1)
+					want_files.push_back(boost::trim_copy(expl[1]));
+				if (sz>3)
+					want_files.push_back(boost::trim_copy(expl[3]));
 				break;
 			}
 		}
@@ -348,9 +404,8 @@ int main(int argc, char* argv[])
 		writestyr(readstyr(ini), ofs);
 		ofs.close();
 
-		std::ranges::sort(want_files);
-		auto r = std::ranges::unique(want_files);
-		want_files.erase(r.begin(), r.end());
+		sort(want_files);
+		unique(want_files);
 
 		for (const auto& s : want_files)
 		{
@@ -369,7 +424,7 @@ int main(int argc, char* argv[])
 			if (de2.is_regular_file()) {
 				std::string fn = de2.path().filename().string();
 				if (fn != "styr_ny.txt"s)
-					if (!std::ranges::binary_search(want_files, fn)) {
+					if (!binary_search(want_files, fn)) {
 						std::cout << "\tExcess local file : " << fn << "\n";
 				}
 			}
@@ -386,18 +441,18 @@ int main(int argc, char* argv[])
 
 #  b = 3                                     3 st <br>
 #  i = 75, img.bmp                            img.bmp i 75 % storlek
-#  t = hej hopp                              'hej hopp' som textrad.fÂr innehÂlla html - taggar
-#  e = 597209255                             en inb‰ddad film frÂn vimeo, med id 597209255
+#  t = hej hopp                              'hej hopp' som textrad.f√•r inneh√•lla html - taggar
+#  e = 597209255                             en inb√§ddad film fr√•n vimeo, med id 597209255
 #  a = snd.mp3                               en ljuduppspelare.filen ska vara lokal
-#  I = attr, fil                              en inb‰ddad fil, med html attribut
-#  l = black                                 en f‰rgsatt horisontell linje
+#  I = attr, fil                              en inb√§ddad fil, med html attribut
+#  l = black                                 en f√§rgsatt horisontell linje
 #
-#  f = Starta, score.php, 130, lugn.mp3      startar ett frÂgeformul‰r
-#  T = text                                  en text rad inne i ett frÂge - formul‰r
-#  q = frÂga, svar1, _svar2                  en frÂga med 2 svarsalternativ. 'svar2' ‰r r‰tt
-#  s = R‰tta, Klar                           en r‰ttnings knapp, med texten 'R‰tta' och en submit - knapp med texten Klar.St‰nger frÂgeformul‰ret och gÂr till po‰ng
+#  f = Starta, score.php, 130, lugn.mp3      startar ett fr√•geformul√§r
+#  T = text                                  en text rad inne i ett fr√•ge - formul√§r
+#  q = fr√•ga, svar1, _svar2                  en fr√•ga med 2 svarsalternativ. 'svar2' √§r r√§tt
+#  s = R√§tta, Klar                           en r√§ttnings knapp, med texten 'R√§tta' och en submit - knapp med texten Klar.St√§nger fr√•geformul√§ret och g√•r till po√§ng
 #
-#  n = N‰sta                                 en knapp med texten 'N‰sta', fˆr att gÂ till n‰sta sida, utan frÂger‰ttning
+#  n = N√§sta                                 en knapp med texten 'N√§sta', f√∂r att g√• till n√§sta sida, utan fr√•ger√§ttning
 #
 
 */
