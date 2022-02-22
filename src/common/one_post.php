@@ -142,6 +142,7 @@ function index($styr, $local, $common)
 				if ($qi > 1) {
 					$to->regLine('    case ' . $qi . ':');
 					$to->regLine('      s += "<h1> ' . $value->params[0] . ' </h1> <br>";');
+					$n = count($value->params);
 					for ($i=1; $i<$n; ++$i) {
 						$s = $value->params[$i];
 						$s = trim($s);

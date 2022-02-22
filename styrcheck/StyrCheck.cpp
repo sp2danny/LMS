@@ -272,7 +272,10 @@ void writestyr(const StyrFil& styr, std::ostream& out)
 					stpt = true;
 					out << "!qstop" << std::endl;
 				}
-				out << "!one " << params(cmd.param) << std::endl;
+				StrVec pp = cmd.param;
+				if (pp.size() < 5)
+					pp.push_back("Rätta"s);
+				out << "!one " << params(pp) << std::endl;
 			} else if (cmd.cmd == "q" || cmd.cmd == "query") {
 				out << "!query " << params(cmd.param) << std::endl;
 			} else {
@@ -366,12 +369,15 @@ int fval(const IniFile& ini, const std::string& seg, const std::string& name, in
 
 int main(int argc, char* argv[])
 {
+	namespace fs = std::filesystem;
 
-	std::filesystem::path base{"."};
+	fs::path base{"."};
 	if (argc == 2)
 		base = argv[1];
+		
+	std::cout << base << std::endl;
 
-	std::filesystem::directory_iterator di{base};
+	fs::directory_iterator di{base};
 	for (auto&& de : di)
 	{
 		if (!de.is_directory())
@@ -382,17 +388,35 @@ int main(int argc, char* argv[])
 			continue;
 		nm = nm.substr(5);
 		std::cout << nm << std::endl;
-		std::ifstream ifs{de.path() / "styr.txt"};
+		
+		auto ofn = de.path() / "styr_old.txt";
+		auto nfn = de.path() / "styr.txt";
+
+		if (!fs::exists(nfn)) {
+			std::cout << "error: 'styr.txt' missing" << std::endl;
+			continue;
+		}
+		
+		std::ifstream ifs;
+		
+		if (!fs::exists(ofn)) {
+			fs::copy(nfn, ofn);
+			ifs.open(nfn);
+		} else {
+			ifs.open(ofn);
+		}
+		
 		StrVec want_files = { "index.php"s, "local.css"s, "styr.txt"s };
 		auto ini = readin(ifs);
 		ifs.close();
+
 		int ver = fval(ini, "", "format", 1);
 		if (ver==1)
 			want_1(ini, want_files);
 		else if (ver == 2)
 			want_2(ini, want_files);
 
-		std::ofstream ofs{de.path() / "styr_ny.txt"};
+		std::ofstream ofs{nfn};
 		writestyr(readstyr(ini), ofs);
 		ofs.close();
 
