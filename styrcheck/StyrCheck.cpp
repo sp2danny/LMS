@@ -1,5 +1,3 @@
-// StyrCheck.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
 
 #include <iostream>
 #include <filesystem>
@@ -7,7 +5,6 @@
 #include <cstring>
 #include <fstream>
 #include <algorithm>
-//#include <ranges>
 #include <map>
 #include <cstddef>
 #include <version>
@@ -15,7 +12,6 @@
 
 #ifndef __cpp_lib_ssize
 namespace std {
-
 	template<typename T>
 	long long ssize(const T& t)
 	{
@@ -59,7 +55,6 @@ namespace {
 
 }
 
-
 using namespace std::literals;
 
 #include <boost/algorithm/string.hpp>
@@ -73,7 +68,7 @@ std::string tolower(const std::string& str)
 	return ret;
 }
 
-std::vector<std::string> explode(std::string const& s, char delim)
+std::vector<std::string> explode(const std::string& s, char delim)
 {
 	std::vector<std::string> result;
 	std::istringstream iss(s);
@@ -193,7 +188,6 @@ StyrFil readstyr(const IniFile& ini)
 	return styr;
 }
 
-
 // !batt 4
 // !max 7
 // !format 2
@@ -246,7 +240,7 @@ void writestyr(const StyrFil& styr, std::ostream& out)
 		StrVec ff;
 		for (auto&& cmd : seg.second.posts)
 		{
-			/**/ if (cmd.cmd == "b" || cmd.cmd == "break") {
+			if (cmd.cmd == "b" || cmd.cmd == "break") {
 				out << "!break " << params(cmd.param) << std::endl;
 			} else if (cmd.cmd == "t" || cmd.cmd == "text") {
 				if (!ftxt) {
@@ -432,27 +426,4 @@ int main(int argc, char* argv[])
 	std::cout << "\nDone.\n";
 	fgetc(stdin);
 }
-
-
-
-/*
-
-#  b = 3                                     3 st <br>
-#  i = 75, img.bmp                            img.bmp i 75 % storlek
-#  t = hej hopp                              'hej hopp' som textrad.får innehålla html - taggar
-#  e = 597209255                             en inbäddad film från vimeo, med id 597209255
-#  a = snd.mp3                               en ljuduppspelare.filen ska vara lokal
-#  I = attr, fil                              en inbäddad fil, med html attribut
-#  l = black                                 en färgsatt horisontell linje
-#
-#  f = Starta, score.php, 130, lugn.mp3      startar ett frågeformulär
-#  T = text                                  en text rad inne i ett fråge - formulär
-#  q = fråga, svar1, _svar2                  en fråga med 2 svarsalternativ. 'svar2' är rätt
-#  s = Rätta, Klar                           en rättnings knapp, med texten 'Rätta' och en submit - knapp med texten Klar.Stänger frågeformuläret och går till poäng
-#
-#  n = Nästa                                 en knapp med texten 'Nästa', för att gå till nästa sida, utan frågerättning
-#
-
-*/
-
 
