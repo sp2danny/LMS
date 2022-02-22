@@ -56,9 +56,7 @@ namespace {
 	{
 		return std::binary_search(std::begin(t), std::end(t), u);
 	}
-	
-	
-	
+
 }
 
 
@@ -426,7 +424,7 @@ int main(int argc, char* argv[])
 				if (fn != "styr_ny.txt"s)
 					if (!binary_search(want_files, fn)) {
 						std::cout << "\tExcess local file : " << fn << "\n";
-				}
+					}
 			}
 		}
 	}
