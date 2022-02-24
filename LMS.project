@@ -4,44 +4,26 @@
     <File Name="ftp.txt"/>
   </VirtualDirectory>
   <VirtualDirectory Name="src">
-    <File Name="src/mellan.txt"/>
-    <VirtualDirectory Name="common">
-      <File Name="src/common/one_post.php"/>
-      <File Name="src/common/cmdparse.php"/>
-      <File Name="src/common/process_cmd.php"/>
-      <File Name="src/common/progress.php"/>
-      <File Name="src/common/utbsel.php"/>
-      <File Name="src/common/tagOut.php"/>
-      <File Name="src/common/score.php"/>
-      <File Name="src/common/regpers.php"/>
-      <File Name="src/common/pulselst.php"/>
-      <File Name="src/common/personal.php"/>
-      <File Name="src/common/nypers.php"/>
-      <File Name="src/common/next.php"/>
-      <File Name="src/common/login.php"/>
-      <File Name="src/common/index.php"/>
-      <File Name="src/common/head.php"/>
-      <File Name="src/common/getparam.php"/>
-      <File Name="src/common/evaluator.php"/>
-      <File Name="src/common/convert.php"/>
-      <File Name="src/common/connect.php"/>
-      <File Name="src/common/common.php"/>
-    </VirtualDirectory>
-    <VirtualDirectory Name="php">
-      <File Name="src/php/tagOut.php"/>
-      <File Name="src/php/common.php"/>
-    </VirtualDirectory>
-    <File Name="src/next.php"/>
-    <File Name="src/login.php"/>
-    <VirtualDirectory Name="batt-1.1">
-      <File Name="src/batt-1.1/kant.txt"/>
-      <File Name="src/batt-1.1/local.css"/>
-      <File Name="src/batt-1.1/score.php"/>
-      <File Name="src/batt-1.1/styr.txt"/>
-      <File Name="src/batt-1.1/index.php"/>
-    </VirtualDirectory>
-    <File Name="src/main.css"/>
-    <File Name="src/index.html"/>
+    <File Name="src/common/utbsel.php"/>
+    <File Name="src/common/tagOut.php"/>
+    <File Name="src/common/score.php"/>
+    <File Name="src/common/regpers.php"/>
+    <File Name="src/common/pulselst.php"/>
+    <File Name="src/common/progress.php"/>
+    <File Name="src/common/process_cmd.php"/>
+    <File Name="src/common/personal.php"/>
+    <File Name="src/common/one_post.php"/>
+    <File Name="src/common/nypers.php"/>
+    <File Name="src/common/next.php"/>
+    <File Name="src/common/login.php"/>
+    <File Name="src/common/index.php"/>
+    <File Name="src/common/head.php"/>
+    <File Name="src/common/getparam.php"/>
+    <File Name="src/common/evaluator.php"/>
+    <File Name="src/common/convert.php"/>
+    <File Name="src/common/connect.php"/>
+    <File Name="src/common/common.php"/>
+    <File Name="src/common/cmdparse.php"/>
   </VirtualDirectory>
   <Description/>
   <Dependencies/>
