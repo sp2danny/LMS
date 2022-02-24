@@ -99,6 +99,8 @@ function process_cmd($to, $data, $cmd, $args)
 			$to->stopTag('div');
 			$to->stopTag('form');
 			break;
+		case 'onestop':
+			break;
 		case 'video':
 			$to->regLine('<iframe width="1280" height="720" src="https://player.vimeo.com/video/' . $args[0] . '"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>');
 			break;

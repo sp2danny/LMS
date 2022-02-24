@@ -192,7 +192,7 @@ StyrFil readstyr(const IniFile& ini)
 // !max 7
 // !format 2
 
-std::string params(const StrVec& sv)
+std::string params(const StrVec& sv, const std::string sep = "; ")
 {
 	if (sv.empty()) return "";
 	std::string out;
@@ -202,11 +202,69 @@ std::string params(const StrVec& sv)
 		out += sv[i];
 		++i;
 		if (i < n)
-			out += "; ";
+			out += sep;
 		else
 			break;
 	}
 	return out;
+}
+
+struct Query {
+	std::string query;
+	StrVec answers;
+	int corr;
+};
+
+struct QBlock
+{
+	std::string text;
+	std::string start = "Starta", score = "score.php", timer = "130", sound = "", corr = "Rätta", done = "Klar";
+	std::vector<Query> querys;
+};
+
+std::string quote(const std::string s)
+{
+	std::string res;
+	bool in = false;
+	for (char c : s)
+	{
+		if (c=='"') {
+			if (in) {
+				res += "´´";
+				in = false;
+			} else {
+				res += "``";
+				in = true;
+			}
+		} else {
+			res += c;
+		}
+	}
+	return res;
+}
+
+void outq(std::ostream& out, const QBlock& qb)
+{
+	out << "!one " << qb.start <<
+		" ; " << qb.score <<
+		" ; " << qb.timer <<
+		" ; " << qb.sound <<
+		" ; " << qb.corr << std::endl;
+	for (auto&& q : qb.querys)
+	{
+		out << "!query " << quote(q.query) << " ; " << params(q.answers) << std::endl;
+	}
+	out << "!onestop" << std::endl;
+}
+
+void setif(std::string& str, const StrVec& sv, int idx)
+{
+	if (idx < 0) return;
+	auto n = std::ssize(sv);
+	if (idx >= n) return;
+	auto s = sv[idx];
+	if (s.empty()) return;
+	str = s;
 }
 
 void writestyr(const StyrFil& styr, std::ostream& out)
@@ -238,23 +296,34 @@ void writestyr(const StyrFil& styr, std::ostream& out)
 		bool ftxt = false;
 		bool stpt = false;
 		StrVec ff;
+		bool inq = false;
+		QBlock qb;
+		std::string ptxt;
 		for (auto&& cmd : seg.second.posts)
 		{
 			if (cmd.cmd == "b" || cmd.cmd == "break") {
 				out << "!break " << params(cmd.param) << std::endl;
-			} else if (cmd.cmd == "t" || cmd.cmd == "text") {
+			} else if (cmd.cmd == "t" || cmd.cmd == "T" || cmd.cmd == "text") {
 				if (!ftxt) {
 					ftxt = true;
 					out << "!qstart" << std::endl;
 				}
-				out << "!text " << params(cmd.param) << std::endl;
+				if (inq)
+					ptxt += params(cmd.param, " ");
+				else
+					out << "!text " << params(cmd.param) << std::endl;
 			} else if (cmd.cmd == "qstart") {
 				if (!ftxt) {
 					ftxt = true;
 					out << "!qstart" << std::endl;
 				}
 			} else if (cmd.cmd == "q" || cmd.cmd == "query") {
-				out << "!query " << params(cmd.param) << std::endl;
+				Query q;
+				q.query = ptxt + cmd.param[0];
+				q.answers.assign(cmd.param.begin()+1, cmd.param.end());
+				ptxt.clear();
+				qb.querys.push_back(q);
+				//out << "!query " << params(cmd.param) << std::endl;
 			} else if (cmd.cmd == "i" || cmd.cmd == "image") {
 				out << "!image " << params(cmd.param) << std::endl;
 			} else if (cmd.cmd == "I" || cmd.cmd == "embed") {
@@ -268,19 +337,33 @@ void writestyr(const StyrFil& styr, std::ostream& out)
 				}
 			} else if (cmd.cmd == "f" || cmd.cmd == "one") {
 				ff = cmd.param;
+				inq = true;
 				if (ftxt && !stpt) {
 					stpt = true;
 					out << "!qstop" << std::endl;
 				}
-				StrVec pp = cmd.param;
-				if (pp.size() < 5)
-					pp.push_back("Rätta"s);
-				out << "!one " << params(pp) << std::endl;
-			} else if (cmd.cmd == "q" || cmd.cmd == "query") {
-				out << "!query " << params(cmd.param) << std::endl;
+				setif(qb.start, cmd.param, 0);
+				setif(qb.score, cmd.param, 1);
+				setif(qb.timer, cmd.param, 2);
+				setif(qb.sound, cmd.param, 3);
+				setif(qb.corr,  cmd.param, 4);
+				ptxt.clear();
+				//out << "!one " << params(pp) << std::endl;
+			} else if (cmd.cmd == "s") {
+				setif(qb.corr,  cmd.param, 0);
+				outq(out, qb);
+				inq = false;
+			} else if (cmd.cmd == "onestop") {
+				outq(out, qb);
+				inq = false;
+				// out << "!query " << params(cmd.param) << std::endl;
 			} else {
 				out << "#error " << cmd.cmd << " " << params(cmd.param) << std::endl;
 			}
+		}
+		if (inq) {
+			outq(out, qb);
+			inq = false;
 		}
 	}
 }

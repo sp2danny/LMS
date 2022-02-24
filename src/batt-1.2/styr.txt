@@ -1,22 +1,23 @@
-
-!seg 2
+!format 2
 !max 3
+!batt -1
 
 [segment-1]
-b=1
-i=50,../common/logo.png
-b=1
-t=En liten text
-b=1
-
-f=Starta, score.php, 13, ../common/lugn.mp3
-q=Fråga 1 : Bla, _Ja, Nej
-q=Fråga 2 : Bla, _Ja, Nej
-q=Fråga 3 : Bla, _Ja, Nej
-s=Rätta, Klar
+!break 1
+!image 50; ../common/logo.png
+!break 1
+!qstart
+!text En liten text
+!break 1
+!qstop
+!one Starta ;  score.php ;  13 ;  ../common/lugn.mp3 ; Rätta
+!query Fråga 1 : Bla ;  _Ja;  Nej
+!query Fråga 2 : Bla ;  _Ja;  Nej
+!query Fråga 3 : Bla ;  _Ja;  Nej
+!onestop
 
 [segment-2]
-b=1
+!break 1
 
 [segment-3]
-b=1
+!break 1

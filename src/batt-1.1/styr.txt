@@ -1,38 +1,10 @@
-#
-# teckenförklaring:
-#
-# !text
-#   skriv ut text
-# !sound ljudfil
-#   spela upp ljudfil
-# !header text
-#   skriv ut text som h1 header
-# !line color
-#   hor linje
-# !break nr
-#   antal blankrader
-# !image size; image
-#   bild
-# !begin Starta; score.php; 130; lugn.mp3
-#   starta frågeformulär med knapptext 'Starta'
-#   rätta med score.php
-#   max 130 sekunder
-#   spela lugn.mp3 under tiden
-# !video nr
-#   spela upp vimeo video nummer 'nr'
-# !query Fråga; alt1; _alt2; alt3
-#
-# !submit Rätta; Klar
-# !next Nästa
-
-
-
-!batt 1
+!format 2
 !max 2
+!batt 1
 
 [segment-1]
 !break 1
-!image 50; ../common/logo.png
+!image 50;  ../common/logo.png
 !break 2
 !qstart
 !text <h2>Så här påverkar ditt DNA din hjärnas begränsningar
@@ -43,27 +15,24 @@
 !text <h3>Svara nu på några frågor om denna film</h3>
 !break 1
 !qstop
-!one Starta en och en; score.php; 130; ../common/lugn.mp3; Rätta
-#!begin Starta; score.php; 130; ../common/lugn.mp3
-!query Fråga 1 : Tog forntidsmänniskan mer än 10.000 steg varje dag för att få mat?; _Ja; Nej
-!query Fråga 2 : Påverkas fokusförmågan av mycket rörelse varje dag?; _Ja; Nej
-!query Fråga 3 : Påverkas minnet av du rör på dig varje dag?; Ja; _Nej
-!query Fråga 4 : Överlevde forntidsmänniskan i ensamhet?; Ja; _Nej
-!query Fråga 5 : Påverkas din stressnivå av många fler intryck varje dag?; _Ja; Nej
-!query Fråga 6 : Mår vi bra av att samarbeta varje dag?; _Ja; Nej
-!query Fråga 7 : Kan hjärnan tränas på samma vis som en muskel?; _Ja; Nej
-!query Fråga 8 : Kan hjärnan hantera fler än 5 djupa relarioner samtidigt?; _Ja; Nej
-!query Fråga 9 : Samarbetar vi bäst i grupper över 15 personer?; Ja; _Nej
-!query Fråga 10 : Är hjärnans viktigaste drivkraft överlevnad?; _Ja; Nej
-#!break 1
-#!submit Rätta; Klar
-#!break 2
-
+!one Starta en och en ;  score.php ;  130 ;  ../common/lugn.mp3 ;  Rätta
+!query Fråga 1 : Tog forntidsmänniskan mer än 10.000 steg varje dag för att få mat? ;  _Ja;  Nej
+!query Fråga 2 : Påverkas fokusförmågan av mycket rörelse varje dag? ;  _Ja;  Nej
+!query Fråga 3 : Påverkas minnet av du rör på dig varje dag? ;  Ja;  _Nej
+!query Fråga 4 : Överlevde forntidsmänniskan i ensamhet? ;  Ja;  _Nej
+!query Fråga 5 : Påverkas din stressnivå av många fler intryck varje dag? ;  _Ja;  Nej
+!query Fråga 6 : Mår vi bra av att samarbeta varje dag? ;  _Ja;  Nej
+!query Fråga 7 : Kan hjärnan tränas på samma vis som en muskel? ;  _Ja;  Nej
+!query Fråga 8 : Kan hjärnan hantera fler än 5 djupa relarioner samtidigt? ;  _Ja;  Nej
+!query Fråga 9 : Samarbetar vi bäst i grupper över 15 personer? ;  Ja;  _Nej
+!query Fråga 10 : Är hjärnans viktigaste drivkraft överlevnad? ;  _Ja;  Nej
+!onestop
 
 [segment-2]
 !break 1
-!image 50; ../common/logo.png
+!image 50;  ../common/logo.png
 !break 2
+!qstart
 !text <h2>DEL 2
 !text <h3>Du skall i denna kurs lära dig varför du behöver uppgradera din hjärnas operativsystem i syfte att maximera din egen potential och nå dina mål.</h3>
 !break 2
@@ -71,18 +40,7 @@
 !break 2
 !text <h3>Svara nu på några frågor om denna film</h3>
 !break 1
-!begin Starta; score.php; 130; ../common/lugn.mp3
-!query Fråga 1 : Tog forntidsmänniskan mer än 10.000 steg varje dag för att få mat?; _Ja; Nej
-!query Fråga 2 : Påverkas fokusförmågan av mycket rörelse varje dag?; _Ja; Nej
-!query Fråga 3 : Påverkas minnet av du rör på dig varje dag?; Ja; _Nej
-!query Fråga 4 : Överlevde forntidsmänniskan i ensamhet?; Ja; _Nej
-!query Fråga 5 : Påverkas din stressnivå av många fler intryck varje dag?; _Ja; Nej
-!query Fråga 6 : Mår vi bra av att samarbeta varje dag?; _Ja; Nej
-!query Fråga 7 : Kan hjärnan tränas på samma vis som en muskel?; _Ja; Nej
-!query Fråga 8 : Kan hjärnan hantera fler än 5 djupa relarioner samtidigt?; _Ja; Nej
-!query Fråga 9 : Samarbetar vi bäst i grupper över 15 personer?; Ja; _Nej
-!query Fråga 10 : Är hjärnans viktigaste drivkraft överlevnad?; _Ja; Nej
+#error begin Starta;  score.php;  130;  ../common/lugn.mp3
 !break 1
-!submit Rätta; Klar
+#error submit Rätta;  Klar
 !break 2
-
