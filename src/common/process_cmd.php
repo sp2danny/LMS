@@ -91,8 +91,8 @@ function process_cmd($to, $data, $cmd, $args)
 			$to->startTag('form', 'action="' . trim($args[1]) . '" method="GET"');
 			$to->scTag('input', 'type="hidden" value="' . $data->snum . '" id="seg" name="seg"');
 			$to->scTag('input', 'type="hidden" value="' . $data->pnr . '" id="pnr" name="pnr"');
-			$to->scTag('input', 'type="hidden" value="" id="TimeStart" name="timestart"');
-			$to->scTag('input', 'type="hidden" value="" id="TimeStop" name="timestop"');
+			$to->scTag('input', 'type="hidden" value="0" id="TimeStart" name="timestart"');
+			$to->scTag('input', 'type="hidden" value="0" id="TimeStop" name="timestop"');
 			$to->scTag('input', 'type="hidden" value="' . trim($args[2]) . '" id="TimeMax" name="timemax"');
 			$to->scTag('input', 'type="hidden" value="0" id="Score" name="score"');
 			$to->startTag('div', 'id="AnswerDiv"');

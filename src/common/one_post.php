@@ -117,7 +117,14 @@ function index($styr, $local, $common)
 		$to->regLine('  s += "&nbsp; &nbsp; &nbsp; <button onclick=\'setA(2, ' . $i . ')\'> <font size=\'+3\'> ' . $s . ' </font> </button>";');
 	}
 
+	$to->regLine('  s += "<br> HEJ <br>";');
+
 	$to->regLine('  div.innerHTML = s;');
+	
+	//$to->regLine('  document.getElementById("AudioBox").play();');
+	$to->regLine('  document.getElementById("TimeStart").value = (new Date()).getTime().toString();');
+	//$to->regLine('  setInterval(showTime, 150);');
+
 	$to->regLine('}');
 
 	//$to->regLine('  window.location.replace("index.php?seg=' . $data->snum . '&pnr=' . $data->pnr . '&pid=' . $pid . '&name=' . $name . '&atq=1");');
@@ -171,7 +178,10 @@ function index($styr, $local, $common)
 	$to->regLine('  nam = "\'q" + (i-1).toString() + "\'";');
 	//$to->regLine('  div2 += "<input type=\'hidden\' value=" + ans + " id=" + nam + "name=" + nam + " />";');
 	$to->regLine('  div2.innerHTML += "<input type=\'hidden\' value=" + ans + " id=" + nam + " name=" + nam + " />";');
-	$to->regLine('  if (!f) div2.innerHTML += "<input type=\'submit\' value=\'Klar\' >";');
+	$to->regLine('  if (!f) {');	
+	$to->regLine('    document.getElementById("TimeStop").value = (new Date()).getTime().toString();');
+	$to->regLine('    div2.innerHTML += "<input type=\'submit\' value=\'Klar\' >";');
+	$to->regLine('  }');
 
 	$to->regLine('}');
 

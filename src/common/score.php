@@ -104,9 +104,9 @@ EOT;
 
 	$ok = ($totscore == $qnum);
 
-	//$dintid = ((getparam('timestop')-getparam('timestart')) / 1000.0);
-	//$dintid = ((int)($dintid*10)) / 10.0;
-	$dintid = 1;
+	$dintid = ((getparam('timestop')-getparam('timestart')) / 1000.0);
+	$dintid = ((int)($dintid*10)) / 10.0;
+	//$dintid = 1;
 	$maxt = getparam('timemax');
 	if ($dintid > $maxt) {
 		$ok = false;

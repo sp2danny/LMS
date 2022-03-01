@@ -1,0 +1,9 @@
+
+styrkant, återställa från backup
+
+bort med klarknapp, direct på sista fråga
+
+progress-bar räknar fel
+
+login.txt med support för länkar
+
