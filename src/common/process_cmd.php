@@ -88,7 +88,7 @@ function process_cmd($to, $data, $cmd, $args)
 			$data->inq = true;
 			$to->regLine('<button id="OneBtn" onclick="doOne()"> ' . trim($args[0]) . ' </button> <br />');
 
-			$to->startTag('form', 'action="' . trim($args[1]) . '" method="GET"');
+			$to->startTag('form', 'id="myForm" action="' . trim($args[1]) . '" method="GET"');
 			$to->scTag('input', 'type="hidden" value="' . $data->snum . '" id="seg" name="seg"');
 			$to->scTag('input', 'type="hidden" value="' . $data->pnr . '" id="pnr" name="pnr"');
 			$to->scTag('input', 'type="hidden" value="0" id="TimeStart" name="timestart"');

@@ -117,7 +117,7 @@ function index($styr, $local, $common)
 		$to->regLine('  s += "&nbsp; &nbsp; &nbsp; <button onclick=\'setA(2, ' . $i . ')\'> <font size=\'+3\'> ' . $s . ' </font> </button>";');
 	}
 
-	$to->regLine('  s += "<br> HEJ <br>";');
+	//$to->regLine('  s += "<br> HEJ <br>";');
 
 	$to->regLine('  div.innerHTML = s;');
 	
@@ -142,6 +142,14 @@ function index($styr, $local, $common)
 
 	$qi = 0;
 	$qcmd = (object)[];
+	$qn = 0;
+	foreach ($cmdlst as $value) {
+		if ($value->is_command) {
+			if ($value->command == 'query')
+				++$qn;
+		}
+	}
+
 	foreach ($cmdlst as $value) {
 		if ($value->is_command) {
 			if ($value->command == 'query') {
@@ -180,7 +188,9 @@ function index($styr, $local, $common)
 	$to->regLine('  div2.innerHTML += "<input type=\'hidden\' value=" + ans + " id=" + nam + " name=" + nam + " />";');
 	$to->regLine('  if (!f) {');	
 	$to->regLine('    document.getElementById("TimeStop").value = (new Date()).getTime().toString();');
-	$to->regLine('    div2.innerHTML += "<input type=\'submit\' value=\'Klar\' >";');
+	$to->regLine('    //div2.innerHTML += "<input type=\'submit\' value=\'Klar\' >";');
+	$to->regLine('    //document.submit();');
+	$to->regLine('    document.getElementById("myForm").submit(); ');
 	$to->regLine('  }');
 
 	$to->regLine('}');
@@ -304,7 +314,7 @@ function index($styr, $local, $common)
 
 		$to->regLine('<br> <br>');
 
-		$to->startTag('form', 'action="score.php" method="GET"');
+		$to->startTag('form', 'id="myForm" action="score.php" method="GET"');
 
 		$to->scTag('input', 'type="hidden" value="' . $data->snum . '" id="seg"  name="seg"' );
 		$to->scTag('input', 'type="hidden" value="' . $data->pnr  . '" id="pnr"  name="pnr"' );

@@ -1,0 +1,79 @@
+
+[pass]
+
+<center> Bra! Du klarade det. Du går nu vidare till nästa del </center>
+!score
+!time
+
+!prog
+
+
+!break 3
+!sound applad.mp3  
+!image 20; winner.jpg
+
+
+<h3>Grattis du går vidare på första nivån av fem där du maximerar din egen potential.</h3>
+
+<b>För ditt bästa</b>
+Vår vision: Alla elitidrottare skall genom personlig
+utveckling bli tryggare individer. Prestera bättre i sin elitkarriär och framförallt skapa en plattform
+till civilt arbete efter idrottskarriären.
+
+Vår Affärsidé:Vi utveckar din personlighet, lär dig den högsta nivåns ledarskap och gör dig rekryterings-
+bar för de bästa bolagen.
+
+<b>De bästa</b>
+Mentorer: Vi samlar Sveriges bästa mentorer för att du skall kunna få bästa personliga stöd på resan
+
+Branschspecialister: Vi samlar specialister i de viktigaste branscherna för att du skall kunna få bästa hjälp du 
+behöver.
+
+Möten: Vi ses regelbudet för att du skall kunna få tryggheten att vårt team stödjer dig på din resa.
+
+It stöd:  Vårt IT stöd kommer att vara ett webbaserat spelinfluerat inteface. Det skall vara kul att lära
+
+!break 3
+!next "Grymt. Du klarade det. Nu vill jag gå vidare till nästa del i utbildningen!"
+!break 3
+!image 70; niva.jpg
+
+
+
+
+[fail]
+
+!score
+!time
+!prog
+!break 1
+!sound aska.mp3  
+!image 20; loser.jpg
+#!break 3
+#!image 70; niva.jpg
+
+<h3>Träna igen på första nivån av fem där du maximerar din egen potential.</h3>
+
+<b>För ditt bästa</b>
+Vår vision: Alla elitidrottare skall genom personlig
+utveckling bli tryggare individer. Prestera bättre i sin elitkarriär och framförallt skapa en plattform
+till civilt arbete efter idrottskarriären.
+
+Vår Affärsidé:Vi utveckar din personlighet, lär dig den högsta nivåns ledarskap och gör dig rekryterings-
+bar för de bästa bolagen.
+
+<b>De bästa</b>
+Mentorer: Vi samlar Sveriges bästa mentorer för att du skall kunna få bästa personliga stöd på resan
+
+Branschspecialister: Vi samlar specialister i de viktigaste branscherna för att du skall kunna få bästa hjälp du 
+behöver.
+
+Möten: Vi ses regelbudet för att du skall kunna få tryggheten att vårt team stödjer dig på din resa.
+
+It stöd:  Vårt IT stöd kommer att vara ett webbaserat spelinfluerat inteface. Det skall vara kul att lära
+
+!break 3
+!again "Synd. Du missade några frågor. Kör igen!"
+!break 1
+!image 70; niva.jpg
+
