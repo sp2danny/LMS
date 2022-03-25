@@ -17,10 +17,10 @@ function corr1(idnum, corrval) {
 
 function showTime() {
   var t1 = document.getElementById("TimeStart").value;
-  var t2 = document.getElementById("TimeStop").value;
+  //var t2 = document.getElementById("TimeStop").value;
   var t3 = document.getElementById("TimeMax").value;
-  if (t2 == "")
-    t2 = (new Date()).getTime().toString();
+  //if (t2 == "")
+  var t2 = (new Date()).getTime().toString();
   var diff = parseInt(t2) - parseInt(t1);
   var rem = parseFloat(t3) - (diff/1000.0);
   rem = Math.round(rem * 10) / 10;

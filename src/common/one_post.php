@@ -7,6 +7,28 @@ include 'process_cmd.php';
 include 'cmdparse.php';
 include 'progress.php';
 
+function ndq($str)
+{
+	$in = false;
+	$out = "";
+	$n = strlen($str);
+	$i = 0;
+	while ($i<$n) {
+		$c = $str[$i];
+		++$i;
+		if ($c == '"') {
+			$in = ! $in;
+			if ($in)
+				$out .= "'";
+			else
+				$out .= "'";
+		} else {
+			$out .= $c;
+		}
+	}
+	return $out;
+}
+
 function index($styr, $local, $common)
 {
 	global $emperator;
@@ -86,6 +108,7 @@ function index($styr, $local, $common)
 
 	$to->startTag('script');
 	$to->regLine('function doOne() {');
+	$to->regLine('  showTime();');
 	$to->regLine('  div1 = document.getElementById("OneBtn");');
 	$to->regLine('  div1.style.visibility = "hidden";');
 
@@ -111,19 +134,23 @@ function index($styr, $local, $common)
 	for ($i=1; $i<$n; ++$i) {
 		$s = $qcmd->params[$i];
 		$s = trim($s);
-		if ($s[0] == '_')
+		$corr = false;
+		if ($s[0] == '_') {
 			$s = substr($s, 1);
-				
-		$to->regLine('  s += "&nbsp; &nbsp; &nbsp; <button onclick=\'setA(2, ' . $i . ')\'> <font size=\'+3\'> ' . $s . ' </font> </button>";');
+			$corr = true;
+		}
+		$to->regLine('  s += "&nbsp; &nbsp; &nbsp; <button onclick=\'setA(2, ' . $i . ', ' . ($corr?"true":"false") . ')\'> <font size=\'+3\'> ' . $s . ' </font> </button>";');
 	}
 
-	//$to->regLine('  s += "<br> HEJ <br>";');
+	//$to->regLine('  document.getElementById("AudioBox").play();');
+	$to->regLine('  ss = (new Date()).getTime().toString();');
+	$to->regLine('  document.getElementById("TimeStart").value = ss;');
+	$to->regLine('  setInterval(showTime, 150);');
+
+	//$to->regLine('  s += "<br> HEJ <br>" + ss;');
 
 	$to->regLine('  div.innerHTML = s;');
 	
-	//$to->regLine('  document.getElementById("AudioBox").play();');
-	$to->regLine('  document.getElementById("TimeStart").value = (new Date()).getTime().toString();');
-	//$to->regLine('  setInterval(showTime, 150);');
 
 	$to->regLine('}');
 
@@ -134,7 +161,16 @@ function index($styr, $local, $common)
 	//$to->regLine('  document.submit();');
 
 
-	$to->regLine('function setA(i, a) {');
+	$to->regLine('function setA(i, a, corr) {');
+
+
+	$to->regLine('  var audio;');
+	$to->regLine('  if (corr) ');
+	$to->regLine('    audio = new Audio("../common/corr.mp3"); ');
+	$to->regLine('  else ');
+	$to->regLine('    audio = new Audio("../common/err.mp3"); ');
+	$to->regLine('  audio.play(); ');
+
 	$to->regLine('  div = document.getElementById("QueryDivider");');
 	$to->regLine('  s = "<br> <br>";');
 	$to->regLine('  f = true;');
@@ -156,14 +192,17 @@ function index($styr, $local, $common)
 				++$qi;
 				if ($qi > 1) {
 					$to->regLine('    case ' . $qi . ':');
-					$to->regLine('      s += "<h1> ' . $value->params[0] . ' </h1> <br>";');
+					$to->regLine('      s += "<h1> ' . ndq($value->params[0]) . ' </h1> <br>";');
 					$n = count($value->params);
 					for ($i=1; $i<$n; ++$i) {
 						$s = $value->params[$i];
 						$s = trim($s);
-						if ($s[0] == '_')
+						$corr = false;
+						if ($s[0] == '_') {
 							$s = substr($s, 1);
-						$to->regLine('      s += "&nbsp; &nbsp; &nbsp; <button onclick=\'setA(' . ($qi+1) . ', ' . $i . ')\'> <font size=\'+3\'> ' . $s . ' </font> </button>";');
+							$corr = true;
+						}
+						$to->regLine('  s += "&nbsp; &nbsp; &nbsp; <button onclick=\'setA(' . ($qi+1) . ', ' . $i . ', ' . ($corr?"true":"false") . ')\'> <font size=\'+3\'> ' . $s . ' </font> </button>";');
 					}
 					$to->regLine('      break;');
 				}
@@ -228,7 +267,7 @@ function index($styr, $local, $common)
 						if (count($cmd->params)>1) {
 							$to->regLine('<img width=' . $cmd->params[0] . '%  src="' . $cmd->params[1] . '" /> <br />');
 						} else {
-							$to->regLine('<img src="' . $cmd->params[0] . '" /> <br />');				
+							$to->regLine('<img src="' . $cmd->params[0] . '" /> <br />');
 						}
 						break;
 					case 'name':
