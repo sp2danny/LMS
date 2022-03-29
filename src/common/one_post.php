@@ -139,11 +139,12 @@ function index($styr, $local, $common)
 			$s = substr($s, 1);
 			$corr = true;
 		}
-		$ss = "<div id='b" . $i . "'> <image src='blank.png'> </div>";		
-		$to->regLine('  s += "&nbsp; &nbsp; &nbsp; <button onclick=\'setA(2, ' . $i . ', ' . ($corr?"true":"false") . ')\'> ' . $ss . ' <font size=\'+3\'> ' . $s . ' </font> </button>";');
+		$ss = "<div class='btndiv' id='b" . $i . "'> <image src='../common/blank.png'> </div>";		
+		$to->regLine('  s += "&nbsp; &nbsp; &nbsp; <button onclick=\'setA(2, ' . $i . ', ' . ($corr?"true":"false") . ')\'> ' . $ss . ' <font size=\'+3\'> ' . $s .
+		  ' &nbsp; &nbsp; &nbsp; </font> </button>";');
 	}
 
-	$to->regLine('  document.getElementById("AudioBox").play();');
+	//$to->regLine('  document.getElementById("AudioBox").play();');
 	$to->regLine('  ss = (new Date()).getTime().toString();');
 	$to->regLine('  document.getElementById("TimeStart").value = ss;');
 	$to->regLine('  setInterval(showTime, 150);');
@@ -171,6 +172,10 @@ function index($styr, $local, $common)
 	$to->regLine('  else ');
 	$to->regLine('    audio = new Audio("../common/err.mp3"); ');
 	$to->regLine('  audio.play(); ');
+
+	$to->regLine('  bd = document.getElementById("b" + a.toString());');
+	$to->regLine('  bd.innerHTML = "<image src=\'../common/" + ((corr)?"corr":"err") + ".png\' >";');
+
 
 	$to->regLine('  div = document.getElementById("QueryDivider");');
 	$to->regLine('  s = "<br> <br>";');
@@ -203,8 +208,9 @@ function index($styr, $local, $common)
 							$s = substr($s, 1);
 							$corr = true;
 						}
-						$ss = "<div id='b" . $i . "'> <image src='blank.png'> </div>";
-						$to->regLine('  s += "&nbsp; &nbsp; &nbsp; <button onclick=\'setA(' . ($qi+1) . ', ' . $i . ', ' . ($corr?"true":"false") . ')\'> ' . $ss . ' <font size=\'+3\'> ' . $s . ' </font> </button>";');
+						$ss = "<div class='btndiv' id='b" . $i . "'> <image src='../common/blank.png'> </div>";
+						$to->regLine('      s += "&nbsp; &nbsp; &nbsp; <button onclick=\'setA(' . ($qi+1) . ', ' . $i . ', ' . ($corr?"true":"false") . ')\'> ' . $ss . ' <font size=\'+3\'> ' . $s .
+						  ' &nbsp; &nbsp; &nbsp; </font> </button>";');
 					}
 					$to->regLine('      break;');
 				}
@@ -220,18 +226,16 @@ function index($styr, $local, $common)
 	$to->regLine('      break;');
 
 	$to->regLine('  }');
-	$to->regLine('  div.innerHTML = s;');
-	
+
+	$to->regLine('  setTimeout(function(){ div.innerHTML = s; }, 750);');
+
 	$to->regLine('  div2 = document.getElementById("AnswerDiv");');
 	$to->regLine('  ans = "\'" + a.toString() + "\'";');
 	$to->regLine('  nam = "\'q" + (i-1).toString() + "\'";');
-	//$to->regLine('  div2 += "<input type=\'hidden\' value=" + ans + " id=" + nam + "name=" + nam + " />";');
 	$to->regLine('  div2.innerHTML += "<input type=\'hidden\' value=" + ans + " id=" + nam + " name=" + nam + " />";');
 	$to->regLine('  if (!f) {');	
 	$to->regLine('    document.getElementById("TimeStop").value = (new Date()).getTime().toString();');
-	$to->regLine('    //div2.innerHTML += "<input type=\'submit\' value=\'Klar\' >";');
-	$to->regLine('    //document.submit();');
-	$to->regLine('    document.getElementById("myForm").submit(); ');
+	$to->regLine('    setTimeout(function(){ document.getElementById("myForm").submit();}, 1250); ');
 	$to->regLine('  }');
 
 	$to->regLine('}');

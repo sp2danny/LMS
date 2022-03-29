@@ -45,6 +45,12 @@ function doShow() {
 }
 </script>
 
+<style type="text/css">
+  .btndiv {
+    display: inline;
+  }
+</style>
+
 <?php
 
 include 'getparam.php';

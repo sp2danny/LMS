@@ -80,6 +80,12 @@ function index($styr, $local, $common)
 
 	echo '<meta name="viewport" content="width=device-width, initial-scale=1">' . $eol;
 
+	echo '  <style type="text/css">' . $eol;
+	echo '    .btndiv {' . $eol;
+	echo '      display: inline;' . $eol;
+	echo '    }' . $eol;
+	echo '  </style>' . $eol;
+
 	echo '</head>' . $eol;
 	$to->startTag('body');
 	
