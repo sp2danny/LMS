@@ -139,7 +139,8 @@ function index($styr, $local, $common)
 			$s = substr($s, 1);
 			$corr = true;
 		}
-		$to->regLine('  s += "&nbsp; &nbsp; &nbsp; <button onclick=\'setA(2, ' . $i . ', ' . ($corr?"true":"false") . ')\'> <font size=\'+3\'> ' . $s . ' </font> </button>";');
+		$ss = "<div id='b" . $i . "'> <image src='blank.png'> </div>";		
+		$to->regLine('  s += "&nbsp; &nbsp; &nbsp; <button onclick=\'setA(2, ' . $i . ', ' . ($corr?"true":"false") . ')\'> ' . $ss . ' <font size=\'+3\'> ' . $s . ' </font> </button>";');
 	}
 
 	$to->regLine('  document.getElementById("AudioBox").play();');
@@ -202,7 +203,7 @@ function index($styr, $local, $common)
 							$s = substr($s, 1);
 							$corr = true;
 						}
-						$ss = "<div id='" . $i . "'> <image src='blank.png'> </div>";
+						$ss = "<div id='b" . $i . "'> <image src='blank.png'> </div>";
 						$to->regLine('  s += "&nbsp; &nbsp; &nbsp; <button onclick=\'setA(' . ($qi+1) . ', ' . $i . ', ' . ($corr?"true":"false") . ')\'> ' . $ss . ' <font size=\'+3\'> ' . $s . ' </font> </button>";');
 					}
 					$to->regLine('      break;');
