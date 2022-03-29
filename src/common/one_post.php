@@ -142,7 +142,7 @@ function index($styr, $local, $common)
 		$to->regLine('  s += "&nbsp; &nbsp; &nbsp; <button onclick=\'setA(2, ' . $i . ', ' . ($corr?"true":"false") . ')\'> <font size=\'+3\'> ' . $s . ' </font> </button>";');
 	}
 
-	//$to->regLine('  document.getElementById("AudioBox").play();');
+	$to->regLine('  document.getElementById("AudioBox").play();');
 	$to->regLine('  ss = (new Date()).getTime().toString();');
 	$to->regLine('  document.getElementById("TimeStart").value = ss;');
 	$to->regLine('  setInterval(showTime, 150);');
@@ -202,7 +202,8 @@ function index($styr, $local, $common)
 							$s = substr($s, 1);
 							$corr = true;
 						}
-						$to->regLine('  s += "&nbsp; &nbsp; &nbsp; <button onclick=\'setA(' . ($qi+1) . ', ' . $i . ', ' . ($corr?"true":"false") . ')\'> <font size=\'+3\'> ' . $s . ' </font> </button>";');
+						$ss = "<div id='" . $i . "'> <image src='blank.png'> </div>";
+						$to->regLine('  s += "&nbsp; &nbsp; &nbsp; <button onclick=\'setA(' . ($qi+1) . ', ' . $i . ', ' . ($corr?"true":"false") . ')\'> ' . $ss . ' <font size=\'+3\'> ' . $s . ' </font> </button>";');
 					}
 					$to->regLine('      break;');
 				}
