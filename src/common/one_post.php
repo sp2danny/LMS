@@ -220,8 +220,6 @@ function index($styr, $local, $common)
 
 	++$qi;
 	$to->regLine('    case ' . $qi . ':');
-	//$to->regLine('      s = "<input type=\'submit\' value=\'Klar\' >";');
-	//$to->regLine('      s = "<button  id=\'CorrBtn\' onclick=\'submit'> Klar </button> <br />";');
 	$to->regLine('      f = false;');
 	$to->regLine('      break;');
 
@@ -233,7 +231,7 @@ function index($styr, $local, $common)
 	$to->regLine('  ans = "\'" + a.toString() + "\'";');
 	$to->regLine('  nam = "\'q" + (i-1).toString() + "\'";');
 	$to->regLine('  div2.innerHTML += "<input type=\'hidden\' value=" + ans + " id=" + nam + " name=" + nam + " />";');
-	$to->regLine('  if (!f) {');	
+	$to->regLine('  if (!f) {');
 	$to->regLine('    document.getElementById("TimeStop").value = (new Date()).getTime().toString();');
 	$to->regLine('    setTimeout(function(){ document.getElementById("myForm").submit();}, 1250); ');
 	$to->regLine('  }');
