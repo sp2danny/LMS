@@ -181,7 +181,7 @@ EOT;
 	
 					case "prog":
 						// TODO here
-						$pro = progress($bnum, $maxseg);
+						$pro = progress($snum, $maxseg);
 
 						echo '<div class="container"> <div class="progress">' . $eol;
 						echo '<div class="progress-bar" role="progressbar" aria-valuenow="' . $pro;

@@ -31,6 +31,7 @@
     <None Include="src\common\one_post.php" />
     <None Include="src\common\personal.php" />
     <None Include="src\common\process_cmd.php" />
+    <None Include="src\common\progress.php" />
     <None Include="src\common\pulselst.php" />
     <None Include="src\common\score.php" />
     <None Include="src\debug.php" />
