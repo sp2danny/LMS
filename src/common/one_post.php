@@ -144,7 +144,7 @@ function index($styr, $local, $common)
 		  ' &nbsp; &nbsp; &nbsp; </font> </button>";');
 	}
 
-	//$to->regLine('  document.getElementById("AudioBox").play();');
+	$to->regLine('  ab = document.getElementById("AudioBox"); if (ab) ab.play();');
 	$to->regLine('  ss = (new Date()).getTime().toString();');
 	$to->regLine('  document.getElementById("TimeStart").value = ss;');
 	$to->regLine('  setInterval(showTime, 150);');

@@ -98,6 +98,12 @@ function process_cmd($to, $data, $cmd, $args)
 			$to->startTag('div', 'id="AnswerDiv"');
 			$to->stopTag('div');
 			$to->stopTag('form');
+			$ab = trim($args[3]);
+			if (!empty($ab)) {
+				$to->startTag('audio', 'id="AudioBox"');
+				$to->scTag('source', 'src="' . trim($args[3]) . '" ');
+				$to->stopTag('audio');
+			}
 			break;
 		case 'onestop':
 			break;
