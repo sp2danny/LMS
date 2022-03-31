@@ -108,6 +108,9 @@ function index($styr, $local, $common)
 
 	$to->startTag('script');
 	$to->regLine('function doOne() {');
+	$to->regLine('  var canvas = document.getElementById("myCanvas");');
+	$to->regLine('  setProgress(0, canvas);');
+
 	$to->regLine('  showTime();');
 	$to->regLine('  div1 = document.getElementById("OneBtn");');
 	$to->regLine('  div1.style.visibility = "hidden";');
@@ -149,22 +152,56 @@ function index($styr, $local, $common)
 	$to->regLine('  document.getElementById("TimeStart").value = ss;');
 	$to->regLine('  setInterval(showTime, 150);');
 
-	//$to->regLine('  s += "<br> HEJ <br>" + ss;');
-
 	$to->regLine('  div.innerHTML = s;');
-	
-
 	$to->regLine('}');
 
-	//$to->regLine('  window.location.replace("index.php?seg=' . $data->snum . '&pnr=' . $data->pnr . '&pid=' . $pid . '&name=' . $name . '&atq=1");');
-	//$to->regLine('}');
-	//$to->regLine('function setA(i) {');
-	//$to->regLine('  document.getElementById("q' . $atq . '").value = i;');
-	//$to->regLine('  document.submit();');
 
+	$to->regLine('function setProgress(pro, cnv) {');
+	$to->regLine('  var ctx = cnv.getContext("2d");');
+	$to->regLine('  ctx.fillStyle = "#F2F3F7";');
+	$to->regLine('  ctx.fillRect(0,0,200,200);');
+	$to->regLine('  ctx.strokeStyle = "#000";');
+	$to->regLine('  ctx.lineWidth = 12;');
+	$to->regLine('  ctx.beginPath();');
+	$to->regLine('  ctx.arc(100, 100, 75, 1 * Math.PI, 2 * Math.PI);');
+	$to->regLine('  ctx.stroke(); ');
+	$to->regLine('  ctx.strokeStyle = "#fff";');
+	$to->regLine('  ctx.lineWidth = 10;');
+	$to->regLine('  ctx.beginPath();');
+	$to->regLine('  ctx.arc(100, 100, 75, 1.01 * Math.PI, 1.99 * Math.PI);');
+	$to->regLine('  ctx.stroke();');
+
+	$to->regLine('  if (pro > 0) {');
+	$to->regLine('    ctx.strokeStyle = "#7fff7f";');
+	$to->regLine('    ctx.lineWidth = 10;');
+	$to->regLine('    ctx.beginPath();');
+	$to->regLine('    ctx.arc(100, 100, 75, 1.01 * Math.PI, (1.01+0.98*(pro/100.0)) * Math.PI);');
+	$to->regLine('    ctx.stroke();');
+	$to->regLine('  }');
+
+	$to->regLine('  ctx.fillStyle = "#7f7";');
+	$to->regLine('  ctx.lineWidth = 1;');
+	$to->regLine('  ctx.strokeStyle = "#000";');
+	$to->regLine('  ctx.font = "35px Arial";');
+	$to->regLine('  ctx.textAlign = "center"; ');
+	$to->regLine('  ctx.fillText( pro.toString() + " %", 100, 98); ');
+	$to->regLine('  ctx.strokeText( pro.toString() + " %", 100, 98); ');
+	$to->regLine('}');
+
+	$qi = 0;
+	$qcmd = (object)[];
+	$qn = 0;
+	foreach ($cmdlst as $value) {
+		if ($value->is_command) {
+			if ($value->command == 'query')
+				++$qn;
+		}
+	}
 
 	$to->regLine('function setA(i, a, corr) {');
 
+	$to->regLine('  var canvas = document.getElementById("myCanvas");');
+	$to->regLine('  setProgress(Math.round((100.0 * (i-1))/' . $qn . '), canvas);');
 
 	$to->regLine('  var audio;');
 	$to->regLine('  if (corr) ');
@@ -176,21 +213,10 @@ function index($styr, $local, $common)
 	$to->regLine('  bd = document.getElementById("b" + a.toString());');
 	$to->regLine('  bd.innerHTML = "<image src=\'../common/" + ((corr)?"corr":"err") + ".png\' >";');
 
-
 	$to->regLine('  div = document.getElementById("QueryDivider");');
 	$to->regLine('  s = "<br> <br>";');
 	$to->regLine('  f = true;');
 	$to->regLine('  switch (i) {');
-
-	$qi = 0;
-	$qcmd = (object)[];
-	$qn = 0;
-	foreach ($cmdlst as $value) {
-		if ($value->is_command) {
-			if ($value->command == 'query')
-				++$qn;
-		}
-	}
 
 	foreach ($cmdlst as $value) {
 		if ($value->is_command) {
@@ -296,38 +322,14 @@ function index($styr, $local, $common)
 					
 						break;
 					case 'prog':
-						$pro = (int)progress($data->snum, $maxseg);
+						$pro = 0; // (int)progress($data->snum, $maxseg);
 						if ($pro<0) $pro = 0;
 						if ($pro>100) $pro = 100;
 						$to->regLine('<canvas id="myCanvas" width="200" height="120" ></canvas>');
 						$to->startTag('script');
 						$to->regLine('var pro = ' . $pro . ';');
 						$to->regLine('var canvas = document.getElementById("myCanvas");');
-						$to->regLine('var ctx = canvas.getContext("2d");');
-						$to->regLine('ctx.fillStyle = "#F2F3F7";');
-						$to->regLine('ctx.fillRect(0,0,200,200);');
-						$to->regLine('ctx.strokeStyle = "#000";');
-						$to->regLine('ctx.lineWidth = 12;');
-						$to->regLine('ctx.beginPath();');
-						$to->regLine('ctx.arc(100, 100, 75, 1 * Math.PI, 2 * Math.PI);');
-						$to->regLine('ctx.stroke(); ');
-						$to->regLine('ctx.strokeStyle = "#fff";');
-						$to->regLine('ctx.lineWidth = 10;');
-						$to->regLine('ctx.beginPath();');
-						$to->regLine('ctx.arc(100, 100, 75, 1.01 * Math.PI, 1.99 * Math.PI);');
-						$to->regLine('ctx.stroke();');
-						$to->regLine('ctx.strokeStyle = "#7fff7f";');
-						$to->regLine('ctx.lineWidth = 10;');
-						$to->regLine('ctx.beginPath();');
-						$to->regLine('ctx.arc(100, 100, 75, 1.01 * Math.PI, (1+(pro/100.0)) * Math.PI);');
-						$to->regLine('ctx.stroke();');
-						$to->regLine('ctx.fillStyle = "#7f7";');
-						$to->regLine('ctx.lineWidth = 1;');
-						$to->regLine('ctx.strokeStyle = "#000";');
-						$to->regLine('ctx.font = "35px Arial";');
-						$to->regLine('ctx.textAlign = "center"; ');
-						$to->regLine('ctx.fillText( pro.toString() + " %", 100, 98); ');
-						$to->regLine('ctx.strokeText( pro.toString() + " %", 100, 98); ');
+						$to->regLine('//setProgress(pro, canvas);');
 						$to->stopTag('script');
 						break;
 				}
