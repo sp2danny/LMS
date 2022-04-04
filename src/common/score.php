@@ -174,15 +174,11 @@ EOT;
 						echo '.png" > </td> <td> Po&auml;ng : ' . $totscore . ' / ' . $qnum . '</td></tr>' . $eol;
 						echo '</table>' . $eol;
 						break;
-						
 					case 'text':
 						echo $cmd->rest . ' <br/> ' . $eol;
 						break;
-	
 					case "prog":
-						// TODO here
 						$pro = round(progress($snum, $maxseg));
-
 						echo '<div class="container"> <div class="progress">' . $eol;
 						echo '<div class="progress-bar" role="progressbar" aria-valuenow="' . $pro;
 						echo '" aria-valuemin="0" aria-valuemax="100" style="width:' . $pro . '%">' . $eol;

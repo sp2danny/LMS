@@ -176,6 +176,15 @@ function process_cmd($to, $data, $cmd, $args)
 			$to->stopTag('button');
 			break;
 			
+
+		case 'discquery':
+			$to->regLine( ' <embed type="text/html" src="discquery.php" > ' );
+			break;
+		case 'discdisplay':
+			$to->regLine( ' <embed type="text/html" src="discdisplay.php" > ' );
+			break;
+
+
 		default:
 			$ret  = ' *** WARNING *** <br />' . $eol;
 			$ret .= ' unrecognized command : "' . htmlspecialchars($cmd) . '" on line ' . $data->lineno . ' <br />' . $eol;
