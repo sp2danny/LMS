@@ -181,12 +181,13 @@ EOT;
 	
 					case "prog":
 						// TODO here
-						$pro = progress($snum, $maxseg);
+						$pro = round(progress($snum, $maxseg));
 
 						echo '<div class="container"> <div class="progress">' . $eol;
 						echo '<div class="progress-bar" role="progressbar" aria-valuenow="' . $pro;
 						echo '" aria-valuemin="0" aria-valuemax="100" style="width:' . $pro . '%">' . $eol;
 						echo '<span class="sr-only">' . $pro . '% Complete</span>' . $eol;
+						echo ' &nbsp; ' . $pro . ' %' . $eol;
 						echo '</div></div></div>' . $eol;
 						break;
 					case "time":
