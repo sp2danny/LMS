@@ -178,10 +178,10 @@ function process_cmd($to, $data, $cmd, $args)
 			
 
 		case 'discquery':
-			$to->regLine( ' <embed type="text/html" src="discquery.php" > ' );
+			$to->regLine( ' <embed type="text/html" src="../common/discquery.php" > ' );
 			break;
 		case 'discdisplay':
-			$to->regLine( ' <embed type="text/html" src="discdisplay.php" > ' );
+			$to->regLine( ' <embed type="text/html" src="../common/discdisplay.php" > ' );
 			break;
 
 
