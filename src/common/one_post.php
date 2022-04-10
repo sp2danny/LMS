@@ -132,7 +132,7 @@ function index($styr, $local, $common)
 		}
 	}
 
-	if (isset($qcmd)) {
+	if ($qi > 0) {
 		$n = count($qcmd->params);
 		$to->regLine('  s += "<h1> ' . $qcmd->params[0] . ' </h1> <br>";');
 		for ($i=1; $i<$n; ++$i) {
