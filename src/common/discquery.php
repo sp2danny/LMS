@@ -1,30 +1,5 @@
-<html>
-<head></head>
-<body>
-discquery.php
-</body>
-</html>
 
-
-
-	include_once('wrapper_before.php');
-
-	echo '<!doctype html><html><head><meta charset="ISO-8859-1">' ;
-
-	include('connect.inc');
-	$query = "SELECT * FROM " . $MainDB . "_PersonBas WHERE person_id = ";
-	$query .= $_GET['id'];
-	$result = mysqli_query($emperator,$query);
-	echo '<title>Fr&aring;geformul&auml;r';
-	if($row = mysqli_fetch_array($result))
-	{
-		echo ' ' . $row['f_name'] . ' ' . $row['e_name'] ;
-	}
-	echo '</title></head><body>';
-
-	$query = "SELECT * FROM " . $MainDB . "_BatteriDisc WHERE direction = '1'";
-
-	$result = mysqli_query($emperator,$query);
+<?php
 
 	function my_mb_ucfirst($str) {
 		$fc = mb_strtoupper(mb_substr($str, 0, 1));
@@ -33,68 +8,82 @@ discquery.php
 
 	function pr_bef()
 	{
-		echo "<h3><center>Välj den egenskap som ligger närmast dig</center></h3> <br> \n " ;
-		echo '<br><table>' . "\n";
+		return "<h3><center>Välj den egenskap som ligger närmast dig</center></h3> <br> \n " .
+			'<br><table>' . "\n";
 	}
-	function pr_row($row,$id)
+	function pr_row($qs, $seg, $i)
 	{
-		echo "<tr><td width='275px'><center>";
-		$v1 = htmlentities( my_mb_ucfirst($row['var1']), ENT_COMPAT | ENT_HTML5, "ISO-8859-1" ) ;
-		$v2 = htmlentities( my_mb_ucfirst($row['var2']), ENT_COMPAT | ENT_HTML5, "ISO-8859-1" ) ;
-		echo $v1;
-		echo "</center></td><td> eller </td><td width='275px'><center>";
-		echo $v2;
-		echo '</center></td><td>' . "\n";
-		echo '<select form="disc" id="' . $id . '" name="' . $id . '">' . "\n";
-		echo '<option value="0">' .  ' &nbsp;&nbsp;&nbsp;&nbsp; ----- v&auml;lj ----- ' ;
-		for( $jj = 0 ; $jj < 18 ; ++$jj ) echo '&nbsp;';
-		echo '</option>' . "\n";
-		echo '<option value="-1"> &nbsp; ' . $v1 . ' </option>' . "\n";
-		echo '<option value="+1"> &nbsp; ' . $v2 . ' </option>' . "\n";
-		echo '</select></td></tr>' . "\n";
+		$s = "<tr><td width='275px'><center>";
+		$v1 = $qs[$seg][$i][0];
+		$v2 = $qs[$seg][$i][1];
+		$s .= $v1;
+		$s .= "</center></td><td> eller </td><td width='275px'><center>";
+		$s .= $v2;
+		$s .= '</center></td><td>' . "\n";
+		$s .= '<select form="disc" id="' . $seg . $i . '" name="' . $seg . $i . '">' . "\n";
+		$s .= '<option value="0">' .  ' &nbsp;&nbsp;&nbsp;&nbsp; ----- v&auml;lj ----- ' ;
+		for( $jj = 0 ; $jj < 18 ; ++$jj ) $s .= '&nbsp;';
+		$s .= '</option>' . "\n";
+		$s .= '<option value="-1"> &nbsp; ' . $v1 . ' </option>' . "\n";
+		$s .= '<option value="+1"> &nbsp; ' . $v2 . ' </option>' . "\n";
+		$s .= '</select></td></tr>' . "\n";
+		return $s;
 	}
 	function pr_aft()
 	{
-		echo '</table>' . "\n";
+		return '</table>' . "\n";
 	}
 
-	echo '<form action="post_disc.php" id="disc" method="get" >' . "\n" ;
+function dodisc($pnr)
+{
 
-	$ID = '1';
+	$disc = fopen("../common/disc.txt", "r") or die("Unable to open file!");
 
-	echo '<div id="idtag" style="display: none;">' ;
-	echo '<input type="text" name="id" value="';
-	echo $_GET['id'];
-	echo '"> </div>' . "\n";
+	$seg = '';
+	$qs = [];
 
-	pr_bef();
-	while($row = mysqli_fetch_array($result))
-	{
-		pr_row($row,$ID);
-		$ID += 1;
+	while (true) {
+		$buffer = fgets($disc, 4096); // or break;
+		if (!$buffer) break;
+		$str = trim($buffer);
+		$n = strlen($str);
+		if (!$n) continue;
+		if ($str[0] == '#') continue;
+		if (($str[0] == '[') && ($str[$n-1] == ']')) {
+			$seg = substr($str, 1, $n-2);
+			continue;
+		}
+		$qs[$seg][] = str_getcsv($str, ",");
 	}
-	pr_aft();
 
-	//echo '<br><br>' ;
+	$ret = '<form action="../common/post_disc.php" id="disc" method="get" >' . "\n" ;
 
-	$query = "SELECT * FROM " . $MainDB . "_BatteriDisc WHERE direction = '2'";
+	$ret .= '<div id="idtag" style="display: none;">' ;
+	$ret .= '<input type="text" name="pnr" value="';
+	$ret .= $pnr;
+	$ret .= '"> </div>' . "\n";
 
-	$result = mysqli_query($emperator,$query);
-	
-	echo "<br><br><br>";
-
-	pr_bef();
-	while($row = mysqli_fetch_array($result))
-	{
-		pr_row($row,$ID);
-		$ID += 1;
+	$ret .= pr_bef();
+	$n = count($qs["UD"]);
+	for ($i=0; $i<$n; ++$i) {
+		$ret .= pr_row($qs, "UD", $i);
 	}
-	pr_aft();
+	$ret .= pr_aft();
 
-	echo "<br> Slutförd &nbsp; &nbsp; <code>" . date("Y M d") . " </code> <br>\n" ;
+	$ret .= "<br><br><br>";
 
-	echo '<input type="submit" value="Klar"></form></body></html>';
+	$ret .= pr_bef();
+	$n = count($qs["LR"]);
+	for ($i=0; $i<$n; ++$i) {
+		$ret .= pr_row($qs, "LR", $i);
+	}
+	$ret .= pr_aft();
 
-	include_once('wrapper_after.php');
+	$ret .= "<br> Slutförd &nbsp; &nbsp; <code>" . date("Y M d") . " </code> <br>\n" ;
+
+	$ret .= '<input type="submit" value="Klar"></form></body></html>';
+
+	return $ret;
+}
 
 ?>

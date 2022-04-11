@@ -3,6 +3,9 @@
 
 <?php
 
+include "discquery.php";
+
+
 class Data
 {
 	public $qnum = 0;
@@ -178,10 +181,11 @@ function process_cmd($to, $data, $cmd, $args)
 			
 
 		case 'discquery':
-			$to->regLine( ' <embed type="text/html" src="../common/discquery.php" > ' );
+			$to->regLine( dodisc($data->pnr) );
+
 			break;
 		case 'discdisplay':
-			$to->regLine( ' <embed type="text/html" src="../common/discdisplay.php" > ' );
+			$to->regLine( ' <embed width="600" height="600" type="text/html" src="../common/discdisplay.php?pid=' . getparam("pid", "0") . '" > ' );
 			break;
 
 

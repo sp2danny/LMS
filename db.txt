@@ -24,5 +24,7 @@ typer
 	disk        3 u          hv           ud         
 	mynt tot    4 u          antal        -          
 	mynt event  5            antal        -          
+	disc        6            LR           UD
+ 
 
 
