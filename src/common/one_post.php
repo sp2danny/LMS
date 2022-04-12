@@ -133,25 +133,27 @@ function index($styr, $local, $common)
 	}
 
 	if ($qi > 0) {
-		$n = count($qcmd->params);
-		$to->regLine('  s += "<h1> ' . $qcmd->params[0] . ' </h1> <br>";');
-		for ($i=1; $i<$n; ++$i) {
-			$s = $qcmd->params[$i];
-			$s = trim($s);
-			$corr = false;
-			if ($s[0] == '_') {
-				$s = substr($s, 1);
-				$corr = true;
+		if (is_array($qcmd->params)) {
+			$n = count($qcmd->params);
+			$to->regLine('  s += "<h1> ' . $qcmd->params[0] . ' </h1> <br>";');
+			for ($i=1; $i<$n; ++$i) {
+				$s = $qcmd->params[$i];
+				$s = trim($s);
+				$corr = false;
+				if ($s[0] == '_') {
+					$s = substr($s, 1);
+					$corr = true;
+				}
+				$ss = "<div class='btndiv' id='b" . $i . "'> <image src='../common/blank.png'> </div>";		
+				$to->regLine('  s += "&nbsp; &nbsp; &nbsp; <button onclick=\'setA(2, ' . $i . ', ' . ($corr?"true":"false") . ')\'> ' . $ss . ' <font size=\'+3\'> ' . $s .
+				  ' &nbsp; &nbsp; &nbsp; </font> </button>";');
 			}
-			$ss = "<div class='btndiv' id='b" . $i . "'> <image src='../common/blank.png'> </div>";		
-			$to->regLine('  s += "&nbsp; &nbsp; &nbsp; <button onclick=\'setA(2, ' . $i . ', ' . ($corr?"true":"false") . ')\'> ' . $ss . ' <font size=\'+3\'> ' . $s .
-			  ' &nbsp; &nbsp; &nbsp; </font> </button>";');
-		}
 
-		$to->regLine('  ab = document.getElementById("AudioBox"); if (ab) ab.play();');
-		$to->regLine('  ss = (new Date()).getTime().toString();');
-		$to->regLine('  document.getElementById("TimeStart").value = ss;');
-		$to->regLine('  setInterval(showTime, 150);');
+			$to->regLine('  ab = document.getElementById("AudioBox"); if (ab) ab.play();');
+			$to->regLine('  ss = (new Date()).getTime().toString();');
+			$to->regLine('  document.getElementById("TimeStart").value = ss;');
+			$to->regLine('  setInterval(showTime, 150);');
+		}
 	}
 
 	$to->regLine('  div.innerHTML = s;');
