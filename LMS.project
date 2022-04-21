@@ -4,6 +4,8 @@
     <File Name="ftp.txt"/>
   </VirtualDirectory>
   <VirtualDirectory Name="src">
+    <File Name="src/common/discquery.php"/>
+    <File Name="src/common/discdisplay.php"/>
     <File Name="src/common/utbsel.php"/>
     <File Name="src/common/tagOut.php"/>
     <File Name="src/common/score.php"/>

@@ -1,38 +1,38 @@
 
 <?php
 
-	function my_mb_ucfirst($str) {
-		$fc = mb_strtoupper(mb_substr($str, 0, 1));
-		return $fc.mb_substr($str, 1);
-	}
+function my_mb_ucfirst($str) {
+	$fc = mb_strtoupper(mb_substr($str, 0, 1));
+	return $fc.mb_substr($str, 1);
+}
 
-	function pr_bef()
-	{
-		return "<h3><center>Välj den egenskap som ligger närmast dig</center></h3> <br> \n " .
-			'<br><table>' . "\n";
-	}
-	function pr_row($qs, $seg, $i)
-	{
-		$s = "<tr><td width='275px'><center>";
-		$v1 = $qs[$seg][$i][0];
-		$v2 = $qs[$seg][$i][1];
-		$s .= $v1;
-		$s .= "</center></td><td> eller </td><td width='275px'><center>";
-		$s .= $v2;
-		$s .= '</center></td><td>' . "\n";
-		$s .= '<select form="disc" id="' . $seg . $i . '" name="' . $seg . $i . '">' . "\n";
-		$s .= '<option value="0">' .  ' &nbsp;&nbsp;&nbsp;&nbsp; ----- v&auml;lj ----- ' ;
-		for( $jj = 0 ; $jj < 18 ; ++$jj ) $s .= '&nbsp;';
-		$s .= '</option>' . "\n";
-		$s .= '<option value="-1"> &nbsp; ' . $v1 . ' </option>' . "\n";
-		$s .= '<option value="+1"> &nbsp; ' . $v2 . ' </option>' . "\n";
-		$s .= '</select></td></tr>' . "\n";
-		return $s;
-	}
-	function pr_aft()
-	{
-		return '</table>' . "\n";
-	}
+function pr_bef()
+{
+	return "<h3><center>Välj den egenskap som ligger närmast dig</center></h3> <br> \n " .
+		'<br><table>' . "\n";
+}
+function pr_row($qs, $seg, $i)
+{
+	$s = "<tr><td width='275px'><center>";
+	$v1 = $qs[$seg][$i][0];
+	$v2 = $qs[$seg][$i][1];
+	$s .= $v1;
+	$s .= "</center></td><td> eller </td><td width='275px'><center>";
+	$s .= $v2;
+	$s .= '</center></td><td>' . "\n";
+	$s .= '<select form="disc" id="' . $seg . $i . '" name="' . $seg . $i . '">' . "\n";
+	$s .= '<option value="0">' .  ' &nbsp;&nbsp;&nbsp;&nbsp; ----- v&auml;lj ----- ' ;
+	for( $jj = 0 ; $jj < 18 ; ++$jj ) $s .= '&nbsp;';
+	$s .= '</option>' . "\n";
+	$s .= '<option value="-1"> &nbsp; ' . $v1 . ' </option>' . "\n";
+	$s .= '<option value="+1"> &nbsp; ' . $v2 . ' </option>' . "\n";
+	$s .= '</select></td></tr>' . "\n";
+	return $s;
+}
+function pr_aft()
+{
+	return '</table>' . "\n";
+}
 
 function dodisc($pnr)
 {

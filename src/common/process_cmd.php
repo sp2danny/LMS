@@ -4,7 +4,7 @@
 <?php
 
 include "discquery.php";
-
+include "discdisplay.php";
 
 class Data
 {
@@ -185,9 +185,8 @@ function process_cmd($to, $data, $cmd, $args)
 
 			break;
 		case 'discdisplay':
-			$to->regLine( ' <embed width="600" height="600" type="text/html" src="../common/discdisplay.php?pid=' . getparam("pid", "0") . '" > ' );
+			$to->regLine( discdisplay( getparam("pid", "0") ) );
 			break;
-
 
 		default:
 			$ret  = ' *** WARNING *** <br />' . $eol;
