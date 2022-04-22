@@ -1,17 +1,24 @@
 
 <!-- inlude post_disc.php -->
 
+<html>
+<head>
+
 <?php
 
 	include('connect.php');
 	include('common.php');
 
 	$pnr = getparam("pnr", "0");
+	$bnum = getparam('bnum', 0);
+	$snum = getparam('snum', 0);
 
 	$query = "SELECT * FROM pers WHERE pnr='" .$pnr . "'";
 
 	$res = mysqli_query($emperator, $query);
 	$pid = 0;
+	$name = '';
+
 	if (!$res)
 	{
 		echo 'DB Error';
@@ -21,6 +28,7 @@
 			echo 'DB Error';
 		} else {
 			$pid = $prow['pers_id'];
+			$name = $prow['name'];
 		}
 	}
 
@@ -43,10 +51,20 @@
 		die('Error: ' . mysqli_error($emperator));
 	}
 
-	mysqli_close($emperator);
+	$link = '../common/forward.php';
+	$link .= '?pnr=' . $pnr ;
+	$link .= '&bnum=' . $bnum ;
+	$link .= '&snum=' . ($snum+1) ;
 
-	echo getparam('next') . "<br>\n";
 
-?>
+	echo '<meta http-equiv="refresh" content="0; URL=';
+	echo $link;
+	echo '" />';
+
+?> 
+
+</head>
+<body></body>
+</html>
 
 

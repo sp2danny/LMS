@@ -1,8 +1,10 @@
 
+<!-- inlude personal.php -->
 
 <?php
 
 include 'head.php';
+include 'roundup.php';
 
 echo <<<EOT
 
@@ -71,49 +73,6 @@ function ptbl($prow, $mynt, $score=0)
 	echo '</table>' . $eol;
 }
 
-function segments($battname)
-{
-	$styr = fopen('../batt-' . $battname . "/styr.txt", "r");
-	if ($styr === false) return false;
-
-	$res = [];
-	$curr = '';
-	$lineno = 0;
-	$maxs = 999;
-	while (true) {
-		++$lineno;
-		$buffer = fgets($styr, 4096); // or break;
-		if (!$buffer) break;
-		$buffer = trim($buffer);
-		$len = strlen($buffer);
-		if ($len == 0) continue;
-		if ($buffer[0] == '#') continue;
-		if ($buffer[0] == '!') {
-			$s = substr($buffer, 1);
-			$e = explode(' ', $s);
-			if ($e[0] == 'max') {
-				$maxs = (int)$e[1];
-			}
-			continue;
-		}
-
-		if ( ($buffer[0] == '[') && ($buffer[$len-1] == ']') ) {
-			$curr = substr( $buffer, 1, $len-2 );
-			$res[$curr] = [];
-			continue;
-		}
-
-		$res[$curr][] = $buffer;
-	}
-	fclose($styr);
-	return $res;
-}
-
-function mklink($batt, $seg, $row)
-{
-	return '../batt-' . $batt . '/index.php?seg=' . $seg . '&pnr=' . $row['pnr'] . '&pid=' . $row['pers_id'] . '&name='  . $row['name'] ;
-}
-
 function all()
 {
 	global $emperator, $eol;
@@ -125,6 +84,7 @@ function all()
 	$res = mysqli_query($emperator, $query);
 	$prow = false;
 	$pid = 0;
+	$name = '';
 
 	if ($prow = mysqli_fetch_array($res)) {
 
@@ -136,6 +96,7 @@ function all()
 
 		ptbl($prow, $mynt);
 		$pid = $prow['pers_id'];
+		$name = $prow['name'];
 	} else {
 		echo convert('Denna person hittades inte i databasen.') . " <br />" . $eol;
 		return;
@@ -167,94 +128,16 @@ function all()
 		echo '<br /><br />' . $eol;
 	}
 
-
-	$dircont = scandir("..");
-
-	$batts = array();
-
-	foreach ($dircont as $key => $value) {
-		if (strlen($value) < 5) continue;
-		$a = substr($value, 0, 5);
-		if ($a != 'batt-') continue;
-		$a = substr($value, 5);
-		$batts[] = $a;
-	}
-
-	$allsofar = true;
-
-	$alldata = [];
-
-	class Line {
-		public bool $isLink = false;
-		public string $link;
-		public bool $hasDone;
-		public int $segment;
-		public string $name;
-	}
-
-	class Block {
-		public $lines = [];
-		public bool $allDone = false;
-		public bool $someDone = false;
-		public int $battNum;
-		public string $name;
-	}
-
-	$runnum = 0;
+	$alldata = roundup($pnr, $pid, $name);
 	$atnum = 0;
-	foreach ($batts as $key => $value) {
-		++$runnum;
-
-		$alldata[$runnum] = new Block;
-		$alldata[$runnum]->battNum = $runnum;
-		$alldata[$runnum]->name = $value;
-
-		$segs = segments($value);
-		$done = [];
-		for ($i=1; $i<=count($segs); ++$i) {
-			$done[$i] = false;
-		}
-
-		$query = 'SELECT * FROM data WHERE pers=' . $pid . ' AND type=2 AND value_a=' . ($key+1) ;
-		$res = mysqli_query($emperator, $query);
-		while ($row = mysqli_fetch_array($res)) {
-			$done[$row['value_b']] = true;
-		}
-		for ($i=1; $i<=count($segs); ++$i) {
-
-			$alldata[$runnum]->lines[$i] = new Line;
-			$alldata[$runnum]->lines[$i]->segment = $i;
-			$alldata[$runnum]->lines[$i]->name = 'Del ' . $i;
-
-			$thisok = false;
-			if (array_key_exists($i, $done) && $done[$i])
-				$thisok = true;
-
-			$alldata[$runnum]->lines[$i]->hasDone = $thisok;
-
-			$wantlink = false;
-			if (!$thisok && $allsofar) {
-				$allsofar = false;
-				$wantlink = true;
-				$alldata[$runnum]->lines[$i]->isLink = true;
-			}
-			if ($wantlink) {
-				$lnk = mklink($value, $i, $prow);
-				$alldata[$runnum]->lines[$i]->link = $lnk;
-				$atnum = $runnum;
-				$alldata[$runnum]->someDone = true;
-			}
-		}
-		if ($allsofar)
-			$alldata[$runnum]->allDone = true;
-	}
-
 
 	foreach ($alldata as $block) {
 		echo '<button type="button" class="collapsible"> ' . $block->battNum . '. &nbsp; ';
 		echo '<img width="12px" height="12px" src="';
-		if ($block->someDone)
+		if ($block->someDone) {
 			echo 'here';
+			$atnum = $block->atnum;
+		}
 		else if ($block->allDone)
 			echo "corr";
 		else
