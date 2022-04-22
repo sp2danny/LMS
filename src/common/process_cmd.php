@@ -10,10 +10,12 @@ class Data
 {
 	public $qnum = 0;
 	public $snum = 0;
+	public $bnum = 0;
 	public $pnr = '';
 	public $corr = [];
 	public $lineno = 0;
 	public $inq = false;
+	public $folder = '';
 }
 
 function process_cmd($to, $data, $cmd, $args)
@@ -181,7 +183,7 @@ function process_cmd($to, $data, $cmd, $args)
 			
 
 		case 'discquery':
-			$to->regLine( dodisc($data->pnr) );
+			$to->regLine( dodisc($data) );
 
 			break;
 		case 'discdisplay':

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="LMS" Version="10.0.0" InternalType="">
   <VirtualDirectory Name="LMS">
+    <File Name="db.txt"/>
     <File Name="ftp.txt"/>
   </VirtualDirectory>
   <VirtualDirectory Name="src">
+    <File Name="src/index.html"/>
+    <File Name="src/common/post_disc.php"/>
     <File Name="src/common/discquery.php"/>
     <File Name="src/common/discdisplay.php"/>
     <File Name="src/common/utbsel.php"/>

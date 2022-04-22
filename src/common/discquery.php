@@ -1,4 +1,6 @@
 
+<!-- inlude discquery.php -->
+
 <?php
 
 function my_mb_ucfirst($str) {
@@ -34,7 +36,7 @@ function pr_aft()
 	return '</table>' . "\n";
 }
 
-function dodisc($pnr)
+function dodisc($data)
 {
 
 	$disc = fopen("../common/disc.txt", "r") or die("Unable to open file!");
@@ -59,8 +61,17 @@ function dodisc($pnr)
 	$ret = '<form action="../common/post_disc.php" id="disc" method="get" >' . "\n" ;
 
 	$ret .= '<div id="idtag" style="display: none;">' ;
+	
+	$ret .= '<input type="text" name="bnum" value="';
+	$ret .= $data->bnum;
+	$ret .= '"> ' . "\n";
+	
+	$ret .= '<input type="text" name="snum" value="';
+	$ret .= $data->snum;
+	$ret .= '"> ' . "\n";
+	
 	$ret .= '<input type="text" name="pnr" value="';
-	$ret .= $pnr;
+	$ret .= $data->pnr;
 	$ret .= '"> </div>' . "\n";
 
 	$ret .= pr_bef();

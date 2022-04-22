@@ -1,4 +1,6 @@
 
+<!-- inlude discdisplay.php -->
+
 <?php
 
 // include('../common/connect.php');
@@ -81,10 +83,10 @@ function discdisplay($pid)
 
 //echo $FullName . "<br>\n";
 
-	$ret .=  "<br><a href='Disc2014.pdf'>Tolkning</a><br><br>\n";
+	$ret .=  "<br><a href='../common/Disc2014.pdf'>Tolkning</a><br><br>\n";
 
 	$ret .=  '<button type="button" onclick="Goto(' ;
-	$ret .=  "'debug.php?pnr=" . $pid . "'" ;
+	$ret .=  "'../debug.php?pnr=" . $pid . "'" ;
 	$ret .=  ')"> Tillbaka </button>';
 
 	$ret .=  '<br><br><button type="button" onclick="rita_disc()"> Rita igen </button>';

@@ -1,12 +1,12 @@
 
+<!-- inlude post_disc.php -->
+
 <?php
 
 	include('connect.php');
 	include('common.php');
 
 	$pnr = getparam("pnr", "0");
-
-	echo $pnr . "<br>\n";
 
 	$query = "SELECT * FROM pers WHERE pnr='" .$pnr . "'";
 
@@ -32,10 +32,6 @@
 		$UD += $_GET[ 'UD' . $i ];
 	}
 
-	echo $pid . "<br>\n";
-	echo $LR . "<br>\n";
-	echo $UD . "<br>\n";
-
 	$query = "INSERT INTO data ";
 	$query .= "( pers, type, value_a, value_b )" ;
 	$query .= " VALUES ( " . $pid . ',' ;
@@ -49,6 +45,7 @@
 
 	mysqli_close($emperator);
 
+	echo getparam('next') . "<br>\n";
 
 ?>
 

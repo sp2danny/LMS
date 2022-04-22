@@ -104,6 +104,10 @@ function index($styr, $local, $common)
 		$cmdlst[] = $cmd;
 	}
 
+	$data->bnum = $bnum;
+	
+	echo '<!-- ' . 'set bnum to ' . $data->bnum . ' -->';
+
 	echo '<meta name="viewport" content="width=device-width, initial-scale=1">' . $eol;
 
 	$to->startTag('script');

@@ -1,5 +1,5 @@
 
-<!-- inlude index.php -->
+<!-- inlude common/index.php -->
 
 <?php
 
@@ -77,6 +77,10 @@ function index($styr, $local, $common)
 
 		$cmdlst[] = $cmd;
 	}
+	
+	$data->bnum = $bnum;
+	
+	echo '<!-- ' . 'set bnum to ' . $data->bnum . ' -->';
 
 	echo '<meta name="viewport" content="width=device-width, initial-scale=1">' . $eol;
 
