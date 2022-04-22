@@ -176,7 +176,8 @@ function process_cmd($to, $data, $cmd, $args)
 			
 		case 'next':
 			// next
-			$to->startTag('button', 'onclick="location.href=' . "'" . 'index.php?seg=' . ($snum+1) . "'" . '" type="button"');
+			
+			$to->startTag('button', 'onclick="location.href=' . "'" . 'index.php?seg=' . ($data->snum+1) . "'" . '" type="button"');
 			$to->regLine($args[0]);
 			$to->stopTag('button');
 			break;
@@ -189,7 +190,13 @@ function process_cmd($to, $data, $cmd, $args)
 		case 'discdisplay':
 			$to->regLine( discdisplay( getparam("pid", "0") ) );
 			break;
-
+			
+		case 'link':
+			$to->startTag('a', 'href="' . $args[1] . '"');
+			$to->regLine($args[0]);
+			$to->stopTag('a');
+			break;
+			
 		default:
 			$ret  = ' *** WARNING *** <br />' . $eol;
 			$ret .= ' unrecognized command : "' . htmlspecialchars($cmd) . '" on line ' . $data->lineno . ' <br />' . $eol;

@@ -96,7 +96,7 @@ function discdisplay($pid)
 
 //echo $FullName . "<br>\n";
 
-	$ret .=  "<br><a href='../common/Disc2014.pdf'>Tolkning</a><br><br>\n";
+	// $ret .=  "<br><a href='../common/Disc2014.pdf'>Tolkning</a><br><br>\n";
 
 
 	$ret .=  "<script> rita_disc(); </script> \n";

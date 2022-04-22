@@ -39,16 +39,19 @@
 		$LR += $_GET[ 'LR' . $i ];
 		$UD += $_GET[ 'UD' . $i ];
 	}
+	
+	if (($UD != 0) || ($LR != 0)) {
 
-	$query = "INSERT INTO data ";
-	$query .= "( pers, type, value_a, value_b )" ;
-	$query .= " VALUES ( " . $pid . ',' ;
-	$query .= "6," . $UD . ',' . $LR . ' )' ;
+		$query = "INSERT INTO data ";
+		$query .= "( pers, type, value_a, value_b )" ;
+		$query .= " VALUES ( " . $pid . ',' ;
+		$query .= "6," . $UD . ',' . $LR . ' )' ;
 
-	if(!mysqli_query( $emperator, $query ))
-	{
-		echo "<br>error<br>";
-		die('Error: ' . mysqli_error($emperator));
+		if(!mysqli_query( $emperator, $query ))
+		{
+			echo "<br>error<br>";
+			die('Error: ' . mysqli_error($emperator));
+		}
 	}
 
 	$link = '../common/forward.php';
