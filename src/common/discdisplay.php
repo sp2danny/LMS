@@ -15,12 +15,25 @@ function discdisplay($pid)
 	$query1 = "SELECT * FROM data WHERE pers='";
 	$query1 .= $pid;
 	$query1 .= "' AND type='6'";
+	
+	$have = false;
+	$when = 0;
 
 	$result1 = mysqli_query($emperator, $query1);
-	if ($result1) {
-		$row1 = mysqli_fetch_array($result1);
-		$LR = $row1['value_a'];
-		$UD = $row1['value_b'];
+	if ($result1) while ($row1 = mysqli_fetch_array($result1)) {
+		if (!$have) {
+			$LR = $row1['value_a'];
+			$UD = $row1['value_b'];
+			$have = true;
+			$when = $row1['date'];
+		} else {
+			$date = $row1['date'];
+			if ($date > $when) {
+				$LR = $row1['value_a'];
+				$UD = $row1['value_b'];
+				$when = $date;				
+			}
+		}
 	}
 
 	if(!isset($LR))
