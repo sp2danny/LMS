@@ -26,6 +26,7 @@
     <None Include="src\common\connect.php" />
     <None Include="src\common\discdisplay.php" />
     <None Include="src\common\discquery.php" />
+    <None Include="src\common\gap.php" />
     <None Include="src\common\head.php" />
     <None Include="src\common\index.php" />
     <None Include="src\common\login.php" />

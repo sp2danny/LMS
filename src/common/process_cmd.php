@@ -185,12 +185,18 @@ function process_cmd($to, $data, $cmd, $args)
 
 		case 'discquery':
 			$to->regLine( dodisc($data) );
-
 			break;
 		case 'discdisplay':
 			$to->regLine( discdisplay( getparam("pid", "0") ) );
 			break;
-			
+
+		case 'gap-query':
+			$to->regLine(gap_query($args[0], $args[1]));
+			break;
+		case 'gap-display':
+			$to->regLine(gap_display($args[0], $args[1]));
+			break;
+
 		case 'link':
 			$to->startTag('a', 'href="' . $args[1] . '"');
 			$to->regLine($args[0]);
