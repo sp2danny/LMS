@@ -70,6 +70,9 @@
     <None Include="src\common\gap.php">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="src\common\gap_post.php">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="db.txt">
