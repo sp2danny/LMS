@@ -23,20 +23,21 @@ namespace std {
 namespace {
 	
 	template<typename T>
-	auto sort(T& t)
-		-> decltype(t.sort(), void())
+	requires requires (T& t) {t.sort();}
+	void sort(T& t)
 	{
 		t.sort();
 	}
 	template<typename T>
-	void sort(T& t, ...)
+	requires requires (T& t) {std::sort(std::begin(t), std::end(t));}
+	void sort(T& t)
 	{
 		std::sort(std::begin(t), std::end(t));
 	}
 	
 	template<typename T>
-	auto unique(T& t)
-		-> decltype(t.unique(), void())
+	requires requires (T& t) {t.unique();}
+	void unique(T& t)
 	{
 		t.unique();
 	}
