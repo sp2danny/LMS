@@ -5,6 +5,7 @@
 
 include "discquery.php";
 include "discdisplay.php";
+include "gap.php";
 
 class Data
 {
@@ -185,12 +186,18 @@ function process_cmd($to, $data, $cmd, $args)
 
 		case 'discquery':
 			$to->regLine( dodisc($data) );
-
 			break;
 		case 'discdisplay':
 			$to->regLine( discdisplay( getparam("pid", "0") ) );
 			break;
-			
+
+		case 'gap-query':
+			gap_query($to, $data, $args);
+			break;
+		case 'gap-display':
+			gap_display($to, $data, $args);
+			break;
+
 		case 'link':
 			$to->startTag('a', 'href="' . $args[1] . '"');
 			$to->regLine($args[0]);
