@@ -197,6 +197,10 @@ function process_cmd($to, $data, $cmd, $args)
 			$to->stopTag('a');
 			break;
 			
+		case 'date':
+			$to->regLine( date("Y M d") ) ;
+			break;
+
 		default:
 			$ret  = ' *** WARNING *** <br />' . $eol;
 			$ret .= ' unrecognized command : "' . htmlspecialchars($cmd) . '" on line ' . $data->lineno . ' <br />' . $eol;
