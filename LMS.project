@@ -5,6 +5,8 @@
     <File Name="ftp.txt"/>
   </VirtualDirectory>
   <VirtualDirectory Name="src">
+    <File Name="src/common/main.js.php"/>
+    <File Name="src/common/gap.php"/>
     <File Name="src/common/roundup.php"/>
     <File Name="src/common/forward.php"/>
     <File Name="src/index.html"/>

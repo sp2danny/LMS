@@ -9,8 +9,8 @@
 <?php
 
 include 'connect.php';
-include 'getparam.php';
-include 'convert.php';
+include_once 'getparam.php';
+include_once 'convert.php';
 
 function ptbl($prow)
 {
@@ -30,7 +30,7 @@ $query = "SELECT * FROM pers WHERE pnr='" . $pnr . "'";
 $res = mysqli_query($emperator, $query);
 
 if ($row = mysqli_fetch_array($res)) {
-	echo convert('Denna person fanns redan i databasen, ingen Âtg‰rd utfˆrdes') . " <br />";
+	echo convert('Denna person fanns redan i databasen, ingen √•tg√§rd utf√∂rdes') . " <br />";
 	ptbl($row);
 } else {
 	$query = "INSERT INTO pers (name, pnr) VALUES ('" . $name . "', '" . $pnr . "');";
@@ -59,14 +59,14 @@ if ($row = mysqli_fetch_array($res)) {
 		}
 	}
 	if ($ok) {
-		echo convert('Infˆrdes i databasen') . " <br />";
+		echo convert('Inf√∂rdes i databasen') . " <br />";
 	} else {
-		echo convert('NÂgot gick fel') . " <br />";
+		echo convert('N√•got gick fel') . " <br />";
 	}
 }
 
 
-//echo convert('Nu ‰r det klart') . " <br />";
+//echo convert('Nu √§r det klart') . " <br />";
 
 echo '<br /><br /><a href="login.php"><button>Logga in</button></a>';
 

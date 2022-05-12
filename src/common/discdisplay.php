@@ -46,14 +46,16 @@ function discdisplay($pid)
 		$UD = getparam("ud", "0");
 	}
 
-	$ret = "<img id='Disc2' src='../common/Disc2.png' hidden=true /> \n";
+	$ret = "<img id='Disc2' src='../common/Disc3-3.png' hidden=true /> \n";
 
-	$ret .= "<table><tr><td>\n";
+	$ret .= " <table><tr> <td> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td> <td>\n";
 
-	$ret .= '<canvas id="discCanvas" width="500" height="500" style="border:1px solid #000000;">' ;
+	$ret .= '<canvas id="discCanvas" width="850" height="850" style="border:1px solid #000000;">' ;
 	$ret .= ' Din browser st&ouml;der inte canvas </canvas> ' . "\n";
 
-	$ret .= "</td><td> <img src='../common/Disc1.png' \> </td></tr></table> \n";
+	$ret .= "</td>";
+	//$ret .= "<td> <img src='../common/Disc1.png' \> </td>";
+	$ret .= "</tr></table> \n";
 
 	$ret .=  '<script>';
 
@@ -63,7 +65,7 @@ function discdisplay($pid)
 	$ret .=  '  var ctx=c.getContext("2d"); ctx.fillStyle="#fff"; ' . "\n";
 	$ret .=  '  var d2=document.getElementById("Disc2");' . "\n";
 
-	$ret .=  '  ctx.fillRect(0,0,500,500); ' . "\n";
+	$ret .=  '  ctx.fillRect(0,0,850,850); ' . "\n";
 
 	$ret .=  '  ctx.drawImage(d2,0,0);' . "\n";
 
@@ -78,10 +80,10 @@ function discdisplay($pid)
 	$ret .=  'ctx.fillStyle="#373"; ' . "\n";
 	$ret .=  'ctx.strokeStyle="#000"; ' . "\n";
 	$ret .=  'ctx.arc(' . "\n";
-	$ret .=  250+8*$LR ;
+	$ret .=  (850/2)+12*$LR ;
 	$ret .=  ',';
-	$ret .=  250+8*$UD ;
-	$ret .=  ',7,0,2*Math.PI); ' . "\n";
+	$ret .=  (850/2)+12*$UD ;
+	$ret .=  ',9,0,2*Math.PI); ' . "\n";
 	$ret .=  'ctx.stroke(); ' . "\n";
 	$ret .=  'ctx.fill(); ' . "\n";
 	$ret .=  '}';

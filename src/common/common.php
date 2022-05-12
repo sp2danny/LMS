@@ -53,7 +53,7 @@ function doShow() {
 
 <?php
 
-include 'getparam.php';
-include 'convert.php';
+include_once 'getparam.php';
+include_once 'convert.php';
 
 ?> 
