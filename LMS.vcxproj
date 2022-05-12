@@ -32,6 +32,7 @@
     <None Include="src\common\index.php" />
     <None Include="src\common\login.php" />
     <None Include="src\common\main-v01.css" />
+    <None Include="src\common\main.js.php" />
     <None Include="src\common\one_post.php" />
     <None Include="src\common\personal.php" />
     <None Include="src\common\post_disc.php" />
@@ -39,6 +40,7 @@
     <None Include="src\common\progress.php" />
     <None Include="src\common\pulselst.php" />
     <None Include="src\common\score.php" />
+    <None Include="src\common\spindel.php" />
     <None Include="src\debug.php" />
     <None Include="src\index.html" />
   </ItemGroup>
