@@ -25,6 +25,7 @@ typer
 	mynt tot    4 u          antal        -          
 	mynt event  5            antal        -          
 	disc        6            LR           UD
+	gap         7            numq         val
  
 
 
