@@ -12,7 +12,15 @@ data
 	type      int
 	value_a   int
 	value_b   int
+	surv      int surv_id
 
+surv
+	surv_id   int ai key
+	date      datetime auto
+	name      string
+	type      int
+	pers      int pers_id
+	seq       int
 
 
 

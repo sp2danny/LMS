@@ -32,6 +32,25 @@
 			$pid = $prow['pers_id'];
 		}
 	}
+	
+	$query = "INSERT INTO surv ";
+	$query .= "( pers, type, name, seq )" ;
+	$query .= " VALUES ( " . $pid . ',' ;
+	$query .= "7,'" . $gapName . "'," . $gapNum . ' )' ;
+
+	$res = mysqli_query( $emperator, $query );
+	$sid = 0;
+	if (!$res)
+	{
+		$to->regLine('DB Error');
+	} else {
+		$prow = mysqli_fetch_array($res);
+		if (!$prow) {
+			$to->regLine('DB Error');
+		} else {
+			$sid = $prow['surv_id'];
+		}
+	}
 
 	for ($i=1; $i<=$gapCnt; ++$i)
 	{
@@ -39,14 +58,13 @@
 		$par = getparam($qq, 0);
 		
 		$query = "INSERT INTO data ";
-		$query .= "( pers, type, value_a, value_b )" ;
+		$query .= "( pers, type, value_a, value_b, surv )" ;
 		$query .= " VALUES ( " . $pid . ',' ;
-		$query .= "7," . $i . ',' . $par . ' )' ;
+		$query .= "7," . $i . ',' . $par . ',' . $sid . ' )' ;
 
 		if(!mysqli_query( $emperator, $query ))
 		{
-			echo "<br>error<br>";
-			die('Error: ' . mysqli_error($emperator));
+			$to->regLine('DB Error');
 		}
 	}
 
