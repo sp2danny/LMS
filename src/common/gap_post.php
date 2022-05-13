@@ -19,15 +19,19 @@
 	$query = "SELECT * FROM pers WHERE pnr='" .$pnr . "'";
 
 	$pid = getparam("pid", "0");
+	
+	$err = false;
 
 	$res = mysqli_query($emperator, $query);
 	if (!$res)
 	{
 		$to->regLine('DB Error');
+		$err = true;
 	} else {
 		$prow = mysqli_fetch_array($res);
 		if (!$prow) {
 			$to->regLine('DB Error');
+			$err = true;
 		} else {
 			$pid = $prow['pers_id'];
 		}
@@ -43,10 +47,12 @@
 	if (!$res)
 	{
 		$to->regLine('DB Error');
+		$err = true;
 	} else {
 		$prow = mysqli_fetch_array($res);
 		if (!$prow) {
 			$to->regLine('DB Error');
+			$err = true;
 		} else {
 			$sid = $prow['surv_id'];
 		}
@@ -65,8 +71,12 @@
 		if(!mysqli_query( $emperator, $query ))
 		{
 			$to->regLine('DB Error');
+			$err = true;
 		}
 	}
+	
+	if (!$err)
+		$to->regLine('All Ok.<br>');
 
 
 ?>
