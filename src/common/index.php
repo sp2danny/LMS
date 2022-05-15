@@ -6,6 +6,7 @@
 include 'process_cmd.php';
 include 'cmdparse.php';
 include 'progress.php';
+include 'main.js.php';
 
 function index($styr, $local, $common)
 {

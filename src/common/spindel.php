@@ -1,66 +1,11 @@
 
-<!DOCTYPE html>
-
-<html>
-	<head>
-		
-		<meta charset="UTF-8" />
-		<title> <?php if(isset($TITLE)) echo $TITLE; else echo "Emperator Cockpit" ?> </title>
-		<!-- script src="main.js"></script -->
-		<script src="https://www.google.com/jsapi"></script>
-		
-		<style>
-		<?php include("main.css"); ?>
-		<!--link rel="stylesheet" type="text/css" href="main.css" /-->
-		</style>
-
-		<script> 
-		<?php include('main.js.php'); ?>
-		</script>
-
-	</head>
-
-	<?php
-	$dosmall = false;
-	if( array_key_exists( 'small', $_GET ) )
-		if($_GET['small'])
-			$dosmall = true;
-	echo '	<body style="padding-left: ' ;
-	if($dosmall)
-		echo '11px; padding-right: 13px; font-size: small';
-	else
-		echo '80px; padding-right: 60px';
-	echo ';" >' . "\n" ;
-	?>
-	<!-- table class="plain">
-	<tr height="225px">
-	<td class="hortile" width="100%" -->
-	
-
-		<div class="wrapper">
-			<p>
-				<div class="center"> <br /> <?php
-				if($dosmall)
-					echo '<img src="head_sml.png" />' ;
-				else
-					echo '<img src="head.png" />' ;
-				?> <br /> <br /> </div>
-				
-					</td>
-	<!-- /tr>
-	<tr height="100%"><td -->
-	
-				<div class="center"> <!--big> Emperator Cockpit </big--> <br /> </div>
-				<!--div class="center"> <small> Kompetensvalidering </small> <br /> </div-->
-				<!--br /><br /-->
-				<div id="MainBody">
 
 
 <?php
 
 
-// include('connect.inc');
-
+include('connect.inc');
+include('common.php');
 include('main.js.php');
 
 
@@ -88,6 +33,9 @@ echo "          1,2,3,1,2,3];  \n\n";
 echo "short_desc = [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',  \n";
 echo "               'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',  \n";
 echo "               'u', 'v', 'w', 'x', 'y', 'z' ];  \n\n";
+
+
+ // index.php?seg=11&pnr=5906195697&pid=2&name=Hans%20Engberg
 
 /*$querys = array( 1,2,3 ); 
 

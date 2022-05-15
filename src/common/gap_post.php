@@ -6,9 +6,9 @@
 
 <?php
 
-	include('connect.php');
-	include('common.php');
-	
+	include_once('connect.php');
+	include_once('common.php');
+
 	// gap_post.php?pnr=5906195697&gap-name=motiv&gap-num=1&gap-cnt=5&q1=22&q2=54&q3=18&q4=55&q5=31
 
 	$pnr = getparam("pnr", "0");
@@ -19,19 +19,17 @@
 	$query = "SELECT * FROM pers WHERE pnr='" .$pnr . "'";
 
 	$pid = getparam("pid", "0");
-	
+
 	$err = false;
 
 	$res = mysqli_query($emperator, $query);
 	if (!$res)
-	{
-		$to->regLine('DB Error');
-		$err = true;
+	{;
+		$err = 'DB Error, query person >>'.$query.'<<';
 	} else {
 		$prow = mysqli_fetch_array($res);
 		if (!$prow) {
-			$to->regLine('DB Error');
-			$err = true;
+			$err = 'DB Error, fetch person >>'.$query.'<<';
 		} else {
 			$pid = $prow['pers_id'];
 		}
@@ -46,16 +44,15 @@
 	$sid = 0;
 	if (!$res)
 	{
-		$to->regLine('DB Error');
-		$err = true;
+		$err = 'DB Error, query insert surv >>'.$query.'<<';
 	} else {
-		$prow = mysqli_fetch_array($res);
-		if (!$prow) {
-			$to->regLine('DB Error');
-			$err = true;
-		} else {
-			$sid = $prow['surv_id'];
-		}
+		$sid = $emperator->insert_id;
+		//$prow = mysqli_fetch_array($res);
+		//if (!$prow) {
+		//	$err = 'DB Error, insert surv, fetch result >>'.$query.'<<';
+		//} else {
+		//	$sid = $prow['surv_id'];
+		//}
 	}
 
 	for ($i=1; $i<=$gapCnt; ++$i)
@@ -70,13 +67,16 @@
 
 		if(!mysqli_query( $emperator, $query ))
 		{
-			$to->regLine('DB Error');
-			$err = true;
+			$err = 'DB Error, query insert data >>'.$query.'<<';
 		}
 	}
 	
-	if (!$err)
-		$to->regLine('All Ok.<br>');
+	echo "</head><body>";
+	if ($err === false)
+		echo 'All Ok.<br>';
+	else
+		echo $err;
+	echo "</body></html>";
 
 
 ?>
