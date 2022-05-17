@@ -182,7 +182,7 @@ function genericDrawSpider()
 		ctx.font="16px Myriad-pro";
 		ctx.fillStyle="#000";
 
-		txt = "anonym " +ii;
+		txt = spider_shrt_desc[ii];
 		txt_w = ctx.measureText(txt).width;
 		ctx.fillText( txt, ww/2-txt_w/2, 28 + 40 );
 
@@ -255,7 +255,7 @@ function genericDrawSpider()
 
 		ctx.font="8px Myriad-pro";
 		ctx.fillStyle="#000";
-		txt = "" + (i+1); 
+		txt = spider_val_e[i].toFixed(1);
 		mt = ctx.measureText(txt);
 		txt_w = mt.width;
 		txt_h = 8;
@@ -316,6 +316,15 @@ function genericDrawSpider()
 		ctx.fillText("Värde saknas",32,hh-8-12*0+3);
 	}
 
+}
+
+function getMousePos(canvas, evt)
+{
+	var rect = canvas.getBoundingClientRect();
+	return {
+		x: evt.clientX - rect.left,
+		y: evt.clientY - rect.top
+	};
 }
 
 function spiderMouseMove(event)
