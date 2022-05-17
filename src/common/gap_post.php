@@ -25,11 +25,11 @@
 	$res = mysqli_query($emperator, $query);
 	if (!$res)
 	{;
-		$err = 'DB Error, query person >>'.$query.'<<';
+		$err = 'DB Error, query person --'.$query.'--';
 	} else {
 		$prow = mysqli_fetch_array($res);
 		if (!$prow) {
-			$err = 'DB Error, fetch person >>'.$query.'<<';
+			$err = 'DB Error, fetch person --'.$query.'--';
 		} else {
 			$pid = $prow['pers_id'];
 		}
@@ -44,7 +44,7 @@
 	$sid = 0;
 	if (!$res)
 	{
-		$err = 'DB Error, query insert surv >>'.$query.'<<';
+		$err = 'DB Error, query insert surv --'.$query.'--';
 	} else {
 		$sid = $emperator->insert_id;
 		//$prow = mysqli_fetch_array($res);
@@ -67,7 +67,7 @@
 
 		if(!mysqli_query( $emperator, $query ))
 		{
-			$err = 'DB Error, query insert data >>'.$query.'<<';
+			$err = 'DB Error, query insert data --'.$query.'--';
 		}
 	}
 	

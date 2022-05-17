@@ -80,11 +80,11 @@ function gap_display($to, $data, $args)
 	$res = mysqli_query($emperator, $query);
 	if (!$res)
 	{
-		$err = 'DB Error, query person "'.$query.'"';
+		$err = 'DB Error, query person --'.$query.'--';
 	} else {
 		$prow = mysqli_fetch_array($res);
 		if (!$prow) {
-			$err = 'DB Error, fetch person "'.$query.'"';
+			$err = 'DB Error, fetch person --'.$query.'--';
 		} else {
 			$pid = $prow['pers_id'];
 			$pnam = $prow['name'];
@@ -99,11 +99,11 @@ function gap_display($to, $data, $args)
 	$res = mysqli_query($emperator, $query);
 	if (!$res)
 	{
-		$err = 'DB Error, query surv "'.$query.'"';
+		$err = 'DB Error, query surv --'.$query.'--';
 	} else {
 		$prow = mysqli_fetch_array($res);
 		if (!$prow) {
-			$err = 'DB Error, fetch surv "'.$query.'"';
+			$err = 'DB Error, fetch surv --'.$query.'--';
 		} else {
 			$sid = $prow['surv_id'];
 		}
@@ -114,39 +114,55 @@ function gap_display($to, $data, $args)
 	$val_e = ' val_e = [ ';
 	$val_b = ' val_b = [ ';
 	$sdesc = ' sdesc = [ ';
+	$trg_n = ' targets = [ ';
+	$trg_s = ' targ_s  = [ ';
+	
+	$values = [];
 
 	$query = "SELECT * FROM data WHERE pers='" .$pid . "'" . " AND type=7" .
 	         " AND surv='" . $sid . "'";
 	$res = mysqli_query($emperator, $query);
 	if (!$res)
 	{
-		$err = 'DB Error, query data "'.$query.'"';
+		$err = 'DB Error, query data --'.$query.'--';
 	} else {
-		$i = 0;
 		while (true) {
 			$prow = mysqli_fetch_array($res);
 			if (!$prow) {
-				//$err = 'DB Error, fetch data "'.$query.'"';
 				break;
 			} else {
 				$v_a = $prow['value_a'];
 				$v_b = $prow['value_b'];
-				$to->regLine(  $gaplst[$i] . ' : ' . $v_a . "," . $v_b . "<br>" );
-				if ($i != 0) {
-					$val_e .= ', ';
-					$val_b .= ', ';
-					$sdesc .= ', ';
-				}
-				$val_e .= $v_a;
-				$val_b .= $v_b;
-				$sdesc .= '"' . $gaplst[$i] . '"';
+				$values[$v_a - 1] = $v_b;
 			}
-			++$i;
 		}
 	}
+	$n = count($values);
+	
+	for ($i = 0; $i<$n; ++$i)
+	{
+		if ($i != 0) {
+			$val_e .= ', ';
+			$val_b .= ', ';
+			$sdesc .= ', ';
+			$trg_n .= ', ';
+			$trg_s .= ', ';
+		}
+		
+		$to->regLine( $gaplst[$i] . ' : ' . $values[$i] . "<br>" );
+		
+		$val_e .= $values[$i] / 20.0;
+		$val_b .= '0';
+		$sdesc .= '"' . $gaplst[$i] . '"';
+		$trg_n .= '3';
+		$trg_s .= '5';
+	}
+		
 	$val_e .= ' ]; ';
 	$val_b .= ' ]; ';
 	$sdesc .= ' ]; ';
+	$trg_n .= ' ]; ';
+	$trg_s .= ' ]; ';
 
 	$to->regLine( "<center> <table> <tr> <td> " );
 	$to->regLine( '<canvas id="SpiderCanvas" width="550" height="630" style="border:1px solid #000000;">' );
@@ -156,19 +172,15 @@ function gap_display($to, $data, $args)
 	$to->regLine( "<br> <div id='spdr'> </div> <br> " );
 
 	$to->startTag('script');
-	$to->regLine( "targets = [ 3.00, 3.11, 3.22, 2.56, 2.56, 2.22, 2.78, 2.89, 3.22, 2.67, " );
-	$to->regLine( "            2.33, 2.89, 3.33, 2.67, 3.22, 2.33, 2.89, 2.67, 2.22, 3.22, " );
-	$to->regLine( "            2.44, 2.33, 3.11, 3.22, 2.56, 2.78 ]; " );
-
-	$to->regLine( "targ_s  = [ 4.00 , 3.55 , 4.22 , 3.88 , 3.77 , 3.33 , 3.33 , 4.11 , 4.33 , 4.00 ," );
-	$to->regLine( "            4.00 , 4.00 , 4.11 , 3.22 , 3.44 , 2.11 , 4.22 , 3.66 , 3.22 , 3.88 ," );
-	$to->regLine( "            3.55 , 2.22 , 3.22 , 3.33 , 2.44 , 2.88  ]; " );
+	
+	$to->regLine($trg_n);
+	$to->regLine($trg_s);
 
 	$to->regLine($val_e);
 	$to->regLine($val_b);
 	$to->regLine($sdesc);
 
-	$to->regLine( " DrawSpider('SpiderCanvas', ".$i.", targets, targ_s, val_e, val_b, sdesc, 'spindel' ); " );
+	$to->regLine( " DrawSpider('SpiderCanvas', ".$i.", targets, targ_s, val_e, val_b, sdesc, 'GAP' ); " );
 	$to->stopTag('script');
 
 	if ($err === false)

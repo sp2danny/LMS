@@ -110,8 +110,8 @@ function DrawSpider( canvas, count, targets, targ_s, val_e, val_b, shrt_desc, ti
 		}
 		spider_gap_n.push(val_n);
 		spider_gap_p.push(val_p);
-		if(val_n>1) val_n=1; // >100% kompenserar inte fˆr annat
-		if(val_p>1) val_p=1; // >100% kompenserar inte fˆr annat
+		if(val_n>1) val_n=1; // >100% kompenserar inte f√∂r annat
+		if(val_p>1) val_p=1; // >100% kompenserar inte f√∂r annat
 		accu_n += val_n;
 		accu_p += val_p;
 		++cnt;
@@ -299,21 +299,21 @@ function genericDrawSpider()
 	ctx.stroke();
 	ctx.fillText("Egenskattning",32,hh-8-12*2+3);
 
-	ctx.strokeStyle="#000";
-	ctx.beginPath();
-	ctx.moveTo(8,hh-8-12*1);
-	ctx.lineTo(28,hh-8-12*1);
-	ctx.stroke();
-	ctx.fillText("Chefsskattning",32,hh-8-12*1+3);
+	// ctx.strokeStyle="#000";
+	// ctx.beginPath();
+	// ctx.moveTo(8,hh-8-12*1);
+	// ctx.lineTo(28,hh-8-12*1);
+	// ctx.stroke();
+	// ctx.fillText("Chefsskattning",32,hh-8-12*1+3);
 
-	if(was_missing)
+	if (was_missing)
 	{
 		ctx.strokeStyle="#f00";
 		ctx.beginPath();
 		ctx.moveTo(8,hh-8-12*0);
 		ctx.lineTo(28,hh-8-12*0);
 		ctx.stroke();
-		ctx.fillText("V‰rde saknas",32,hh-8-12*0+3);
+		ctx.fillText("V√§rde saknas",32,hh-8-12*0+3);
 	}
 
 }
