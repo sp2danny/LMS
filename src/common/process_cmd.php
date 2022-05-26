@@ -197,6 +197,12 @@ function process_cmd($to, $data, $cmd, $args)
 		case 'gap-display':
 			gap_display($to, $data, $args);
 			break;
+		case 'gap-display-1':
+			gap_display_v1($to, $data, $args);
+			break;
+		case 'gap-display-2':
+			gap_display_v2($to, $data, $args);
+			break;
 
 		case 'link':
 			$to->startTag('a', 'href="' . $args[1] . '"');

@@ -142,13 +142,13 @@ function genericDrawSpider()
 	ctx.fillStyle="#000";
 
 	txt = spider_title ;
-	txt += ", medel ";
-	sum=0;
-	for( i=0; i< spider_count; ++i )
-	{
-		sum += spider_gap_n[i];
-	}
-	txt += (2.8).toFixed(1);
+	//txt += ", medel ";
+	//sum=0;
+	//for( i=0; i< spider_count; ++i )
+	//{
+	//	sum += spider_gap_n[i];
+	//}
+	//txt += (20*sum/spider_count).toFixed(1);
 
 	txt_w = ctx.measureText(txt).width;
 	ctx.fillText( txt, ww/2-txt_w/2, 28 );
