@@ -1,0 +1,217 @@
+
+!format 2
+!max 4
+!batt 5
+
+[segment-1]
+!break 1
+!image 50; ../common/logo.png
+!break 2
+
+!text Vår DISC-modell utgår ifrån William Moulton Marstons DISC-modell. Vi har valt att tolka personligheter i likhet med den tolkning som svenska försvarsmakten gör och kopplat till UGL (Utveckling grupp ledare). <br> <br>
+!text Den beskriver en persons sätt att agera och reagera i olika situationer.
+!text Grundbeteendet kan ses som förhållandevis stabilt från det att man har uppnått vuxen ålder, det visar det naturliga beteende hur du förhåller dig till omgivningen när du är trygg och avspänd. <br> <br>
+!text Det kan också beskrivas med hur en person reagerar med sin ryggmärg, säg att en akut händelse uppstår, och du inte har någon chans att ta hänsyn till vad omgivningen skulle förvänta sig av dig, då använder du främst ditt grundbeteende. <br> <br>
+!text Det anpassade beteendet speglar de förändringar du känner att du behöver göra i olika situationer. Vi har alla en mängd olika anpassningar som vi gör, på arbetet, i hemmet, på festen, med barnen och med helt okända människor. <br> <br>
+!text När DISC-analysen används i arbetsrelaterade sammanhang så är det den anpassning en person känner att den behöver göra på sin arbetsplats som visas i det anpassade beteendet.
+!text En DISC-profil är ingen 100 % sanning om en persons beteende, det är en vägledning och guidning om vad som förefaller naturligt för den här personen som det ser ut i hans eller hennes liv just nu, ett verktyg för reflektion. <br> <br>
+!text Alla profiler behövs i våra företag idag, och ingen profil är bättre än någon annan. Denna kunskap är en bra grund för din egen självinsikt som chef i ett företag.
+!text Utifrån denna DISC-modell bör du som chef lära dig att kommunicera till de olika profilerna på rätt sätt och förstå dem. Vilka som generellt är varje profils inre motivatorer och hur de olika profilerna fungerar under stress. Notera att ca 80% av alla människor har fler än en profil som påverkar sitt beteende samt att alla har både grundläggande beteenden och anpassade beteenden. Dessa kan såklart skilja sig åt.<br> <br>
+!text (Notera att vi valt bort ”emotionell instabilitet” i the big 5. Vi vill inte bygga utbildningen
+med fokus på tex Narcissister, Psykopater eller människor med dessa tendenser. Vi kommer
+att behandla frågan i en fördjupningskurs längre fram)
+
+!break 2
+!text Vill du läsa mer om detta? <br> <br>
+!text Läs gärna:
+!text Omgiven av...Idioter, Dåliga chefer, Motgångar, Psykopater, Narcissister, Thomas Eriksson, 2018-21 <br>
+!break 2
+!discquery
+
+[segment-2]
+!break 1
+!image 50; ../common/logo.png
+!break 2
+!discdisplay
+!image 100; allafargtext.png
+!break 2
+!text Skriv ut denna discanalys, stryk under de motivatorer som är de viktigaste för dig, och diskutera i gruppen om andra delar din uppfattning om din beteendeprofil. Sätt sedan in i din handlingsplan.
+!break 2
+!link Detaljerad Tolkning;../common/Disc2014.pdf
+!break 2
+!next Nästa
+
+[segment-3]
+!break 1
+!image 50; ../common/logo.png
+!break 2
+!text <h1> Detta vill vi att du tar med dig från nivå ett </h1>
+!break 2
+!embed width="85%" height="850px";Insikter-N1.pdf
+!break 2
+!next Nästa
+
+[segment-4]
+!break 1
+!image 50; ../common/logo.png
+!break 2
+!discdisplay
+!break 2
+!embed width="85%" height="850px";motivatorer.pdf
+!break 2
+!tq-start Vad motiverar dig?
+!tq-query 11;motiv 1
+!tq-query 12;motiv 2
+!tq-query 13;motiv 3
+!tq-query 14;motiv 4
+!tq-query 15;motiv 5
+!tq-stop
+
+
+
+
+
+
+[segment-1]
+!break 1
+!image 50; ../common/logo.png
+!break 2
+!qstart
+!text <h2>Hitta din motivation genom att hitta ditt eget Why </h2>
+!text <h3>Du skall i denna Mindmanagementkurs lära dig hur du hittar motivation genom att nå ditt högre syfte.</h3>
+!break 2
+!video 638691211
+!break 2
+!text <h3>Svara nu på några frågor om denna film varför du mår bättre när du är ett betydelsefullt sammanhang med ett mål som motiverar</h3>
+!break 1
+!qstop
+!one Starta ;  score.php ;  130 ;  ../common/stress.mp3 ; Rätta
+!query Fråga 1 : Nästan hälften av vad vi gör går av gammal vana. Utan utbildning och kunskapsutveckling har vi ofta samma beteende som igår ? ;  _Ja;  Nej
+!query Fråga 2 : För att vi skall utveckla oss och möta förändringar i samhället bör vi ändra våra vanor. Bara viljestyrka räcker inte för att ändra vanor. Vi måste träna in nya vanemönster i hjärnan som gynnar oss och de mål vi satt. ;  _A. Ja, förändringar kommer ofta nuförtiden, så nya vanor kan hjälpa mig att hantera förändringar;  B. Nej
+!query Fråga 3 : Ledare utan titel kallar Robin Sharma ditt personliga ledarskap. Dvs din egen förmåga att leda dig själv. Du kan genom personliga målbilder, välja rätt vänner omkring dig och genom målmedveten träning ändra dig och påverka hur du uppfattas av andra och forma ditt bästa jag.  ;  _A. Ja, och jag behöver hitta motivation till att forma mitt bästa jag. ;  B. Nej
+!query Fråga 4 : Klarar människan av att hantera många intryck, höga förväntningar och negativ påverkan som ger förhöjd kortisolhalt i kroppen under en lång period? ;  Ja;  _Nej
+!query Fråga 5 : Många valmöjligheter i livet bidrar till att hjärnan går på högtryck när den utvärderar alla olika val. Vi mår bättre när vi ger oss själva tydliga val och mål? ;  _A. Ja;  B. Nej, jag behöver inte alls sätta mål eller prioritera bort. Jag älskar att ha alla valmöjlöigheter oavsett mängden val.
+!query Fråga 6 : Hypotesen att alla människor behåller sina celler i hjärnan livet ut och förändring är så jobbig att genomföra är en vanföreställning. Kroppen skapar ständigt nya celler, även i hjärnan. Om ca 7-8 år har du helt nya celler i din kropp.  Du kan genom träning ändra 1% i taget mot målet att bli ditt bästa jag, om målet är tydligt.  ;  A. Fel.Detta är en vanföreställning;  _B. Sant. Om jag har motivationen, kan jag bli mitt bästa jag
+!query Fråga 7 : Din inre röst är din egen röst som talar till dig. Den är ofta dömande, besvärlig, hård och kan aldrig tränas till att gynna dig att tala snällt om dig, stärka din självkänsla och gynna dina mål. ;  A. Ja;  _B. Nej, genom träning kan jag påverka denna röst att berätta min historia, ur ett gynnsamt perspektiv, om mig själv, för mig själv. Vi kallar det inre storytelling. 
+!query Fråga 8 : Ta ett steg åt sidan och bli en betraktare av dina egna tankar, händelser och känslor. I detta läge inser du att ibland är dina tankar fel, du har lärt av dina misstag och i vissa fall saknar dina känslor helt grund. ;  _A. Ja, utbildning kan ge mig en känsla av att jag lättare kan se andra perspektiv och det ger, i sin tur, känslan av att jag är fri;  B. Nej, det jag tänker, känner är helt rätt för mig 
+!query Fråga 9 : Att bli omtyckt av andra beror på 3 saker. 1. Att du uppfattas som äkta, genuin och bryr dig på riktigt. 2. Att du är relevant och sann. 3. Att du är positiv mot andra och sprider glädje ;  _A. Ja, denna forskning presenterar Lars-Johan Åge i boken Omtyckt;  B. Nej, det tror jag inte alls på
+!query Fråga 10 : För att vara äkta skall du INTE vara stabil och leva nära dina viktigaste värderingar. Du bör istället lätt påverkas av andra och ofta vända kappan efter vinden. ;  A. Ja, hålla med den jag sist talade med ger andra känslan av att jag är äkta ;  _B. Nej, genom att leva nära mina viktigaste värderingar uppfattas jag som förutsägningsbar och stabil.
+!query Fråga 11 : För att uppfattas som högsta nivåns ledare skall du vara stabil som en boj i havet och låta andra ankra i din stabila boj när stormen kommer? ;  _Ja;  Nej
+!query Fråga 12 : En stark känsla av att vara i ett betydelsefullt sammanhang, gärna tillsammans med andra och ha ett bra svar på frågan: Varför gör jag detta?  Är viktigt för att minimera stressen. Då känner jag en mening i livet och förnöjsamhet i nuet. ;  _A. Ja, men det är svårt att hitta ett Why, så jag måste träna på det;  B. Nej, att vara i ett bra sammanhang betyder inget för mig. Ensam är stark.
+!query Fråga 13 : Genom att genomföra dina viktigaste uppgifter när du har som mest energi når du lättast din kortsiktiga mål.  ;  _Ja, det är självklart;  Nej, jag är alltid effektiv.
+!query Fråga 14 : Du når lättast dina långsiktiga mål utan att ha en plan. Genom att låta mig styras av hjärnans belöningssystem så lyckas jag bäst. ;  A. Ja;  _B. Nej, genom struktur och en bra plan kan jag lätt prioritera viktigast först och sedan finna balans och jämvikt mellan mina olika roller.
+!query Fråga 15 : Bra förebilder och rätt omgivning med bra värderingar är en bra metod för att du skall nå din fulla potential och högsta nivåns ledarskap? ;  _Ja;  Nej
+!query Fråga 16 : Att ha meningsfulla mål i livet, känna att man kan påverka sin situation och kanske hjälpa andra är bra. Påverkar det stressnivån? ;  _Sänker stressnivån;  Gör ingen som helst verkan
+!query Fråga 17 : Att lära sig använda verktyget. Frågan Varför? Om och om igen för att nå ett djupare svar är ofta lösningen på många låsningar. Det kan hjälpa dig att hitta nyckeln till din egen motivationskod.   ;  _Ja så är det ;  Nej det är bara att köra på
+!query Fråga 18 : När vi tränar vår hjärna i fokusträning är det bra att träna med fokus på medkänsla, positiva perspektiv och lämpliga målbilder. Detta ändrar vår hjärna rent fysiskt då hjärnan är som en muskel.   ;  _Ja så är det ;  Nej min hjärna är som den är
+!onestop
+
+[segment-2]
+!break 1
+!image 50; ../common/logo.png
+!break 2
+!qstart
+!text <h2>Mindmanagement. Eftersnack med Hasse och Leffe</h2>
+!break 2
+!video 611558976
+!break 2
+!text <h3>Svara nu på några frågor om denna film om varför du behöver uppgradera din hjärnas operativsystem</h3>
+!break 1
+!qstop
+!one Starta ;  score.php ;  130 ;  ../common/stress.mp3 ; Rätta
+!query Fråga 1 : Påverkas vi positivt av att jämföra oss med andra hela tiden? ;  A. Ja det har alltd gynnat mig;  B. ag kraschar då jag aldrig duger till ;  _C. Jag mår bäst när jag jämför min utveckling mot de mål jag har
+!query Fråga 2 : Människan levt mindre än 4 generationer i urbana miljöer men utmattning har varit ett stort problem sedan urminnes tider. ;  _Min mamma var en av första misstänkt utmattade i Sverige 1970 ;  Utmattning är ett tecken på vekhet;  Det är lata människor som lever i lättja som drabbas
+!query Fråga 3 : Min hjärna kräver mest energi när den är i monkeybrain läge och tankarna flödar så därför har jag nytta av fokusträning 5 min 3ggr var dag. ;  Värdelös träning;  Flum ; _Hjälper mig mycket
+!query Fråga 4 : Då 90% av våra tankar kan vara samma som igår och hjärnan inte kan ``tänka nytt´´ utan att vara utvilad. Jag kan inte nå flow utan att vila innan arbetspasset. ;  _Instämmer helt;  Vet inte något om detta;  Bullshit talks
+!query Fråga 5 : För att få tillgång till mitt fulla intellekt måste jag träna min hjärna vila lite och sedan fylla på med kunskap? ;  Nädu;  Jag är alltid på topp;  _Låter klokt
+!query Fråga 6 : Hotbilder uppfattas 6 gånger starkare av hjärnan än positiva budskap. Därför försöker jag använda positiv feedback i min kommunikation för att skapa en positiv atmosfär runt mig. ;  Funkar inte;  _Efter träning går det fint att anpassa språket;  Jag kan inte träna min hjärna
+!query Fråga 7 : Några hälsogurus menar att det räcker med 3ggr 5min träning för hjärnan varje dag för nå resultat? ;  _Det tar jag mig tid till;  Verkar öken;  Jag prioriterar inte det
+!query Fråga 8 : När amygdala kapar kontakten med frontalloben aktiveras reptilhjärnan. Då är vi längst ner i stresstratten och känner panik. ;  Inte jag;  Verkar superflummigt;  _Ja helt relevant information
+!query Fråga 9 : Trötta hjärnor kan inte tänka i nya spår. Det är ett av skälen till att 50% av vad vi gör idag går på ren vana.  ;  _Ja så säger Charles Duhigg i vanans makt;  _Nej helt fel
+!query Fråga 10 : Bör jag ändra mitt sätt att tänka genom träning av min hjärna på att välkomna förändringar för att klara alla förändringar i dagens samhälle? ;  _Ja;  Nej
+!query Fråga 11 : Det påverkar stressnivån när vår hjärna får mångfalt fler intryck varje dag idag från olika håll i vårt urbana samhälle jämfört med livet på savannen? ;  _Ja;  Nej
+!query Fråga 12 : All påverkan vi får idag från olika håll blir jobbig för hjärnan bearbeta när den skall ``värdera´´ alla olika val. Nackdelar ställs mot fördelar och det ena valet jämförs med det andra osv. Det tröttar hjärnan och upplevs stressigt för oss.  ;  _Ja låter vettigt;  Nej du
+!query Fråga 13 : Hur mycket minskar vår hjärnas kapacitet när vi gör flera saker samtidigt? ;  _25%;  10%;  Inte alls
+!query Fråga 14 : Vi bör prioritera bort mycket då det är extra stressigt när vi får många fler uppgifter och deadlines i vårt samhälle idag? ;  _Ja gör det vilt viktigaste & vila;  Gör så mycket du orkar var dag;  Jag påverkas inte alls av att ha fullt upp hela tiden
+!query Fråga 15 : Att ha en livsplan som stödjer mina mål och undanröjer mindra bra framtidsval minimerar antal val för mig. Ett veckoschema som innehåller mina viktigaste åtaganden och ger mig den egentid- frihet och struktur jag behöver har gjort mig effektiv och fri. ;  _Jag prioriterar det vilt viktigaste hela tiden och är noga med effektiv vila. Det har gjort mig effektivare och jag har fått mer tid över;  Jag gör så mycket jag orkar var dag & lite till;  Jag påverkas inte alls av att ha fullt upp hela tiden
+!onestop
+
+[segment-3]
+!break 1
+!image 50; ../common/logo.png
+!break 2
+!qstart
+!text <h2>Mindmanagement.<br> Idag talar vi om vikten av att ha ett syfte i Podden.</h2>
+!break 2
+!image 70; hemmahos.png
+!break 2
+#error a syfte.mp3
+!break 2
+!text <h3>Podden "Hemma hos Lars G" finns på flera Poddplattformar</h3>
+!break 1
+!qstop
+!break 2
+!image 60; 5_n.png
+!break 2
+!one Starta ;  score.php ;  130 ;  ../common/stress.mp3 ; Rätta
+!query Fråga 1 : Har det varit svårt att hitta poddavsnitten? ;  _Ja;  Nej
+!query Fråga 2 : Har det varit givande att lyssna på ``Hemma hos Lars G´´ podd? ;  _Ja;  Nej
+!onestop
+
+[segment-4]
+!break 1
+!image 50; ../common/logo.png
+!break 2
+!qstart
+!text <h2>Mindmanagement. Träna din hjärna och uppgradera din hjärnas operativsystem</h2><h3> Ditt utbildningsmaterial finns i denna bifogade PDF</h3>
+!break 1
+!text Läs igenom Utbildningsmaterialet Ditt högre syfte.
+!text Skriv sedan ut denna pdf och sätt in i din utbildningspärm.
+!text För att skriva ut dokumentet högerklickar du på dokumentet/utbildningsmaterialet och sedan klickar du på "öppna med förhandsvisning". Skriv sedan ut  dokumentet/utbildningsmaterialet ifrån din PDF läsare i datorn
+!break 2
+!embed width="85%" height="850px" ; syfteny.pdf
+!break 2
+!text <h3>Denna utbildning är i flera moduler i varje enskilt steg. Det är 5 steg tills du når målet.</h3>
+!break 1
+!qstop
+!one Starta ;  score.php ;  130 ;  ../common/stress.mp3 ; Rätta
+!query Fråga 1 : Har du förberett din utbildningspärm i A4-storlek med plats för flera utbildningar? ;  _Ja;  Nej
+!query Fråga 2 : Har du skrivit ut denna utbildning och satt in i rätt flik i pärmen? ;  _Ja;  Nej
+!query Fråga 3 : Har du genomfört alla uppgifter och gett alla dina reflektioner i denna utbildning och satt in i rätt flik i pärmen? ;  _Ja;  Nej
+!onestop
+
+
+
+[segment-5]
+
+!break 1
+!image 50; ../common/logo.png
+!break 1
+!qstart
+!text <h1> Visa nu att du tillgodogjort dig utbildningen Nivå 1 </h1>
+!break 1
+!qstop
+!one Starta ;  score.php ;  130 ; ../common/lugn.mp3 ;  Rätta
+!query Mår vi bra av att socialisera och samarbeta varje dag med andra? ;  _Ja;  Nej
+!query Samarbetar vi bäst i grupper över 12-15 personer? ;  Ja;  _Nej
+!query Kan hjärnan hantera fler än 5 djupa relationer samtidigt? ;  Ja;  _Nej
+!query Tog forntidsmänniskan mer än 15 000 steg i genomsnitt varje dag för att få mat? ;  _Ja;  Nej
+!query Klarar vi av att socialisera och samarbeta med andra när vi närmar oss utmattning? ;  Ja;  _Nej
+!query Stress i lagom mängd är bra för kroppen för det håller kroppen alert? ;  _Ja;  Nej
+!query Nästan hälften av vad vi gör går av gammal vana. Utan utbildning och kunskapsutveckling har vi ofta samma beteende som igår ? ;  _Ja;  Nej
+!query Var medelåldern mer är 30 år för 150 år sedan? ;  Ja;  _Nej
+!onestop
+
+
+
+[segment-6]
+!break 1
+!image 50; ../common/logo.png
+!break 1
+!text <h1> Här är ditt diplom </h1>
+!break 1
+!image 70; Diplom_Hela.jpg
+!break 1
+!next Klar
+
+

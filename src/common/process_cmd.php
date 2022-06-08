@@ -6,6 +6,7 @@
 include "discquery.php";
 include "discdisplay.php";
 include "gap.php";
+include "tq.php";
 
 class Data
 {
@@ -209,10 +210,21 @@ function process_cmd($to, $data, $cmd, $args)
 			$to->regLine($args[0]);
 			$to->stopTag('a');
 			break;
-			
+
 		case 'date':
 			$to->regLine( date("Y M d") ) ;
 			break;
+			
+		case 'tq-start':
+			tq_start($to, $data, $args);
+			break;
+		case 'tq-query':
+			tq_query($to, $data, $args);
+			break;
+		case 'tq-stop':
+			tq_stop($to, $data, $args);
+			break;
+			
 
 		default:
 			$ret  = ' *** WARNING *** <br />' . $eol;
