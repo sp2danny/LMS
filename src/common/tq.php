@@ -10,7 +10,10 @@ function tq_start($to, $data, $args)
 
 	$to->startTag("form", "id='gap' action='../common/tq_post.php'");
 
-	$to->scTag("input", "type='hidden' id='pnr'      name='pnr'      value='" . $data->pnr . "'");
+	$to->scTag("input", "type='hidden' id='pnr'      name='pnr'      value='" . $data->pnr  . "'");
+
+	$to->scTag("input", "type='hidden' id='bnum'     name='bnum'     value='" . $data->bnum . "'");
+	$to->scTag("input", "type='hidden' id='snum'     name='snum'     value='" . $data->snum . "'");
 
 	return true;
 }
@@ -35,6 +38,3 @@ function tq_stop($to, $data, $args)
 
 	return true;
 }
-
-?>
-

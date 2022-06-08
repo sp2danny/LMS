@@ -12,6 +12,9 @@
 	// tq_post.php?pnr=5906195697&tq-11=abc1&tq-12=abc2&tq-13=abc3&tq-14=abc4&tq-15=abc5
 
 	$pnr = getparam("pnr", "0");
+	
+	$bnum = getparam('bnum', 0);
+	$snum = getparam('snum', 0);
 
 	//$gapName = getparam('gap-name', "");
 	//$gapNum = getparam('gap-num', "");
@@ -61,5 +64,3 @@
 	echo "</body></html>";
 
 ?>
-
-
