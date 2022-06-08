@@ -79,6 +79,12 @@
     <None Include="src\common\main.js.php">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="src\common\tq.php">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="src\common\tq_post.php">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="db.txt">

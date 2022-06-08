@@ -35,5 +35,7 @@ typer
 	disc        6            LR           UD
 	gap         7            numq         val
  
+	mot-1       11
+	mot-1       12
 
 

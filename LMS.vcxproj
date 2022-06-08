@@ -41,6 +41,8 @@
     <None Include="src\common\pulselst.php" />
     <None Include="src\common\score.php" />
     <None Include="src\common\spindel.php" />
+    <None Include="src\common\tq.php" />
+    <None Include="src\common\tq_post.php" />
     <None Include="src\debug.php" />
     <None Include="src\index.html" />
   </ItemGroup>

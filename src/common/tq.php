@@ -36,3 +36,5 @@ function tq_stop($to, $data, $args)
 	return true;
 }
 
+?>
+
