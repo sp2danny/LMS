@@ -148,10 +148,10 @@ function all()
 		echo '<ul style="list-style-type:none">';
 		foreach ($block->lines as $line) {
 			echo '<li> <img width="12px" height="12px" src="';
-			if ($line->isLink)
-				echo 'here';
-			else if($line->hasDone)
+			if($line->hasDone)
 				echo "corr";
+			else if ($line->isLink)
+				echo 'here';
 			else
 				echo "blank";
 			echo '.png" > ';

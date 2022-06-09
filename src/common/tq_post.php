@@ -25,6 +25,9 @@
 	$pid = getparam("pid", "0");
 
 	$err = false;
+	
+	if (!$bnum || !$snum)
+		$err = "bnum snum error";
 
 	$res = mysqli_query($emperator, $query);
 	if (!$res)
@@ -46,21 +49,38 @@
 			$query = "INSERT INTO data (";
 			$query .= 'pers, type, value_c';
 			$query .= ') VALUES (';
-			$query .= $pid, ', ', $qi, ', ', '"' . $val . '"' . ')';
+			$query .= $pid . ', ' . $qi . ', ' . '"' . $val . '"' . ')';
 			$res = mysqli_query($emperator, $query);
-			if (!$res)
-			{
+			if (!$res) {
 				$err = 'DB Error, insert --'.$query.'--';
 				break;
 			}
 		}
 	}
 
-	echo "</head><body>";
-	if ($err === false)
-		echo 'All Ok.<br>';
-	else
+	if ($err === false) {
+		
+		$link = '../common/forward.php';
+		$link .= '?pnr=' . $pnr ;
+		$link .= '&bnum=' . $bnum ;
+		$link .= '&snum=' . ($snum+1) ;
+
+		echo '<meta http-equiv="refresh" content="0; URL=';
+		echo $link;
+		echo '" />';
+
+		echo "</head>";
+		echo "<body></body>";
+		
+	} else {
+
+		echo "</head><body>";
 		echo $err;
-	echo "</body></html>";
+		echo "</body>";
+	}
 
 ?>
+
+
+</html>
+

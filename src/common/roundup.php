@@ -25,8 +25,8 @@ function segments($battname)
 			$e = explode(' ', $s);
 			if ($e[0] == 'max') {
 				$maxs = (int)$e[1];
+				continue;
 			}
-			continue;
 		}
 
 		if ( ($buffer[0] == '[') && ($buffer[$len-1] == ']') ) {
@@ -45,8 +45,10 @@ class Line {
 	public bool $isLink = false;
 	public string $link;
 	public bool $hasDone;
+	public bool $always = false;
 	public int $segment;
 	public string $name;
+	public string $segIdx;
 }
 
 class Block {
@@ -103,23 +105,39 @@ function roundup($pnr, $pid, $name)
 		while ($row = mysqli_fetch_array($res)) {
 			$done[$row['value_b']] = true;
 		}
-		for ($i=1; $i<=count($segs); ++$i) {
+		$i = 0;
+		foreach ($segs as $segIdx => $segVal) {
+			//for ($i=1; $i<=count($segs); ++$i) {
+			++$i;
 
 			$alldata[$runnum]->lines[$i] = new Line;
 			$alldata[$runnum]->lines[$i]->segment = $i;
 			$alldata[$runnum]->lines[$i]->name = 'Del ' . $i;
+			$alldata[$runnum]->lines[$i]->segIdx = $segIdx;
 
 			$thisok = false;
 			if (array_key_exists($i, $done) && $done[$i])
 				$thisok = true;
 
 			$alldata[$runnum]->lines[$i]->hasDone = $thisok;
+			
+			foreach ($segVal as $lnum => $daline) {
+				if ($daline == '!always')
+					$alldata[$runnum]->lines[$i]->always = true;
+			}
 
 			$wantlink = false;
 			if (!$thisok && $allsofar) {
 				$allsofar = false;
 				$wantlink = true;
 				$alldata[$runnum]->lines[$i]->isLink = true;
+			}
+			if ($allsofar) {
+				if ($alldata[$runnum]->lines[$i]->always) {
+					$alldata[$runnum]->lines[$i]->isLink = true;					
+					$lnk = mklink($value, $i, $pnr, $pid, $name);
+					$alldata[$runnum]->lines[$i]->link = $lnk;
+				}
 			}
 			if ($wantlink) {
 				$lnk = mklink($value, $i, $pnr, $pid, $name);

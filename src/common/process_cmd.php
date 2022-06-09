@@ -18,6 +18,7 @@ class Data
 	public $lineno = 0;
 	public $inq = false;
 	public $folder = '';
+	public $always = false;
 }
 
 function process_cmd($to, $data, $cmd, $args)
@@ -28,6 +29,9 @@ function process_cmd($to, $data, $cmd, $args)
 
 	switch ($cmd)
 	{
+		case 'always':
+			$data->always = true;
+			break;
 		case 'qstart':
 			$to->startTag('div', 'id="QueryDivider"');
 			break;
