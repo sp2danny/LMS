@@ -35,7 +35,8 @@ function segments($battname)
 			continue;
 		}
 
-		$res[$curr][] = $buffer;
+		if ($curr != '')
+			$res[$curr][] = $buffer;
 	}
 	fclose($styr);
 	return $res;

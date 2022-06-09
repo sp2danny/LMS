@@ -13,12 +13,24 @@ class Data
 	public $qnum = 0;
 	public $snum = 0;
 	public $bnum = 0;
+	public $max = 99;
 	public $pnr = '';
 	public $corr = [];
 	public $lineno = 0;
 	public $inq = false;
 	public $folder = '';
 	public $always = false;
+	public $name = '';
+	public $mynt = 0;
+}
+
+function repl($data, $txt)
+{
+	$txt = str_replace('%name%', $data->name, $txt);
+	$txt = str_replace('%coin%', $data->mynt, $txt);
+	$txt = str_replace('%seg%',  $data->snum, $txt);
+	$txt = str_replace('%bat%',  $data->bnum, $txt);
+	return $txt;
 }
 
 function process_cmd($to, $data, $cmd, $args)
@@ -39,10 +51,12 @@ function process_cmd($to, $data, $cmd, $args)
 			$to->stopTag('div');
 			break;
 		case 'text':
+			$txt = repl($data, $args[0]);
+
 			if ($data->inq)
-				$to->regLine('<tr> <td colspan="2"> ' . $args[0] . ' </td> </tr>');
+				$to->regLine('<tr> <td colspan="2"> ' . $txt . ' </td> </tr>');
 			else
-				$to->regLine($args[0]);
+				$to->regLine($txt);
 			break;
 		case 'sound':
 			$to->startTag('audio', 'controls');
@@ -50,7 +64,7 @@ function process_cmd($to, $data, $cmd, $args)
 			$to->stopTag('audio');
 			break;
 		case 'header':
-			$to->regLine('<h1>' . $args[0] . '</h1>');
+			$to->regLine('<h1>' . repl($data, $args[0]) . '</h1>');
 			break;
 		case 'line':
 			$to->regLine('<hr color="' . $args[0] . '" />');
@@ -183,7 +197,17 @@ function process_cmd($to, $data, $cmd, $args)
 		case 'next':
 			// next
 			
-			$to->startTag('button', 'onclick="location.href=' . "'" . 'index.php?seg=' . ($data->snum+1) . "'" . '" type="button"');
+			$new_snum = $data->snum+1;
+			if ($new_snum <= $data->max) {
+				$to->startTag('button', 'onclick="location.href=' . "'" . 'index.php?pnr=' . $data->pnr . '&seg=' . $new_snum . "'" . '" type="button"');
+				$to->regLine($args[0]);
+				$to->stopTag('button');
+				break;
+			}
+		case 'nextbatt':
+		case 'back':
+
+			$to->startTag('button', 'onclick="location.href=' . "'" . '../common/personal.php?pnr=' . $data->pnr . "'" . '" type="button"');
 			$to->regLine($args[0]);
 			$to->stopTag('button');
 			break;

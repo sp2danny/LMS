@@ -26,6 +26,7 @@ function index($styr, $local, $common)
 
 	$res = mysqli_query($emperator, $query);
 	$mynt = 0;
+	$name = getparam("name");
 	if (!$res)
 	{
 		$to->regLine('DB Error');
@@ -35,14 +36,14 @@ function index($styr, $local, $common)
 		if (!$prow) {
 			$to->regLine('DB Error');
 		} else {
+			$name = $prow['name'];
 			$query = 'SELECT * FROM data WHERE pers=' . $prow['pers_id'] . ' AND type=4';
 			$res = mysqli_query($emperator, $query);
-			if ($row = mysqli_fetch_array($res))
+			if ($row = mysqli_fetch_array($res)) {
 				$mynt = $row['value_a'];
+			}
 		}
 	}
-
-	$name = getparam("name");
 
 	$eol = "\n";
 
@@ -81,6 +82,10 @@ function index($styr, $local, $common)
 	
 	$data->bnum = $bnum;
 	
+	$data->name = $name;
+	$data->mynt = $mynt;
+	$data->max = $maxseg;
+
 	echo '<!-- ' . 'set bnum to ' . $data->bnum . ' -->';
 
 	echo '<meta name="viewport" content="width=device-width, initial-scale=1">' . $eol;
@@ -108,7 +113,7 @@ function index($styr, $local, $common)
 				switch ($cmd->command) {
 					case 'text':
 						$txt = $cmd->rest;
-						$txt = str_replace('%name%', $prow['name'], $txt);
+						$txt = str_replace('%name%', $name, $txt);
 						$txt = str_replace('%coin%', $mynt, $txt);
 						$txt = str_replace('%seg%', $data->snum, $txt);
 						$txt = str_replace('%bat%', $bnum, $txt);
@@ -125,7 +130,7 @@ function index($styr, $local, $common)
 						}
 						break;
 					case 'name':
-						$to->regLine($prow['name']);
+						$to->regLine($name);
 						break;
 					case 'coin':
 						$to->regLine($mynt . ' mynt.');
