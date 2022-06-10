@@ -41,6 +41,8 @@ function index($styr, $local, $common)
 
 	$seg = 'segment-' . $data->snum;
 
+	$name = getparam("name");
+
 	$data->pnr = getparam("pnr", "0");
 
 	$query = "SELECT * FROM pers WHERE pnr='" . $data->pnr . "'";
@@ -54,18 +56,18 @@ function index($styr, $local, $common)
 		$to->regLine('DB Error');
 	} else {
 		$prow = mysqli_fetch_array($res);
+		$name = $prow['name'];
 		if (!$prow) {
 			$to->regLine('DB Error');
 		} else {
 			$pid = $prow['pers_id'];
 			$query = 'SELECT * FROM data WHERE pers=' . $pid . ' AND type=4';
 			$res = mysqli_query($emperator, $query);
-			if ($row = mysqli_fetch_array($res))
+			if ($row = mysqli_fetch_array($res)) {
 				$mynt = $row['value_a'];
+			}
 		}
 	}
-
-	$name = getparam("name");
 
 	$atq = getparam("atq", 0);
 
@@ -76,7 +78,7 @@ function index($styr, $local, $common)
 	$curr = '';
 
 	$cmdlst = [];
-
+	
 	while (true) {
 		++$data->lineno;
 		$buffer = fgets($styr, 4096); // or break;
@@ -103,8 +105,11 @@ function index($styr, $local, $common)
 
 		$cmdlst[] = $cmd;
 	}
-
+	
 	$data->bnum = $bnum;
+	$data->name = $name;
+	$data->mynt = $mynt;
+	$data->max = $maxseg;
 	
 	echo '<!-- ' . 'set bnum to ' . $data->bnum . ' -->';
 
@@ -162,7 +167,6 @@ function index($styr, $local, $common)
 
 	$to->regLine('  div.innerHTML = s;');
 	$to->regLine('}');
-
 
 	$to->regLine('function setProgress(pro, cnv) {');
 	$to->regLine('  var ctx = cnv.getContext("2d");');
@@ -292,10 +296,10 @@ function index($styr, $local, $common)
 				switch ($cmd->command) {
 					case 'text':
 						$txt = $cmd->rest;
-						$txt = str_replace('%name%', $prow['name'], $txt);
-						$txt = str_replace('%coin%', $mynt, $txt);
-						$txt = str_replace('%seg%', $data->snum, $txt);
-						$txt = str_replace('%bat%', $bnum, $txt);
+						$txt = str_replace('%name%', $data->name, $txt);
+						$txt = str_replace('%coin%', $data->mynt, $txt);
+						$txt = str_replace('%seg%',  $data->snum, $txt);
+						$txt = str_replace('%bat%',  $data->bnum, $txt);
 						$to->regLine($txt);
 						break;
 					case 'line':
