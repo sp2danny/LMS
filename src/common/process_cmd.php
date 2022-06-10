@@ -29,6 +29,7 @@ class Data
 	public $name = '';
 	public $mynt = 0;
 	public $replst = [];
+	public $title;
 }
 
 function repl($data, $txt)
@@ -52,6 +53,9 @@ function process_cmd($to, $data, $cmd, $args)
 
 	switch ($cmd)
 	{
+		case 'title':
+			$data->title = $args[0];
+			break;
 		case 'always':
 			$data->always = true;
 			break;

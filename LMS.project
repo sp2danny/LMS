@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="LMS" Version="10.0.0" InternalType="">
   <VirtualDirectory Name="LMS">
+    <File Name="debug.php"/>
     <File Name="db.txt"/>
     <File Name="ftp.txt"/>
   </VirtualDirectory>

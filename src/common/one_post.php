@@ -93,6 +93,8 @@ function index($styr, $local, $common)
 
 	$cmdlst = [];
 	
+	$title = 'Utbildning';
+	
 	while (true) {
 		++$data->lineno;
 		$buffer = fgets($styr, 4096); // or break;
@@ -116,6 +118,10 @@ function index($styr, $local, $common)
 		}
 
 		if ($curr != $seg) continue;
+		
+		if ($cmd->is_command)
+			if ($cmd->command == 'title')
+				$title = $cmd->rest;
 
 		$cmdlst[] = $cmd;
 	}
@@ -291,7 +297,8 @@ function index($styr, $local, $common)
 	$to->regLine('}');
 
 	$to->stopTag('script');
-
+	
+	echo '<title>' . $title . '</title>' . $eol;
 	echo '</head>' . $eol;
 	$to->startTag('body');
 
