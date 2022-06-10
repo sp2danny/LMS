@@ -52,6 +52,8 @@ function index($styr, $local, $common)
 	$curr = '';
 
 	$cmdlst = [];
+	
+	$title = "Utbildning";
 
 	while (true) {
 		++$data->lineno;
@@ -76,6 +78,10 @@ function index($styr, $local, $common)
 		}
 
 		if ($curr != $seg) continue;
+		
+		if ($cmd->is_command)
+			if ($cmd->command == 'title')
+				$title = $cmd->rest;
 
 		$cmdlst[] = $cmd;
 	}
@@ -96,6 +102,7 @@ function index($styr, $local, $common)
 	echo '    }' . $eol;
 	echo '  </style>' . $eol;
 
+	echo '<title>' . $title . '</title>' . $eol;
 	echo '</head>' . $eol;
 	$to->startTag('body');
 	

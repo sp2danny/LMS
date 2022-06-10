@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 <html>
-<head> <title> Index </title> 
+<head>  
 
 <?php
 

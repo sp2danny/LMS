@@ -36,6 +36,6 @@ typer
 	gap         7            numq         val
  
 	mot-1       11
-	mot-1       12
+	mot-2       12
 
 

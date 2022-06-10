@@ -8,6 +8,12 @@ include "discdisplay.php";
 include "gap.php";
 include "tq.php";
 
+class SRP
+{
+	public string $str;
+	public string $repl;
+}
+
 class Data
 {
 	public $qnum = 0;
@@ -22,6 +28,7 @@ class Data
 	public $always = false;
 	public $name = '';
 	public $mynt = 0;
+	public $replst = [];
 }
 
 function repl($data, $txt)
@@ -30,6 +37,10 @@ function repl($data, $txt)
 	$txt = str_replace('%coin%', $data->mynt, $txt);
 	$txt = str_replace('%seg%',  $data->snum, $txt);
 	$txt = str_replace('%bat%',  $data->bnum, $txt);
+	foreach ($data->replst as $k => $d)
+	{
+		$txt = str_replace($d->str,  $d->repl, $txt);
+	}
 	return $txt;
 }
 

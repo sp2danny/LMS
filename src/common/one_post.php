@@ -68,6 +68,20 @@ function index($styr, $local, $common)
 			}
 		}
 	}
+	
+	for ($qi=11; $qi<20; ++$qi) {
+		$query = "SELECT value_c FROM data WHERE pers=" . $pid . " AND type=" . $qi;
+		$res = mysqli_query($emperator, $query);
+		if ($res) {
+			if ($row = mysqli_fetch_array($res)) {
+				$srp = new SRP;
+				$srp->str = "%get-" . $qi . "%";
+				$srp->repl = $row['value_c'];
+				$data->replst[] = $srp;
+				echo '<!-- ' . 'storing ' . $srp->str . ' as ' . $srp->repl . ' -->';
+			}
+		}
+	}
 
 	$atq = getparam("atq", 0);
 
