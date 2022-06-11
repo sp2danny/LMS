@@ -1,40 +1,66 @@
 
 <?php
 
-include 'php/head.php';
-include 'php/common.php';
-include 'php/connect.php';
+include 'site/common/head.php';
+include 'site/common/common.php';
+include 'site/common/connect.php';
 
 function mklink($batt, $seg, $row)
 {
-	return 'batt-' . $batt . '/index.php?seg=' . $seg . '&pnr=' . $row['pnr'] . '&pid=' . $row['pers_id'] . '&name='  . $row['name'] ;
+	return 'site/batt-' . $batt . '/index.php?seg=' . $seg . '&pnr=' . $row['pnr'] . '&pid=' . $row['pers_id'] . '&name='  . $row['name'] ;
+}
+
+class Segment
+{
+	public  string  $segname;
+	public  int     $segnum;
+	public  string  $title;
+}
+
+function split1($str, $sep)
+{
+	$res = [];
+	$p = strpos($str, $sep);
+	if ($p === false) {
+		$res[] = $str;
+	} else {
+		$res[] = substr($str, 0, $p);
+		$res[] = substr($str, $p+1);
+	}
+	return $res;
 }
 
 function segments($battname)
 {
-	$styr = fopen('batt-' . $battname . "/styr.txt", "r");
+	$styr = fopen('site/batt-' . $battname . "/styr.txt", "r");
 	if ($styr === false) return false;
 
 	$res = [];
 	$curr = '';
-	$lineno = 0;
+	$sn = 0;
 	while (true) {
-		++$lineno;
 		$buffer = fgets($styr, 4096); // or break;
 		if (!$buffer) break;
 		$buffer = trim($buffer);
 		$len = strlen($buffer);
 		if ($len == 0) continue;
 		if ($buffer[0] == '#') continue;
-		if ($buffer[0] == '!') continue;
-
-		if ( ($buffer[0] == '[') && ($buffer[$len-1] == ']') ) {
-			$curr = substr( $buffer, 1, $len-2 );
-			$res[$curr] = [];
+		if ($buffer[0] == '!') {
+			$e = split1($buffer, ' ');
+			if ($e[0] == '!title')
+				if ($curr != '')
+					$res[$curr]->title = $e[1];
 			continue;
 		}
 
-		$res[$curr][] = $buffer;
+		if ( ($buffer[0] == '[') && ($buffer[$len-1] == ']') ) {
+			$curr = substr( $buffer, 1, $len-2 );
+			$res[$curr] = new Segment;
+			$res[$curr]->segname = $curr;
+			$res[$curr]->segnum = ++$sn;
+			$res[$curr]->title = 'Del ' . $sn;
+			continue;
+		}
 	}
 	fclose($styr);
 	return $res;
@@ -55,7 +81,7 @@ if ($prow = mysqli_fetch_array($res)) {
 }
 
 $batts = array();
-$dircont = scandir(".");
+$dircont = scandir("site");
 
 foreach ($dircont as $key => $value) {
 	if (strlen($value) < 5) continue;
@@ -69,10 +95,11 @@ echo '<br /> <br /> <ul> ' . $eol;
 foreach ($batts as $key => $value) {
 	echo '<li> ' . $value . '<ul style="list-style-type:none;" >';
 	$segs = segments($value);
-	for ($i=1; $i<=count($segs); ++$i) {
+	foreach ($segs as $key => $val) {
+	//for ($i=1; $i<=count($segs); ++$i) {
 		echo '<li>';
-		echo '<a href="' . mklink($value, $i, $prow) . '" > ';
-		echo 'Del ' . $i;
+		echo '<a href="' . mklink($value, $val->segnum, $prow) . '" > ';
+		echo $val->title;
 		echo ' </a> ';
 		'</li>';
 	}
