@@ -344,9 +344,6 @@ function gap_display_v1($to, $data, $args)
 	return true;
 }
 
-
-
-
 function gap_display_v2($to, $data, $args)
 {
 	global $emperator;
@@ -501,6 +498,99 @@ function gap_display_v2($to, $data, $args)
 }
 
 
+function gap_merge($to, $data, $args)
+{
+	global $emperator;
+	
+	$gapname = $args[0];
+	
+	$to->regLine('Gap Name ' . $gapname . ' <br>');
+
+	$gaptxt = fopen("../common/gap-" . $gapname . ".txt", "r");
+	$gaplst = [];
+	while (true) {
+		$buffer = fgets($gaptxt, 4096); // or break;
+		if (!$buffer) break;
+		$buffer = trim($buffer);
+		if (empty($buffer)) continue;
+		$gaplst[] = $buffer;
+	}
+	fclose($gaptxt);
+	
+	$gapnum = $args[1];
+
+	$to->regLine('Gap Num ' . $gapnum . ' <br>');
+	
+	$pnr = getparam("pnr", "0");
+	$query = "SELECT * FROM pers WHERE pnr='" .$pnr . "'";
+	$pid = 0;
+	$err = false;
+	$res = mysqli_query($emperator, $query);
+	if (!$res)
+	{
+		$err = 'DB Error, query person --'.$query.'--';
+	} else {
+		$prow = mysqli_fetch_array($res);
+		if (!$prow) {
+			$err = 'DB Error, fetch person --'.$query.'--';
+		} else {
+			$pid = $prow['pers_id'];
+			$pnam = $prow['name'];
+		}
+	}
+	
+	$to->regLine('PID ' . $pid . ' <br>');
+	
+	$query = "SELECT * FROM surv WHERE pers='" .$pid . "'" . " AND type=7" .
+			 " AND name='" . $gapname . "' AND seq='" . $gapnum . "'";
+	$sid = 0;
+	$res = mysqli_query($emperator, $query);
+	if (!$res)
+	{
+		$err = 'DB Error, query surv --'.$query.'--';
+	} else {
+		$prow = mysqli_fetch_array($res);
+		if (!$prow) {
+			$err = 'DB Error, fetch surv --'.$query.'--';
+		} else {
+			$sid = $prow['surv_id'];
+		}
+	}
+
+	$to->regLine('Surv ID ' . $sid . ' <br>');
+	
+	$values = [];
+	
+	$sum = 0.0;
+
+	$query = "SELECT * FROM data WHERE pers='" .$pid . "'" . " AND type=7" .
+			 " AND surv='" . $sid . "'";
+	$res = mysqli_query($emperator, $query);
+	if (!$res)
+	{
+		$err = 'DB Error, query data --'.$query.'--';
+	} else {
+		while (true) {
+			$prow = mysqli_fetch_array($res);
+			if (!$prow) {
+				break;
+			} else {
+				$val = $prow['value_b'];
+				$values[] = $val;
+				$sum += $val;
+			}
+		}
+	}
+
+	$valcnt = count($values);
+	
+	$avg = $sum / $valcnt;
+
+	$to->regLine('valcnt ' . $valcnt . ' <br>');
+	$to->regLine('sum ' . $sum . ' <br>');
+	$to->regLine('avg ' . $avg . ' <br>');
+	
+}
 
 ?>
 
