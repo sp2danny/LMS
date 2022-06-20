@@ -215,7 +215,10 @@ function process_cmd($to, $data, $cmd, $args)
 			$new_snum = $data->snum+1;
 			if ($new_snum <= $data->max) {
 				$to->startTag('button', 'onclick="location.href=' . "'" . 'index.php?pnr=' . $data->pnr . '&seg=' . $new_snum . "'" . '" type="button"');
-				$to->regLine($args[0]);
+				if (array_key_exists(0, $args))
+					$to->regLine($args[0]);
+				else
+					$to->regLine("Nästa");
 				$to->stopTag('button');
 				break;
 			}

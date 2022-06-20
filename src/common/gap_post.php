@@ -8,6 +8,10 @@
 
 	include_once('connect.php');
 	include_once('common.php');
+	
+	$pnr  = getparam("pnr", "0");
+	$bnum = getparam('bnum', 0);
+	$snum = getparam('snum', 0);
 
 	// gap_post.php?pnr=5906195697&gap-name=motiv&gap-num=1&gap-cnt=5&q1=22&q2=54&q3=18&q4=55&q5=31
 	
@@ -71,12 +75,29 @@
 		}
 	}
 	
+	
+	
 	echo "</head><body>";
 	if ($err === false)
 		echo 'All Ok.<br>';
 	else
 		echo $err;
+		
+		
+	$link = '../common/forward.php';
+	$link .= '?pnr=' . $pnr ;
+	$link .= '&bnum=' . $bnum ;
+	$link .= '&snum=' . ($snum+1) ;
+
+	//echo '<meta http-equiv="refresh" content="0; URL=';
+	//echo $link;
+	//echo '" />';
+	
+	echo "<br> <a href='" . $link . "'> Next </a> <br>";
+		
 	echo "</body></html>";
+	
+	
 
 
 ?>

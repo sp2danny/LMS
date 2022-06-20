@@ -23,6 +23,9 @@ function gap_query($to, $data, $args)
 
 	$to->startTag("form", "id='gap' action='../common/gap_post.php'");
 
+	$to->scTag("input", "type='hidden' id='bnum'     name='bnum'     value='" . $data->bnum . "'");
+	$to->scTag("input", "type='hidden' id='snum'     name='snum'     value='" . $data->snum . "'");
+
 	$to->scTag("input", "type='hidden' id='pnr'      name='pnr'      value='" . $data->pnr . "'");
 	$to->scTag("input", "type='hidden' id='gap-name' name='gap-name' value='" . $args[0] . "'");
 	$to->scTag("input", "type='hidden' id='gap-num'  name='gap-num'  value='" . $args[1] . "'");
@@ -613,21 +616,105 @@ function gap_merge($to, $data, $args)
 	
 }
 
+class DP {
+    public $name = 'Name';
+    public $vals = [];
+};
+
 function display_graph($to, $data, $args)
 {
+	global $emperator;
+
+	// !graph Titel, 1, 3, Motivation, Balans
+	$title  = $args[0];
+	$m_strt = $args[1];
+	$m_stop = $args[2];
+	
+	$n = count($args);
+	$dps = [];
+	for ($i=3; $i<$n; ++$i) {
+		$dp = new DP;
+		$dp->name = $args[$i];
+		$dps[] = $dp;
+	}
+	
+	$pnr = getparam("pnr", "0");
+	$query = "SELECT * FROM pers WHERE pnr='" .$pnr . "'";
+	$pid = 0;
+	$err = false;
+	$res = mysqli_query($emperator, $query);
+	if (!$res)
+	{
+		$err = 'DB Error, query person --'.$query.'--';
+	} else {
+		$prow = mysqli_fetch_array($res);
+		if (!$prow) {
+			$err = 'DB Error, fetch person --'.$query.'--';
+		} else {
+			$pid = $prow['pers_id'];
+			$pnam = $prow['name'];
+		}
+	}
+	
+	$n = count($dps);
+	for ($i=0; $i<$n; ++$i) {
+		for ($m=$m_strt; $m<=$m_stop; ++$m) {
+			$query = "SELECT * FROM surv WHERE type=8 AND pers='" .$pid . "' AND name='" . $dps[$i]->name . "' AND seq=" . $m;
+			$sid = 0;
+			$res = mysqli_query($emperator, $query);
+			if (!$res)
+			{
+				$err = 'DB Error, query surv --'.$query.'--';
+			} else {
+				$prow = mysqli_fetch_array($res);
+				if (!$prow) {
+					$err = 'DB Error, fetch surv --'.$query.'--';
+				} else {
+					$sid = $prow['surv_id'];
+				}
+			}
+			
+			
+			$query = "SELECT * FROM data WHERE pers='" .$pid . "'" . " AND type=8" .
+					 " AND surv='" . $sid . "'";
+			$res = mysqli_query($emperator, $query);
+			if (!$res)
+			{
+				$err = 'DB Error, query data --'.$query.'--';
+			} else {
+				$prow = mysqli_fetch_array($res);
+				if ($prow) {
+					$val = $prow['value_a'];
+					$dps[$i]->vals[$m] = $val;
+				}
+			}
+		}
+	}
+	
+	$str = "    ['Mätning'";
+	for ($i=0; $i<$n; ++$i) {
+		$str .= ", '" . $dps[$i]->name . "'";
+	}
+	$str .= "],\n";
+	for ($m=$m_strt; $m<=$m_stop; ++$m) {
+		$str .= "    ['" . $m . "'";
+		for ($i=0; $i<$n; ++$i) {
+			$str .= ", " . $dps[$i]->vals[$m];
+		}
+		$str .= "]";
+		if ($m < $m_stop) $str .= ",";
+		$str .= "\n";
+	}
+	$str .= "  ]);\n";
+
 	$to->startTag('script');
 	$to->regLine("google.charts.load('current', {'packages':['corechart']});");
 	$to->regLine("google.charts.setOnLoadCallback(drawChart);");
 	$to->regLine("function drawChart() {");
 	$to->regLine("  var data = google.visualization.arrayToDataTable([");
-	$to->regLine("    ['Mätning', 'Motivation', 'Balans', 'Hållbarhet'],");
-	$to->regLine("    ['Jan',  30, 22, 65],");
-	$to->regLine("    ['Feb',  33, 33, 68],");
-	$to->regLine("    ['Mar',  38, 44, 55],");
-	$to->regLine("    ['Apr',  44, 55, 59]");
-	$to->regLine("  ]);");
+	$to->regLine($str);
 	$to->regLine("  var options = {");
-	$to->regLine("    title: 'Självstyrande Team',");
+	$to->regLine("    title: '" . $title . "',");
 	$to->regLine("    curveType: 'function',");
 	$to->regLine("    legend: { position: 'bottom' }");
 	$to->regLine("  };");
