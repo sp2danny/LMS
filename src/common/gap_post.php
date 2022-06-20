@@ -10,7 +10,7 @@
 	include_once('common.php');
 
 	// gap_post.php?pnr=5906195697&gap-name=motiv&gap-num=1&gap-cnt=5&q1=22&q2=54&q3=18&q4=55&q5=31
-
+	
 	$pnr = getparam("pnr", "0");
 	$gapName = getparam('gap-name', "");
 	$gapNum = getparam('gap-num', "");
@@ -24,7 +24,7 @@
 
 	$res = mysqli_query($emperator, $query);
 	if (!$res)
-	{;
+	{
 		$err = 'DB Error, query person --'.$query.'--';
 	} else {
 		$prow = mysqli_fetch_array($res);

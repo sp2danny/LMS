@@ -348,4 +348,62 @@ function spiderMouseMove(event)
 include_once 'getparam.php';
 include_once 'convert.php';
 
+function QIT($val)
+{
+	if (is_numeric($val))
+		return $val;
+	else
+		return "'" . $val . "'";
+}
+
+function COR( $db, $id_n, $id_v, $sup_n, $sup_v, $res_n )
+{
+	global $emperator;
+
+	$query = "SELECT * FROM " . $db . " WHERE";
+	
+	$n = count($id_n);
+	for ($i=0; $i<$n; ++$i) {
+		if ($i==0)
+			$query .= " ";
+		else
+			$query .= " AND ";
+		$query .= $id_n[$i] . "=" . QIT($id_v[$i]);
+	}
+	$res = mysqli_query($emperator, $query);
+	if ($res) {
+		$row = mysqli_fetch_array($res);
+		if ($row) {
+			return $row[$res_n];
+		}
+	}
+	
+	$nn = " (";
+	$vv = " (";
+	$n = count($id_n);
+	$sep = "";
+	for ($i=0; $i<$n; ++$i) {
+		$nn .= $sep . $id_n[$i];
+		$vv .= $sep . QIT($id_v[$i]);
+		$sep = ",";
+	}
+	$n = count($sup_n);
+	for ($i=0; $i<$n; ++$i) {
+		$nn .= $sep . $sup_n[$i];
+		$vv .= $sep . QIT($sup_v[$i]);
+		$sep = ",";
+	}
+	$nn .= ")";
+	$vv .= ")";
+	
+	$query = "INSERT INTO " . $db . $nn . " VALUES " . $vv;
+	
+	$res = mysqli_query($emperator, $query);
+	if ($res) {
+		return $emperator->insert_id;
+	} else {
+		return 'DB Error, insert --'.$query.'-- ' . "\n" . mysqli_error();
+	}
+}
+
 ?> 

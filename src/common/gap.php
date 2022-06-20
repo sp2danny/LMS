@@ -497,6 +497,7 @@ function gap_display_v2($to, $data, $args)
 	return true;
 }
 
+// function COR( $db, $id_n, $id_v, $sup_n, $sup_v, $res_n )
 
 function gap_merge($to, $data, $args)
 {
@@ -589,6 +590,26 @@ function gap_merge($to, $data, $args)
 	$to->regLine('valcnt ' . $valcnt . ' <br>');
 	$to->regLine('sum ' . $sum . ' <br>');
 	$to->regLine('avg ' . $avg . ' <br>');
+	
+	// function COR( $db, $id_n, $id_v, $sup_n, $sup_v, $res_n )
+	$sid = COR(
+			"surv",
+			array("type", "pers", "name", "seq"),
+			array("8", $pid, $gapname, $gapnum),
+			array(), array(),
+			"surv_id");
+			
+	$to->regLine('sid ' . $sid . ' <br>');
+	
+	$res = COR(
+			"data",
+			array("type", "pers", "value_a", "surv"),
+			array("8", $pid, round($avg), $sid),
+			array(), array(),
+			"data_id");
+
+	$to->regLine($res);
+
 	
 }
 

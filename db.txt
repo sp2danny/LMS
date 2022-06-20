@@ -34,6 +34,7 @@ typer
 	mynt event  5            antal        -          
 	disc        6            LR           UD
 	gap         7            numq         val
+	merge       8            num-g        val
  
 	mot-1       11
 	mot-2       12
