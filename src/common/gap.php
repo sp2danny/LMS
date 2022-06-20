@@ -613,6 +613,34 @@ function gap_merge($to, $data, $args)
 	
 }
 
+function display_graph($to, $data, $args)
+{
+	$to->startTag('script');
+	$to->regLine("google.charts.load('current', {'packages':['corechart']});");
+	$to->regLine("google.charts.setOnLoadCallback(drawChart);");
+	$to->regLine("function drawChart() {");
+	$to->regLine("  var data = google.visualization.arrayToDataTable([");
+	$to->regLine("    ['Mätning', 'Motivation', 'Balans', 'Hållbarhet'],");
+	$to->regLine("    ['Jan',  30, 22, 65],");
+	$to->regLine("    ['Feb',  33, 33, 68],");
+	$to->regLine("    ['Mar',  38, 44, 55],");
+	$to->regLine("    ['Apr',  44, 55, 59]");
+	$to->regLine("  ]);");
+	$to->regLine("  var options = {");
+	$to->regLine("    title: 'Självstyrande Team',");
+	$to->regLine("    curveType: 'function',");
+	$to->regLine("    legend: { position: 'bottom' }");
+	$to->regLine("  };");
+	$to->regLine("  var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));");
+	$to->regLine("  chart.draw(data, options);");
+	$to->regLine("}");
+    $to->stopTag("script");
+    $to->regLine('<div id="curve_chart" style="width: 900px; height: 500px"></div>');
+
+	return true;
+}
+
+
 ?>
 
 

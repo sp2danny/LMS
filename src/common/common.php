@@ -1,6 +1,8 @@
 
 <!-- inlude common.php -->
 
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 <script>
 function corr1(idnum, corrval) {
   var elem = document.getElementById('QI-' + idnum);

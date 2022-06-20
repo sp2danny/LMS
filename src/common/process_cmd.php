@@ -271,6 +271,9 @@ function process_cmd($to, $data, $cmd, $args)
 			tq_stop($to, $data, $args);
 			break;
 			
+		case 'graph':
+			display_graph($to, $data, $args);
+			break;
 
 		default:
 			$ret  = ' *** WARNING *** <br />' . $eol;
