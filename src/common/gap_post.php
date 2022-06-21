@@ -75,30 +75,27 @@
 		}
 	}
 	
-	
-	
-	echo "</head><body>";
-	if ($err === false)
-		echo 'All Ok.<br>';
-	else
-		echo $err;
-		
-		
 	$link = '../common/forward.php';
 	$link .= '?pnr=' . $pnr ;
 	$link .= '&bnum=' . $bnum ;
 	$link .= '&snum=' . ($snum+1) ;
-
-	//echo '<meta http-equiv="refresh" content="0; URL=';
-	//echo $link;
-	//echo '" />';
-	
-	echo "<br> <a href='" . $link . "'> Next </a> <br>";
 		
-	echo "</body></html>";
-	
-	
+	if ($err === false) {
 
+		echo '<meta http-equiv="refresh" content="0; URL=';
+		echo $link;
+		echo '" />';
+		echo "</head><body>";
+		echo "</body></html>";
+
+	} else {
+
+		echo "</head><body>";
+		echo $err;
+		echo "<br> <a href='" . $link . "'> Next </a> <br>";
+		echo "</body></html>";
+
+	}
 
 ?>
 

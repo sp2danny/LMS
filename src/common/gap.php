@@ -6,7 +6,9 @@
 function gap_query($to, $data, $args)
 {
 
-	$to->regLine("<br> g&ouml;r gapanalys " . $args[0] . "-" . $args[1] . " h&auml;r <br><hr>");
+	//$to->regLine("<br> g&ouml;r gapanalys " . $args[0] . "-" . $args[1] . " h&auml;r <br><hr>");
+
+	$to->regLine("<br><hr>");
 
 	$gaptxt = fopen("../common/gap-" . $args[0] . ".txt", "r");
 
@@ -508,7 +510,7 @@ function gap_merge($to, $data, $args)
 	
 	$gapname = $args[0];
 	
-	$to->regLine('Gap Name ' . $gapname . ' <br>');
+	$to->regLine('merge ' . $gapname . '-' . $args[1] . ' <br>');
 
 	$gaptxt = fopen("../common/gap-" . $gapname . ".txt", "r");
 	$gaplst = [];
@@ -523,7 +525,7 @@ function gap_merge($to, $data, $args)
 	
 	$gapnum = $args[1];
 
-	$to->regLine('Gap Num ' . $gapnum . ' <br>');
+	//$to->regLine('Gap Num ' . $gapnum . ' <br>');
 	
 	$pnr = getparam("pnr", "0");
 	$query = "SELECT * FROM pers WHERE pnr='" .$pnr . "'";
@@ -543,7 +545,7 @@ function gap_merge($to, $data, $args)
 		}
 	}
 	
-	$to->regLine('PID ' . $pid . ' <br>');
+	//$to->regLine('PID ' . $pid . ' <br>');
 	
 	$query = "SELECT * FROM surv WHERE pers='" .$pid . "'" . " AND type=7" .
 			 " AND name='" . $gapname . "' AND seq='" . $gapnum . "'";
@@ -561,7 +563,7 @@ function gap_merge($to, $data, $args)
 		}
 	}
 
-	$to->regLine('Surv ID ' . $sid . ' <br>');
+	//$to->regLine('Surv ID ' . $sid . ' <br>');
 	
 	$values = [];
 	
@@ -590,9 +592,9 @@ function gap_merge($to, $data, $args)
 	
 	$avg = $sum / $valcnt;
 
-	$to->regLine('valcnt ' . $valcnt . ' <br>');
-	$to->regLine('sum ' . $sum . ' <br>');
-	$to->regLine('avg ' . $avg . ' <br>');
+	//$to->regLine('valcnt ' . $valcnt . ' <br>');
+	//$to->regLine('sum ' . $sum . ' <br>');
+	//$to->regLine('avg ' . $avg . ' <br>');
 	
 	// function COR( $db, $id_n, $id_v, $sup_n, $sup_v, $res_n )
 	$sid = COR(
@@ -602,18 +604,18 @@ function gap_merge($to, $data, $args)
 			array(), array(),
 			"surv_id");
 			
-	$to->regLine('sid ' . $sid . ' <br>');
+	//$to->regLine('sid ' . $sid . ' <br>');
 	
-	$res = COR(
+	$res = COU(
 			"data",
-			array("type", "pers", "value_a", "surv"),
-			array("8", $pid, round($avg), $sid),
-			array(), array(),
+			array("type", "pers", "surv"),
+			array("8", $pid, $sid),
+			array("value_a"), array(round($avg)),
 			"data_id");
 
-	$to->regLine($res);
+	//$to->regLine($res);
 
-	
+	return $err;
 }
 
 class DP {
