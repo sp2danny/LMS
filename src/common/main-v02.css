@@ -11,6 +11,11 @@
 
 .show { display: block; }
 
+.inputslider
+{
+    width: 450px;
+}
+
 body {
     background-color: #ffffff;
     margin-top: 50px;

@@ -43,8 +43,8 @@ function gap_query($to, $data, $args)
 		$to->regLine($value);
 		$to->stopTag("label");
 		$to->stopTag("td");
-		$to->startTag("td");
-		$to->scTag("input", "type='range' min=0 max=100 id='".$qq."' name='".$qq."' value='0'");
+		$to->startTag("td"," width='475px' ");
+		$to->scTag("input", "type='range' class='inputslider' min=0 max=100 id='".$qq."' name='".$qq."' value='0'");
 		//$to->regLine("<br>");
 		$to->stopTag("td");
 		++$i;
