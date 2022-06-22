@@ -2,6 +2,15 @@
 
 <script>
 
+function range_slider_change(idx)
+{
+	inp = document.getElementById( "q" + idx );
+	lbl = document.getElementById( "l" + idx );
+	
+	val = inp.value;
+	lbl.innerHTML = " &nbsp; " + val + " &nbsp; ";
+}
+
 function Goto(str)
 {
 	str = "http://www." + <?php echo '"'.$BaseDomain.'"'; ?>  + "/" + str;
@@ -484,8 +493,8 @@ function DrawSpider( canvas, count, targets, targ_s, val_e, val_b, shrt_desc, ti
 		}
 		spider_gap_n.push(val_n);
 		spider_gap_p.push(val_p);
-		if(val_n>1) val_n=1; // >100% kompenserar inte fˆr annat
-		if(val_p>1) val_p=1; // >100% kompenserar inte fˆr annat
+		if(val_n>1) val_n=1; // >100% kompenserar inte f√∂r annat
+		if(val_p>1) val_p=1; // >100% kompenserar inte f√∂r annat
 		accu_n += val_n;
 		accu_p += val_p;
 		++cnt;
@@ -699,7 +708,7 @@ function genericDrawSpider()
 		ctx.moveTo(8,hh-8-12*0);
 		ctx.lineTo(28,hh-8-12*0);
 		ctx.stroke();
-		ctx.fillText("V‰rde saknas",32,hh-8-12*0+3);
+		ctx.fillText("V√§rde saknas",32,hh-8-12*0+3);
 	}
 
 }

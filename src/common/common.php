@@ -4,6 +4,16 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <script>
+
+function range_slider_change(idx)
+{
+	inp = document.getElementById( "q" + idx );
+	lbl = document.getElementById( "l" + idx );
+	
+	val = inp.value;
+	lbl.innerHTML = " &nbsp; " + val + " &nbsp; ";
+}
+
 function corr1(idnum, corrval) {
   var elem = document.getElementById('QI-' + idnum);
   var sel = document.querySelector('input[name="' + idnum + '"]:checked');
