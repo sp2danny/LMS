@@ -8,10 +8,10 @@
 <?php
 
 if (glob('index.html')) {
-	echo '<link rel="stylesheet" href="common/main-v02.css">' . "\n";
+	echo '<link rel="stylesheet" href="common/main-v03.css">' . "\n";
 	echo '<link rel="icon" href="common/favicon.ico">' . "\n";
 } else {
-	echo '<link rel="stylesheet" href="../common/main-v02.css">' . "\n";
+	echo '<link rel="stylesheet" href="../common/main-v03.css">' . "\n";
 	echo '<link rel="stylesheet" href="local.css">' . "\n";
 	echo '<link rel="icon" href="../common/favicon.ico">' . "\n";
 }

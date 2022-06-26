@@ -2,7 +2,6 @@
 <CodeLite_Project Name="LMS" Version="10.0.0" InternalType="">
   <VirtualDirectory Name="LMS">
     <File Name="src/common/main.css.php"/>
-    <File Name="src/common/main-v01.css"/>
     <File Name="debug.php"/>
     <File Name="db.txt"/>
     <File Name="ftp.txt"/>

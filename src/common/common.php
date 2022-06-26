@@ -350,9 +350,16 @@ function spiderMouseMove(event)
 </script>
 
 <style type="text/css">
-  .btndiv {
-    display: inline;
-  }
+
+	.btndiv {
+		display: inline;
+	}
+  
+	table {
+		border-collapse:separate; 
+		border-spacing: 0 1em;
+	}
+  
 </style>
 
 <?php
