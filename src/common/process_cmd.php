@@ -223,6 +223,14 @@ function process_cmd($to, $data, $cmd, $args)
 				break;
 			}
 		case 'nextbatt':
+			$to->startTag('button', 'onclick="location.href=' . "'" . '../common/forward.php?pnr=' . $data->pnr . '&snum=1&bnum=' . ($data->bnum+1) . "'" . '" type="button"');
+			if (array_key_exists(0, $args))
+				$to->regLine($args[0]);
+			else
+				$to->regLine("Nästa");
+			$to->stopTag('button');
+			break;
+		
 		case 'back':
 
 			$to->startTag('button', 'onclick="location.href=' . "'" . '../common/personal.php?pnr=' . $data->pnr . "'" . '" type="button"');
