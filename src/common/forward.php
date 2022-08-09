@@ -36,6 +36,16 @@ if ($row = mysqli_fetch_array($res)) {
 	exit;
 }
 
+$ob = getparam('ob', 0);
+$os = getparam('os', 0);
+$ok = ($ob>0) && ($os>0);
+
+if ($ok) {
+	$query = "INSERT INTO data (pers, type, value_a, value_b) VALUES (" . $pid . ", 2, " . $ob . ", " . $os . ");";
+	//$dbtext = "db-operation >>" . $query . "<< failed.\n";
+	$res = mysqli_query($emperator, $query);
+}
+
 $alldata = roundup($pnr, $pid, $name);
 $atnum = 0;
 $link = '';

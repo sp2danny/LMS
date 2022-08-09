@@ -214,7 +214,7 @@ function process_cmd($to, $data, $cmd, $args)
 			
 			$new_snum = $data->snum+1;
 			if ($new_snum <= $data->max) {
-				$to->startTag('button', 'onclick="location.href=' . "'" . 'index.php?pnr=' . $data->pnr . '&seg=' . $new_snum . "'" . '" type="button"');
+				$to->startTag('button', 'onclick="location.href=' . "'" . '../common/forward.php?os=' . $data->snum . '&ob=' . $data->bnum . '&pnr=' . $data->pnr . '&bnum=' . $data->bnum . '&snum=' . $new_snum . "'" . '" type="button"');
 				if (array_key_exists(0, $args))
 					$to->regLine($args[0]);
 				else
