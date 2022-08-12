@@ -269,7 +269,7 @@ function process_cmd($to, $data, $cmd, $args)
 			break;
 
 		case 'date':
-			$to->regLine( date("Y M d") ) ;
+			$to->regLine(date("Y M d")) ;
 			break;
 			
 		case 'tq-start':
