@@ -237,7 +237,6 @@ function process_cmd($to, $data, $cmd, $args)
 			$to->regLine($args[0]);
 			$to->stopTag('button');
 			break;
-			
 
 		case 'discquery':
 			$to->regLine( dodisc($data) );

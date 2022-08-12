@@ -52,6 +52,13 @@
 			echo "<br>error<br>";
 			die('Error: ' . mysqli_error($emperator));
 		}
+		
+		$query = "INSERT INTO data (pers, type, value_a, value_b) VALUES (" . $pid . ", 2, " . $bnum . ", " . $snum . ");";
+		//$dbtext = "db-operation >>" . $query . "<< failed.\n";
+		$res = mysqli_query($emperator, $query);
+		
+		
+		
 	}
 
 	$link = '../common/forward.php';
