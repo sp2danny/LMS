@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CodeLite_Project Name="LMS" Version="10.0.0" InternalType="">
+<CodeLite_Project Name="LMS" Version="11000" InternalType="">
   <VirtualDirectory Name="LMS">
     <File Name="src/common/main.css.php"/>
     <File Name="debug.php"/>

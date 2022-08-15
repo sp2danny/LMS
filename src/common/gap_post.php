@@ -79,6 +79,12 @@
 	$link .= '?pnr=' . $pnr ;
 	$link .= '&bnum=' . $bnum ;
 	$link .= '&snum=' . ($snum+1) ;
+	$link .= '&ob='   . $bnum ;
+	$link .= '&os='   . $snum ;
+	
+	//$ob = getparam('ob', 0);
+	//$os = getparam('os', 0);
+
 		
 	if ($err === false) {
 
