@@ -7,6 +7,7 @@
     <File Name="ftp.txt"/>
   </VirtualDirectory>
   <VirtualDirectory Name="src">
+    <File Name="src/cockpit.php"/>
     <File Name="src/common/roundup_debug.php"/>
     <File Name="src/common/tq_post.php"/>
     <File Name="src/common/tq.php"/>
