@@ -24,7 +24,6 @@
 		$query = "SELECT * FROM pers WHERE pers_id='" .$pid . "'";
 
 	$res = mysqli_query($emperator, $query);
-	$pid = 0;
 	$name = '';
 
 	if (!$res)
@@ -84,7 +83,7 @@
 		echo "<select name='g" . $i . "d' id='g" . $i . "d'> \n";
 		$j = 1;
 		foreach ($gaps as $g) {
-			echo "  <option value='" . $j . "'> " . $g . " </option> \n";
+			echo "  <option value='" . $g . "'> " . $g . " </option> \n";
 			++$j;
 		}
 		//echo "  <option value='2'> Motiv </option> \n";

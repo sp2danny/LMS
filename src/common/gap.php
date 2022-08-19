@@ -631,7 +631,7 @@ class DP {
     public $vals = [];
 };
 
-function display_graph($to, $data, $args)
+function display_graph($to, $data, $args, $num=1)
 {
 	global $emperator;
 
@@ -728,11 +728,11 @@ function display_graph($to, $data, $args)
 	$to->regLine("    curveType: 'function',");
 	$to->regLine("    legend: { position: 'bottom' }");
 	$to->regLine("  };");
-	$to->regLine("  var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));");
+	$to->regLine("  var chart = new google.visualization.LineChart(document.getElementById('curve_chart_" . $num . "'));");
 	$to->regLine("  chart.draw(data, options);");
 	$to->regLine("}");
     $to->stopTag("script");
-    $to->regLine('<div id="curve_chart" style="width: 900px; height: 500px"></div>');
+    $to->regLine('<div id="curve_chart_' . $num . '" style="width: 900px; height: 500px"></div>');
 
 	return true;
 }

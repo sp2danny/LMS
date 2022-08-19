@@ -13,6 +13,7 @@ data
 	value_a   int
 	value_b   int
 	surv      int surv_id
+	value_c   string
 
 surv
 	surv_id   int ai key
@@ -26,7 +27,8 @@ surv
 
 typer
 
-	namn        type         a            b          
+	namn        type         a            b            c
+	==========  ===========  ===========  ===========  ===========
 	progress    1 u          batteri      segment    
 	klargjord   2            batteri      segment    
 	disk        3 u          hv           ud         
@@ -38,5 +40,11 @@ typer
  
 	mot-1       11
 	mot-2       12
+
+
+	namn        type         a            b            c
+	==========  ===========  ===========  ===========  ===========
+	cp_sett     9            graph                     source
+
 
 
