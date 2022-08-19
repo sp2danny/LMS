@@ -8,13 +8,13 @@
 
 	include_once('connect.php');
 	include_once('common.php');
-	
+
 	$pnr  = getparam("pnr", "0");
 	$bnum = getparam('bnum', 0);
 	$snum = getparam('snum', 0);
 
 	// gap_post.php?pnr=5906195697&gap-name=motiv&gap-num=1&gap-cnt=5&q1=22&q2=54&q3=18&q4=55&q5=31
-	
+
 	$pnr = getparam("pnr", "0");
 	$gapName = getparam('gap-name', "");
 	$gapNum = getparam('gap-num', "");
@@ -74,18 +74,18 @@
 			$err = 'DB Error, query insert data --'.$query.'--';
 		}
 	}
-	
+
 	$link = '../common/forward.php';
 	$link .= '?pnr=' . $pnr ;
 	$link .= '&bnum=' . $bnum ;
 	$link .= '&snum=' . ($snum+1) ;
 	$link .= '&ob='   . $bnum ;
 	$link .= '&os='   . $snum ;
-	
+
 	//$ob = getparam('ob', 0);
 	//$os = getparam('os', 0);
 
-		
+
 	if ($err === false) {
 
 		echo '<meta http-equiv="refresh" content="0; URL=';
