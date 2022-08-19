@@ -17,7 +17,7 @@
 
 	include('connect.php');
 	include('common.php');
-	
+
 	//include('gap.php');
 	include('main.js.php');
 	include('tagOut.php');
@@ -56,7 +56,7 @@
 		$obj = new stdClass();
 
 		$query = "SELECT * FROM data WHERE type=9 AND pers='" . $pid . "' AND value_a='" . $a . "'";
-		
+
 		$res = mysqli_query( $emperator, $query );
 		if ($res) {
 			$row = mysqli_fetch_array($res);
@@ -69,7 +69,7 @@
 		}
 		return false;
 	}
-	
+
 	$pid = getparam("pid", 0);
 	for ($i=1; $i<=7; ++$i) {
 		$obj = GetQ($pid, $i);
@@ -84,9 +84,9 @@
 	foreach($data_tbl as $key => $entry)
 	{
 		echo "<tr>";
-		
+
 		echo "<td class='plain'>" . $key . "</td>";
-		
+
 		echo "<td class='plain'>";
 		switch ($entry->type) {
 			case 1:   echo "Stapel";              break;
@@ -96,24 +96,24 @@
 			default:  echo "&lt;not found&gt;";   break;
 		}
 		echo " </td> ";
-		
+
 		echo "<td class='plain'>" . $entry->source . " </td>";
 		echo " </td> ";
-		
+
 		echo "<td class='plain'> ";
-		
+
 		$to = new tagOut;
-	
+
 		$data = new Data;
 		$data->pnr = getparam("pnr", "721106");
 		$data->pid = $pid;
-		
+
 		$args = [];
 		$args[] = $entry->source;
 		$args[] = "1";
 		$args[] = "3";
 		$args[] = $entry->source;
-		
+
 		display_graph($to, $data, $args, $key);
 
 		echo " </td>";
