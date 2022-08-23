@@ -700,7 +700,8 @@ function display_graph($to, $data, $args, $num=1)
 			}
 		}
 	}
-	
+
+	$oksf = true;
 	$str = "    ['Mätning'";
 	for ($i=0; $i<$n; ++$i) {
 		$str .= ", '" . $dps[$i]->name . "'";
@@ -709,31 +710,40 @@ function display_graph($to, $data, $args, $num=1)
 	for ($m=$m_strt; $m<=$m_stop; ++$m) {
 		$str .= "    ['" . $m . "'";
 		for ($i=0; $i<$n; ++$i) {
+			if (!array_key_exists($i, $dps)) { $oksf = false; break; }
+			if (!property_exists($dps[$i], 'vals')) { $oksf = false; break; }
+			if (!array_key_exists($m, $dps[$i]->vals)) { $oksf = false; break; }
 			$str .= ", " . $dps[$i]->vals[$m];
 		}
+		if (!$oksf) break;
 		$str .= "]";
 		if ($m < $m_stop) $str .= ",";
 		$str .= "\n";
 	}
 	$str .= "  ]);\n";
+	
+	if ($oksf) {
 
-	$to->startTag('script');
-	$to->regLine("google.charts.load('current', {'packages':['corechart']});");
-	$to->regLine("google.charts.setOnLoadCallback(drawChart);");
-	$to->regLine("function drawChart() {");
-	$to->regLine("  var data = google.visualization.arrayToDataTable([");
-	$to->regLine($str);
-	$to->regLine("  var options = {");
-	$to->regLine("    title: '" . $title . "',");
-	$to->regLine("    curveType: 'function',");
-	$to->regLine("    legend: { position: 'bottom' }");
-	$to->regLine("  };");
-	$to->regLine("  var chart = new google.visualization.LineChart(document.getElementById('curve_chart_" . $num . "'));");
-	$to->regLine("  chart.draw(data, options);");
-	$to->regLine("}");
-    $to->stopTag("script");
-    $to->regLine('<div id="curve_chart_' . $num . '" style="width: 900px; height: 500px"></div>');
+		$to->startTag('script');
+		$to->regLine("google.charts.load('current', {'packages':['corechart']});");
+		$to->regLine("google.charts.setOnLoadCallback(drawChart);");
+		$to->regLine("function drawChart() {");
+		$to->regLine("  var data = google.visualization.arrayToDataTable([");
+		$to->regLine($str);
+		$to->regLine("  var options = {");
+		$to->regLine("    title: '" . $title . "',");
+		$to->regLine("    curveType: 'function',");
+		$to->regLine("    legend: { position: 'bottom' }");
+		$to->regLine("  };");
+		$to->regLine("  var chart = new google.visualization.LineChart(document.getElementById('curve_chart_" . $num . "'));");
+		$to->regLine("  chart.draw(data, options);");
+		$to->regLine("}");
+		$to->stopTag("script");
+		$to->regLine('<div id="curve_chart_' . $num . '" style="width: 900px; height: 500px"></div>');
 
+	} else {
+		$to->regLine(' <div> &lt; Data Missing &gt; </div> ');
+	}
 	return true;
 }
 
