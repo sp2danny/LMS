@@ -22,6 +22,7 @@
 	include('main.js.php');
 	include('tagOut.php');
 	include('process_cmd.php');
+	include('spdr_disp.php');
 
 	$pnr = getparam("pnr", "0");
 	$pid = getparam("pid", "0");
@@ -108,13 +109,29 @@
 		$data->pnr = getparam("pnr", "721106");
 		$data->pid = $pid;
 
-		$args = [];
-		$args[] = $entry->source;
-		$args[] = "1";
-		$args[] = "3";
-		$args[] = $entry->source;
-
-		display_graph($to, $data, $args, $key);
+		switch ($entry->type)
+		{
+			case 2:
+			{
+				$args = [];
+				$args[] = $entry->source;
+				$args[] = "1";
+				$args[] = "3";
+				$args[] = $entry->source;
+				display_spider($to, $data, $args, $key);
+			}
+			break;
+			case 3:
+			{
+				$args = [];
+				$args[] = $entry->source;
+				$args[] = "1";
+				$args[] = "3";
+				$args[] = $entry->source;
+				display_graph($to, $data, $args, $key);
+			}
+			break;
+		}
 
 		echo " </td>";
 

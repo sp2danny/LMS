@@ -639,7 +639,7 @@ function display_graph($to, $data, $args, $num=1)
 	$title  = $args[0];
 	$m_strt = $args[1];
 	$m_stop = $args[2];
-	
+
 	$n = count($args);
 	$dps = [];
 	for ($i=3; $i<$n; ++$i) {
@@ -647,7 +647,7 @@ function display_graph($to, $data, $args, $num=1)
 		$dp->name = $args[$i];
 		$dps[] = $dp;
 	}
-	
+
 	$pnr = getparam("pnr", "0");
 	$query = "SELECT * FROM pers WHERE pnr='" .$pnr . "'";
 	$pid = 0;
@@ -683,8 +683,7 @@ function display_graph($to, $data, $args, $num=1)
 					$sid = $prow['surv_id'];
 				}
 			}
-			
-			
+
 			$query = "SELECT * FROM data WHERE pers='" .$pid . "'" . " AND type=8" .
 					 " AND surv='" . $sid . "'";
 			$res = mysqli_query($emperator, $query);
@@ -721,7 +720,7 @@ function display_graph($to, $data, $args, $num=1)
 		$str .= "\n";
 	}
 	$str .= "  ]);\n";
-	
+
 	if ($oksf) {
 
 		$to->startTag('script');
@@ -739,7 +738,7 @@ function display_graph($to, $data, $args, $num=1)
 		$to->regLine("  chart.draw(data, options);");
 		$to->regLine("}");
 		$to->stopTag("script");
-		$to->regLine('<div id="curve_chart_' . $num . '" style="width: 900px; height: 500px"></div>');
+		$to->regLine('<div id="curve_chart_' . $num . '" style="width: 450px; height: 250px"></div>');
 
 	} else {
 		$to->regLine(' <div> &lt; Data Missing &gt; </div> ');

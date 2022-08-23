@@ -1,4 +1,6 @@
 
+<!DOCTYPE html>
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -63,19 +65,43 @@
 	}
 	
 	//print_r($gaps);
+	
+
+	function prnt_opt($val, $txt, $def)
+	{
+		if ($val == $def)
+			return "<option selected='selected' value='" . $val . "'> " . $txt . " </option>";
+		else
+			return "<option value='" . $val . "'> " . $txt . " </option>";
+	}
 
 	echo "<br><br><br><br<br> \n";
 
 	for ($i=1; $i<=7; ++$i)
 	{
+		
+		$query = "SELECT * FROM data WHERE type=9 AND pers='" . $pid . "' AND value_a='" . $i . "'";
+		
+		$res = mysqli_query($emperator, $query);
+		
+		$val_a = 1;
+		$val_b = $gaps[0];
+
+		if ($res) {
+			if ($prow = mysqli_fetch_array($res)) {
+				//var_dump($prow);
+				$val_a = $prow['value_b'];
+				$val_b = $prow['value_c'];
+			}
+		}
 
 		echo "<label for='g" . $i . "t'> Graph " . $i . " type : </label> \n";
-
+	
 		echo "<select name='g" . $i . "t' id='g" . $i . "t'> \n";
-		echo "  <option value='1'> Stapel </option> \n";
-		echo "  <option value='2'> Spindel </option> \n";
-		echo "  <option value='3'> Graph </option> \n";
-		echo "  <option value='4'> M&auml;tare </option> \n";
+		echo "  " . prnt_opt('1', 'Stapel', $val_a)      . " \n";
+		echo "  " . prnt_opt('2', 'Spindel', $val_a)     . " \n";
+		echo "  " . prnt_opt('3', 'Graph', $val_a)       . " \n";
+		echo "  " . prnt_opt('4', 'M&auml;tare', $val_a) . " \n";
 		echo "</select> <br> \n";
 
 		echo "<label for='g" . $i . "d'> Graph " . $i . " data : </label> \n";
@@ -83,10 +109,9 @@
 		echo "<select name='g" . $i . "d' id='g" . $i . "d'> \n";
 		$j = 1;
 		foreach ($gaps as $g) {
-			echo "  <option value='" . $g . "'> " . $g . " </option> \n";
+			echo "  " . prnt_opt($g, $g, $val_b) . " \n";
 			++$j;
 		}
-		//echo "  <option value='2'> Motiv </option> \n";
 		echo "</select> <br> \n";
 
 		echo "<br> \n";
