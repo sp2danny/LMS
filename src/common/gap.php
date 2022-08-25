@@ -91,8 +91,7 @@ function gap_display($to, $data, $args)
 	$pid = 0;
 	$err = false;
 	$res = mysqli_query($emperator, $query);
-	if (!$res)
-	{
+	if (!$res) {
 		$err = 'DB Error, query person --'.$query.'--';
 	} else {
 		$prow = mysqli_fetch_array($res);
@@ -110,8 +109,7 @@ function gap_display($to, $data, $args)
 	         " AND name='" . $args[0] . "' AND seq='" . $args[1] . "'";
 	$sid = 0;
 	$res = mysqli_query($emperator, $query);
-	if (!$res)
-	{
+	if (!$res) {
 		$err = 'DB Error, query surv --'.$query.'--';
 	} else {
 		$prow = mysqli_fetch_array($res);
@@ -135,8 +133,7 @@ function gap_display($to, $data, $args)
 	$query = "SELECT * FROM data WHERE pers='" .$pid . "'" . " AND type=7" .
 	         " AND surv='" . $sid . "'";
 	$res = mysqli_query($emperator, $query);
-	if (!$res)
-	{
+	if (!$res) {
 		$err = 'DB Error, query data --'.$query.'--';
 	} else {
 		while (true) {
@@ -420,8 +417,7 @@ function gap_display_v2($to, $data, $args)
 				 " AND name='" . $gapname . "' AND seq='" . $gapnum . "'";
 		$sid = 0;
 		$res = mysqli_query($emperator, $query);
-		if (!$res)
-		{
+		if (!$res) {
 			$err = 'DB Error, query surv --'.$query.'--';
 		} else {
 			$prow = mysqli_fetch_array($res);
@@ -437,10 +433,9 @@ function gap_display_v2($to, $data, $args)
 		$vofs = count($values);
 
 		$query = "SELECT * FROM data WHERE pers='" .$pid . "'" . " AND type=7" .
-				 " AND surv='" . $sid . "'";
+		         " AND surv='" . $sid . "'";
 		$res = mysqli_query($emperator, $query);
-		if (!$res)
-		{
+		if (!$res) {
 			$err = 'DB Error, query data --'.$query.'--';
 		} else {
 			while (true) {
@@ -458,8 +453,7 @@ function gap_display_v2($to, $data, $args)
 	}
 
 	$n = count($values);
-	for ($i = 0; $i<$n; ++$i)
-	{
+	for ($i = 0; $i<$n; ++$i) {
 		if ($i != 0) {
 			$val_e .= ', ';
 			$val_b .= ', ';
@@ -540,8 +534,7 @@ function gap_merge($to, $data, $args)
 	$pid = 0;
 	$err = false;
 	$res = mysqli_query($emperator, $query);
-	if (!$res)
-	{
+	if (!$res) {
 		$err = 'DB Error, query person --'.$query.'--';
 	} else {
 		$prow = mysqli_fetch_array($res);
@@ -559,8 +552,7 @@ function gap_merge($to, $data, $args)
 			 " AND name='" . $gapname . "' AND seq='" . $gapnum . "'";
 	$sid = 0;
 	$res = mysqli_query($emperator, $query);
-	if (!$res)
-	{
+	if (!$res) {
 		$err = 'DB Error, query surv --'.$query.'--';
 	} else {
 		$prow = mysqli_fetch_array($res);
@@ -578,10 +570,9 @@ function gap_merge($to, $data, $args)
 	$sum = 0.0;
 
 	$query = "SELECT * FROM data WHERE pers='" .$pid . "'" . " AND type=7" .
-			 " AND surv='" . $sid . "'";
+	         " AND surv='" . $sid . "'";
 	$res = mysqli_query($emperator, $query);
-	if (!$res)
-	{
+	if (!$res) {
 		$err = 'DB Error, query data --'.$query.'--';
 	} else {
 		while (true) {
@@ -603,7 +594,7 @@ function gap_merge($to, $data, $args)
 	//$to->regLine('valcnt ' . $valcnt . ' <br>');
 	//$to->regLine('sum ' . $sum . ' <br>');
 	//$to->regLine('avg ' . $avg . ' <br>');
-	
+
 	// function COR( $db, $id_n, $id_v, $sup_n, $sup_v, $res_n )
 	$sid = COR(
 			"surv",
@@ -611,9 +602,9 @@ function gap_merge($to, $data, $args)
 			array("8", $pid, $gapname, $gapnum),
 			array(), array(),
 			"surv_id");
-			
+
 	//$to->regLine('sid ' . $sid . ' <br>');
-	
+
 	$res = COU(
 			"data",
 			array("type", "pers", "surv"),
@@ -653,8 +644,7 @@ function display_graph($to, $data, $args, $num=1)
 	$pid = 0;
 	$err = false;
 	$res = mysqli_query($emperator, $query);
-	if (!$res)
-	{
+	if (!$res) {
 		$err = 'DB Error, query person --'.$query.'--';
 	} else {
 		$prow = mysqli_fetch_array($res);
@@ -672,8 +662,7 @@ function display_graph($to, $data, $args, $num=1)
 			$query = "SELECT * FROM surv WHERE type=8 AND pers='" .$pid . "' AND name='" . $dps[$i]->name . "' AND seq=" . $m;
 			$sid = 0;
 			$res = mysqli_query($emperator, $query);
-			if (!$res)
-			{
+			if (!$res) {
 				$err = 'DB Error, query surv --'.$query.'--';
 			} else {
 				$prow = mysqli_fetch_array($res);
@@ -687,8 +676,7 @@ function display_graph($to, $data, $args, $num=1)
 			$query = "SELECT * FROM data WHERE pers='" .$pid . "'" . " AND type=8" .
 					 " AND surv='" . $sid . "'";
 			$res = mysqli_query($emperator, $query);
-			if (!$res)
-			{
+			if (!$res) {
 				$err = 'DB Error, query data --'.$query.'--';
 			} else {
 				$prow = mysqli_fetch_array($res);

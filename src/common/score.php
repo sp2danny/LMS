@@ -40,7 +40,6 @@ EOT;
 
 	//<style> audio {display:none;} </style>
 
-
 	global $emperator;
 
 	$snum = getparam("seg", "1");
@@ -158,7 +157,7 @@ EOT;
 			}
 			if ($curr != $active)
 				continue;
-				
+
 			if ($cmd->is_command) {
 				switch ($cmd->command) {
 					case "logo":

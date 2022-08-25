@@ -4,13 +4,6 @@
 <?php
 
 
-
-
-
-
-
-
-
 class DP2 {
     public $name = 'Name';
     public $vals = [];
@@ -162,9 +155,9 @@ function display_spider($to, $data, $args, $num=1)
 	$val_b_str .= " ];";
 	$trg_b_str .= " ];";
 	$trg_s_str .= " ];";
-	
+
 	//var_dump($val_e);
-	
+
 	$short_str = "  short_desc = [ ";
 	for ($i=0; $i<$nnmax; ++$i) {
 		if ($i != 0) $short_str .= ", ";
@@ -184,13 +177,13 @@ function display_spider($to, $data, $args, $num=1)
 	$to->regLine($trg_b_str);
 	$to->regLine($trg_s_str);
 	$to->regLine($short_str);
-	
+
 	$dss = "DrawSpider('spdr_cnv_" . $num . "', " . $nnmax . ", trg_b, trg_s, val_e, val_b, short_desc, 'spindel' );";
-	
+
 	$to->regLine($dss . " \n");
 
 	$to->stopTag('script');
-	
+
 	$to->regLine('<br> <button onClick="' . $dss . '" > redraw </button> ' );
 
 

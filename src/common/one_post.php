@@ -69,6 +69,8 @@ function index($styr, $local, $common)
 		}
 	}
 	
+	$data->pid = $pid;
+	
 	for ($qi=11; $qi<20; ++$qi) {
 		$query = "SELECT value_c FROM data WHERE pers=" . $pid . " AND type=" . $qi;
 		$res = mysqli_query($emperator, $query);
@@ -306,9 +308,25 @@ function index($styr, $local, $common)
 	{
 		$side = fopen("styrkant.txt", "r") or die("Unable to open file!");
 
-		$to->startTag('div', 'class="sidenav"');
-		$to->startTag('div', 'class="indent"');
-		
+		$to->startTag ('div', 'class="sidenav"');
+		$to->startTag ('div', 'class="indent"');
+
+		$to->startTag ('div');
+		$to->regLine  ('&nbsp; ');
+		$to->startTag ('a', 'href="../common/cp_settings.php?pnr=' . $data->pnr . '"');
+		$to->startTag ('button');
+		$to->regLine  ('Settings');
+		$to->stopTag  ('button');
+		$to->stopTag  ('a');
+		$to->regLine  ('&nbsp; ');
+		$to->startTag ('a', 'href="../common/cockpit.php?pnr=' . $data->pnr . '&pid=' . $data->pid . '"');
+		$to->startTag ('button');
+		$to->regLine  ('Cockpit');
+		$to->stopTag  ('button');
+		$to->stopTag  ('a');
+		$to->regline  ('<hr>');
+		$to->stopTag  ('div');
+
 		while (true) {
 			$buffer = fgets($side, 4096); // or break;
 			if (!$buffer) break;
@@ -352,7 +370,7 @@ function index($styr, $local, $common)
 							$to->regLine('<br />');
 						break;
 					case 'sound':
-					
+						// sound
 						break;
 					case 'prog':
 						$pro = 0; // (int)progress($data->snum, $maxseg);
@@ -423,26 +441,26 @@ function index($styr, $local, $common)
 				}
 			}
 		}
-		
+
 		if ($found) {
 			$to->scTag('input', 'type="hidden" value="' . -1 . '" id="q' . $atq . '" name="q' . $atq . '"');
-					
+
 			$n = count($qcmd->params);
-			
+
 			$to->regLine('<h1> ' . $qcmd->params[0] . ' </h1> <br>');
-			
+
 			for ($i=1; $i<$n; ++$i) {
 				$s = $qcmd->params[$i];
 				$s = trim($s);
 				if ($s[0] == '_')
 					$s = substr($s, 1);
-					
+
 				$to->regLine('&nbsp; &nbsp; &nbsp; <button onclick="setA(' . $i . ')"> <font size="+3"> ' . $s . ' </font> </button>');
 			}
 		} else {
 			//$to->regLine('<input type="submit" value="Klar" >');
 		}
-		
+
 		$to->stopTag('form');
 	}
 

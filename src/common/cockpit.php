@@ -10,8 +10,38 @@
       border-collapse: collapse;
     }
   </style>
-</head>
-<body>
+
+  <script>
+    function setProgress(pro, cnv) {
+      var ctx = cnv.getContext("2d");
+      ctx.fillStyle = "#F2F3F7";
+      ctx.fillRect(0,0,200,200);
+      ctx.strokeStyle = "#000";
+      ctx.lineWidth = 12;
+      ctx.beginPath();
+      ctx.arc(100, 100, 75, 1 * Math.PI, 2 * Math.PI);
+      ctx.stroke();
+      ctx.strokeStyle = "#fff";
+      ctx.lineWidth = 10;
+      ctx.beginPath();
+      ctx.arc(100, 100, 75, 1.01 * Math.PI, 1.99 * Math.PI);
+      ctx.stroke();
+      if (pro > 0) {
+        ctx.strokeStyle = "#7fff7f";
+        ctx.lineWidth = 10;
+        ctx.beginPath();
+        ctx.arc(100, 100, 75, 1.01 * Math.PI, (1.01+0.98*(pro/100.0)) * Math.PI);
+        ctx.stroke();
+      }
+      ctx.fillStyle = "#7f7";
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = "#000";
+      ctx.font = "35px Arial";
+      ctx.textAlign = "center";
+      ctx.fillText( pro.toString() + " %", 100, 98);
+      ctx.strokeText( pro.toString() + " %", 100, 98);
+    }
+  </script>
 
 <?php
 
@@ -23,6 +53,10 @@
 	include('tagOut.php');
 	include('process_cmd.php');
 	include('spdr_disp.php');
+	include('meter_disp.php');
+	include('stapel_disp.php');
+
+	echo "</head><body>";
 
 	$pnr = getparam("pnr", "0");
 	$pid = getparam("pid", "0");
@@ -77,7 +111,6 @@
 		$data_tbl[] = $obj;
 	}
 
-
 	echo "<table class='plain'>";
 	echo "<tr>";
 	echo " <th class='plain'> # </th>  <th class='plain'> type </th>  <th class='plain'> source </th>  <th class='plain'> data </th> ";
@@ -111,6 +144,14 @@
 
 		switch ($entry->type)
 		{
+			case 1:
+			{
+				$args = [];
+				$args[] = $entry->source;
+				$args[] = "1";
+				display_stapel($to, $data, $args);
+			}
+			break;
 			case 2:
 			{
 				$args = [];
@@ -131,6 +172,15 @@
 				display_graph($to, $data, $args, $key);
 			}
 			break;
+			case 4:
+			{
+				$args = [];
+				$args[] = $entry->source;
+				$args[] = "1";
+				display_meter($to, $data, $args, $key);
+			}
+			break;
+
 		}
 
 		echo " </td>";

@@ -7,6 +7,8 @@
     <File Name="ftp.txt"/>
   </VirtualDirectory>
   <VirtualDirectory Name="src">
+    <File Name="src/common/stapel_disp.php"/>
+    <File Name="src/common/meter_disp.php"/>
     <File Name="src/common/spdr_disp.php"/>
     <File Name="src/common/spindel.php"/>
     <File Name="src/common/cps_post.php"/>

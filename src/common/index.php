@@ -110,6 +110,16 @@ function index($styr, $local, $common)
 
 		$to->startTag('div', 'class="sidenav"');
 		$to->startTag('div', 'class="indent"');
+		
+		$to->startTag('div', 'align="right"');
+		$to->startTag('button');
+		$to->regLine('Settings');
+		$to->stopTag('button');
+		$to->startTag('button');
+		$to->regLine('Cockpit');
+		$to->stopTag('button');
+		$to->stopTag('div');
+		
 
 		while (true) {
 			$buffer = fgets($side, 4096); // or break;
