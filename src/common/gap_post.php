@@ -13,8 +13,6 @@
 	$bnum = getparam('bnum', 0);
 	$snum = getparam('snum', 0);
 
-	// gap_post.php?pnr=5906195697&gap-name=motiv&gap-num=1&gap-cnt=5&q1=22&q2=54&q3=18&q4=55&q5=31
-
 	$pnr = getparam("pnr", "0");
 	$gapName = getparam('gap-name', "");
 	$gapNum = getparam('gap-num', "");
@@ -27,8 +25,7 @@
 	$err = false;
 
 	$res = mysqli_query($emperator, $query);
-	if (!$res)
-	{
+	if (!$res) {
 		$err = 'DB Error, query person --'.$query.'--';
 	} else {
 		$prow = mysqli_fetch_array($res);
@@ -38,39 +35,30 @@
 			$pid = $prow['pers_id'];
 		}
 	}
-	
+
 	$query = "INSERT INTO surv ";
 	$query .= "( pers, type, name, seq )" ;
 	$query .= " VALUES ( " . $pid . ',' ;
 	$query .= "7,'" . $gapName . "'," . $gapNum . ' )' ;
 
-	$res = mysqli_query( $emperator, $query );
+	$res = mysqli_query($emperator, $query);
 	$sid = 0;
-	if (!$res)
-	{
+	if (!$res) {
 		$err = 'DB Error, query insert surv --'.$query.'--';
 	} else {
 		$sid = $emperator->insert_id;
-		//$prow = mysqli_fetch_array($res);
-		//if (!$prow) {
-		//	$err = 'DB Error, insert surv, fetch result >>'.$query.'<<';
-		//} else {
-		//	$sid = $prow['surv_id'];
-		//}
 	}
 
-	for ($i=1; $i<=$gapCnt; ++$i)
-	{
+	for ($i=1; $i<=$gapCnt; ++$i) {
 		$qq = 'q' . $i;
 		$par = getparam($qq, 0);
-		
+
 		$query = "INSERT INTO data ";
 		$query .= "( pers, type, value_a, value_b, surv )" ;
 		$query .= " VALUES ( " . $pid . ',' ;
 		$query .= "7," . $i . ',' . $par . ',' . $sid . ' )' ;
 
-		if(!mysqli_query( $emperator, $query ))
-		{
+		if(!mysqli_query( $emperator, $query )) {
 			$err = 'DB Error, query insert data --'.$query.'--';
 		}
 	}
@@ -81,10 +69,6 @@
 	$link .= '&snum=' . ($snum+1) ;
 	$link .= '&ob='   . $bnum ;
 	$link .= '&os='   . $snum ;
-
-	//$ob = getparam('ob', 0);
-	//$os = getparam('os', 0);
-
 
 	if ($err === false) {
 

@@ -13,7 +13,7 @@ function index($styr, $local, $common)
 	global $emperator;
 
 	$to = new tagOut;
-	
+
 	$data = new Data;
 
 	$data->snum = getparam("seg", "1");
@@ -27,12 +27,11 @@ function index($styr, $local, $common)
 	$res = mysqli_query($emperator, $query);
 	$mynt = 0;
 	$name = getparam("name");
-	if (!$res)
-	{
+	if (!$res) {
 		$to->regLine('DB Error');
 	} else {
 		$prow = mysqli_fetch_array($res);
-		
+
 		if (!$prow) {
 			$to->regLine('DB Error');
 		} else {
@@ -78,16 +77,16 @@ function index($styr, $local, $common)
 		}
 
 		if ($curr != $seg) continue;
-		
+
 		if ($cmd->is_command)
 			if ($cmd->command == 'title')
 				$title = $cmd->rest;
 
 		$cmdlst[] = $cmd;
 	}
-	
+
 	$data->bnum = $bnum;
-	
+
 	$data->name = $name;
 	$data->mynt = $mynt;
 	$data->max = $maxseg;
@@ -105,13 +104,13 @@ function index($styr, $local, $common)
 	echo '<title>' . $title . '</title>' . $eol;
 	echo '</head>' . $eol;
 	$to->startTag('body');
-	
+
 	{
 		$side = fopen("styrkant.txt", "r") or die("Unable to open file!");
 
 		$to->startTag('div', 'class="sidenav"');
 		$to->startTag('div', 'class="indent"');
-		
+
 		while (true) {
 			$buffer = fgets($side, 4096); // or break;
 			if (!$buffer) break;
@@ -204,8 +203,16 @@ function index($styr, $local, $common)
 
 	$to->startTag('div', 'class="main"');
 
-	foreach ($cmdlst as $cmd) {
+	$to->startTag('div', 'align="right"');
+	$to->startTag('button');
+	$to->regLine('Settings');
+	$to->stopTag('button');
+	$to->startTag('button');
+	$to->regLine('Cockpit');
+	$to->stopTag('button');
+	$to->stopTag('div');
 
+	foreach ($cmdlst as $cmd) {
 		if ($cmd->is_command) {
 			$w = process_cmd($to, $data, $cmd->command, $cmd->params);
 			if (!($w===true))

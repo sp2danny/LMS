@@ -66,8 +66,7 @@ function display_spider($to, $data, $args, $num=1)
 			$query = "SELECT * FROM surv WHERE type=8 AND pers='" .$pid . "' AND name='" . $dps[$i]->name . "' AND seq=" . $m;
 			$sid = 0;
 			$res = mysqli_query($emperator, $query);
-			if (!$res)
-			{
+			if (!$res) {
 				$err = 'DB Error, query surv --'.$query.'--';
 			} else {
 				$prow = mysqli_fetch_array($res);
@@ -79,10 +78,9 @@ function display_spider($to, $data, $args, $num=1)
 			}
 
 			$query = "SELECT * FROM data WHERE pers='" .$pid . "'" . " AND type=8" .
-					 " AND surv='" . $sid . "'";
+			         " AND surv='" . $sid . "'";
 			$res = mysqli_query($emperator, $query);
-			if (!$res)
-			{
+			if (!$res) {
 				$err = 'DB Error, query data --'.$query.'--';
 			} else {
 				$prow = mysqli_fetch_array($res);

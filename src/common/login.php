@@ -152,13 +152,12 @@ echo <<<EOT
     <div class="hb-content-wrapper">
         <div class="hb-text-wrapper">
             <div class="hb-headline-text">
-                <p><span>Mobilanpassning kommer Jan '22</span></p>
+                <p><span>Mobilanpassning kommer q3 '22</span></p>
             </div>
         </div>
     </div>
     <div class="hb-close-wrapper">
         <a href="javascript:void(0);" class="icon-close" onclick="$('#hellobar-bar').fadeOut()">&#10006;</a>
-        
     </div>
 </div>
 <div class="xbody">

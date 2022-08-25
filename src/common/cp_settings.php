@@ -49,7 +49,6 @@
 	echo "<input type='hidden' id='pid' name='pid' value='" . $pid . "' >\n";
 
 
-
 	$allfiles = scandir("./");
 	//echo count($allfiles) . " <br> \n";
 	$gaps = [];
@@ -65,7 +64,6 @@
 	}
 	
 	//print_r($gaps);
-	
 
 	function prnt_opt($val, $txt, $def)
 	{
@@ -79,11 +77,10 @@
 
 	for ($i=1; $i<=7; ++$i)
 	{
-		
 		$query = "SELECT * FROM data WHERE type=9 AND pers='" . $pid . "' AND value_a='" . $i . "'";
-		
+
 		$res = mysqli_query($emperator, $query);
-		
+
 		$val_a = 1;
 		$val_b = $gaps[0];
 
@@ -96,7 +93,7 @@
 		}
 
 		echo "<label for='g" . $i . "t'> Graph " . $i . " type : </label> \n";
-	
+
 		echo "<select name='g" . $i . "t' id='g" . $i . "t'> \n";
 		echo "  " . prnt_opt('1', 'Stapel', $val_a)      . " \n";
 		echo "  " . prnt_opt('2', 'Spindel', $val_a)     . " \n";
@@ -117,8 +114,7 @@
 		echo "<br> \n";
 	}
 
-
-	echo "pid : " . $pid . "<br> \n";
+	//echo "pid : " . $pid . "<br> \n";
 
 	echo "<br><br><br><br<br> \n";
 
@@ -126,9 +122,7 @@
 	echo "</form> \n";
 	//echo "<button> Cancel </button> \n";
 
-
 ?>
-
 
 
 </body>
