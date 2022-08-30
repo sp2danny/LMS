@@ -189,6 +189,13 @@ function index($styr, $local, $common)
 
 	$to->regLine('  div.innerHTML = s;');
 	$to->regLine('}');
+	
+	$to->regLine('function doChangeB() { ');
+	$to->regLine('  var obj = document.getElementById("mybarb"); ');
+    $to->regLine('  site = "https://mind2excellence.se/site/common/cockpit.php?pnr=721106&pid=15"; ');
+    $to->regLine('  if (obj.innerHTML == "") obj.innerHTML = \' <embed type="text/html" src="\' + site + \'" width="2800px" height="250px" > \'; ');
+    $to->regLine('  else obj.innerHTML = "";} ');
+	
 
 	$to->regLine('function setProgress(pro, cnv) {');
 	$to->regLine('  var ctx = cnv.getContext("2d");');
@@ -300,6 +307,22 @@ function index($styr, $local, $common)
 
 	$to->stopTag('script');
 	
+	$to->startTag('style');
+	$to->regLine('.navbarb {');
+	$to->regLine('  overflow: scroll;');
+	$to->regLine('  position: fixed;');
+	$to->regLine('  bottom: 0;');
+	$to->regLine('  width: 100%;');
+	$to->regLine('}');
+	$to->regLine('.navbarb embed {');
+	$to->regLine('  background-color: coral');
+	$to->regLine('  float: left;');
+	$to->regLine('  display: block;');
+	$to->regLine('}');
+
+	$to->stopTag('style');
+
+	
 	echo '<title>' . $title . '</title>' . $eol;
 	echo '</head>' . $eol;
 	$to->startTag('body');
@@ -312,18 +335,16 @@ function index($styr, $local, $common)
 		$to->startTag ('div', 'class="indent"');
 
 		$to->startTag ('div');
-		$to->regLine  ('&nbsp; ');
+		$to->regLine  (' &nbsp; ');
 		$to->startTag ('a', 'href="../common/cp_settings.php?pnr=' . $data->pnr . '"');
 		$to->startTag ('button');
 		$to->regLine  ('Settings');
 		$to->stopTag  ('button');
 		$to->stopTag  ('a');
-		$to->regLine  ('&nbsp; ');
-		$to->startTag ('a', 'href="../common/cockpit.php?pnr=' . $data->pnr . '&pid=' . $data->pid . '"');
-		$to->startTag ('button');
-		$to->regLine  ('Cockpit');
-		$to->stopTag  ('button');
-		$to->stopTag  ('a');
+		$to->regLine  (' &nbsp; ');
+		
+		$to->regLine("<button onClick='doChangeB()'> Cockpit </button>");
+
 		$to->regline  ('<hr>');
 		$to->stopTag  ('div');
 
@@ -463,6 +484,9 @@ function index($styr, $local, $common)
 
 		$to->stopTag('form');
 	}
+	
+	$to->regLine('<div id="mybarb" class="navbarb"></div>');
+
 
 	$to->stopTag('body');
 }
