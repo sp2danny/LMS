@@ -6,9 +6,9 @@
   <title> Cockpit </title>
   <style>
     table.plain, th.plain, td.plain {
-      border: 1px solid black;
+      border: 3px solid black;
       border-collapse: collapse;
-	  background-color: gray;
+	  background-color: white;
     }
   </style>
 
@@ -42,6 +42,13 @@
       ctx.fillText( pro.toString() + " %", 100, 98);
       ctx.strokeText( pro.toString() + " %", 100, 98);
     }
+	
+	function parentWidthById(elem) {
+	  var obj = document.getElementById(elem);
+      return obj.parentElement.clientWidth;
+    }
+
+
   </script>
 
 <?php
@@ -112,7 +119,7 @@
 		$data_tbl[] = $obj;
 	}
 
-	echo "<table class='plain'>";
+	echo "<table id='cp_tbl' class='plain'>";
 	echo "<tr>";
 	foreach($data_tbl as $key => $entry)
 	{
@@ -173,9 +180,15 @@
 	}
 	echo "</tr>\n";
 	echo "</table>\n";
+	
+	echo "<div id='d77'> </div>";
+	echo "<script>";
+	echo "var d = document.getElementById('d77');";
+	echo "d.innerHTML = 'w:' + parentWidthById('cp_tbl');";
+	echo "</script>";
 
 
 ?> 
-
+	
 </body></html>
 
