@@ -206,7 +206,7 @@ function index($styr, $local, $common)
 		$cp_site .= "pnr=" . $data->pnr;
 	}
     $to->regLine('  site = "' . $cp_site . '"; ');
-    $to->regLine('  if (obj.innerHTML == "") obj.innerHTML = \' <embed type="text/html" src="\' + site + \'" width="2800px" height="250px" > \'; ');
+    $to->regLine('  if (obj.innerHTML == "") obj.innerHTML = \' <embed type="text/html" src="\' + site + \'" width="1300px" height="370px" > \'; ');
     $to->regLine('  else obj.innerHTML = "";} ');
 	
 
@@ -356,7 +356,7 @@ function index($styr, $local, $common)
 		$to->stopTag  ('a');
 		$to->regLine  (' &nbsp; ');
 		
-		$to->regLine("<button onClick='doChangeB()'> Cockpit </button>");
+		$to->regLine  ("<button onClick='doChangeB()'> Cockpit </button>");
 
 		$to->regline  ('<hr>');
 		$to->stopTag  ('div');

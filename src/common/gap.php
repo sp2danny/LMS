@@ -689,7 +689,7 @@ function display_graph($to, $data, $args, $num=1)
 	}
 
 	$oksf = true;
-	$str = "    ['Mätning'";
+	$str = "    ['" . $title . "'";
 	for ($i=0; $i<$n; ++$i) {
 		$str .= ", '" . $dps[$i]->name . "'";
 	}

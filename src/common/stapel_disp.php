@@ -13,7 +13,7 @@ function display_stapel($to, $data, $args, $num=1)
 	global $emperator;
 
 
-	$to->regLine('stapel');
+	//$to->regLine('stapel');
 	
 	
 	// !graph Titel, 1, 3, Motivation, Balans
@@ -79,7 +79,7 @@ function display_stapel($to, $data, $args, $num=1)
 	}
 
 	$oksf = true;
-	$str = "    ['Mätning'";
+	$str = "    ['" . $title . "'";
 	for ($i=0; $i<$n; ++$i) {
 		$str .= ", '" . $dps[$i]->name . "'";
 	}
@@ -108,10 +108,10 @@ function display_stapel($to, $data, $args, $num=1)
 		$to->regLine("  var data = google.visualization.arrayToDataTable([");
 		$to->regLine($str);
 		$to->regLine('  var options = {');
-        $to->regLine('    title: "Mätning",');
+        $to->regLine('    title: "' . $title . '",');
         $to->regLine('    width: 450,');
         $to->regLine('    legend: { position: "none" },');
-        $to->regLine('    chart: { title: "Mätning",');
+        $to->regLine('    chart: { title: "' . $title . '",');
         $to->regLine('             subtitle: "" },');
         $to->regLine('    bars: "horizontal", // Required for Material Bar Charts.');
         $to->regLine('    axes: {');

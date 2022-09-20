@@ -165,7 +165,7 @@ function display_spider($to, $data, $args, $num=1)
 	}
 	$short_str .= " ];";
 
-	$to->regLine('<canvas id="spdr_cnv_' . $num . '" width="275" height="315" style="border:1px solid #000000;">' );
+	$to->regLine('<canvas id="spdr_cnv_' . $num . '" width="260" height="300" style="border:1px solid #000000;">' );
 	$to->regLine(' Din browser st&ouml;der inte canvas </canvas> ' );
 	
 	$to->startTag('script');
@@ -178,13 +178,13 @@ function display_spider($to, $data, $args, $num=1)
 	$to->regLine($trg_s_str);
 	$to->regLine($short_str);
 
-	$dss = "DrawSpider('spdr_cnv_" . $num . "', " . $nnmax . ", trg_b, trg_s, val_e, val_b, short_desc, 'spindel' );";
+	$dss = "DrawSpider('spdr_cnv_" . $num . "', " . $nnmax . ", trg_b, trg_s, val_e, val_b, short_desc, '" . $title . "' );";
 
 	$to->regLine($dss . " \n");
 
 	$to->stopTag('script');
 
-	$to->regLine('<br> <button onClick="' . $dss . '" > redraw </button> ' );
+	//$to->regLine('<br> <button onClick="' . $dss . '" > redraw </button> ' );
 
 
 	return true;

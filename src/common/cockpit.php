@@ -6,10 +6,13 @@
   <title> Cockpit </title>
   <style>
     table.plain, th.plain, td.plain {
-      border: 1px solid black;
+      border: 3px solid black;
       border-collapse: collapse;
-	  background-color: gray;
+	  background-color: #eee;
+      scrollbar-width: auto;
+      scrollbar-height: auto;
     }
+	
   </style>
 
   <script>
