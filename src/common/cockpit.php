@@ -15,6 +15,11 @@
 	
   </style>
 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="../common/main-v01.css">
+
   <script>
     function setProgress(pro, cnv) {
       var ctx = cnv.getContext("2d");
@@ -59,6 +64,7 @@
 	include('spdr_disp.php');
 	include('meter_disp.php');
 	include('stapel_disp.php');
+	include('progress.php');
 
 	echo "</head><body>";
 
@@ -175,7 +181,30 @@
 
 	}
 	echo "</tr>\n";
+
+	echo "<tr>\n";
+	echo "<td class='plain' colspan=7 >\n";
+
+	$eol = "\n";
+
+	$snum = 3;
+	$maxseg = 7;
+	$pro = round(progress($snum, $maxseg));
+	echo '<div class="container"> <div class="progress">' . $eol;
+	echo '<div class="progress-bar" role="progressbar" aria-valuenow="' . $pro;
+	echo '" aria-valuemin="0" aria-valuemax="100" style="width:' . $pro . '%">' . $eol;
+	echo '<span class="sr-only">' . $pro . '% Complete</span>' . $eol;
+	echo ' &nbsp; ' . $pro . ' %' . $eol;
+	echo '</div></div></div>' . $eol;
+
+	echo "</td>\n";
+
+	echo "</tr>\n";
+
 	echo "</table>\n";
+
+
+
 
 
 ?> 
