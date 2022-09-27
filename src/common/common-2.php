@@ -83,7 +83,7 @@ function DrawSpider( canvas, count, targets, targ_s, val_e, val_b, shrt_desc, ti
 	spider_shrt_desc = shrt_desc;
 	spider_mx = -1;
 	spider_my = -1;
-	spider_title = title;
+	//spider_title = title;
 	spider_gap_n = [];
 	spider_gap_p = [];
 
@@ -138,7 +138,7 @@ function DrawSpider( canvas, count, targets, targ_s, val_e, val_b, shrt_desc, ti
 }
 
 
-function NONgenericDrawSpider()
+function genericDrawSpider()
 {
 	var ctx=spider_canvas.getContext("2d");
 	ww = spider_canvas.width;

@@ -109,6 +109,8 @@ function display_stapel($to, $data, $args, $num=1)
 		$to->regLine($str);
 		$to->regLine('  var options = {');
         $to->regLine('    title: "' . $title . '",');
+		//$to->regLine("    backgroundColor: '#EEE', ");
+		//$to->regLine("    chartArea: { backgroundColor: { fill: '#EEE', fillOpacity: 0.8 } }, " );
         $to->regLine('    width: 450,');
         $to->regLine('    legend: { position: "none" },');
         $to->regLine('    chart: { title: "' . $title . '",');

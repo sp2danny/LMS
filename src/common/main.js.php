@@ -530,7 +530,7 @@ function genericDrawSpider()
 	x1 = ww / 2;
 	y1 = (hh-80) / 2 + 80;
 
-	ctx.fillStyle="#bbb";
+	ctx.fillStyle="#fff";
 	ctx.fillRect(0,0,ww,hh);
 
 	ctx.font="bold 20px Myriad-pro";
@@ -628,7 +628,7 @@ function genericDrawSpider()
 		x2 = x1 + buff * spider_val_e[i] * Math.cos ( ( i * inc ) - offs );
 		y2 = y1 + buff * spider_val_e[i] * Math.sin ( ( i * inc ) - offs );
 
-		ctx.strokeStyle="#fff";
+		ctx.strokeStyle="#ccc";
 		ctx.lineWidth=5;
 
 		ctx.beginPath();
@@ -687,7 +687,7 @@ function genericDrawSpider()
 	ctx.font="bold 12px Myriad-pro";
 	ctx.fillStyle="#000";
 
-	ctx.strokeStyle="#fff";
+	ctx.strokeStyle="#ccc";
 	ctx.beginPath();
 	ctx.moveTo(8,hh-8-12*2);
 	ctx.lineTo(28,hh-8-12*2);

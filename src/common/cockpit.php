@@ -8,7 +8,7 @@
     table.plain, th.plain, td.plain {
       border: 3px solid black;
       border-collapse: collapse;
-	  background-color: #eee;
+	  background-color: #fff;
       scrollbar-width: auto;
       scrollbar-height: auto;
     }
@@ -18,7 +18,6 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="../common/main-v01.css">
 
   <script>
     function setProgress(pro, cnv) {

@@ -655,7 +655,7 @@ function display_graph($to, $data, $args, $num=1)
 			$pnam = $prow['name'];
 		}
 	}
-	
+
 	$n = count($dps);
 	for ($i=0; $i<$n; ++$i) {
 		for ($m=$m_strt; $m<=$m_stop; ++$m) {
@@ -710,7 +710,6 @@ function display_graph($to, $data, $args, $num=1)
 	$str .= "  ]);\n";
 
 	if ($oksf) {
-
 		$to->startTag('script');
 		$to->regLine("google.charts.load('current', {'packages':['corechart']});");
 		$to->regLine("google.charts.setOnLoadCallback(drawChart);");
@@ -719,6 +718,7 @@ function display_graph($to, $data, $args, $num=1)
 		$to->regLine($str);
 		$to->regLine("  var options = {");
 		$to->regLine("    title: '" . $title . "',");
+		//$to->regLine('    backgroundColor: "#EEE",');
 		$to->regLine("    curveType: 'function',");
 		$to->regLine("    legend: { position: 'bottom' }");
 		$to->regLine("  };");
@@ -727,7 +727,6 @@ function display_graph($to, $data, $args, $num=1)
 		$to->regLine("}");
 		$to->stopTag("script");
 		$to->regLine('<div id="curve_chart_' . $num . '" style="width: 450px; height: 250px"></div>');
-
 	} else {
 		$to->regLine(' <div> &lt; Data Missing &gt; </div> ');
 	}
