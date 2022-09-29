@@ -12,11 +12,11 @@ function display_stapel($to, $data, $args, $num=1)
 {
 	global $emperator;
 
-
 	//$to->regLine('stapel');
 	
 	
 	// !graph Titel, 1, 3, Motivation, Balans
+	
 	$title  = $args[0];
 	$m_strt = $args[1];
 	$m_stop = $args[2];
@@ -113,7 +113,7 @@ function display_stapel($to, $data, $args, $num=1)
 		//$to->regLine("    chartArea: { backgroundColor: { fill: '#EEE', fillOpacity: 0.8 } }, " );
         $to->regLine('    width: 450,');
         $to->regLine('    legend: { position: "none" },');
-        $to->regLine('    chart: { title: "' . $title . '",');
+        $to->regLine('    chart: { title: "' . "" . '",'); // $title
         $to->regLine('             subtitle: "" },');
         $to->regLine('    bars: "horizontal", // Required for Material Bar Charts.');
         $to->regLine('    axes: {');
