@@ -13,6 +13,15 @@
       scrollbar-height: auto;
     }
 	
+    .prog-footer {
+       position: fixed;
+       left: 0;
+       bottom: 0;
+       width: 100%;
+       background-color: white;
+       color: white;
+       text-align: center;
+    }
   </style>
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -180,27 +189,25 @@
 
 	}
 	echo "</tr>\n";
+	echo "</table>\n";
 
-	echo "<tr>\n";
-	echo "<td class='plain' colspan=7 >\n";
+	//echo "<tr>\n";
+	//echo "<td class='plain' colspan=7 >\n";
 
 	$eol = "\n";
 
 	$snum = 3;
 	$maxseg = 7;
 	$pro = round(progress($snum, $maxseg));
+	echo '<div class="prog-footer">' . $eol;
 	echo '<div class="container"> <div class="progress">' . $eol;
 	echo '<div class="progress-bar" role="progressbar" aria-valuenow="' . $pro;
 	echo '" aria-valuemin="0" aria-valuemax="100" style="width:' . $pro . '%">' . $eol;
 	echo '<span class="sr-only">' . $pro . '% Complete</span>' . $eol;
 	echo ' &nbsp; ' . $pro . ' %' . $eol;
-	echo '</div></div></div>' . $eol;
+	echo '</div></div></div></div>' . $eol;
 
-	echo "</td>\n";
 
-	echo "</tr>\n";
-
-	echo "</table>\n";
 
 
 

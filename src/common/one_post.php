@@ -29,6 +29,23 @@ function ndq($str)
 	return $out;
 }
 
+function getCP($data) {
+	$alt = getparam('alt', 0);
+	$cp_site = 'https://mind2excellence.se/site/common/cockpit' . (($alt==1)?'-2':'') . '.php';
+	$cp_have = false;
+	if ($data->pid!=0) {
+		$cp_site .= $cp_have ? "&" : "?";
+		$cp_have = true;
+		$cp_site .= "pid=" . $data->pid;
+	}
+	if ($data->pnr!=0) {
+		$cp_site .= $cp_have ? "&" : "?";
+		$cp_have = true;
+		$cp_site .= "pnr=" . $data->pnr;
+	}
+	return ' <embed type="text/html" src="' . $cp_site . '" width="1300px" height="370px" > ';
+}
+
 function index($styr, $local, $common)
 {
 	global $emperator;
@@ -206,9 +223,14 @@ function index($styr, $local, $common)
 		$cp_site .= "pnr=" . $data->pnr;
 	}
     $to->regLine('  site = "' . $cp_site . '"; ');
-    $to->regLine('  if (obj.innerHTML == "") obj.innerHTML = \' <embed type="text/html" src="\' + site + \'" width="1300px" height="370px" > \'; ');
-    $to->regLine('  else obj.innerHTML = "";} ');
-	
+    $to->regLine('  if (obj.innerHTML == "") { ');
+	$to->regLine('    obj.innerHTML = \' <embed type="text/html" src="\' + site + \'" width="1300px" height="370px" > \'; ');
+	$to->regLine("    document.getElementById('BtnCP').style.borderStyle = 'inset'; ");
+    $to->regLine('  } else { ');
+	$to->regLine('    obj.innerHTML = ""; ');
+	$to->regLine("    document.getElementById('BtnCP').style.borderStyle = 'outset'; ");
+    $to->regLine('  }');
+    $to->regLine('}');
 
 	$to->regLine('function setProgress(pro, cnv) {');
 	$to->regLine('  var ctx = cnv.getContext("2d");');
@@ -354,9 +376,9 @@ function index($styr, $local, $common)
 		$to->regLine  ('Settings');
 		$to->stopTag  ('button');
 		$to->stopTag  ('a');
-		$to->regLine  (' &nbsp; ');
+		$to->regLine  ('&nbsp;');
 		
-		$to->regLine  ("<button onClick='doChangeB()'> Cockpit </button>");
+		$to->regLine  ("<button id='BtnCP' onClick='doChangeB()'> Cockpit </button>");
 
 		$to->regline  ('<hr>');
 		$to->stopTag  ('div');
@@ -498,7 +520,9 @@ function index($styr, $local, $common)
 		$to->stopTag('form');
 	}
 	
-	$to->regLine('<div id="mybarb" class="navbarb"></div>');
+	$to->regLine('<div id="mybarb" class="navbarb">');
+
+	$to->regLine('</div>');
 
 
 	$to->stopTag('body');
