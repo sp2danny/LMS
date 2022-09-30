@@ -520,10 +520,7 @@ function index($styr, $local, $common)
 		$to->stopTag('form');
 	}
 	
-	$to->regLine('<div id="mybarb" class="navbarb">');
-
-	$to->regLine('</div>');
-
+	$to->regLine('<div id="mybarb" class="navbarb"></div>');
 
 	$to->stopTag('body');
 }
