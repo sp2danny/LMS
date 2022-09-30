@@ -209,22 +209,22 @@ function index($styr, $local, $common)
 	
 	$to->regLine('function doChangeB() { ');
 	$to->regLine('  var obj = document.getElementById("mybarb"); ');
-	$alt = getparam('alt', 0);
-	$cp_site = 'https://mind2excellence.se/site/common/cockpit' . (($alt==1)?'-2':'') . '.php';
-	$cp_have = false;
-	if ($data->pid!=0) {
-		$cp_site .= $cp_have ? "&" : "?";
-		$cp_have = true;
-		$cp_site .= "pid=" . $data->pid;
-	}
-	if ($data->pnr!=0) {
-		$cp_site .= $cp_have ? "&" : "?";
-		$cp_have = true;
-		$cp_site .= "pnr=" . $data->pnr;
-	}
-    $to->regLine('  site = "' . $cp_site . '"; ');
+	//$alt = getparam('alt', 0);
+	//$cp_site = 'https://mind2excellence.se/site/common/cockpit' . (($alt==1)?'-2':'') . '.php';
+	//$cp_have = false;
+	//if ($data->pid!=0) {
+	//	$cp_site .= $cp_have ? "&" : "?";
+	//	$cp_have = true;
+	//	$cp_site .= "pid=" . $data->pid;
+	//}
+	//if ($data->pnr!=0) {
+	//	$cp_site .= $cp_have ? "&" : "?";
+	//	$cp_have = true;
+	//	$cp_site .= "pnr=" . $data->pnr;
+	//}
+    $to->regLine("  site = '" . getCP($data) . "'; ");
     $to->regLine('  if (obj.innerHTML == "") { ');
-	$to->regLine('    obj.innerHTML = \' <embed type="text/html" src="\' + site + \'" width="1300px" height="370px" > \'; ');
+	$to->regLine('    obj.innerHTML = site; ');
 	$to->regLine("    document.getElementById('BtnCP').style.borderStyle = 'inset'; ");
     $to->regLine('  } else { ');
 	$to->regLine('    obj.innerHTML = ""; ');
