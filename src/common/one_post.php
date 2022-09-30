@@ -520,7 +520,13 @@ function index($styr, $local, $common)
 		$to->stopTag('form');
 	}
 	
-	$to->regLine('<div id="mybarb" class="navbarb"></div>');
+	if (getparam("sticp", "0") == "1") {
+		$to->regLine('<div id="mybarb" class="navbarb">');
+		$to->regLine(getCP($data));
+		$to->regLine('</div>');		
+	} else {
+		$to->regLine('<div id="mybarb" class="navbarb"></div>');
+	}
 
 	$to->stopTag('body');
 }
