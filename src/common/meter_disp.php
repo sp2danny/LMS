@@ -3,7 +3,7 @@
 
 <?php
 
-function display_meter($to, $data, $args)
+function display_meter($to, $data, $args, $num=1)
 {
 	global $emperator;
 
@@ -51,17 +51,17 @@ function display_meter($to, $data, $args)
 		}
 	}
 
-	$to->regLine('<div class="container"> <div class="progress">');
-	$to->regLine('<div class="progress-bar" role="progressbar" aria-valuenow="' . $val );
-	$to->regLine('" aria-valuemin="0" aria-valuemax="100" style="width:' . $val . '%">' );
-	$to->regLine('<span class="sr-only">' . $val . '% Complete</span>' );
-	$to->regLine(' &nbsp; ' . $val . ' %' );
-	$to->regLine('</div></div></div>' );
+	//$to->regLine('<div class="container"> <div class="progress">');
+	//$to->regLine('<div class="progress-bar" role="progressbar" aria-valuenow="' . $val );
+	//$to->regLine('" aria-valuemin="0" aria-valuemax="100" style="width:' . $val . '%">' );
+	//$to->regLine('<span class="sr-only">' . $val . '% Complete</span>' );
+	//$to->regLine(' &nbsp; ' . $val . ' %' );
+	//$to->regLine('</div></div></div>' );
 
-	$to->regLine('<canvas id="myCanvas_33" width="200" height="120" ></canvas>');
+	$to->regLine('<canvas id="myCanvas_' . $num . '" width="200" height="120" ></canvas>');
 	$to->regLine('<script>');
 	$to->regLine('  var pro = ' . $val . ';');
-	$to->regLine('  var canvas = document.getElementById("myCanvas_33");');
+	$to->regLine('  var canvas = document.getElementById("myCanvas_' . $num . '");');
 	$to->regLine('  setProgress(pro, canvas);');
 	$to->regLine('</script>');
 
