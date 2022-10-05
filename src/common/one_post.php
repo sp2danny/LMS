@@ -193,7 +193,7 @@ function index($styr, $local, $common)
 					$corr = true;
 				}
 				$ss = "<div class='btndiv' id='b" . $i . "'> <image src='../common/blank.png'> </div>";		
-				$to->regLine('  s += "&nbsp; &nbsp; &nbsp; <button onclick=\'setA(2, ' . $i . ', ' . ($corr?"true":"false") . ')\'> ' . $ss . ' <font size=\'+3\'> ' . $s .
+				$to->regLine('  s += "&nbsp; &nbsp; &nbsp; <button onclick=\'setA(2, ' . $i . ', ' . ($corr?"true":"false") . ')\'> ' . $ss . ' <font size=\'+2\'> ' . $s .
 				  ' &nbsp; &nbsp; &nbsp; </font> </button>";');
 			}
 
