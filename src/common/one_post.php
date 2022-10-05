@@ -183,7 +183,7 @@ function index($styr, $local, $common)
 	if ($qi > 0) {
 		if (is_array($qcmd->params)) {
 			$n = count($qcmd->params);
-			$to->regLine('  s += "<h1> ' . $qcmd->params[0] . ' </h1> <br>";');
+			$to->regLine('  s += "<h3> ' . $qcmd->params[0] . ' </h3> <br>";');
 			for ($i=1; $i<$n; ++$i) {
 				$s = $qcmd->params[$i];
 				$s = trim($s);
@@ -288,7 +288,7 @@ function index($styr, $local, $common)
 				++$qi;
 				if ($qi > 1) {
 					$to->regLine('    case ' . $qi . ':');
-					$to->regLine('      s += "<h1> ' . ndq($value->params[0]) . ' </h1> <br>";');
+					$to->regLine('      s += "<h3> ' . ndq($value->params[0]) . ' </h3> <br>";');
 					$n = count($value->params);
 					for ($i=1; $i<$n; ++$i) {
 						$s = $value->params[$i];
@@ -299,7 +299,7 @@ function index($styr, $local, $common)
 							$corr = true;
 						}
 						$ss = "<div class='btndiv' id='b" . $i . "'> <image src='../common/blank.png'> </div>";
-						$to->regLine('      s += "&nbsp; &nbsp; &nbsp; <button onclick=\'setA(' . ($qi+1) . ', ' . $i . ', ' . ($corr?"true":"false") . ')\'> ' . $ss . ' <font size=\'+3\'> ' . $s .
+						$to->regLine('      s += "&nbsp; &nbsp; &nbsp; <button onclick=\'setA(' . ($qi+1) . ', ' . $i . ', ' . ($corr?"true":"false") . ')\'> ' . $ss . ' <font size=\'+2\'> ' . $s .
 						  ' &nbsp; &nbsp; &nbsp; </font> </button>";');
 					}
 					$to->regLine('      break;');
