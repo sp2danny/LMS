@@ -284,6 +284,17 @@ function process_cmd($to, $data, $cmd, $args)
 		case 'graph':
 			display_graph($to, $data, $args);
 			break;
+			
+		case 'ord':
+			$to->startTag('div');
+			$n = count($data->dagens);
+			if ($n > 0) {
+				$i = rand(0, $n-1);
+				$to->regLine('<br />');
+				$to->regLine('<center>' . $data->dagens[$i] . '</center>');
+			}
+			$to->stopTag('div');
+			break;
 
 		default:
 			$ret  = ' *** WARNING *** <br />' . $eol;

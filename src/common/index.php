@@ -49,6 +49,26 @@ function index($styr, $local, $common)
 	$bnum = 1;
 	$maxseg = 1;
 	$curr = '';
+	
+	$dagens = array();
+	$ord = fopen("../common/ord.txt", "r");
+	if ($ord)
+	{
+		while (true) {
+			$buffer = fgets($ord, 4096);
+			if (!$buffer) break;
+			$buffer = trim($buffer);
+			$len = strlen($buffer);
+			if ($len == 0) continue;
+			$cc = 0;
+			for ($idx=0; $idx<$len; ++$idx)
+				$cc = $cc ^ ord($buffer[$idx]);
+			if ($len != 105 || $cc != 8)
+				$dagens[] = $buffer;
+		}
+	}
+	$data->dagens = $dagens;
+
 
 	$cmdlst = [];
 	

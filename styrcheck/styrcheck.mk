@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=daniel
-Date                   :=22/02/22
+Date                   :=03/10/22
 CodeLitePath           :=/home/daniel/.codelite
 LinkerName             :=/usr/bin/clang++-11
 SharedObjectLinkerName :=/usr/bin/clang++-11 -shared -fPIC
@@ -91,11 +91,9 @@ PreBuild:
 ##
 ## Objects
 ##
-$(IntermediateDirectory)/StyrCheck.cpp$(ObjectSuffix): StyrCheck.cpp $(IntermediateDirectory)/StyrCheck.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/daniel/project/LMS/styrcheck/StyrCheck.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/StyrCheck.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/StyrCheck.cpp$(DependSuffix): StyrCheck.cpp
+$(IntermediateDirectory)/StyrCheck.cpp$(ObjectSuffix): StyrCheck.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/StyrCheck.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/StyrCheck.cpp$(DependSuffix) -MM StyrCheck.cpp
-
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/daniel/project/LMS/styrcheck/StyrCheck.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/StyrCheck.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/StyrCheck.cpp$(PreprocessSuffix): StyrCheck.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/StyrCheck.cpp$(PreprocessSuffix) StyrCheck.cpp
 

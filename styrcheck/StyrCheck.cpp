@@ -9,6 +9,7 @@
 #include <cstddef>
 #include <version>
 #include <iterator>
+#include <optional>
 
 #ifndef __cpp_lib_ssize
 namespace std {
@@ -118,6 +119,26 @@ struct StyrFil
 		if (i == segs.end()) throw "error";
 		return i->second.posts;
 	}
+	
+	const bool has_segment(const std::string& segn) const
+	{
+		auto i = segs.find(segn);
+		return (i != segs.end());
+	}
+
+	std::optional<std::string> bang_value(const std::string& segment, std::string command) const
+	{
+		auto i = segs.find(segment);
+		if (i == segs.end()) return {};
+		auto&& pl = i->second.posts;
+		for (auto&& p : pl)
+		{
+			if (p.cmd != command) continue;
+			if (p.param.size() != 1) return {};
+			return p.param.front();
+		}
+		return {};
+	}
 
 	std::map<std::string, Segment> segs;
 };
@@ -189,11 +210,86 @@ StyrFil readstyr(const IniFile& ini)
 	return styr;
 }
 
+extern std::string params(const StrVec& sv, const std::string& sep = "; ");
+
+bool validate_styr(const StyrFil& sf, std::ostream& out)
+{
+	bool allok = true;
+	if (sf.bang_value("default", "format") != "2") {
+		allok=false;
+		out << "format is not '2' \n";
+	}
+	int n = 0;
+	try {
+		n = std::stoi(*sf.bang_value("default", "max"));
+	} catch(...) {
+		allok=false;
+		out << "could not read size \n";
+	}
+	
+	if (!allok) return allok;
+	
+	for (int i=1; i<=n; ++i)
+	{
+		std::string sn = "segment-"s + std::to_string(i);
+		if (!sf.has_segment(sn)) {
+			out << "missing segment " << sn << std::endl;
+			allok=false;
+		}
+	}
+	
+	for (auto&& seg : sf)
+	{
+		if (seg.first == "default"s) continue;
+		auto p = seg.first.find("segment-"s);
+		if (p==0) continue;
+		out << "bonus segment " << seg.first << std::endl;
+		allok=false;
+	}
+
+	for (auto&& seg : sf)
+	{
+		if (seg.first == "default")
+			continue;
+		for (auto&& cmd : seg.second.posts)
+		{
+			/****/ if (cmd.cmd == "b" || cmd.cmd == "break") {
+			} else if (cmd.cmd == "t" || cmd.cmd == "T" || cmd.cmd == "text") {
+			} else if (cmd.cmd == "qstart") {
+			} else if (cmd.cmd == "q" || cmd.cmd == "query") {
+			} else if (cmd.cmd == "i" || cmd.cmd == "image") {
+			} else if (cmd.cmd == "I" || cmd.cmd == "embed") {
+			} else if (cmd.cmd == "e" || cmd.cmd == "video") {
+			} else if (cmd.cmd == "qstop") {
+			} else if (cmd.cmd == "f" || cmd.cmd == "one") {
+			} else if (cmd.cmd == "s") {
+			} else if (cmd.cmd == "onestop") {
+			} else if (cmd.cmd == "discdisplay") {
+			} else if (cmd.cmd == "always") {
+			} else if (cmd.cmd == "discquery") {
+			} else if (cmd.cmd == "next") {
+			} else if (cmd.cmd == "nextbatt") {
+			} else if (cmd.cmd == "back") {
+			} else if (cmd.cmd == "link") {
+			} else if (cmd.cmd == "tq-start") {
+			} else if (cmd.cmd == "tq-query") {
+			} else if (cmd.cmd == "tq-stop") {
+			} else if (cmd.cmd == "sound") {
+			} else {
+				out << "error : unrecognized command : " << cmd.cmd << " " << params(cmd.param) << std::endl;
+				allok=false;
+			}
+		}
+	}
+
+	return allok;
+}
+
 // !batt 4
 // !max 7
 // !format 2
 
-std::string params(const StrVec& sv, const std::string sep = "; ")
+std::string params(const StrVec& sv, const std::string& sep)
 {
 	if (sv.empty()) return "";
 	std::string out;
@@ -358,7 +454,65 @@ void writestyr(const StyrFil& styr, std::ostream& out)
 				outq(out, qb);
 				inq = false;
 				// out << "!query " << params(cmd.param) << std::endl;
-			} else {
+			} else if (cmd.cmd == "discdisplay") {
+				out << "!discdisplay " << params(cmd.param) << std::endl;
+			} else if (cmd.cmd == "always") {
+				out << "!always " << params(cmd.param) << std::endl;
+			} else if (cmd.cmd == "discquery") {
+				out << "!discquery " << params(cmd.param) << std::endl;
+			} else if (cmd.cmd == "next") {
+				out << "!next " << params(cmd.param) << std::endl;
+			} else if (cmd.cmd == "nextbatt") {
+				out << "!nextbatt " << params(cmd.param) << std::endl;
+			}
+			else if (cmd.cmd == "back")
+			{
+				out << "!back " << params(cmd.param) << std::endl;
+			}
+			else if (cmd.cmd == "link")
+			{
+				out << "!link " << params(cmd.param) << std::endl;
+			}
+			else if (cmd.cmd == "tq-start")
+			{
+				out << "!tq-start " << params(cmd.param) << std::endl;
+			}
+			else if (cmd.cmd == "tq-query")
+			{
+				out << "!tq-query " << params(cmd.param) << std::endl;
+			}
+			else if (cmd.cmd == "tq-stop")
+			{
+				out << "!tq-stop " << params(cmd.param) << std::endl;
+			}
+			else if (cmd.cmd == "sound")
+			{
+				out << "!sound " << params(cmd.param) << std::endl;
+			}
+			/*
+			else if (cmd.cmd == "xxx")
+			{
+				out << "!xxx " << params(cmd.param) << std::endl;
+			}
+			else if (cmd.cmd == "xxx")
+			{
+				out << "!xxx " << params(cmd.param) << std::endl;
+			}
+			else if (cmd.cmd == "xxx")
+			{
+				out << "!xxx " << params(cmd.param) << std::endl;
+			}
+			else if (cmd.cmd == "xxx")
+			{
+				out << "!xxx " << params(cmd.param) << std::endl;
+			}
+			else if (cmd.cmd == "xxx")
+			{
+				out << "!xxx " << params(cmd.param) << std::endl;
+			}
+			*/
+			else 
+			{
 				out << "#error " << cmd.cmd << " " << params(cmd.param) << std::endl;
 			}
 		}
@@ -368,6 +522,7 @@ void writestyr(const StyrFil& styr, std::ostream& out)
 		}
 	}
 }
+
 
 void want_1(const IniFile& ini, StrVec& want_files)
 {
@@ -454,12 +609,24 @@ int fval(const IniFile& ini, const std::string& seg, const std::string& name, in
 int main(int argc, char* argv[])
 {
 	namespace fs = std::filesystem;
+	using namespace std::literals;
 
 	fs::path base{"."};
-	if (argc == 2)
+	if (argc >= 2)
 		base = argv[1];
-		
-	std::cout << base << std::endl;
+
+	bool verbose = false;
+	bool nomod = false;
+
+	for (int i=2; i<argc; ++i)
+	{
+		std::string s{argv[i]};
+		if (s=="--verbose") verbose=true;
+		if (s=="--nomod") nomod=true;
+	}
+
+	if (verbose)
+		std::cout << base << std::endl;
 
 	fs::directory_iterator di{base};
 	for (auto&& de : di)
@@ -471,7 +638,8 @@ int main(int argc, char* argv[])
 		if (tolower(nm.substr(0, 5)) != "batt-")
 			continue;
 		nm = nm.substr(5);
-		std::cout << nm << std::endl;
+		if (verbose)
+			std::cout << nm << std::endl;
 		
 		auto ofn = de.path() / "styr_old.txt";
 		auto nfn = de.path() / "styr.txt";
@@ -482,15 +650,18 @@ int main(int argc, char* argv[])
 		}
 		
 		std::ifstream ifs;
-		
-		if (!fs::exists(ofn)) {
-			fs::copy(nfn, ofn);
+
+		if (nomod) {
 			ifs.open(nfn);
 		} else {
+			if (fs::exists(ofn)) {
+				fs::remove(ofn);
+			}
+			fs::copy(nfn, ofn);
 			ifs.open(ofn);
 		}
 		
-		StrVec want_files = { "index.php"s, "local.css"s, "styr.txt"s };
+		StrVec want_files = { "index.php"s, "local.css"s, "styr.txt"s, "styrkant.txt"s };
 		auto ini = readin(ifs);
 		ifs.close();
 
@@ -500,9 +671,16 @@ int main(int argc, char* argv[])
 		else if (ver == 2)
 			want_2(ini, want_files);
 
-		std::ofstream ofs{nfn};
-		writestyr(readstyr(ini), ofs);
-		ofs.close();
+		if (!nomod) {
+			std::ofstream ofs{nfn};
+			writestyr(readstyr(ini), ofs);
+			ofs.close();
+		} else {
+			// no modifications!
+			StyrFil sf = readstyr(ini);
+			bool ok = validate_styr(sf, std::cerr);
+			if (!ok) std::cerr << "\nfinished with error\n" << std::endl;
+		}
 
 		sort(want_files);
 		unique(want_files);
