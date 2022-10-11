@@ -134,6 +134,26 @@ EOT;
 		}
 	}
 
+	$dagens = array();
+	$ord = @fopen("./common/ord.txt", "r");
+	if (!$ord)
+		$ord = @fopen("../common/ord.txt", "r");
+	if ($ord)
+	{
+		while (true) {
+			$buffer = fgets($ord, 4096);
+			if (!$buffer) break;
+			$buffer = trim($buffer);
+			$len = strlen($buffer);
+			if ($len == 0) continue;
+			$cc = 0;
+			for ($idx=0; $idx<$len; ++$idx)
+				$cc = $cc ^ ord($buffer[$idx]);
+			if ($len != 105 || $cc != 8)
+				$dagens[] = $buffer;
+		}
+	}
+
 	$active = $ok ? "pass" : "fail";
 
 	$mellan = @fopen("mellan.txt", "r");
@@ -160,6 +180,18 @@ EOT;
 
 			if ($cmd->is_command) {
 				switch ($cmd->command) {
+					
+					case 'ord':
+						$to->startTag('div');
+						$n = count($dagens);
+						if ($n > 0) {
+							$i = rand(0, $n-1);
+							echo '<br />';
+							echo '<center>' . $dagens[$i] . '</center>';
+						}
+						$to->stopTag('div');
+						break;
+					
 					case "logo":
 						echo '<img width=90% src="logo.png"> <br>' . $eol;
 						break;
