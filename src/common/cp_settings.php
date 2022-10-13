@@ -118,9 +118,13 @@
 
 	echo "<br><br><br><br<br> \n";
 
-	echo "<button> Save </button> \n";
+	echo "<button> Spara </button> \n";
+		
 	echo "</form> \n";
-	//echo "<button> Cancel </button> \n";
+	
+	echo "<a href='login.php' > \n";
+	echo "<button> Tillbaka </button> \n";
+	echo "</a> \n";
 
 ?>
 

@@ -181,7 +181,8 @@ EOT;
 			if ($cmd->is_command) {
 				switch ($cmd->command) {
 					
-					case 'ord':
+					case "motd":
+					case "ord":
 						$to->startTag('div');
 						$n = count($dagens);
 						if ($n > 0) {

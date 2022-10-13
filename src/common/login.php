@@ -152,7 +152,7 @@ echo <<<EOT
     <div class="hb-content-wrapper">
         <div class="hb-text-wrapper">
             <div class="hb-headline-text">
-                <p><span>Mobilanpassning kommer q3 '22</span></p>
+                <p><span>Mobilanpassning kommer under 2024</span></p>
             </div>
         </div>
     </div>
@@ -202,6 +202,7 @@ if ($logtxt)
 					echo '<br><a href="' . $cmd->params[0] . '"> ' . $cmd->params[1] . '</a><br>' . $eol;
 					break;
 				case "motd":
+				case "ord":
 					$n = count($dagens);
 					if ($n > 0) {
 						$i = rand(0, $n-1);

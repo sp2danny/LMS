@@ -285,7 +285,8 @@ function process_cmd($to, $data, $cmd, $args)
 			display_graph($to, $data, $args);
 			break;
 			
-		case 'ord':
+		case "motd":
+		case "ord":
 			$to->startTag('div');
 			$n = count($data->dagens);
 			if ($n > 0) {
