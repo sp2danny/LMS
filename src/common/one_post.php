@@ -213,7 +213,7 @@ function index($styr, $local, $common)
 				}
 				$ss = "<div class='btndiv' id='b" . $i . "'> <image src='../common/blank.png'> </div>";		
 				$to->regLine('  s += "&nbsp; &nbsp; &nbsp; <button onclick=\'setA(2, ' . $i . ', ' . ($corr?"true":"false") . ')\'> ' . $ss . ' <font size=\'+2\'> ' . $s .
-				  ' &nbsp; &nbsp; &nbsp; </font> </button>";');
+				  ' &nbsp; &nbsp; &nbsp; </font> </button> <br><br>";');
 			}
 
 			$to->regLine('  ab = document.getElementById("AudioBox"); if (ab) ab.play();');
@@ -319,7 +319,7 @@ function index($styr, $local, $common)
 						}
 						$ss = "<div class='btndiv' id='b" . $i . "'> <image src='../common/blank.png'> </div>";
 						$to->regLine('      s += "&nbsp; &nbsp; &nbsp; <button onclick=\'setA(' . ($qi+1) . ', ' . $i . ', ' . ($corr?"true":"false") . ')\'> ' . $ss . ' <font size=\'+2\'> ' . $s .
-						  ' &nbsp; &nbsp; &nbsp; </font> </button>";');
+						  ' &nbsp; &nbsp; &nbsp; </font> </button> <br><br>";');
 					}
 					$to->regLine('      break;');
 				}
