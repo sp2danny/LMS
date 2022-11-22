@@ -184,7 +184,7 @@ EOT;
 					case "motd":
 					case "ord":
 						$to->startTag('div');
-						$n = count($dagens);
+						$n = $dagens ? count($dagens) : 0;
 						if ($n > 0) {
 							$i = rand(0, $n-1);
 							echo '<br />';

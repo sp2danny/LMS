@@ -202,7 +202,7 @@ function index($styr, $local, $common)
 	if ($qi > 0) {
 		if (is_array($qcmd->params)) {
 			$n = count($qcmd->params);
-			$to->regLine('  s += "<h3> ' . $qcmd->params[0] . ' </h3> <br>";');
+			$to->regLine('  s += "<h3> ' . ndq($qcmd->params[0]) . ' </h3> <br><br>";');
 			for ($i=1; $i<$n; ++$i) {
 				$s = $qcmd->params[$i];
 				$s = trim($s);
@@ -307,7 +307,7 @@ function index($styr, $local, $common)
 				++$qi;
 				if ($qi > 1) {
 					$to->regLine('    case ' . $qi . ':');
-					$to->regLine('      s += "<h3> ' . ndq($value->params[0]) . ' </h3> <br>";');
+					$to->regLine('      s += "<h3> ' . ndq($value->params[0]) . ' </h3> <br><br>";');
 					$n = count($value->params);
 					for ($i=1; $i<$n; ++$i) {
 						$s = $value->params[$i];

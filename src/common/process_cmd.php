@@ -30,6 +30,7 @@ class Data
 	public $mynt = 0;
 	public $replst = [];
 	public $title;
+	public $dagens = [];
 }
 
 function repl($data, $txt)
@@ -288,7 +289,7 @@ function process_cmd($to, $data, $cmd, $args)
 		case "motd":
 		case "ord":
 			$to->startTag('div');
-			$n = count($data->dagens);
+			$n = $data->dagens ? count($data->dagens) : 0;
 			if ($n > 0) {
 				$i = rand(0, $n-1);
 				$to->regLine('<br />');
