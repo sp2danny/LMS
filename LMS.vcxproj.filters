@@ -94,6 +94,12 @@
     <None Include="src\common\roundup.php">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="src\common\create_report_p1.php">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="src\common\display_report.php">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="db.txt">
