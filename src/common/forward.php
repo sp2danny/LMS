@@ -76,9 +76,10 @@ echo '<meta http-equiv="refresh" content="0; URL=';
 echo $link;
 echo '" />';
 
-?> 
 
-</head>
-<body></body>
-</html>
+echo "</head><body>";
+//echo $link;
+echo "</body></html>";
+
+?> 
 
