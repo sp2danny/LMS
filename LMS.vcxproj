@@ -27,6 +27,7 @@
     <None Include="src\common\connect.php" />
     <None Include="src\common\discdisplay.php" />
     <None Include="src\common\discquery.php" />
+    <None Include="src\common\forward.php" />
     <None Include="src\common\gap.php" />
     <None Include="src\common\gap_post.php" />
     <None Include="src\common\head.php" />
@@ -40,6 +41,7 @@
     <None Include="src\common\process_cmd.php" />
     <None Include="src\common\progress.php" />
     <None Include="src\common\pulselst.php" />
+    <None Include="src\common\roundup.php" />
     <None Include="src\common\score.php" />
     <None Include="src\common\spindel.php" />
     <None Include="src\common\tq.php" />

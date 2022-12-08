@@ -107,6 +107,9 @@ function roundup($pnr, $pid, $name)
 			$done[$row['value_b']] = true;
 		}
 		$i = 0;
+
+		// $wantlink = true;
+
 		foreach ($segs as $segIdx => $segVal) {
 			//for ($i=1; $i<=count($segs); ++$i) {
 			++$i;
@@ -128,14 +131,15 @@ function roundup($pnr, $pid, $name)
 			}
 
 			$wantlink = false;
+
 			if (!$thisok && $allsofar) {
 				$allsofar = false;
 				$wantlink = true;
 				$alldata[$runnum]->lines[$i]->isLink = true;
 			}
 			if ($allsofar) {
-				if ($alldata[$runnum]->lines[$i]->always) {
-					$alldata[$runnum]->lines[$i]->isLink = true;					
+				if ( true ) { // $alldata[$runnum]->lines[$i]->always) {
+					$alldata[$runnum]->lines[$i]->isLink = true;
 					$lnk = mklink($value, $i, $pnr, $pid, $name);
 					$alldata[$runnum]->lines[$i]->link = $lnk;
 				}

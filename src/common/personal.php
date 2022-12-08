@@ -132,7 +132,7 @@ function all()
 	$atnum = 0;
 
 	foreach ($alldata as $block) {
-		echo '<button type="button" class="collapsible"> ' . $block->battNum . '. &nbsp; ';
+		echo '<button type="button" class="collapsible"> ' /* . $block->battNum */ . ' &nbsp; ';
 		echo '<img width="12px" height="12px" src="';
 		if ($block->someDone) {
 			echo 'here';
@@ -164,7 +164,7 @@ function all()
 		}
 		echo '</ul></div>';
 	}
-	echo '</ul>';
+	//echo '</ul>';
 
 
 	echo '<script> ';
