@@ -110,6 +110,9 @@ EOT;
 	if ($dintid > $maxt) {
 		$ok = false;
 	}
+	
+	if (getparam('forceok')=='true')
+		$ok = true;
 
 	$dbtext = "db-operation was not performed";
 

@@ -139,7 +139,7 @@
 		$to = new tagOut;
 
 		$data = new Data;
-		$data->pnr = getparam("pnr", "721106");
+		$data->pnr = $pnr;
 		$data->pid = $pid;
 
 		switch ($entry->type)
