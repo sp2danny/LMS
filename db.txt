@@ -4,6 +4,7 @@ pers
 	date      datetime auto
 	name      string
 	pnr       string unique
+	grupp     string (8)
 
 data
 	data_id   int ai key

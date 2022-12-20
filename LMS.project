@@ -7,6 +7,11 @@
     <File Name="ftp.txt"/>
   </VirtualDirectory>
   <VirtualDirectory Name="src">
+    <File Name="src/common/show_details.php"/>
+    <File Name="src/common/delete_user.php"/>
+    <File Name="src/common/cleanup_db.php"/>
+    <File Name="src/common/create_group.php"/>
+    <File Name="src/common/make_group.php"/>
     <File Name="src/common/display_report.php"/>
     <File Name="src/common/create_report_p1.php"/>
     <File Name="src/common/cockpit-2.php"/>

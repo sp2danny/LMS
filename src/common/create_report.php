@@ -43,10 +43,19 @@ function all()
 {
 	global $emperator, $eol;
 	
+	echo "<a href='make_group.php' > <button> Skapa Grupper ... </button> </a> <br> <br>" . $eol;
+
+	echo "<a href='cleanup_db.php' > <button> Rensa Databas ... </button> </a> <br> <br>" . $eol;
+
+	echo " <hr> " . $eol;
+
+	echo "<h1> Skapa Rapport </h1> <br> <br>" . $eol;
+
 	echo "<form action='create_report.php'>" . $eol;
 	$grp = getparam("grp","*");
 	echo '<label for="grp"> Group: </label>';
 	echo '<input type="text" id="grp" name="grp" value="' . $grp . '" >';
+	echo '&nbsp;';
 	echo '<input type="submit" value="reload" >';
 	echo '</form>' . $eol;
 
@@ -64,7 +73,11 @@ function all()
 			++$nn;
 			echo "<tr><td>" . $eol;
 			echo "<input type='checkbox' id='" . $prow["pnr"] . "' value='" .  $prow["pnr"] . "' name='" .  $nn . "' />" . $eol;
-			echo "<label for='" . $prow["pnr"] . "'> " . $prow["name"] . " </label>" . $eol;
+			echo "<label for='" . $prow["pnr"] . "'> " . $prow["name"] ;
+			$grp = $prow["grupp"];
+			if ($grp!="null")
+				echo " (" . $grp . ") ";
+			echo " </label>" . $eol;
 
 			echo "</td></tr>" . $eol;
 		}

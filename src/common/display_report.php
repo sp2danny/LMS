@@ -147,7 +147,9 @@ function all()
 
 		}
 
-		echo "<br> <hr> " . $eol;
+		echo "<br>" . $eol;
+		echo "<a href='show_details.php?pid=" . $pid . "'> Detaljer </a> <br>" . $eol;
+		echo " <hr> " . $eol;
 		
 	}
 	
