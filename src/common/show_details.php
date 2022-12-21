@@ -16,37 +16,7 @@ table tr td {
   padding-right:  5px;
   padding-top:    5px;
   padding-bottom: 5px;
-}
-table.visitab {
-  border: 2px solid black;
-  margin-top: 2px;
-  border-collapse: collapse;
-}
-td.visitab {
-  border: 1px solid grey;
-  border-collapse: collapse;
-}
-
-.collapsible {
-  background-color: #FFF;
-  color: black;
-  cursor: pointer;
-  padding: 8px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 15px;
-}
-
-.collapsible:hover {
-  background-color: #EEE;
-}
-.content {
-  padding: 3px 8px;
-  display: none;
-  overflow: hidden;
-  background-color: white;
+  border: 1px solid;
 }
 </style>
 EOT;
@@ -101,69 +71,168 @@ function all()
 		echo convert('Denna person hittades inte i databasen.') . " <br />" . $eol;
 		return;
 	}
-
+	
+	
 	$alldata = roundup($pnr, $pid, $name);
 	$atnum = 0;
-
+	$block_name = "";
+	$line_name = "";
+	
 	foreach ($alldata as $block) {
-		echo '<button type="button" class="collapsible"> ' /* . $block->battNum */ . ' &nbsp; ';
-		echo '<img width="12px" height="12px" src="';
-		if ($block->someDone) {
-			echo 'here';
-			$atnum = $block->atnum;
-		}
-		else if ($block->allDone)
-			echo "corr";
-		else
-			echo "blank";
-		echo '.png" > ';
-		echo $block->name . ' </button>';
-		echo '<div class="content" id="CntDiv' . $block->battNum .'" >';
-		echo '<ul style="list-style-type:none">';
+		if (!$block->someDone) continue;
+		$atnum = $block->atnum;
+		$block_name = $block->name;
 		foreach ($block->lines as $line) {
-			echo '<li> <img width="12px" height="12px" src="';
 			if($line->hasDone)
-				echo "corr";
-			else if ($line->isLink)
-				echo 'here';
-			else
-				echo "blank";
-			echo '.png" > ';
-			//if ($line->isLink)
-			//	echo '<a href="' . $line->link . '" > ';
-			echo $line->name;
-			//if ($line->isLink)
-			//	echo ' </a> ';
-			echo '</li>';
+				continue;
+			$line_name = $line->name;
+			break;
 		}
-		echo '</ul></div>';
 	}
-	//echo '</ul>';
+	
+	echo $block_name . ' - ' . $line_name . "<br><br>" . $eol;
+	
+	$segs = ['akta', 'positivitet', 'relevans', 'tillit', 'balans', 'omdome', 'motivation', 'goal', 'genomforande' ];
+	
+	echo "<table>";
+	
+	echo "<tr> <th> M&auml;tning </th> ";
+	foreach($segs as $key => $entry)
+		echo ' <th> ' . $entry . ' </th> ';
 
 
-	echo '<script> ';
-	echo ' document.getElementById("CntDiv' . $atnum . '").style.display = "block";';
+	$wantout = false;
+	for ($i=1; !$wantout; ++$i)
+	{
+		$nnn = 0;
+		echo "<tr> <td>" . $i . " </td>";
+		foreach($segs as $key => $entry)
+		{
+			$query = "SELECT * FROM surv WHERE pers='" . $pid . "'" . " AND type=7" .
+					 " AND name='" . $entry . "' AND seq='" . $i . "'";
+			$sid = 0;
+			$res = mysqli_query($emperator, $query);
+			if (!$res)
+			{
+				$err = 'DB Error, query surv --'.$query.'--';
+				$wantout = true;
+			} else {
+				$prow = mysqli_fetch_array($res);
+				if (!$prow) {
+					$err = 'DB Error, fetch surv --'.$query.'--';
+					$wantout = true;
+				} else {
+					$sid = $prow['surv_id'];
+				}
+			}
+			
+			$query = "SELECT * FROM data WHERE pers='" .$pid . "'" . " AND type=7" .
+					 " AND surv='" . $sid . "'";
+			$res = mysqli_query($emperator, $query);
+			$num = 0; $sum = 0;
+			if (!$res)
+			{
+				$err = 'DB Error, query data --'.$query.'--';
+				$wantout = true;
+			} else {
+				
+				while (true) {
+					$prow = mysqli_fetch_array($res);
+					if (!$prow) {
+						break;
+					} else {
+						$num += 1;
+						$sum += $prow['value_b'];
+					}
+				}
+			}
+			
+			echo " <td> ";
+			if ($num>0) {
+				echo number_format($sum / $num, 1);
+				$nnn += 1;
+			} else {
+				echo '--';
+			}
+			echo " </td> ";
+		}
+		if ($nnn == 0) $wantout = true;
+		echo " </tr> " . $eol;
+	}
 
-	echo <<<EOT
+	echo " </table> <br><br>" . $eol;
+	
+	
+	
+	$query1 = "SELECT * FROM data WHERE pers='";
+	$query1 .= $pid;
+	$query1 .= "' AND type='6'";
+	
+	$have = false;
+	$when = 0;
 
-var coll = document.getElementsByClassName("collapsible");
-var i;
+	$result1 = mysqli_query($emperator, $query1);
+	if ($result1) while ($row1 = mysqli_fetch_array($result1)) {
+		if (!$have) {
+			$LR = $row1['value_a'];
+			$UD = $row1['value_b'];
+			$have = true;
+			$when = $row1['date'];
+		} else {
+			$date = $row1['date'];
+			if ($date > $when) {
+				$LR = $row1['value_a'];
+				$UD = $row1['value_b'];
+				$when = $date;				
+			}
+		}
+	}
 
-for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function() {
-    //this.classList.toggle("active");
-    var content = this.nextElementSibling;
-    if (content.style.display === "block") {
-      content.style.display = "none";
-    } else {
-      content.style.display = "block";
-    }
-  });
-}
-</script>
+	if ($have) {
 
+		$ret = "<img id='disc_mini' src='../common/minidisc.png' hidden=true /> \n";
 
-EOT;
+		$ret .= " <table><tr> <td> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td> <td>\n";
+
+		$ret .= '<canvas id="disc_canvas_mini" width="99" height="99" style="border:1px solid #000000;">' ;
+		$ret .= ' Din browser st&ouml;der inte canvas </canvas> ' . "\n";
+
+		$ret .= "</td>";
+
+		$ret .= "</tr></table> \n";
+
+		$ret .=  '<script>';
+
+		$ret .=  '  function rita_disc_mini() {';
+
+		$ret .=  '  var c=document.getElementById("disc_canvas_mini"); ' . "\n";
+		$ret .=  '  var ctx=c.getContext("2d"); ctx.fillStyle="#fff"; ' . "\n";
+		$ret .=  '  var d2=document.getElementById("disc_mini");' . "\n";
+
+		$ret .=  '  ctx.fillRect(0,0,99,99); ' . "\n";
+
+		$ret .=  '  ctx.drawImage(d2,0,0);' . "\n";
+
+		$ret .=  '  ctx.beginPath(); ' . "\n";
+		$ret .=  '  ctx.fillStyle="#373"; ' . "\n";
+		$ret .=  '  ctx.strokeStyle="#000"; ' . "\n";
+		$ret .=  '  ctx.arc(';
+		$ret .=  (99/2)+2.5*$LR ;
+		$ret .=  ',';
+		$ret .=  (99/2)+2.5*$UD ;
+		$ret .=  ',2,0,2*Math.PI); ' . "\n";
+		$ret .=  '  ctx.stroke(); ' . "\n";
+		$ret .=  '  ctx.fill(); ' . "\n";
+		$ret .=  '}' . $eol;
+		$ret .=  '</script><br />' . "\n";
+
+		$ret .=  '<img onload="rita_disc_mini()" src="../common/sq.png" /> <br />' . "\n" ;
+
+		$ret .=  "<script> rita_disc(); </script> \n";
+
+		echo $ret;
+		
+	}
 
 }
 
