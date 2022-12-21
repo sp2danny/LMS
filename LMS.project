@@ -7,6 +7,7 @@
     <File Name="ftp.txt"/>
   </VirtualDirectory>
   <VirtualDirectory Name="src">
+    <File Name="src/common/create_note.php"/>
     <File Name="src/common/show_details.php"/>
     <File Name="src/common/delete_user.php"/>
     <File Name="src/common/cleanup_db.php"/>

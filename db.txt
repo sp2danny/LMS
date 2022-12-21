@@ -46,6 +46,6 @@ typer
 	namn        type         a            b            c
 	==========  ===========  ===========  ===========  ===========
 	cp_sett     9            graph                     source
-
+	notes       20           num                       text
 
 

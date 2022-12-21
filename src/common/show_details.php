@@ -233,7 +233,46 @@ function all()
 		echo $ret;
 		
 	}
+	
+	echo "<hr>";
+	
+	$notes = [];
+	
+	$note_next = 1;
+	
+	while (true)
+	{
+		$query = "SELECT * FROM data WHERE pers='";
+		$query .= $pid;
+		$query .= "' AND type='20'";
+		$query .= " AND value_a='" . $note_next . "'";
 
+		$result = mysqli_query($emperator, $query);
+		if ($result) if ($row = mysqli_fetch_array($result)) {
+			$notes[] = $row['value_c'];
+			$note_next +=1;
+			continue;
+		}
+		break;
+	}
+	
+	foreach($notes as $key => $entry)
+	{
+		echo $entry . " <br> <hr> " . $eol;
+	}
+	
+	echo "<form action='create_note.php' >";
+	
+	echo "<input type='hidden' id='pid' name='pid' value='" . $pid . "' />" . $eol;
+	
+	echo "<input type='hidden' id='nn' name='nn' value='" . $note_next . "' />" . $eol;
+	
+	echo '<textarea id="note" name="note" rows="25" cols="50"> </textarea>';
+	
+	echo "<input type='submit' value='spara'>" . $eol;
+
+	echo "</form>";
+	
 }
 
 all();
