@@ -1,5 +1,5 @@
 
-<!-- inlude personal.php -->
+<!-- inlude delete_user.php -->
 
 <?php
 
@@ -16,37 +16,7 @@ table tr td {
   padding-right:  5px;
   padding-top:    5px;
   padding-bottom: 5px;
-}
-table.visitab {
-  border: 2px solid black;
-  margin-top: 2px;
-  border-collapse: collapse;
-}
-td.visitab {
-  border: 1px solid grey;
-  border-collapse: collapse;
-}
-
-.collapsible {
-  background-color: #FFF;
-  color: black;
-  cursor: pointer;
-  padding: 8px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 15px;
-}
-
-.collapsible:hover {
-  background-color: #EEE;
-}
-.content {
-  padding: 3px 8px;
-  display: none;
-  overflow: hidden;
-  background-color: white;
+  border: 1px solid;
 }
 </style>
 EOT;
@@ -77,6 +47,8 @@ function all()
 {
 	global $emperator, $eol;
 
+	echo "<a href='create_report.php' > <button> Tillbaka </button> </a> <br> <br>" . $eol;
+
 	$pid = getparam('pid');
 
 	$query = "SELECT * FROM pers WHERE pers_id='" . $pid . "'";
@@ -85,9 +57,11 @@ function all()
 	$prow = false;
 	$pnr = 0;
 	$name = '';
+	
+	echo "<h1><font color='red'><blink> VARNING </blink></font></h1><br>" . $eol;
 
 	if ($prow = mysqli_fetch_array($res)) {
-		$pnr = $prow['pnr'];
+
 		$query = 'SELECT * FROM data WHERE pers=' . $prow['pers_id'] . ' AND type=4';
 		$res = mysqli_query($emperator, $query);
 		$mynt = 0;
@@ -95,75 +69,109 @@ function all()
 			$mynt = $row['value_a'];
 
 		ptbl($prow, $mynt);
+		$pnr = $prow['pnr'];
 		$name = $prow['name'];
 	} else {
 		echo convert('Denna person hittades inte i databasen.') . " <br />" . $eol;
 		return;
 	}
-
+	
 	$alldata = roundup($pnr, $pid, $name);
 	$atnum = 0;
-
+	$block_name = "";
+	$line_name = "";
+	
 	foreach ($alldata as $block) {
-		echo '<button type="button" class="collapsible"> ' /* . $block->battNum */ . ' &nbsp; ';
-		echo '<img width="12px" height="12px" src="';
-		if ($block->someDone) {
-			echo 'here';
-			$atnum = $block->atnum;
-		}
-		else if ($block->allDone)
-			echo "corr";
-		else
-			echo "blank";
-		echo '.png" > ';
-		echo $block->name . ' </button>';
-		echo '<div class="content" id="CntDiv' . $block->battNum .'" >';
-		echo '<ul style="list-style-type:none">';
+		if (!$block->someDone) continue;
+		$atnum = $block->atnum;
+		$block_name = $block->name;
 		foreach ($block->lines as $line) {
-			echo '<li> <img width="12px" height="12px" src="';
 			if($line->hasDone)
-				echo "corr";
-			else if ($line->isLink)
-				echo 'here';
-			else
-				echo "blank";
-			echo '.png" > ';
-			if ($line->isLink)
-				echo '<a href="' . $line->link . '" > ';
-			echo $line->name;
-			if ($line->isLink)
-				echo ' </a> ';
-			echo '</li>';
+				continue;
+			$line_name = $line->name;
+			break;
 		}
-		echo '</ul></div>';
 	}
-	//echo '</ul>';
+	
+	echo $block_name . ' - ' . $line_name . "<br><br>" . $eol;
+	
+	echo "<h1><font color='red'><blink> VARNING </blink></font></h1><br>" . $eol;
+		
+	$segs = ['akta', 'positivitet', 'relevans', 'tillit', 'balans', 'omdome', 'motivation', 'goal', 'genomforande' ];
+	
+	echo "<table>";
+	
+	echo "<tr> <th> M&auml;tning </th> ";
+	foreach($segs as $key => $entry)
+		echo ' <th> ' . $entry . ' </th> ';
 
 
-	echo '<script> ';
-	echo ' document.getElementById("CntDiv' . $atnum . '").style.display = "block";';
+	$wantout = false;
+	for ($i=1; !$wantout; ++$i)
+	{
+		$nnn = 0;
+		echo "<tr> <td>" . $i . " </td>";
+		foreach($segs as $key => $entry)
+		{
+			$query = "SELECT * FROM surv WHERE pers='" . $pid . "'" . " AND type=7" .
+					 " AND name='" . $entry . "' AND seq='" . $i . "'";
+			$sid = 0;
+			$res = mysqli_query($emperator, $query);
+			if (!$res)
+			{
+				$err = 'DB Error, query surv --'.$query.'--';
+				$wantout = true;
+			} else {
+				$prow = mysqli_fetch_array($res);
+				if (!$prow) {
+					$err = 'DB Error, fetch surv --'.$query.'--';
+					$wantout = true;
+				} else {
+					$sid = $prow['surv_id'];
+				}
+			}
+			
+			$query = "SELECT * FROM data WHERE pers='" .$pid . "'" . " AND type=7" .
+					 " AND surv='" . $sid . "'";
+			$res = mysqli_query($emperator, $query);
+			$num = 0; $sum = 0;
+			if (!$res)
+			{
+				$err = 'DB Error, query data --'.$query.'--';
+				$wantout = true;
+			} else {
+				
+				while (true) {
+					$prow = mysqli_fetch_array($res);
+					if (!$prow) {
+						break;
+					} else {
+						$num += 1;
+						$sum += $prow['value_b'];
+					}
+				}
+			}
+			
+			echo " <td> ";
+			if ($num>0) {
+				echo number_format($sum / $num, 1);
+				$nnn += 1;
+			} else {
+				echo '--';
+			}
+			echo " </td> ";
+		}
+		if ($nnn == 0) $wantout = true;
+		echo " </tr> " . $eol;
+	}
 
-	echo <<<EOT
+	echo " </table> <br><br>" . $eol;
+	
+	echo "<h1><font color='red'><blink> VARNING </blink></font></h1><br>" . $eol;
 
-var coll = document.getElementsByClassName("collapsible");
-var i;
-
-for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function() {
-    //this.classList.toggle("active");
-    var content = this.nextElementSibling;
-    if (content.style.display === "block") {
-      content.style.display = "none";
-    } else {
-      content.style.display = "block";
-    }
-  });
-}
-</script>
-
-
-EOT;
-
+	echo "<a href='actually_delete.php?pid=" . $pid . "'> <button> Ta bort </button> </a>";
+	
+	
 }
 
 all();

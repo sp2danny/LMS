@@ -1,5 +1,5 @@
 
-<!-- inlude personal.php -->
+<!-- inlude show_details.php -->
 
 <?php
 
@@ -11,13 +11,73 @@ echo <<<EOT
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-table tr td {
+
+tr.lined {
+  padding-left:   0px;
+  padding-right:  0px;
+  padding-top:    0px;
+  padding-bottom: 0px;
+  border: none;
+}
+
+table.lined {
+  padding-left:   0px;
+  padding-right:  0px;
+  padding-top:    0px;
+  padding-bottom: 0px;
+  border: 1px solid;
+  border-collapse: collapse;
+}
+
+td.lined {
   padding-left:   5px;
   padding-right:  5px;
   padding-top:    5px;
   padding-bottom: 5px;
   border: 1px solid;
+  text-align: center;
 }
+
+th.lined {
+  padding-left:   5px;
+  padding-right:  5px;
+  padding-top:    5px;
+  padding-bottom: 5px;
+  border: 2px solid;
+  text-align: center;
+}
+
+.hr-lines:before {
+  content: " ";
+  display: block;
+  height: 2px;
+  width: 130px;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  background: black;
+}
+
+.hr-lines {
+  position: relative;
+  max-width: 500px;
+  margin: 100px auto;
+  text-align: center;
+}
+
+.hr-lines:after {
+  content:" ";
+  height: 2px;
+  width: 130px;
+  background: black;
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 0;
+}
+
+
+
 </style>
 EOT;
 
@@ -46,6 +106,9 @@ function ptbl($prow, $mynt, $score=0)
 function all()
 {
 	global $emperator, $eol;
+	
+	echo "<a href='create_report.php' > <button> Tillbaka </button> </a> <br> <br>" . $eol;
+
 
 	$pid = getparam('pid');
 
@@ -55,6 +118,9 @@ function all()
 	$prow = false;
 	$pnr = 0;
 	$name = '';
+	
+	echo "<h2 class='hr-lines'> Persondata </h2>" . $eol;
+
 
 	if ($prow = mysqli_fetch_array($res)) {
 
@@ -72,6 +138,8 @@ function all()
 		return;
 	}
 	
+
+	echo "<h2 class='hr-lines'> Progress </h2>" . $eol;
 	
 	$alldata = roundup($pnr, $pid, $name);
 	$atnum = 0;
@@ -93,19 +161,21 @@ function all()
 	echo $block_name . ' - ' . $line_name . "<br><br>" . $eol;
 	
 	$segs = ['akta', 'positivitet', 'relevans', 'tillit', 'balans', 'omdome', 'motivation', 'goal', 'genomforande' ];
+
+	echo "<h2 class='hr-lines'> Pulsmätning </h2>" . $eol;
 	
-	echo "<table>";
+	echo "<table class='lined' >";
 	
-	echo "<tr> <th> M&auml;tning </th> ";
+	echo "<tr class='lined' > <th class='lined' > M&auml;tning </th> ";
 	foreach($segs as $key => $entry)
-		echo ' <th> ' . $entry . ' </th> ';
+		echo " <th class='lined' > " . $entry . ' </th> ';
 
 
 	$wantout = false;
 	for ($i=1; !$wantout; ++$i)
 	{
 		$nnn = 0;
-		echo "<tr> <td>" . $i . " </td>";
+		echo "<tr class='lined' > <td class='lined' >" . $i . " </td>";
 		foreach($segs as $key => $entry)
 		{
 			$query = "SELECT * FROM surv WHERE pers='" . $pid . "'" . " AND type=7" .
@@ -147,7 +217,7 @@ function all()
 				}
 			}
 			
-			echo " <td> ";
+			echo " <td class='lined' > ";
 			if ($num>0) {
 				echo number_format($sum / $num, 1);
 				$nnn += 1;
@@ -189,6 +259,8 @@ function all()
 	}
 
 	if ($have) {
+
+		echo "<h2 class='hr-lines'> Disc </h2>" . $eol;
 
 		$ret = "<img id='disc_mini' src='../common/minidisc.png' hidden=true /> \n";
 
@@ -234,7 +306,7 @@ function all()
 		
 	}
 	
-	echo "<hr>";
+	//echo "<hr>";
 	
 	$notes = [];
 	
@@ -256,11 +328,19 @@ function all()
 		break;
 	}
 	
+	echo "<h2 class='hr-lines'> Anteckningar </h2>" . $eol;
+	
+	$first = true;
 	foreach($notes as $key => $entry)
 	{
-		echo $entry . " <br> <hr> " . $eol;
+		if (!$first) echo "<hr>";
+		echo $entry;
+		echo "<br>" . $eol;
+		$first = false;
 	}
-	
+	if ($first) echo " &nbsp; &lt; inga anteckningar &gt; <br>" . $eol;
+
+	echo "<br>Skapa Ny:";
 	echo "<form action='create_note.php' >";
 	
 	echo "<input type='hidden' id='pid' name='pid' value='" . $pid . "' />" . $eol;

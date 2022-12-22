@@ -51,6 +51,8 @@ function all()
 {
 	global $emperator, $eol;
 
+	echo "<a href='create_report.php' > <button> Tillbaka </button> </a> <br> <br>" . $eol;
+
 
 	echo "Selected : <br> <br>" . $eol;
 

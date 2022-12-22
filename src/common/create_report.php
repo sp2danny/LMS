@@ -72,11 +72,13 @@ function all()
 
 			++$nn;
 			echo "<tr><td>" . $eol;
-			echo "<input type='checkbox' id='" . $prow["pnr"] . "' value='" .  $prow["pnr"] . "' name='" .  $nn . "' />" . $eol;
+			echo "<input type='checkbox' id='" . $prow["pnr"] . "' value='" .  $prow["pnr"] . "' name='" .  $nn . "' ";
+			if ($grp!="*") echo "checked";
+			echo " />" . $eol;
 			echo "<label for='" . $prow["pnr"] . "'> " . $prow["name"] ;
-			$grp = $prow["grupp"];
-			if ($grp!="null")
-				echo " (" . $grp . ") ";
+			$gg = $prow["grupp"];
+			if ($gg!="null")
+				echo " (" . $gg . ") ";
 			echo " </label>" . $eol;
 
 			echo "</td></tr>" . $eol;
