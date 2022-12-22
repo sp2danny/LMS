@@ -50,6 +50,10 @@
 			}
 		}
 	}
+	
+	$query = "INSERT INTO data (pers, type, value_a, value_b) VALUES (" . $pid . ", 2, " . $bnum . ", " . $snum . ");";
+	$res = mysqli_query($emperator, $query);
+
 
 	if ($err === false) {
 		
