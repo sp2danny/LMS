@@ -327,11 +327,45 @@ function all()
 		}
 		break;
 	}
+
+	$mot = [];
+	
+	for ($qi=11; $qi<20; ++$qi) {
+		$query = "SELECT * FROM data WHERE pers='" . $pid . "' AND type='" . $qi . "'";
+		$res = mysqli_query($emperator, $query);
+		$have = false;
+		$date = 0;
+		$tobj = "";
+		if ($res) while ($row = mysqli_fetch_array($res)) {
+			if (!$have) {
+				$have = true;
+				$tobj = $row['value_c'];
+				$date = $row['date'];
+			} else {
+				$new_this = $row['value_c'];
+				$new_date = $row['date'];
+				if ($new_date > $date) {
+					$tobj = $new_this;
+					$date = $new_date;
+				}
+			}
+		}
+		if ($have) 
+			$mot[] = $tobj;
+	}
+
+	if (!empty($mot)) {
+		echo "<h2 class='hr-lines'> Motivatorer </h2>" . $eol;
+		foreach ($mot as $key => $entry) {
+			echo $entry . "<br>" . $eol;
+		}
+	}
+	
 	
 	echo "<h2 class='hr-lines'> Anteckningar </h2>" . $eol;
 	
 	$first = true;
-	foreach($notes as $key => $entry)
+	foreach ($notes as $key => $entry)
 	{
 		if (!$first) echo "<hr>";
 		echo $entry;
