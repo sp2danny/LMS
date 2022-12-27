@@ -639,17 +639,19 @@ function display_graph($to, $data, $args, $num=1)
 		$dps[] = $dp;
 	}
 
+	$err = "";
+
 	$pnr = getparam("pnr", "0");
 	$query = "SELECT * FROM pers WHERE pnr='" .$pnr . "'";
 	$pid = 0;
 	$err = false;
 	$res = mysqli_query($emperator, $query);
 	if (!$res) {
-		$err = 'DB Error, query person --'.$query.'--';
+		$err .= 'DB Error, query person --'.$query.'--' . $eol;
 	} else {
 		$prow = mysqli_fetch_array($res);
 		if (!$prow) {
-			$err = 'DB Error, fetch person --'.$query.'--';
+			$err .= 'DB Error, fetch person --'.$query.'--' . $eol;
 		} else {
 			$pid = $prow['pers_id'];
 			$pnam = $prow['name'];
@@ -663,11 +665,11 @@ function display_graph($to, $data, $args, $num=1)
 			$sid = 0;
 			$res = mysqli_query($emperator, $query);
 			if (!$res) {
-				$err = 'DB Error, query surv --'.$query.'--';
+				$err .= 'DB Error, query surv --'.$query.'--' . $eol;
 			} else {
 				$prow = mysqli_fetch_array($res);
 				if (!$prow) {
-					$err = 'DB Error, fetch surv --'.$query.'--';
+					$err .= 'DB Error, fetch surv --'.$query.'--' . $eol;
 				} else {
 					$sid = $prow['surv_id'];
 				}
@@ -677,7 +679,7 @@ function display_graph($to, $data, $args, $num=1)
 					 " AND surv='" . $sid . "'";
 			$res = mysqli_query($emperator, $query);
 			if (!$res) {
-				$err = 'DB Error, query data --'.$query.'--';
+				$err .= 'DB Error, query data --'.$query.'--' . $eol;
 			} else {
 				$prow = mysqli_fetch_array($res);
 				if ($prow) {
@@ -729,6 +731,7 @@ function display_graph($to, $data, $args, $num=1)
 		$to->regLine('<div id="curve_chart_' . $num . '" style="width: 450px; height: 250px"></div>');
 	} else {
 		$to->regLine(' <div> &lt; Data Missing &gt; </div> ');
+		$to->regLine($err);
 	}
 	return true;
 }
