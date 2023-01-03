@@ -589,7 +589,9 @@ function gap_merge($to, $data, $args)
 
 	$valcnt = count($values);
 	
-	$avg = $sum / $valcnt;
+	$avg = 0;
+	if ($valcnt > 0)
+		$avg = $sum / $valcnt;
 
 	//$to->regLine('valcnt ' . $valcnt . ' <br>');
 	//$to->regLine('sum ' . $sum . ' <br>');
