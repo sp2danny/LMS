@@ -16,12 +16,12 @@ function ndq($str)
 	while ($i<$n) {
 		$c = $str[$i];
 		++$i;
-		if ($c == '"') {
+		if ( ($c == '"') || ($c == "'") ) {
 			$in = ! $in;
 			if ($in)
-				$out .= "'";
+				$out .= "``";
 			else
-				$out .= "'";
+				$out .= "´´";
 		} else {
 			$out .= $c;
 		}
@@ -168,7 +168,7 @@ function index($styr, $local, $common)
 	$data->name = $name;
 	$data->mynt = $mynt;
 	$data->max = $maxseg;
-	
+
 	echo '<!-- ' . 'set bnum to ' . $data->bnum . ' -->';
 
 	echo '<meta name="viewport" content="width=device-width, initial-scale=1">' . $eol;
@@ -368,6 +368,35 @@ function index($styr, $local, $common)
 	echo '<title>' . $title . '</title>' . $eol;
 	echo '</head>' . $eol;
 	$to->startTag('body');
+	
+	if (getparam("debug")=="true")
+	{
+		$to->startTag('div');
+		$to->regLine('<hr>');
+		$qii = 0;
+		foreach ($cmdlst as $value) {
+			if ($value->is_command) {
+				if ($value->command == 'query') {
+					++$qii;
+					$to->regLine('Query ' . $qii . " <br>");
+					$to->regLine('-- query text : ' . ndq($value->params[0]) . " <br>");
+					$n = count($value->params);
+					for ($i=1; $i<$n; ++$i) {
+						$s = $value->params[$i];
+						$s = trim($s);
+						$corr = false;
+						if ($s[0] == '_') {
+							$s = substr($s, 1);
+							$corr = true;
+						}
+						$to->regLine('-- answer ' . $i . ' : ' . ($corr?"(ok) ":"") . ndq($s) . " <br>");
+					}
+					$to->regLine('<hr>');
+				}
+			}
+		}
+		$to->stopTag('div');
+	}
 
 	if ($atq == 0)
 	{
