@@ -325,7 +325,7 @@ std::string quote(const std::string s)
 	bool in = false;
 	for (char c : s)
 	{
-		if (c=='"') {
+		if ((c=='"') || (c=='\'')) {
 			if (in) {
 				res += "´´";
 				in = false;
@@ -398,9 +398,9 @@ void writestyr(const StyrFil& styr, std::ostream& out)
 		std::string ptxt;
 		for (auto&& cmd : seg.second.posts)
 		{
-			if (cmd.cmd == "b" || cmd.cmd == "break") {
+			if (cmd.cmd == "b"s || cmd.cmd == "break"s) {
 				out << "!break " << params(cmd.param) << std::endl;
-			} else if (cmd.cmd == "t" || cmd.cmd == "T" || cmd.cmd == "text") {
+			} else if (cmd.cmd == "t"s || cmd.cmd == "T"s || cmd.cmd == "text"s) {
 				if (!ftxt) {
 					ftxt = true;
 					out << "!qstart" << std::endl;
@@ -414,25 +414,25 @@ void writestyr(const StyrFil& styr, std::ostream& out)
 					ftxt = true;
 					out << "!qstart" << std::endl;
 				}
-			} else if (cmd.cmd == "q" || cmd.cmd == "query") {
+			} else if (cmd.cmd == "q"s || cmd.cmd == "query"s) {
 				Query q;
 				q.query = ptxt + cmd.param[0];
 				q.answers.assign(cmd.param.begin()+1, cmd.param.end());
 				ptxt.clear();
 				qb.querys.push_back(q);
 				//out << "!query " << params(cmd.param) << std::endl;
-			} else if (cmd.cmd == "i" || cmd.cmd == "image") {
+			} else if (cmd.cmd == "i"s || cmd.cmd == "image"s) {
 				out << "!image " << params(cmd.param) << std::endl;
-			} else if (cmd.cmd == "I" || cmd.cmd == "embed") {
+			} else if (cmd.cmd == "I"s || cmd.cmd == "embed"s) {
 				out << "!embed " << params(cmd.param) << std::endl;
-			} else if (cmd.cmd == "e" || cmd.cmd == "video") {
+			} else if (cmd.cmd == "e"s || cmd.cmd == "video"s) {
 				out << "!video " << params(cmd.param) << std::endl;
-			} else if (cmd.cmd == "qstop") {
+			} else if (cmd.cmd == "qstop"s) {
 				if (!stpt) {
 					stpt = true;
 					out << "!qstop" << std::endl;
 				}
-			} else if (cmd.cmd == "f" || cmd.cmd == "one") {
+			} else if (cmd.cmd == "f"s || cmd.cmd == "one"s) {
 				ff = cmd.param;
 				inq = true;
 				if (ftxt && !stpt) {
@@ -446,47 +446,35 @@ void writestyr(const StyrFil& styr, std::ostream& out)
 				setif(qb.corr,  cmd.param, 4);
 				ptxt.clear();
 				//out << "!one " << params(pp) << std::endl;
-			} else if (cmd.cmd == "s") {
+			} else if (cmd.cmd == "s"s) {
 				setif(qb.corr,  cmd.param, 0);
 				outq(out, qb);
 				inq = false;
-			} else if (cmd.cmd == "onestop") {
+			} else if (cmd.cmd == "onestop"s) {
 				outq(out, qb);
 				inq = false;
 				// out << "!query " << params(cmd.param) << std::endl;
-			} else if (cmd.cmd == "discdisplay") {
+			} else if (cmd.cmd == "discdisplay"s) {
 				out << "!discdisplay " << params(cmd.param) << std::endl;
-			} else if (cmd.cmd == "always") {
+			} else if (cmd.cmd == "always"s) {
 				out << "!always " << params(cmd.param) << std::endl;
-			} else if (cmd.cmd == "discquery") {
+			} else if (cmd.cmd == "discquery"s) {
 				out << "!discquery " << params(cmd.param) << std::endl;
-			} else if (cmd.cmd == "next") {
+			} else if (cmd.cmd == "next"s) {
 				out << "!next " << params(cmd.param) << std::endl;
-			} else if (cmd.cmd == "nextbatt") {
+			} else if (cmd.cmd == "nextbatt"s) {
 				out << "!nextbatt " << params(cmd.param) << std::endl;
-			}
-			else if (cmd.cmd == "back")
-			{
+			} else if (cmd.cmd == "back"s) {
 				out << "!back " << params(cmd.param) << std::endl;
-			}
-			else if (cmd.cmd == "link")
-			{
+			} else if (cmd.cmd == "link"s) {
 				out << "!link " << params(cmd.param) << std::endl;
-			}
-			else if (cmd.cmd == "tq-start")
-			{
+			} else if (cmd.cmd == "tq-start") {
 				out << "!tq-start " << params(cmd.param) << std::endl;
-			}
-			else if (cmd.cmd == "tq-query")
-			{
+			} else if (cmd.cmd == "tq-query") {
 				out << "!tq-query " << params(cmd.param) << std::endl;
-			}
-			else if (cmd.cmd == "tq-stop")
-			{
+			} else if (cmd.cmd == "tq-stop") {
 				out << "!tq-stop " << params(cmd.param) << std::endl;
-			}
-			else if (cmd.cmd == "sound")
-			{
+			} else if (cmd.cmd == "sound") {
 				out << "!sound " << params(cmd.param) << std::endl;
 			}
 			/*
@@ -522,7 +510,6 @@ void writestyr(const StyrFil& styr, std::ostream& out)
 		}
 	}
 }
-
 
 void want_1(const IniFile& ini, StrVec& want_files)
 {
@@ -572,11 +559,11 @@ void want_2(const IniFile& ini, StrVec& want_files)
 				continue;
 			auto command = expl[0];
 			expl = explode(expl[1], ';');
-			if (expl[0] == "image") {
+			if (expl[0] == "image"s) {
 				want_files.push_back(boost::trim_copy(expl.back()));
-			} else if (expl[0] == "audio") {
+			} else if (expl[0] == "audio"s) {
 				want_files.push_back(boost::trim_copy(expl.back()));
-			} else if (expl[0] == "one") {
+			} else if (expl[0] == "one"s) {
 				want_files.push_back(boost::trim_copy(expl[1]));
 				want_files.push_back(boost::trim_copy(expl[3]));
 			}
@@ -611,7 +598,7 @@ int main(int argc, char* argv[])
 	namespace fs = std::filesystem;
 	using namespace std::literals;
 
-	fs::path base{"."};
+	fs::path base{"."s};
 	if (argc >= 2)
 		base = argv[1];
 
@@ -621,8 +608,8 @@ int main(int argc, char* argv[])
 	for (int i=2; i<argc; ++i)
 	{
 		std::string s{argv[i]};
-		if (s=="--verbose") verbose=true;
-		if (s=="--nomod") nomod=true;
+		if (s == "--verbose"s) verbose = true;
+		if (s == "--nomod"s) nomod = true;
 	}
 
 	if (verbose)
@@ -635,17 +622,17 @@ int main(int argc, char* argv[])
 			continue;
 		std::string nm = de.path().filename().string();
 
-		if (tolower(nm.substr(0, 5)) != "batt-")
+		if (tolower(nm.substr(0, 5)) != "batt-"s)
 			continue;
 		nm = nm.substr(5);
 		if (verbose)
 			std::cout << nm << std::endl;
 		
-		auto ofn = de.path() / "styr_old.txt";
-		auto nfn = de.path() / "styr.txt";
+		auto ofn = de.path() / "styr_old.txt"s;
+		auto nfn = de.path() / "styr.txt"s;
 
 		if (!fs::exists(nfn)) {
-			std::cout << "error: 'styr.txt' missing" << std::endl;
+			std::cout << "error: 'styr.txt' missing"s << std::endl;
 			continue;
 		}
 		
@@ -665,7 +652,7 @@ int main(int argc, char* argv[])
 		auto ini = readin(ifs);
 		ifs.close();
 
-		int ver = fval(ini, "", "format", 1);
+		int ver = fval(ini, ""s, "format"s, 1);
 		if (ver==1)
 			want_1(ini, want_files);
 		else if (ver == 2)
@@ -701,10 +688,11 @@ int main(int argc, char* argv[])
 		for (auto&& de2 : di2) {
 			if (de2.is_regular_file()) {
 				std::string fn = de2.path().filename().string();
-				if (fn != "styr_ny.txt"s)
+				if (fn != "styr_ny.txt"s) {
 					if (!binary_search(want_files, fn)) {
 						std::cout << "\tExcess local file : " << fn << "\n";
 					}
+				}
 			}
 		}
 	}

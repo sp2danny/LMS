@@ -1,1 +1,1 @@
-./Debug/StyrCheck.cpp.o
+./Release/StyrCheck.cpp.o

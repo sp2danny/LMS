@@ -1,5 +1,6 @@
 .vs
 Debug
+Release
 beijer
 m2e
 m2e_old
@@ -14,3 +15,4 @@ magic.mgc
 mirror
 newmirror
 backup
+*.out

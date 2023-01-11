@@ -2,7 +2,7 @@
 <CodeLite_Workspace Name="styrcheck" Database="" Version="10.0.0">
   <Project Name="styrcheck" Path="styrcheck.project" Active="Yes"/>
   <BuildMatrix>
-    <WorkspaceConfiguration Name="Debug" Selected="yes">
+    <WorkspaceConfiguration Name="Debug" Selected="no">
       <Environment/>
       <Project Name="styrcheck" ConfigName="Debug"/>
     </WorkspaceConfiguration>
