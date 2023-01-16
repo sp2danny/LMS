@@ -10,6 +10,7 @@
 #include <version>
 #include <iterator>
 #include <optional>
+#include <initializer_list>
 
 #ifndef __cpp_lib_ssize
 namespace std {
@@ -83,6 +84,15 @@ std::vector<std::string> explode(const std::string& s, char delim)
 	return result;
 }
 
+template<typename T, typename U>
+bool oneof(const T& value, std::initializer_list<U> list)
+{
+	for (auto&& item : list)
+		if (value == item)
+			return true;
+	return false;
+}
+
 typedef std::vector<std::string> StrVec;
 
 typedef std::map<std::string, StrVec> IniFile;
@@ -119,7 +129,7 @@ struct StyrFil
 		if (i == segs.end()) throw "error";
 		return i->second.posts;
 	}
-	
+
 	const bool has_segment(const std::string& segn) const
 	{
 		auto i = segs.find(segn);
@@ -174,7 +184,7 @@ StyrFil readstyr(const IniFile& ini)
 	for (auto&& mi : ini)
 	{
 		std::string seg = mi.first;
-		if (seg == "") seg = "default";
+		if (seg == "") seg = "default"s;
 		for (auto vi : mi.second)
 		{
 			if (vi[0] == '!')
@@ -226,9 +236,9 @@ bool validate_styr(const StyrFil& sf, std::ostream& out)
 		allok=false;
 		out << "could not read size \n";
 	}
-	
+
 	if (!allok) return allok;
-	
+
 	for (int i=1; i<=n; ++i)
 	{
 		std::string sn = "segment-"s + std::to_string(i);
@@ -237,7 +247,7 @@ bool validate_styr(const StyrFil& sf, std::ostream& out)
 			allok=false;
 		}
 	}
-	
+
 	for (auto&& seg : sf)
 	{
 		if (seg.first == "default"s) continue;
@@ -253,28 +263,28 @@ bool validate_styr(const StyrFil& sf, std::ostream& out)
 			continue;
 		for (auto&& cmd : seg.second.posts)
 		{
-			/****/ if (cmd.cmd == "b" || cmd.cmd == "break") {
-			} else if (cmd.cmd == "t" || cmd.cmd == "T" || cmd.cmd == "text") {
-			} else if (cmd.cmd == "qstart") {
-			} else if (cmd.cmd == "q" || cmd.cmd == "query") {
-			} else if (cmd.cmd == "i" || cmd.cmd == "image") {
-			} else if (cmd.cmd == "I" || cmd.cmd == "embed") {
-			} else if (cmd.cmd == "e" || cmd.cmd == "video") {
-			} else if (cmd.cmd == "qstop") {
-			} else if (cmd.cmd == "f" || cmd.cmd == "one") {
-			} else if (cmd.cmd == "s") {
-			} else if (cmd.cmd == "onestop") {
-			} else if (cmd.cmd == "discdisplay") {
-			} else if (cmd.cmd == "always") {
-			} else if (cmd.cmd == "discquery") {
-			} else if (cmd.cmd == "next") {
-			} else if (cmd.cmd == "nextbatt") {
-			} else if (cmd.cmd == "back") {
-			} else if (cmd.cmd == "link") {
-			} else if (cmd.cmd == "tq-start") {
-			} else if (cmd.cmd == "tq-query") {
-			} else if (cmd.cmd == "tq-stop") {
-			} else if (cmd.cmd == "sound") {
+			/****/ if (oneof(cmd.cmd, {"b"s, "break"s}      )) {
+			} else if (oneof(cmd.cmd, {"t"s, "T"s, "text"s} )) {
+			} else if (oneof(cmd.cmd, {"qstart"s}           )) {
+			} else if (oneof(cmd.cmd, {"q"s, "query"s}      )) {
+			} else if (oneof(cmd.cmd, {"i"s, "image"s}      )) {
+			} else if (oneof(cmd.cmd, {"I"s, "embed"s}      )) {
+			} else if (oneof(cmd.cmd, {"e"s, "video"s}      )) {
+			} else if (oneof(cmd.cmd, {"qstop"s}            )) {
+			} else if (oneof(cmd.cmd, {"f"s, "one"s}        )) {
+			} else if (oneof(cmd.cmd, {"s"s}                )) {
+			} else if (oneof(cmd.cmd, {"onestop"s}          )) {
+			} else if (oneof(cmd.cmd, {"discdisplay"s}      )) {
+			} else if (oneof(cmd.cmd, {"always"s}           )) {
+			} else if (oneof(cmd.cmd, {"discquery"s}        )) {
+			} else if (oneof(cmd.cmd, {"next"s}             )) {
+			} else if (oneof(cmd.cmd, {"nextbatt"s}         )) {
+			} else if (oneof(cmd.cmd, {"back"s}             )) {
+			} else if (oneof(cmd.cmd, {"link"s}             )) {
+			} else if (oneof(cmd.cmd, {"tq-start"s}         )) {
+			} else if (oneof(cmd.cmd, {"tq-query"s}         )) {
+			} else if (oneof(cmd.cmd, {"tq-stop"s}          )) {
+			} else if (oneof(cmd.cmd, {"sound"s}            )) {
 			} else {
 				out << "error : unrecognized command : " << cmd.cmd << " " << params(cmd.param) << std::endl;
 				allok=false;
@@ -398,9 +408,9 @@ void writestyr(const StyrFil& styr, std::ostream& out)
 		std::string ptxt;
 		for (auto&& cmd : seg.second.posts)
 		{
-			if (cmd.cmd == "b"s || cmd.cmd == "break"s) {
+			if (oneof(cmd.cmd, {"b"s, "break"s})) {
 				out << "!break " << params(cmd.param) << std::endl;
-			} else if (cmd.cmd == "t"s || cmd.cmd == "T"s || cmd.cmd == "text"s) {
+			} else if (oneof(cmd.cmd, {"t"s, "T"s, "text"s})) {
 				if (!ftxt) {
 					ftxt = true;
 					out << "!qstart" << std::endl;
@@ -414,25 +424,25 @@ void writestyr(const StyrFil& styr, std::ostream& out)
 					ftxt = true;
 					out << "!qstart" << std::endl;
 				}
-			} else if (cmd.cmd == "q"s || cmd.cmd == "query"s) {
+			} else if (oneof(cmd.cmd, {"q"s, "query"s})) {
 				Query q;
 				q.query = ptxt + cmd.param[0];
 				q.answers.assign(cmd.param.begin()+1, cmd.param.end());
 				ptxt.clear();
 				qb.querys.push_back(q);
 				//out << "!query " << params(cmd.param) << std::endl;
-			} else if (cmd.cmd == "i"s || cmd.cmd == "image"s) {
+			} else if (oneof(cmd.cmd, {"i"s, "image"s})) {
 				out << "!image " << params(cmd.param) << std::endl;
-			} else if (cmd.cmd == "I"s || cmd.cmd == "embed"s) {
+			} else if (oneof(cmd.cmd, {"I"s, "embed"s})) {
 				out << "!embed " << params(cmd.param) << std::endl;
-			} else if (cmd.cmd == "e"s || cmd.cmd == "video"s) {
+			} else if (oneof(cmd.cmd, {"e"s, "video"s})) {
 				out << "!video " << params(cmd.param) << std::endl;
 			} else if (cmd.cmd == "qstop"s) {
 				if (!stpt) {
 					stpt = true;
 					out << "!qstop" << std::endl;
 				}
-			} else if (cmd.cmd == "f"s || cmd.cmd == "one"s) {
+			} else if (oneof(cmd.cmd, {"f"s, "one"s})) {
 				ff = cmd.param;
 				inq = true;
 				if (ftxt && !stpt) {
@@ -627,7 +637,7 @@ int main(int argc, char* argv[])
 		nm = nm.substr(5);
 		if (verbose)
 			std::cout << nm << std::endl;
-		
+
 		auto ofn = de.path() / "styr_old.txt"s;
 		auto nfn = de.path() / "styr.txt"s;
 
@@ -635,7 +645,7 @@ int main(int argc, char* argv[])
 			std::cout << "error: 'styr.txt' missing"s << std::endl;
 			continue;
 		}
-		
+
 		std::ifstream ifs;
 
 		if (nomod) {
@@ -647,7 +657,7 @@ int main(int argc, char* argv[])
 			fs::copy(nfn, ofn);
 			ifs.open(ofn);
 		}
-		
+
 		StrVec want_files = { "index.php"s, "local.css"s, "styr.txt"s, "styrkant.txt"s };
 		auto ini = readin(ifs);
 		ifs.close();
