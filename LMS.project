@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="LMS" Version="11000" InternalType="">
   <VirtualDirectory Name="LMS">
+    <VirtualDirectory Name="survey">
+      <File Name="src/survey/survey.php"/>
+      <File Name="src/survey/index.html"/>
+    </VirtualDirectory>
+    <File Name="src/coach/index.html"/>
     <File Name="src/common/main.css.php"/>
     <File Name="debug.php"/>
     <File Name="db.txt"/>
