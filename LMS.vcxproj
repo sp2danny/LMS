@@ -50,6 +50,8 @@
     <None Include="src\common\tq_post.php" />
     <None Include="src\debug.php" />
     <None Include="src\index.html" />
+    <None Include="src\survey\index.html" />
+    <None Include="src\survey\survey.php" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="db.txt" />

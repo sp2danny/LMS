@@ -3,12 +3,21 @@
 <!DOCTYPE html>
 
 <html>
-	<head>  
+	<head>
 
 		<title> Kund Undersökning </title>
 
 		<link rel="stylesheet" href="../site/common/main-v03.css" />
 		<link rel="icon" href="../site/common/favicon.ico" />
+
+		<script>
+
+			function on_update()
+			{
+			}
+
+		</script>
+
 	</head>
 
 	<body>
@@ -21,6 +30,8 @@
 				<canvas>
 				din browser st&ouml;der inte canvas
 				</canvas>
+
+				<img src="tratt.png" />
 				
 			</div>
 		</div>
