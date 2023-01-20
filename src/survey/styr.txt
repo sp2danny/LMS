@@ -1,0 +1,4 @@
+
+
+[register]
+greeting = Hej och välkommen

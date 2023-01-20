@@ -2,6 +2,11 @@
 <CodeLite_Project Name="LMS" Version="11000" InternalType="">
   <VirtualDirectory Name="LMS">
     <VirtualDirectory Name="survey">
+      <File Name="src/survey/styr.txt"/>
+      <File Name="src/survey/common.php"/>
+      <File Name="src/survey/result.php"/>
+      <File Name="src/survey/register.php"/>
+      <File Name="src/survey/querys.php"/>
       <File Name="src/survey/survey.php"/>
       <File Name="src/survey/index.html"/>
     </VirtualDirectory>
