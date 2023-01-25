@@ -1,11 +1,30 @@
 
+<?php
+
+include "common.php";
+include "connect.php";
+
+
+$name    = getparam('name');
+$email   = getparam('email');
+$phone   = getparam('phone');
+
+$query  = "INSERT INTO lead (name, email, phone)";
+$query .= "VALUES ('" . $name . "', '" . $email . "', '" . $phone . "')";
+
+$result = mysqli_query($emperator, $query);
+
+$last_id = mysqli_insert_id($emperator);
+
+
+?> 
 
 <!DOCTYPE html>
 
 <html>
 	<head>
 
-		<title> Kund Undersökning </title>
+		<title> Kund Undersökning <?php echo $last_id; ?> </title>
 
 		<link rel="stylesheet" href="../site/common/main-v03.css" />
 		<link rel="icon" href="../site/common/favicon.ico" />
@@ -52,9 +71,18 @@
 				din browser st&ouml;der inte canvas
 				</canvas>
 				<br />
+				
+				<form action="querys.php" >
+				
+					<input type="hidden" id="lid" name="lid" value= <?php echo '"' . $last_id . '"'; ?> />
 
-				<input type="range" id="stress" name="stress" min="0" max="100" onchange="on_update()" >
-				<label id="num" for="stress"> Stress </label>
+					<input type="range" id="stress" name="stress" min="0" max="100" onchange="on_update()" />
+					<label id="num" for="stress"> Stress </label>
+					<br />
+					
+					<input type="submit" value="Skicka" />
+					
+				</form>
 
 				<br /> <br /> <br />
 				

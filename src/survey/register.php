@@ -4,7 +4,7 @@
 
 include "common.php";
 
-?> 
+?>
 
 
 
@@ -38,7 +38,7 @@ include "common.php";
 
 				?>
 				<br /> <br />
-				<form>
+				<form action="survey.php">
 
 					<input type="text" id="name" name="name" /> <br />
 					<label for="name"> Namn </label> <br /> <br />
@@ -48,6 +48,8 @@ include "common.php";
 
 					<input type="text" id="phone" name="phone" /> <br />
 					<label for="phone"> Telefon </label> <br /> <br />
+					
+					<input type="submit" value="Klar" />
 
 				</form>
 
