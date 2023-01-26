@@ -4,16 +4,16 @@
 
 include "common.php";
 
+$styr = LoadIni("styr.txt");
+
 ?>
-
-
 
 <!DOCTYPE html>
 
 <html>
 	<head>
 
-		<title> Kund Undersökning </title>
+		<title> <?php echo $styr["common"]["title"]; ?> </title>
 
 		<link rel="stylesheet" href="../site/common/main-v03.css" />
 		<link rel="icon" href="../site/common/favicon.ico" />
@@ -33,7 +33,6 @@ include "common.php";
 
 				<?php
 
-					$styr = LoadIni("styr.txt");
 					echo $styr["register"]["greeting"];
 
 				?>

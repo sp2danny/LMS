@@ -26,7 +26,7 @@ $last_id = mysqli_insert_id($emperator);
 
 		<title> Kund Undersökning <?php echo $last_id; ?> </title>
 
-		<link rel="stylesheet" href="../site/common/main-v03.css" />
+		<link rel="stylesheet" href="../site/common/main.css.php" />
 		<link rel="icon" href="../site/common/favicon.ico" />
 
 		<script>

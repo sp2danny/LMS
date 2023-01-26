@@ -1,4 +1,50 @@
 
+[common]
+title = Kundundersökning
 
 [register]
 greeting = Hej och välkommen
+
+[querys]
+
+instructions = Självskattning Stresstratten. Ange värde mellan 0-100. Där 0 är stämmer inte alls och 100 är stämmer precis. Använd maximalt 10 sekunder på varje fråga.
+
+num = 8
+kat = 3
+
+kat.1.name = kategori 1
+kat.2.name = kategori 2
+kat.3.name = kategori 3
+
+query.1.text = fråga 1
+query.1.kat = 1
+query.1.weight = 1.2
+
+query.2.text = fråga 2
+query.2.kat = 1
+query.2.weight = 1.2
+
+query.3.text = fråga 3
+query.3.kat = 1
+query.3.weight = 1.2
+
+query.4.text = fråga 4
+query.4.kat = 2
+query.4.weight = 1.2
+
+query.5.text = fråga 5
+query.5.kat = 2
+query.5.weight = 1.2
+
+query.6.text = fråga 6
+query.6.kat = 3
+query.6.weight = 1.2
+
+query.7.text = fråga 7
+query.7.kat = 3
+query.7.weight = 1.2
+
+query.8.text = fråga 8
+query.8.kat = 3
+query.8.weight = 1.2
+
