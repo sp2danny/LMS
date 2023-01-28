@@ -47,6 +47,6 @@ typer
 	==========  ===========  ===========  ===========  ===========
 	cp_sett     9            graph                     source
 	notes       20           num                       text
-	lead        30           num
+	lead        30-40        num
 
 

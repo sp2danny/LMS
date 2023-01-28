@@ -37,7 +37,7 @@ $styr = LoadIni("styr.txt");
 
 				?>
 				<br /> <br />
-				<form action="survey.php">
+				<form action="lead_reg.php">
 
 					<input type="text" id="name" name="name" /> <br />
 					<label for="name"> Namn </label> <br /> <br />

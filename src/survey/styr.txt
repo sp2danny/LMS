@@ -48,3 +48,15 @@ query.8.text = fråga 8
 query.8.kat = 3
 query.8.weight = 1.2
 
+[result]
+num = 3;
+
+limit.1.value = 0
+limit.1.text = utfall ett
+
+limit.2.value = 60
+limit.2.text = utfall två
+
+limit.3.value = 80
+limit.3.text = utfall tre
+
