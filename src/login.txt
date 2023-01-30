@@ -1,9 +1,10 @@
 
 !logo
-!login "Personnummer:"
+!login "Personnummer:"; "Lösenord:"
+!br 2
 !start "Starta"
 
 !newlink "Ny användare: Registrera dig här"
 !motd
 
-!image "trappa.png"
+

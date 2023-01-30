@@ -130,6 +130,10 @@ function all()
 
 	$alldata = roundup($pnr, $pid, $name);
 	$atnum = 0;
+	
+	//$flav = getparam('flav');
+	//if ($flav != "")
+	//	echo "<code> " . $flav . " </code> <br /> " . $eol;
 
 	foreach ($alldata as $block) {
 		echo '<button type="button" class="collapsible"> ' /* . $block->battNum */ . ' &nbsp; ';

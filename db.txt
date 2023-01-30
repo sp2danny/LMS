@@ -3,6 +3,7 @@ pers
 	pers_id   int ai key
 	date      datetime auto
 	name      string
+	pwd       string
 	pnr       string unique
 	grupp     string (8)
 
