@@ -17,7 +17,7 @@ $styr = LoadIni("styr.txt");
 <html>
 	<head>
 
-		<title> Kund Undersökning <?php echo $last_id; ?> </title>
+		<title> <?php echo $styr['common']['title']; ?> </title>
 
 		<link rel="stylesheet" href="./main-v03.css" />
 		<link rel="icon" href="../site/common/favicon.ico" />

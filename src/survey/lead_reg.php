@@ -25,7 +25,7 @@ $last_id = mysqli_insert_id($emperator);
 	<head>
 		<?php
 		echo '<meta http-equiv = "refresh" content = ';
-		echo '"' . "0; URL='tratten.php?lid=" . $last_id . "'" . '"' . " />" . "\n";
+		echo '"' . "0; URL='intro.php?lid=" . $last_id . "'" . '"' . " />" . "\n";
 		?>
 	</head>
 

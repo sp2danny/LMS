@@ -51,6 +51,8 @@ $eol = "\n";
         <table>
           <?php
             $num = $styr["querys"]["num"];
+			$qn = $styr["querys"]["not"];
+			$qf = $styr["querys"]["full"];
             for ($i = 1; $i <= $num; ++$i) {
               $qq = 'q' . $i;
               $rsc = "'range_slider_change(" . $i . ")'";
@@ -60,6 +62,9 @@ $eol = "\n";
               echo "              " . $styr["querys"]["query." . $i . ".text"] . $eol;
               echo "            </label>" . $eol;
               echo "          </td>" . $eol;
+              echo "          <td width='125px' >" . $eol;
+              echo "            $qn" . $eol;
+              echo "          </td>" . $eol;
               echo "          <td width='475px' >" . $eol;
               echo "            <div  class='range' style='--step:10; --min:0; --max:100'  >" . $eol;
               echo "              <input type='range' class='inputslider' oninput=".$rsc." onchange=".$rsc." min=0 max=100 step=1 id='".$qq."' name='".$qq."' value='0' /> " . $eol;
@@ -68,6 +73,9 @@ $eol = "\n";
               echo "          <td width='125px' > " . $eol;
               echo "             <div id='l" . $i . "' > </div> " . $eol;
               echo "          </td> " . $eol;
+              echo "          <td width='125px' >" . $eol;
+              echo "            $qf" . $eol;
+              echo "          </td>" . $eol;			  
               echo "        </tr> " . $eol;
             }
           ?>

@@ -5,6 +5,10 @@ title = Kundundersökning
 [register]
 greeting = Hej och välkommen
 
+[intro]
+text = Intro Text
+button = Nästa
+
 [querys]
 
 instructions = Självskattning Stresstratten. Ange värde mellan 0-100. Där 0 är stämmer inte alls och 100 är stämmer precis. Använd maximalt 10 sekunder på varje fråga.
