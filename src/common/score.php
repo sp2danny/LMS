@@ -94,12 +94,19 @@ EOT;
 		}
 	}
 
+	$dbgt = "";
+
 	$qnum = count($data->corr);
 	for ($i=1; $i<=$qnum; ++$i)
 	{
-		if ( getparam('q' . $i) == ($data->corr[$i]+1) )
+		$cr = getparam('q' . $i) == ($data->corr[$i]+1);
+		$dbgt .= "q ". $i . " : " . ($cr?"ok":"fel") . " <br> \n";
+		if ($cr)
 			++$totscore;
 	}
+
+	if (getparam('debug')=='true')
+		echo $dbgt;
 
 	$ok = ($totscore == $qnum);
 
