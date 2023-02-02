@@ -72,7 +72,7 @@ $styr = LoadIni("styr.txt");
 					<?php
 					echo '<input type="range" id="stress" name="stress" min="0" max="100" value="';
 					echo $val;
-					echo ' onchange="on_update()" />' . "\n";
+					echo '" onchange="on_update()" />' . "\n";
 					?>
 					<label id="num" for="stress"> Stress </label>
 					<br />

@@ -1,24 +1,48 @@
 
 [common]
-title = Kundundersökning
+title = Hur påverkad är du av negativ stress. Testa här NU. Sedan: Nå din maximala potential 
 
 [register]
-greeting = Hej och välkommen
+greeting = Välkommen. Bli en vinnare
 
 [intro]
 text = Intro Text
 button = Nästa
 
+
 [querys]
 
 instructions = Självskattning Stresstratten. Ange värde mellan 0-100. Där 0 är stämmer inte alls och 100 är stämmer precis. Använd maximalt 10 sekunder på varje fråga.
 
-num = 8
-kat = 3
+num = 15
+kat = 5
 
-kat.1.name = kategori 1
-kat.2.name = kategori 2
-kat.3.name = kategori 3
+# Ekonomi
+# Tid
+# Arbete
+# Familj
+# Vånner
+# Hälsa
+# Omvärld
+# Kasam
+# Bostad
+# Egen person
+
+not = Stämmer inte alls
+full = Stämmer helt och hållet
+
+kat.1.name = Ekonomi och tid
+kat.2.name = Hälsa och egen person
+kat.3.name = Arbete och kasam
+kat.4.name = familj och vänner
+kat.5.name = Omvärld
+
+kat.1.color = ffee33
+kat.2.color = 335577
+kat.3.color = ff00ff
+kat.4.color = 00ff00
+kat.5.color = 112233
+
 
 query.1.text = fråga 1
 query.1.kat = 1
@@ -36,12 +60,12 @@ query.4.text = fråga 4
 query.4.kat = 2
 query.4.weight = 1.2
 
-query.5.text = fråga 5
+query.5.text = fråga 5 en långfråga en långfråga en långfråga en långfråga en långfråga en långfråga en långfråga en långfråga en långfråga
 query.5.kat = 2
 query.5.weight = 1.2
 
 query.6.text = fråga 6
-query.6.kat = 3
+query.6.kat = 2
 query.6.weight = 1.2
 
 query.7.text = fråga 7
@@ -52,15 +76,49 @@ query.8.text = fråga 8
 query.8.kat = 3
 query.8.weight = 1.2
 
+query.9.text = fråga 9
+query.9.kat = 3
+query.9.weight = 1.2
+
+query.10.text = fråga 10
+query.10.kat = 4
+query.10.weight = 1.2
+
+query.11.text = fråga 11
+query.11.kat = 4
+query.11.weight = 1.2
+
+query.12.text = fråga 12
+query.12.kat = 4
+query.12.weight = 1.2
+
+query.13.text = fråga 13
+query.13.kat = 5
+query.13.weight = 1.2
+
+query.14.text = fråga 14
+query.14.kat = 5
+query.14.weight = 1.2
+
+query.15.text = fråga 15
+query.15.kat = 5
+query.15.weight = 1.2
+
+[summary]
+text = <h1> här är en sammanställning <br> av ditt resultat </h1>
+button = Gå Vidare
+
+
 [result]
+
 num = 3;
 
 limit.1.value = 0
-limit.1.text = utfall ett
+limit.1.text = utfall ett <br> erbjudande <br> hej då
 
 limit.2.value = 60
-limit.2.text = utfall två
+limit.2.text = utfall två <br> erbjudande <br> hej då
 
 limit.3.value = 80
-limit.3.text = utfall tre
+limit.3.text = utfall tre <br> erbjudande <br> hej då
 
