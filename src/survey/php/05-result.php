@@ -21,18 +21,50 @@ $styr = LoadIni("../styr.txt");
 
 		<link rel="stylesheet" href="../main-v03.css" />
 		<link rel="icon" href="../../site/common/favicon.ico" />
+		
+		<?php
+			$kn = $styr['querys']['kat'];
+			
+			$kv = [];
+			$km = [];
+
+			for ($i = 1; $i <= $kn; ++$i)
+			{
+				$kv[$i] = 0;
+				$km[$i] = 0;
+			}
+
+			$nn = $styr['querys']['num'];
+
+			for ($i = 1; $i <= $nn; ++$i)
+			{
+				$v = getparam('q' . $i);
+
+				$k = $styr['querys']['query.' . $i . '.kat'];
+				$w = $styr['querys']['query.' . $i . '.weight'];
+
+				$kv[$k] += $w * $v;
+				$km[$k] += $w * 100;
+				
+			}
+
+			$max = 0;
+			for ($i = 1; $i <= $kn; ++$i)
+			{
+				$val = 100.0 * $kv[$i] / $km[$i];
+				if ($val > $max)
+					$max = $val;
+			}
+		?>
+		
 
 		<script>
 
 			function on_update()
 			{
-				var sld = document.getElementById('stress');
-				var val = parseInt(sld.value);
 				
-				var num = document.getElementById('num');
-				num.innerHTML = " &nbsp; " + sld.value + " &nbsp; ";
-				
-				
+				var val = <?php echo $max; ?> ;
+
 				var cnv = document.getElementById('myCanvas');
 				var ctx = cnv.getContext("2d");
 
@@ -61,42 +93,14 @@ $styr = LoadIni("../styr.txt");
 				<br /> <br />
 				
 				<?php
-				
-					$kn = $styr['querys']['kat'];
-					
-					$kv = [];
-					$km = [];
 
-					for ($i = 1; $i <= $kn; ++$i)
-					{
-						$kv[$i] = 0;
-						$km[$i] = 0;
-					}
-
-					$nn = $styr['querys']['num'];
-					
 					echo $styr['summary']['text'];
 
-					for ($i = 1; $i <= $nn; ++$i)
-					{
-						$v = getparam('q' . $i);
-
-						$k = $styr['querys']['query.' . $i . '.kat'];
-						$w = $styr['querys']['query.' . $i . '.weight'];
-
-						$kv[$k] += $w * $v;
-						$km[$k] += $w * 100;
-						
-					}
-
 					echo "<table>";
-					$max = 0;
 					for ($i = 1; $i <= $kn; ++$i)
 					{
 						echo "<tr>";
 						$val = 100.0 * $kv[$i] / $km[$i];
-						if ($val > $max)
-							$max = $val;
 						echo "<td>";
 						echo $styr['querys']["kat.$i.name"];
 						echo "</td><td>";
@@ -112,31 +116,18 @@ $styr = LoadIni("../styr.txt");
 				din browser st&ouml;der inte canvas
 				</canvas>
 				<br />
-				
-				<form action="none.php" >
-				
-					<input type="hidden" id="lid" name="lid" value= <?php echo '"' . $lid . '"'; ?> />
 
-					<?php
-						echo '<input type="range" id="stress" name="stress" min="0" max="100" value="';
-						echo $max;
-						echo '" onchange="on_update()" />' . "\n";
-					?>
-					<label id="num" for="stress"> Stress </label>
-					<br />
-					
-					<?php
-						$text = "";
-						$n = $styr['result']['num'];
-						for ($i=1; $i<=$n; ++$i) {
-							if ($val >= $styr['result']["limit.$i.value"])
-								$text = $styr['result']["limit.$i.text"];
-						}
-						echo $text;
-					?>
-					
-					
-				</form>
+				<br />
+				
+				<?php
+					$text = "";
+					$n = $styr['result']['num'];
+					for ($i=1; $i<=$n; ++$i) {
+						if ($max >= $styr['result']["limit.$i.value"])
+							$text = $styr['result']["limit.$i.text"];
+					}
+					echo $text;
+				?>
 
 				<br /> <br /> <br />
 				
