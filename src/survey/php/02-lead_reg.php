@@ -1,8 +1,8 @@
 
 <?php
 
-include "common.php";
-include "connect.php";
+include "00-common.php";
+include "00-connect.php";
 
 $name    = getparam('name');
 $email   = getparam('email');
@@ -25,7 +25,7 @@ $last_id = mysqli_insert_id($emperator);
 	<head>
 		<?php
 		echo '<meta http-equiv = "refresh" content = ';
-		echo '"' . "0; URL='intro.php?lid=" . $last_id . "'" . '"' . " />" . "\n";
+		echo '"' . "0; URL='03-intro.php?lid=" . $last_id . "'" . '"' . " />" . "\n";
 		?>
 	</head>
 

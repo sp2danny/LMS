@@ -2,10 +2,10 @@
 
 <?php
 
-include "common.php";
-include "connect.php";
+include "00-common.php";
+include "00-connect.php";
 
-$styr = LoadIni("styr.txt");
+$styr = LoadIni("../styr.txt");
 
 $eol = "\n";
 
@@ -19,8 +19,8 @@ $eol = "\n";
 
   <title> <?php echo $styr["common"]["title"]; ?> </title>
 
-  <link rel="stylesheet" href="./main-v03.css" />
-  <link rel="icon" href="../site/common/favicon.ico" />
+  <link rel="stylesheet" href="../main-v03.css" />
+  <link rel="icon" href="../../site/common/favicon.ico" />
 
   <script>
 
@@ -40,13 +40,13 @@ $eol = "\n";
 <body>
   <div>
     <br /> 
-    <img width=50% src=" ../site/common/logo.png" /> <br />
+    <img width=50% src="../../site/common/logo.png" /> <br />
     <br /> <br /> 
     <?php echo $styr["querys"]["instructions"]; ?>
     <br /> <br /> 
     <br><hr>
     <div>
-      <form id='gap' action='tratt_post.php' >
+      <form id='gap' action='05-result.php' >
         <?php echo "<input type='hidden' id='lid' name='lid' value='" . getparam('lid') . "' />" . $eol; ?>
         <table>
           <?php

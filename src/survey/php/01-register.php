@@ -2,9 +2,9 @@
 
 <?php
 
-include "common.php";
+include "00-common.php";
 
-$styr = LoadIni("styr.txt");
+$styr = LoadIni("../styr.txt");
 
 ?>
 
@@ -15,8 +15,8 @@ $styr = LoadIni("styr.txt");
 
 		<title> <?php echo $styr["common"]["title"]; ?> </title>
 
-		<link rel="stylesheet" href="../site/common/main-v03.css" />
-		<link rel="icon" href="../site/common/favicon.ico" />
+		<link rel="stylesheet" href="../../site/common/main-v03.css" />
+		<link rel="icon" href="../../site/common/favicon.ico" />
 
 		<script>
 
@@ -27,7 +27,7 @@ $styr = LoadIni("styr.txt");
 	<body>
 		<div>
 			<br /> 
-			<img width=50%  src="../site/common/logo.png" /> <br />
+			<img width=50%  src="../../site/common/logo.png" /> <br />
 			<div>
 				<br /> <br />
 
@@ -37,7 +37,7 @@ $styr = LoadIni("styr.txt");
 
 				?>
 				<br /> <br />
-				<form action="lead_reg.php">
+				<form action="02-lead_reg.php">
 
 					<input type="text" id="name" name="name" /> <br />
 					<label for="name"> Namn </label> <br /> <br />
