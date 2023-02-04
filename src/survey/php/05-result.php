@@ -64,19 +64,27 @@ $styr = LoadIni("../styr.txt");
 			{
 				
 				var val = <?php echo $max; ?> ;
+				
+				var img = document.getElementById("tratt");
+
 
 				var cnv = document.getElementById('myCanvas');
 				var ctx = cnv.getContext("2d");
+				
+				var w = img.naturalWidth;
+				var h = img.naturalHeight;
+				
+				cnv.width = w;
+				cnv.height = h;
 
-				var img = document.getElementById("tratt");
 				ctx.drawImage(img, 0, 0);
 
-				var x = 180;
-				var y = 50 + val * 2.3;
+				var x = w / 2;
+				var y = h * (0.1 + val * 0.008);
 
 				ctx.beginPath();
 				ctx.fillStyle = "#000000";
-				ctx.arc(x, y, 7, 0, 2 * Math.PI);
+				ctx.arc(x, y, 11, 0, 2 * Math.PI);
 				ctx.fill();
 
 			}
@@ -112,13 +120,13 @@ $styr = LoadIni("../styr.txt");
 				
 				<br><hr><br>
 				
-				<canvas id="myCanvas" width="300" height="400" >
+				<canvas id="myCanvas" >
 				din browser st&ouml;der inte canvas
 				</canvas>
 				<br />
 
 				<br />
-				
+
 				<?php
 					$text = "";
 					$n = $styr['result']['num'];
@@ -132,7 +140,7 @@ $styr = LoadIni("../styr.txt");
 				<br /> <br /> <br />
 				
 				<div style="display:none" >
-					<img id="tratt" src="../tratt.png" onload="on_update()" />
+					<img id="tratt" src="../tratt-2.png" onload="on_update()" />
 				</div>
 			</div>
 		</div>
