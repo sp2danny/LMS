@@ -1,20 +1,21 @@
 
 [common]
-title = Hur påverkad är du av negativ stress. Testa här NU. Sedan: Nå din maximala potential 
+title = Testa här NU. Nå din maximala potential 
 
 [register]
-greeting = Välkommen. Bli en vinnare
+greeting = Välkommen till utbildningen som gör dig till en vinnare. <br> 1:a steget är att mäta hur påverkad du är av negativ stress. Kan du nå din maximala potential? <br><br> * Var i stresstratten ligger du? <br> * Har du tillgång till ditt fulla intellekt? <br> * Kan du nå din maximala potential och bli en vinnare?<br> <br>Registrera dig och börja den kostnadsfria mätningen nu!
 
 [intro]
-text = Intro Text
-button = Nästa
+text = <b>Välkommen till utbildningen som gör dig till vinnare.</b><br><br> I första steget skapar du en egen insikt i hur du och din hjärna är hårdkodade sedan 300 000 år. Du får förståelse för hur omgivningen runt dig, din hjärnas belöningssystem och stressen begränsar dig. Du lär dig sedan förstå dina dolda drivkrafter och hur du kan använda dessa till att skapa en långsiktigt hållbar motivation för dig själv. <br><br> "Kan du leda dig själv, kan du leda andra."<br><br> I nästa steg formar du ditt bästa jag och gör dig själv till en vinnare. Du skapar nya vanor som maximerar din egen personliga potential och når balans och långsiktig hållbarhet i förändringen.<br><br> I tredje steget lär du dig att grunderna för att maximalt verka i ett vinnande TEAM. Med utbildningen får du sedan verktygen att skapa egna elitteam. Under hela utbildningen mäts dina framsteg med vår Pulsgenerator. "Det som mäts blir gjort."<br><br> Efter detta når du insikten och får kunskapen att utvecklas till att nå din mentala toppform och dina sanna mål.<br><br><b> Genomför NU din egen persopnliga mätning: Hur påverkad är du av negativ stress? </b> <br><br> <img width="70%" src='../tratt.jpg'> <br><br> * Var i stresstratten ligger du? <br> * Har du tillgång till ditt fulla intellekt? <br> * Kan du nå din maximala potential och bli en vinnare?
+
+button = Starta mätningen
 
 
 [querys]
 
-instructions = Självskattning Stresstratten. Ange värde mellan 0-100. Där 0 är stämmer inte alls och 100 är stämmer precis. Använd maximalt 10 sekunder på varje fråga.
+instructions = Självskattning: Hur påverkad är du av negativ stress? <br> Ange värde mellan 0-100. Där 0 är stämmer inte alls och 100 är stämmer precis. Använd maximalt 10 sekunder på varje fråga.
 
-num = 15
+num = 10
 kat = 5
 
 # Ekonomi
@@ -29,12 +30,12 @@ kat = 5
 # Egen person
 
 not = Stämmer inte alls
-full = Stämmer helt och hållet
+full = Stämmer precis
 
 kat.1.name = Ekonomi och tid
 kat.2.name = Hälsa och egen person
 kat.3.name = Arbete och kasam
-kat.4.name = familj och vänner
+kat.4.name = Familj och vänner
 kat.5.name = Omvärld
 
 kat.1.color = ffee33
@@ -44,81 +45,71 @@ kat.4.color = 00ff00
 kat.5.color = 112233
 
 
-query.1.text = fråga 1
+query.1.text = 1. Jag känner ofta att tiden inte räcker till
 query.1.kat = 1
 query.1.weight = 1.2
 
-query.2.text = fråga 2
+query.2.text = 2. Jag oroar mig för kostnadsutvecklingen och att min ekonomi inte räcker till 
 query.2.kat = 1
 query.2.weight = 1.2
 
-query.3.text = fråga 3
-query.3.kat = 1
+query.3.text = 3. Jag känner mig ofta stressad
+query.3.kat = 2
 query.3.weight = 1.2
 
-query.4.text = fråga 4
+query.4.text = 4. Jag har sällan tid att bara vara för mig själv
 query.4.kat = 2
 query.4.weight = 1.2
 
-query.5.text = fråga 5 en långfråga en långfråga en långfråga en långfråga en långfråga en långfråga en långfråga en långfråga en långfråga
-query.5.kat = 2
+query.5.text = 5. Jag kan sällan påverka min situation i arbetet
+query.5.kat = 3
 query.5.weight = 1.2
 
-query.6.text = fråga 6
-query.6.kat = 2
+query.6.text = 6. Jag saknar ofta meningsfulla arbetsuppgifter på jobbet
+query.6.kat = 3
 query.6.weight = 1.2
 
-query.7.text = fråga 7
-query.7.kat = 3
+query.7.text = 7. Jag orkar inte hålla igång mitt sociala nätverk
+query.7.kat = 4
 query.7.weight = 1.2
 
-query.8.text = fråga 8
-query.8.kat = 3
+query.8.text = 8. Jag hinner inte träffa familj och släkt så ofta jag som jag önskar
+query.8.kat = 4
 query.8.weight = 1.2
 
-query.9.text = fråga 9
-query.9.kat = 3
+query.9.text = 9. Jag oroar mig ofta för världsutvecklingen
+query.9.kat = 5
 query.9.weight = 1.2
 
-query.10.text = fråga 10
-query.10.kat = 4
+query.10.text = 10. Jag oroas av nyhetsrapporteringen
+query.10.kat = 5
 query.10.weight = 1.2
 
-query.11.text = fråga 11
-query.11.kat = 4
-query.11.weight = 1.2
-
-query.12.text = fråga 12
-query.12.kat = 4
-query.12.weight = 1.2
-
-query.13.text = fråga 13
-query.13.kat = 5
-query.13.weight = 1.2
-
-query.14.text = fråga 14
-query.14.kat = 5
-query.14.weight = 1.2
-
-query.15.text = fråga 15
-query.15.kat = 5
-query.15.weight = 1.2
 
 [summary]
-text = <h1> här är en sammanställning <br> av ditt resultat </h1>
+
+text = <h1> Dina resultat </h1>
 button = Gå Vidare
 
 
 [result]
 
+img=tratt-4.png
+
 num = 3;
 
-limit.1.value = 0
+limit.1.value = 20
 limit.1.text = utfall ett <br> erbjudande <br> hej då
 
-limit.2.value = 60
+limit.2.value = 40
 limit.2.text = utfall två <br> erbjudande <br> hej då
 
-limit.3.value = 80
+limit.3.value = 60
 limit.3.text = utfall tre <br> erbjudande <br> hej då
+
+limit.4.value = 75
+limit.4.text = utfall tre <br> erbjudande <br> hej då
+
+limit.5.value = 80
+limit.6.text = utfall tre <br> erbjudande <br> hej då
 

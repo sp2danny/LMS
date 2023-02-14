@@ -48,12 +48,18 @@ $styr = LoadIni("../styr.txt");
 				
 			}
 
+			$max_name = "";
+					
 			$max = 0;
+			$kp = [];
 			for ($i = 1; $i <= $kn; ++$i)
 			{
 				$val = 100.0 * $kv[$i] / $km[$i];
-				if ($val > $max)
+				$kp[$i] = $val;
+				if ($val > $max) {
 					$max = $val;
+					$max_name = $styr['querys']["kat.$i.name"];
+				}
 			}
 		?>
 		
@@ -67,7 +73,6 @@ $styr = LoadIni("../styr.txt");
 				
 				var img = document.getElementById("tratt");
 
-
 				var cnv = document.getElementById('myCanvas');
 				var ctx = cnv.getContext("2d");
 				
@@ -78,14 +83,25 @@ $styr = LoadIni("../styr.txt");
 				cnv.height = h;
 
 				ctx.drawImage(img, 0, 0);
+				
+				var x,y;
 
-				var x = w / 2;
-				var y = h * (0.1 + val * 0.008);
-
-				ctx.beginPath();
-				ctx.fillStyle = "#000000";
-				ctx.arc(x, y, 11, 0, 2 * Math.PI);
-				ctx.fill();
+				<?php
+				
+					for ($i = 1; $i <= $kn; ++$i)
+					{
+						$p = $kp[$i];
+						$c = "'#" . $styr['querys']['kat.' . $i . '.color'] . "'";
+						
+						echo "				x = w / 2 - w * ($kn-1) / 50 + w * $i / 25; \n";
+						echo "				y = h * (0.1 + $p * 0.008); \n";
+						echo "				ctx.beginPath(); \n";
+						echo "				ctx.fillStyle = $c ; \n";
+						echo "				ctx.arc(x, y, 11, 0, 2 * Math.PI); \n";
+						echo "				ctx.fill(); \n";
+					}
+				
+				?>
 
 			}
 
@@ -109,6 +125,8 @@ $styr = LoadIni("../styr.txt");
 					{
 						echo "<tr>";
 						$val = 100.0 * $kv[$i] / $km[$i];
+						$c = "#" . $styr['querys']['kat.' . $i . '.color'] . "";
+						echo "<td> <font color='$c'> " . "⬤" . " </font> </td>\n";
 						echo "<td>";
 						echo $styr['querys']["kat.$i.name"];
 						echo "</td><td>";
@@ -128,19 +146,23 @@ $styr = LoadIni("../styr.txt");
 				<br />
 
 				<?php
+					echo "Det som stressar dig mest är " . $max_name . " <br>\n";
 					$text = "";
 					$n = $styr['result']['num'];
 					for ($i=1; $i<=$n; ++$i) {
-						if ($max >= $styr['result']["limit.$i.value"])
+						$v = $styr['result']["limit.$i.value"];
+						if ($max >= $v) {
 							$text = $styr['result']["limit.$i.text"];
+						}
 					}
 					echo $text;
+					$img = $styr['result']['img'];
 				?>
 
 				<br /> <br /> <br />
 				
 				<div style="display:none" >
-					<img id="tratt" src="../tratt-2.png" onload="on_update()" />
+					<?php echo "<img id='tratt' src='../$img' onload='on_update()' /> \n"; ?>
 				</div>
 			</div>
 		</div>
