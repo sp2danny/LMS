@@ -39,9 +39,16 @@ $styr = LoadIni("../styr.txt");
 			for ($i = 1; $i <= $nn; ++$i)
 			{
 				$v = getparam('q' . $i);
+				
+				$a = $styr['querys'];
+				$q = "query.$i.reverse";
+				
+				if (array_key_exists($q, $a))
+					if ($a[$q]=='true')
+						$v = 100-$v;
 
-				$k = $styr['querys']['query.' . $i . '.kat'];
-				$w = $styr['querys']['query.' . $i . '.weight'];
+				$k = $styr['querys']["query.$i.kat"];
+				$w = $styr['querys']["query.$i.weight"];
 
 				$kv[$k] += $w * $v;
 				$km[$k] += $w * 100;
