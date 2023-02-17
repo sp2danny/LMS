@@ -88,13 +88,33 @@ $styr = LoadIni("../styr.txt");
 
 				<?php
 				
+					$dbg = "";
+				
 					for ($i = 1; $i <= $kn; ++$i)
 					{
 						$p = $kp[$i];
-						$c = "'#" . $styr['querys']['kat.' . $i . '.color'] . "'";
+						$c = "'#" . $styr['querys']["kat.$i.color"] . "'";
+						
+						$rn = $styr['result']['num'];
+						$lim = 1;
+						$lo = $up = 0;
+						while (true)
+						{
+							if ($lim == $rn) break;
+							$lo = $up;
+							$up = $styr['result']["limit.$lim.value"];
+							if ($p<=$up) break;
+							++$lim;
+						}
+						$pp = ($p-$lo) / ($up-$lo);
+						$y1 = $styr['result']["limit.$lim.top"];
+						$y2 = $styr['result']["limit.$lim.bot"];
+						$y = $y1 + $pp*($y2-$y1);
+						
+						$dbg .= "kat $i (" . $styr['querys']["kat.$i.name"] . ") at $p % (lim $lim) mapped at $y <br>\n";
 						
 						echo "				x = w / 2 - w * ($kn-1) / 50 + w * $i / 25; \n";
-						echo "				y = h * (0.1 + $p * 0.008); \n";
+						echo "				y = $y; \n";
 						echo "				ctx.beginPath(); \n";
 						echo "				ctx.fillStyle = $c ; \n";
 						echo "				ctx.arc(x, y, 11, 0, 2 * Math.PI); \n";
@@ -149,14 +169,20 @@ $styr = LoadIni("../styr.txt");
 					echo "Det som stressar dig mest är " . $max_name . " <br>\n";
 					$text = "";
 					$n = $styr['result']['num'];
-					for ($i=1; $i<=$n; ++$i) {
+					$i = 1;
+					for (; $i<$n; ++$i) {
 						$v = $styr['result']["limit.$i.value"];
-						if ($max >= $v) {
-							$text = $styr['result']["limit.$i.text"];
-						}
+						if ($max < $v) break;
 					}
+					$text = $styr['result']["limit.$i.text"];
+
 					echo $text;
 					$img = $styr['result']['img'];
+					$lnk_t = $styr['result']["limit.$i.link.text"];
+					$lnk_u = $styr['result']["limit.$i.link.url"];
+					
+					echo "<br> <a href='$lnk_u'> <button> $lnk_t </button> </a> <br> \n";
+
 				?>
 
 				<br /> <br /> <br />
@@ -166,6 +192,12 @@ $styr = LoadIni("../styr.txt");
 				</div>
 			</div>
 		</div>
+		<?php
+			if (getparam('debug')=='true') {
+				echo "<div> " . $dbg . "</div>";
+			}
+		
+		?>
 	</body>
 
 </html>
