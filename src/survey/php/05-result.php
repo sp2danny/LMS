@@ -152,7 +152,7 @@ $styr = LoadIni("../styr.txt");
 					{
 						echo "<tr>";
 						$val = 100.0 * $kv[$i] / $km[$i];
-						$c = "#" . $styr['querys']['kat.' . $i . '.color'] . "";
+						$c = "#" . $styr['querys']["kat.$i.color"];
 						echo "<td> <font color='$c'> " . "⬤" . " </font> </td>\n";
 						echo "<td>";
 						echo $styr['querys']["kat.$i.name"];
@@ -173,7 +173,7 @@ $styr = LoadIni("../styr.txt");
 				<br />
 
 				<?php
-					echo "Det som stressar dig mest är " . $max_name . " <br>\n";
+					echo "Det som stressar dig mest är $max_name <br>\n";
 					$text = "";
 					$n = $styr['result']['num'];
 					$i = 1;

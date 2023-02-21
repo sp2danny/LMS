@@ -51,8 +51,8 @@ $eol = "\n";
         <table>
           <?php
             $num = $styr["querys"]["num"];
-			$qn = $styr["querys"]["not"];
-			$qf = $styr["querys"]["full"];
+			$qn  = $styr["querys"]["not"];
+			$qf  = $styr["querys"]["full"];
 
 			echo "          <tr>" . $eol;
 			echo "            <td></td>" . $eol;
@@ -68,11 +68,11 @@ $eol = "\n";
 
             for ($i = 1; $i <= $num; ++$i) {
               $qq = 'q' . $i;
-              $rsc = "'range_slider_change(" . $i . ")'";
+              $rsc = "'range_slider_change($i)'";
               echo "        <tr>" . $eol;
               echo "          <td width='375px' >" . $eol;
               //echo "            <label for='" . $qq . "' >" . $eol;
-              echo "              " . $styr["querys"]["query." . $i . ".text"] . $eol;
+              echo "              " . $styr["querys"]["query.$i.text"] . $eol;
               //echo "            </label>" . $eol;
               echo "          </td>" . $eol;
               echo "          <td width='1px' >" . $eol;
@@ -84,11 +84,11 @@ $eol = "\n";
               echo "            </div> " . $eol;
               echo "          </td> " . $eol;
               echo "          <td width='45px' > " . $eol;
-              echo "             <div id='l" . $i . "' > </div> " . $eol;
+              echo "             <div id='l$i' > </div> " . $eol;
               echo "          </td> " . $eol;
               echo "          <td width='1px' >" . $eol;
               //echo "            $qf" . $eol;
-              echo "          </td>" . $eol;			  
+              echo "          </td>" . $eol;
               echo "        </tr> " . $eol;
             }
           ?>
