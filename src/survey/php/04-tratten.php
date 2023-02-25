@@ -21,6 +21,13 @@ $eol = "\n";
 
   <link rel="stylesheet" href="../main-v03.css" />
   <link rel="icon" href="../../site/common/favicon.ico" />
+ 
+  <style>
+    th, td {
+      padding-top: 10px;
+      padding-bottom: 10px;
+	}
+  </style>
 
   <script>
 
