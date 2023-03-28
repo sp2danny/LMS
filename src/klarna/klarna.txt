@@ -1,0 +1,3 @@
+Klarna API username: K6587255_beba134cc2d5
+Klarna API password: m1cZyIZvZacAiDFU
+
