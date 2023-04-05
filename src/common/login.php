@@ -112,6 +112,8 @@ body{
 </style>
 EOT;
 
+echo "<title> Utbildning </title>" . $eol;
+
 echo '</head><body>' . $eol;
 
 $dircont = scandir(".");
