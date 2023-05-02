@@ -50,12 +50,17 @@
     <None Include="src\common\tq_post.php" />
     <None Include="src\debug.php" />
     <None Include="src\index.html" />
+    <None Include="src\klarna\coach.html" />
+    <None Include="src\klarna\debug.html" />
+    <None Include="src\klarna\index.html" />
+    <None Include="src\klarna\php\start.php" />
     <None Include="src\survey\index.html" />
     <None Include="src\survey\survey.php" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="db.txt" />
     <Text Include="src\batt-1.1\styr.txt" />
+    <Text Include="src\klarna\klarna.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
