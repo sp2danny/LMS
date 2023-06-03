@@ -8,6 +8,9 @@
     <Filter Include="Source Files\stuff">
       <UniqueIdentifier>{cbdfac60-f243-4db2-bfdd-49bebdce3bd6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\klarna">
+      <UniqueIdentifier>{d93fadc3-e0e4-45c8-89ab-0f2167d7ee44}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\index.html">
@@ -109,6 +112,18 @@
     <None Include="src\survey\survey.php">
       <Filter>Source Files\stuff</Filter>
     </None>
+    <None Include="src\klarna\php\start.php">
+      <Filter>Source Files\klarna</Filter>
+    </None>
+    <None Include="src\klarna\index.html">
+      <Filter>Source Files\klarna</Filter>
+    </None>
+    <None Include="src\klarna\coach.html">
+      <Filter>Source Files\klarna</Filter>
+    </None>
+    <None Include="src\klarna\debug.html">
+      <Filter>Source Files\klarna</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="db.txt">
@@ -116,6 +131,9 @@
     </Text>
     <Text Include="src\batt-1.1\styr.txt">
       <Filter>Source Files</Filter>
+    </Text>
+    <Text Include="src\klarna\klarna.txt">
+      <Filter>Source Files\klarna</Filter>
     </Text>
   </ItemGroup>
 </Project>
