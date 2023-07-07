@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="LMS" Version="11000" InternalType="">
   <VirtualDirectory Name="klarna">
+    <File Name="src/klarna/test/test.html"/>
     <File Name="src/klarna/php/start.php"/>
     <File Name="src/klarna/klarna.txt"/>
     <File Name="src/klarna/index.html"/>
