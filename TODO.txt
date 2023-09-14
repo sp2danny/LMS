@@ -1,9 +1,12 @@
 
-styrkant, återställa från backup
+databas
+	artiklar
+	produkter
 
-bort med klarknapp, direct på sista fråga
+access
+	baserat på arkiklar
 
-progress-bar räknar fel
+betalning
+	baserat på produkt
 
-login.txt med support för länkar
 

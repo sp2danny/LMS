@@ -124,6 +124,18 @@
     <None Include="src\klarna\debug.html">
       <Filter>Source Files\klarna</Filter>
     </None>
+    <None Include="src\klarna\login.html">
+      <Filter>Source Files\klarna</Filter>
+    </None>
+    <None Include="src\klarna\php\login.php">
+      <Filter>Source Files\klarna</Filter>
+    </None>
+    <None Include="src\klarna\php\dologin.php">
+      <Filter>Source Files\klarna</Filter>
+    </None>
+    <None Include="src\klarna\php\getparam.php">
+      <Filter>Source Files\klarna</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="db.txt">
