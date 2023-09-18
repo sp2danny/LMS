@@ -53,7 +53,7 @@
     <None Include="src\klarna\coach.html" />
     <None Include="src\klarna\debug.html" />
     <None Include="src\klarna\index.html" />
-    <None Include="src\klarna\login.html" />
+    <None Include="src\klarna\login.php" />
     <None Include="src\klarna\php\dologin.php" />
     <None Include="src\klarna\php\getparam.php" />
     <None Include="src\klarna\php\login.php" />
