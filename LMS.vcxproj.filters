@@ -136,6 +136,21 @@
     <None Include="src\klarna\login.php">
       <Filter>Source Files\klarna</Filter>
     </None>
+    <None Include="src\klarna\php\test.php">
+      <Filter>Source Files\klarna</Filter>
+    </None>
+    <None Include="src\klarna\php\push.php">
+      <Filter>Source Files\klarna</Filter>
+    </None>
+    <None Include="src\klarna\php\checkout.php">
+      <Filter>Source Files\klarna</Filter>
+    </None>
+    <None Include="src\klarna\php\confirmation.php">
+      <Filter>Source Files\klarna</Filter>
+    </None>
+    <None Include="src\klarna\php\terms.php">
+      <Filter>Source Files\klarna</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="db.txt">
