@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="LMS" Version="11000" InternalType="">
   <VirtualDirectory Name="klarna">
+    <VirtualDirectory Name="php">
+      <File Name="src/klarna/php/start.php"/>
+      <File Name="src/klarna/php/test.php"/>
+      <File Name="src/klarna/php/terms.php"/>
+      <File Name="src/klarna/php/push.php"/>
+      <File Name="src/klarna/php/login.php"/>
+      <File Name="src/klarna/php/getparam.php"/>
+      <File Name="src/klarna/php/dologin.php"/>
+      <File Name="src/klarna/php/confirmation.php"/>
+      <File Name="src/klarna/php/checkout.php"/>
+    </VirtualDirectory>
     <File Name="src/klarna/test/test.html"/>
-    <File Name="src/klarna/php/start.php"/>
     <File Name="src/klarna/klarna.txt"/>
     <File Name="src/klarna/index.html"/>
     <File Name="src/klarna/debug.html"/>
