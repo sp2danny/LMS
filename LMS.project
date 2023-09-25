@@ -2,6 +2,7 @@
 <CodeLite_Project Name="LMS" Version="11000" InternalType="">
   <VirtualDirectory Name="klarna">
     <VirtualDirectory Name="php">
+      <File Name="src/klarna/php/db.php"/>
       <File Name="src/klarna/php/start.php"/>
       <File Name="src/klarna/php/test.php"/>
       <File Name="src/klarna/php/terms.php"/>

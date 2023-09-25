@@ -3,7 +3,7 @@
 
 include "getparam.php";
 
-$id = getparam("id", 0);
+$id = getparam("id", 666);
 
 // $url = 'https://api.playground.klarna.com/payments/v1/sessions';
 
@@ -13,17 +13,17 @@ $ol = [];
 $ol[] = [
     "name" => "Kurspaket Ett",
     "quantity" => 1,
-    "unit_price" => 10000,
-    "tax_rate" => 1250,
-    "total_amount" => 10000,
-    "total_tax_amount" => 1111,
+    "unit_price" => 200,
+    "tax_rate" => 2500,
+    "total_amount" => 200,
+    "total_tax_amount" => 40,
 ];
 
 $mu = [
     "terms"         =>  "https://mind2excellence.se/klarna/php/terms.php?id=" . $id,
     "checkout"      =>  "https://mind2excellence.se/klarna/php/checkout.php?id=" . $id,
     "confirmation"  =>  "https://mind2excellence.se/klarna/php/confirmation.php?id=" . $id,
-    "push"          =>  "https://mind2excellence.se/klarna/php/push.php?id=" . $id,
+    "push"          =>  "https://mind2excellence.se/klarna/php/push.php",
 ];
 
 $data = [
@@ -31,8 +31,8 @@ $data = [
     'purchase_country' => 'SE',
     "purchase_currency" => "SEK",
     "locale" => "sv-SE",
-    "order_amount" => '10000',
-    "order_tax_amount" => '1111',
+    "order_amount" => '200',
+    "order_tax_amount" => '40',
     "order_lines" => $ol, // json_encode($ol),
     'merchant_urls' => $mu,
 ];
@@ -58,9 +58,14 @@ $result = curl_exec($ch);
 
 $res = json_decode($result);
 
-// var_dump($res);
-
-echo $res->html_snippet;
-
+if (isset($res->error_code)) {
+	echo $res->error_code;
+}
+else if(isset($res->html_snippet)) {
+	echo $res->html_snippet;
+}
+else
+	var_dump($result);
+	
 ?>
 
