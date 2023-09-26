@@ -8,7 +8,7 @@ $query = "INSERT INTO data (type, pers, value_a, value_c) VALUES (52, 0, " . get
 
 $res = mysqli_query( $emperator, $query );
 
-$order_id = getparam('order_id');
+$order_id = getparam('order_id', 0);
 $query = "INSERT INTO data (type, pers, value_a, value_c) VALUES (52, 0, " . $order_id . ", 'push_id')";
 $res = mysqli_query( $emperator, $query );
 
