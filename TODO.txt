@@ -16,3 +16,13 @@ betalning
 3 september 2023
 
 559134-7157
+
+antal platser kvar
+ratea avsnitt mellan varje
+grön knapp
+tid kvar
+snabb hets rabatt
+gul knapp senare
+röd knapp nej
+
+
