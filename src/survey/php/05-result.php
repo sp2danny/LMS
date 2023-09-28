@@ -38,13 +38,13 @@ $styr = LoadIni("../styr.txt");
 				margin: 8px 6px;
 				float: right;
 			}
-			
+
 			.shake_green:hover {
 				animation: none;
 				border-style: outset;
 				text-shadow: 0 4px 4px #333;
 			}
-			
+
 
 			@keyframes shake {
 				10%,
