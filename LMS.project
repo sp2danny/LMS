@@ -29,6 +29,8 @@
     </VirtualDirectory>
     <VirtualDirectory Name="survey">
       <VirtualDirectory Name="php">
+        <File Name="src/survey/php/02-b-lead_reg.php"/>
+        <File Name="src/survey/php/01-b-register.php"/>
         <File Name="src/survey/php/05-result.php"/>
         <File Name="src/survey/php/04-tratten.php"/>
         <File Name="src/survey/php/03-intro.php"/>

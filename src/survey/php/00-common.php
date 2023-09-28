@@ -30,6 +30,11 @@ function LoadIni($filename)
 	return $result;
 }
 
+function repl($str, $expr, $repl)
+{
+	return str_replace($expr, $repl, $str);
+}
+
 function getparam($key, $def = "")
 {
 	$ok = false;

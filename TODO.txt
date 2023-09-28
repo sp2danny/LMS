@@ -25,4 +25,5 @@ snabb hets rabatt
 gul knapp senare
 röd knapp nej
 
+visa epostadress i surv-03
 

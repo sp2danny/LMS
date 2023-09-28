@@ -32,20 +32,20 @@ $styr = LoadIni("../styr.txt");
 				<br /> <br />
 
 				<?php
-					$email = getparam("email");
-					$it = $styr["intro"]["text"];
-					echo repl($it, "%email%", $email);
-				?>
 
-				<br /> <br />
-				<?php
-					$lid = getparam("lid");
-					echo "<a href='04-tratten.php?lid=$lid'>" . "\n";
+					echo $styr["register"]["greeting"];
+
 				?>
-					<button>
-					<?php echo $styr["intro"]["button"]; ?>
-					</button>
-				</a>
+				<br /> <br />
+				<form action="02-b-lead_reg.php">
+				
+					<input type="hidden" id="special" name="special" value="special">
+					
+					<input type="submit" value="Starta" />
+
+				</form>
+
+
 			</div>
 		</div>
 	</body>
