@@ -22,6 +22,45 @@ $styr = LoadIni("../styr.txt");
 		<link rel="stylesheet" href="../main-v03.css" />
 		<link rel="icon" href="../../site/common/favicon.ico" />
 		
+		<style>
+			.shake_green {
+				animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both infinite;
+				transform: rotate(0);
+				backface-visibility: hidden;
+				perspective: 1000px;
+				background-color: #96bf0d;
+				color: white;
+				text-shadow: 0 4px 4px #000;
+				border-radius: 12px;
+				padding: 15px 32px;
+				text-align: center;
+				font-size: 22px;
+				margin: 8px 6px;
+				float: right;
+			}
+
+			@keyframes shake {
+				10%,
+				90% {
+					transform: rotate(-1deg);
+				}
+				20%,
+				80% {
+					transform: rotate(2deg);
+				}
+				30%,
+				50%,
+				70% {
+					transform: rotate(-4deg);
+				}
+				40%,
+				60% {
+					transform: rotate(4deg);
+				}
+			}
+		</style>
+
+		
 		<?php
 			$kn = $styr['querys']['kat'];
 			
@@ -188,7 +227,7 @@ $styr = LoadIni("../styr.txt");
 					$lnk_t = $styr['result']["limit.$i.link.text"];
 					$lnk_u = $styr['result']["limit.$i.link.url"];
 					
-					echo "<br> <a href='$lnk_u'> <button> $lnk_t </button> </a> <br> \n";
+					echo "<br> <a href='$lnk_u'> <button class='shake_green' > $lnk_t </button> </a> <br> \n";
 
 				?>
 
