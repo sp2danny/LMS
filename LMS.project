@@ -28,6 +28,7 @@
       <File Name="db.txt"/>
     </VirtualDirectory>
     <VirtualDirectory Name="survey">
+      <File Name="src/survey/listing.php"/>
       <VirtualDirectory Name="php">
         <File Name="src/survey/php/02-b-lead_reg.php"/>
         <File Name="src/survey/php/01-b-register.php"/>
