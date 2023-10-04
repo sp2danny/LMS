@@ -224,11 +224,16 @@ $styr = LoadIni("../styr.txt");
 						echo "<tr>";
 						$val = 100.0 * $kv[$i] / $km[$i];
 						$c = "#" . $styr['querys']["kat.$i.color"];
-						echo "<td> <font color='$c'> " . "⬤" . " </font> </td>\n";
+						echo "<td> <font color='$c'> " . "⬤" . " </font>";
+						echo " </td>\n";
 						echo "<td>";
 						echo $styr['querys']["kat.$i.name"];
 						echo "</td><td>";
 						echo round($val) . "%";
+						
+						if ($val>50)
+							echo " <img src='../warn2.png' /> ";
+						
 						echo "</td></tr>";
 					}
 					echo "</table>" . "\n";
