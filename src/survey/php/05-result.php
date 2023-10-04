@@ -125,16 +125,22 @@ $styr = LoadIni("../styr.txt");
 				const ctx = canvas.getContext("2d");
 				const img = document.getElementById("circImg");
 				ctx.drawImage(img, 0, 0); 
-				ctx.font = "68px roboto";
+				ctx.font = "42px roboto";
+				var txt = 
 				<?php 
 					$pkv = "0";
 					$query = "SELECT * FROM data WHERE type=50 AND pers=0";
 					$res = mysqli_query( $emperator, $query );
 					if ($res) if ($row = mysqli_fetch_array($res))
 						$pkv = $row['value_a'];
-					echo "\t\t\t\t" . 'ctx.fillText("' . $pkv . ' platser", 20, 175);' . "\n";
+					echo "'" . $pkv . " platser';\n";
 				?>
-				ctx.fillText("kvar", 105, 255);
+				
+				var xx = (384 - ctx.measureText(txt).width)/2;
+				ctx.fillText(txt, xx, 175);
+				txt = "kvar";
+				xx = (384 - ctx.measureText(txt).width)/2;
+				ctx.fillText(txt, xx, 255);
 		
 			}
 
@@ -251,7 +257,11 @@ $styr = LoadIni("../styr.txt");
 					echo $text;
 					$img = $styr['result']['img'];
 					$lnk_t = $styr['result']["limit.$i.link.text"];
-					$lnk_u = $styr['result']["limit.$i.link.url"] . "?id=" . $lid;
+					$lnk_u = $styr['result']["limit.$i.link.url"];
+					if (strpos($lnk_u, '?'))
+						$lnk_u .= "&id=" . $lid;
+					else
+						$lnk_u .= "?id=" . $lid;
 					
 					echo "<div style='float:right; margin:50px' > \n";
 					echo "<canvas id='circCanv' width='384' height='384' > </canvas> <br> <br> \n";
