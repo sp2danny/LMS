@@ -118,6 +118,25 @@ $styr = LoadIni("../styr.txt");
 		
 
 		<script>
+		
+			function on_update_2()
+			{
+				const canvas = document.getElementById("circCanv");
+				const ctx = canvas.getContext("2d");
+				const img = document.getElementById("circImg");
+				ctx.drawImage(img, 0, 0); 
+				ctx.font = "68px roboto";
+				<?php 
+					$pkv = "0";
+					$query = "SELECT * FROM data WHERE type=50 AND pers=0";
+					$res = mysqli_query( $emperator, $query );
+					if ($res) if ($row = mysqli_fetch_array($res))
+						$pkv = $row['value_a'];
+					echo "\t\t\t\t" . 'ctx.fillText("' . $pkv . ' platser", 20, 175);' . "\n";
+				?>
+				ctx.fillText("kvar", 105, 255);
+		
+			}
 
 			function on_update()
 			{
@@ -232,9 +251,16 @@ $styr = LoadIni("../styr.txt");
 					echo $text;
 					$img = $styr['result']['img'];
 					$lnk_t = $styr['result']["limit.$i.link.text"];
-					$lnk_u = $styr['result']["limit.$i.link.url"];
+					$lnk_u = $styr['result']["limit.$i.link.url"] . "?id=" . $lid;
+					
+					echo "<div style='float:right; margin:50px' > \n";
+					echo "<canvas id='circCanv' width='384' height='384' > </canvas> <br> <br> \n";
+					echo "</div> \n";
+					
+					echo "<div style='clear: right' > \n";
 					
 					echo "<br> <a href='$lnk_u'> <button class='shake_green' > $lnk_t </button> </a> <br> \n";
+					echo "</div> \n";
 
 				?>
 
@@ -243,6 +269,10 @@ $styr = LoadIni("../styr.txt");
 				<div style="display:none" >
 					<?php echo "<img id='tratt' src='../$img' onload='on_update()' /> \n"; ?>
 				</div>
+				<div style="display:none" >
+					<img id='circImg' src='../red-circle-free-png-2.png' onload='on_update_2()' /> 
+				</div>
+				
 			</div>
 		</div>
 		<?php

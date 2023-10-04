@@ -28,10 +28,11 @@ surv
 prod
 	prod_id   int ai key
 	name      string
+	pdesc     string
 	type      int           1 - produkt , 2 - kurs
 	val_a     int           pris          produkt
 	val_b     int                         rabatt
-	val_c     string                      path
+	val_c     string        image         path
 
 
 typer
@@ -56,6 +57,8 @@ typer
 	cp_sett     9            graph                     source
 	notes       20           num                       text
 	lead        30-40        num
+	
+	platser     50           num
 	
 	produkt     51           pr_num
 

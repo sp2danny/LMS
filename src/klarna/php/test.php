@@ -23,7 +23,8 @@ $mu = [
     "terms"         =>  "https://mind2excellence.se/klarna/php/terms.php?id=" . $id,
     "checkout"      =>  "https://mind2excellence.se/klarna/php/checkout.php?id=" . $id,
     "confirmation"  =>  "https://mind2excellence.se/klarna/php/confirmation.php?id=" . $id,
-    "push"          =>  "https://mind2excellence.se/klarna/php/push.php",
+    "validation"    =>  "https://mind2excellence.se/klarna/php/validation.php?id=" . $id,
+    "push"          =>  "https://mind2excellence.se/klarna/php/push.php?id=" . $id,
 ];
 
 $data = [

@@ -1,0 +1,41 @@
+
+<html>
+	<head>
+		<title> K&ouml;p nu! </title>
+		
+		<script>
+			function doPaint()
+			{
+				const canvas = document.getElementById("myCanvas");
+				const ctx = canvas.getContext("2d");
+				const img = document.getElementById("ring");
+				ctx.drawImage(img, 0, 0); 
+				ctx.font = "72px roboto";
+				ctx.fillText("4 platser", 20, 175);
+				ctx.fillText("kvar", 105, 255);
+			}
+			
+		</script>
+		
+		<style>
+			
+			.hid {
+				visibillity: hidden;
+				display: none;
+			}
+			
+		</style>
+		
+	</head>
+	
+	<body>
+		
+		<canvas id="myCanvas" width="384" height="384"></canvas>
+		
+		<div class="hid">
+		<img id='ring' src="red-circle-free-png-2.png" onload='doPaint()' />
+		</div>
+
+	</body>
+	
+</html>
