@@ -11,7 +11,32 @@ $query = "INSERT INTO data (type, pers, value_a, value_c) VALUES (52, 0, " . get
 
 $res = mysqli_query( $emperator, $query );
 
-if (!$res) echo "error"; else echo "ok";
+if (!$res) echo "error";
+
+echo <<<END
+
+<html>
+<head><title>Klar</title></head>
+<body>
+<h3> Köp genomfört</h3>
+skapa konto:<br>
+<form action="../../site/common/regpers.php">
+
+<label for="pnr"> Personnummer: </label> <br>
+<input type="text" id="pnr" name="pnr" > <br>
+
+<label for="pwd"> Lösenord: </label> <br>
+<input type="text" id="pwd" name="pwd" > <br>
+
+
+<input type="submit" value="Login">
+
+</form>
+
+</body>
+</html>
+
+END;
 
 ?>
 
