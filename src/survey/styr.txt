@@ -143,19 +143,21 @@ limit.1.bot = 265
 limit.1.prod = 3
 
 limit.2.value = 50
-limit.2.text =<br> <b>Bra jobb. Ditt resultat ser bra ut. Du ligger i stressnivå ett</b> <br> Du kan såklart utveckla dig ännu mer. Vi har utifrån ditt resultat gjort ett personligt erbjudande till dig. En utbildning anpassad till dig: XXXXX1 <br> Du får 200:- rabatt med koden, Nystart2023. Anmäl dig redan idag, Lycka till<br><br>
+limit.2.text = <b>Bra jobb. Ditt resultat ser bra ut. Du ligger i stressnivå ett</b> <br> Du kan såklart utveckla dig ännu mer. Vi har utifrån ditt resultat gjort ett personligt erbjudande till dig. En utbildning anpassad till dig: Anmäl dig redan idag, Lycka till
 
-limit.2.link.text =Denna utbildning är bäst anpassad till de behov du har. <br> Se ditt utbildningsförslag NU<br>
+limit.2.link.text = &nbsp; &nbsp; &nbsp; Besäll redan nu! &nbsp; &nbsp; &nbsp; 
 limit.2.link.url = https://mind2excellence.se/klarna/php/test.php
 limit.2.top = 285
 limit.2.bot = 485
-    
+limit.2.prod = 3
+
 limit.3.value = 75
 limit.3.text = Ditt resultat ligger i stressnivå två. Du kan ha nytta av att utveckla din förmåga att hantera negativ stress.<br> <br> Vi har gjort ett personligt erbjudande. En utbildning anpassad till dig: XXXXX2 <br> Du får 200:- rabatt med koden, Nystart2023. <br> <br> Anmäl dig redan idag, Lycka till<br><br>
 limit.3.link.text = Denna utbildning är bäst anpassad till de behov du har. Se ditt utbildningsförslag NU<br>
 limit.3.link.url = https://mind2excellence.se/klarna/php/test.php
 limit.3.top = 515
 limit.3.bot = 690
+limit.3.prod = 3
 
 limit.4.value = 90
 limit.4.text = Ditt resultat ligger i stressfas tre. Detta är en tydlig varningssignal för dig. <br>Du bör utveckla din förmåga att hantera negativ stress. <br> <br> Vi har gjort ett personligt erbjudande. En utbildning anpassad till dig: XXXXX3 <br> Du får 200:- rabatt med koden, Nystart2023. Anmäl dig redan idag, Lycka till<br><br>
@@ -163,6 +165,7 @@ limit.4.link.text = Denna utbildning är bäst anpassad till de behov du har. Se
 limit.4.link.url = https://mind2excellence.se/klarna/php/test.php
 limit.4.top = 730
 limit.4.bot = 900
+limit.4.prod = 3
 
 limit.5.value = 100
 limit.5.text = Ditt resultat ligger i stressnivå fyra. Detta är en tydlig varningssignal för dig. <br>Du bör utveckla din förmåga att hantera negativ stress.<br> <br> Vi har gjort ett personligt erbjudande till dig:XXXXX4 <br> Du får 200:- rabatt med koden, Nystart2023. Anmäl dig redan idag, Lycka till<br> 
@@ -170,6 +173,7 @@ limit.5.link.text = Denna utbildning är bäst anpassad till de behov du har. Se
 limit.5.link.url = https://mind2excellence.se/klarna/php/test.php
 limit.5.top = 1040
 limit.5.bot = 1050
+limit.5.prod = 3
 
 
 

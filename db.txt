@@ -29,10 +29,9 @@ prod
 	prod_id   int ai key
 	name      string
 	pdesc     string
-	type      int           1 - produkt , 2 - kurs
-	val_a     int           pris          produkt
-	val_b     int                         rabatt
-	val_c     string        image         path
+	price     int
+	image     string
+	unlocks   string
 
 
 typer

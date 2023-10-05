@@ -34,6 +34,8 @@ if ($res) while ($row = mysqli_fetch_array($res))
 		echo "<hr>\n";
 
 	echo "Produktnummer: " . $row['prod_id'] . " <br> \n";
+	
+	echo "Typ: " . $row['type'] . " <br> \n";
 
 	echo "Titel: " . $row['name'] . " <br> \n";
 

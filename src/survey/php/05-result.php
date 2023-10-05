@@ -4,7 +4,6 @@
 include "00-common.php";
 include "00-connect.php";
 
-
 $lid    = getparam('lid');
 $max    = 0; // getparam('val');
 
@@ -67,10 +66,9 @@ $styr = LoadIni("../styr.txt");
 			}
 		</style>
 
-		
 		<?php
 			$kn = $styr['querys']['kat'];
-			
+
 			$kv = [];
 			$km = [];
 
@@ -85,10 +83,10 @@ $styr = LoadIni("../styr.txt");
 			for ($i = 1; $i <= $nn; ++$i)
 			{
 				$v = getparam('q' . $i);
-				
+
 				$a = $styr['querys'];
 				$q = "query.$i.reverse";
-				
+
 				if (array_key_exists($q, $a))
 					if ($a[$q]=='true')
 						$v = 100-$v;
@@ -98,11 +96,10 @@ $styr = LoadIni("../styr.txt");
 
 				$kv[$k] += $w * $v;
 				$km[$k] += $w * 100;
-				
 			}
 
 			$max_name = "";
-					
+
 			$max = 0;
 			$kp = [];
 			for ($i = 1; $i <= $kn; ++$i)
@@ -115,10 +112,21 @@ $styr = LoadIni("../styr.txt");
 				}
 			}
 		?>
-		
 
 		<script>
-		
+
+			function on_update_3(ppp)
+			{
+				const canvas = document.getElementById("priceCanv");
+				const ctx = canvas.getContext("2d");
+				const img = document.getElementById("priceImg");
+				ctx.drawImage(img, 0, 0); 
+				ctx.font = "42px roboto";
+				var txt = " " + ppp.toString() + " :- ";
+				var xx = (320 - ctx.measureText(txt).width)/2;
+				ctx.fillText(txt, xx, 175);
+			}
+
 			function on_update_2()
 			{
 				const canvas = document.getElementById("circCanv");
@@ -141,25 +149,19 @@ $styr = LoadIni("../styr.txt");
 				txt = "kvar";
 				xx = (384 - ctx.measureText(txt).width)/2;
 				ctx.fillText(txt, xx, 255);
-		
 			}
 
 			function on_update()
 			{
-				
 				var val = <?php echo $max; ?> ;
-				
 				var img = document.getElementById("tratt");
-
 				var cnv = document.getElementById('myCanvas');
 				var ctx = cnv.getContext("2d");
-				
 				var w = img.naturalWidth;
 				var h = img.naturalHeight;
 				
 				cnv.width = w;
 				cnv.height = h;
-
 				ctx.drawImage(img, 0, 0);
 				
 				var x,y;
@@ -210,14 +212,13 @@ $styr = LoadIni("../styr.txt");
 	<body onload="on_update()" >
 		<div>
 			<br /> 
-			<img width=50%  src="../../site/common/logo.png" /> <br />
+			<img width=50% src="../../site/common/logo.png" /> <br />
 			<div>
 				<br /> <br />
 				
 				<?php
 
 					echo $styr['summary']['text'];
-
 					echo "<table>";
 					for ($i = 1; $i <= $kn; ++$i)
 					{
@@ -230,17 +231,17 @@ $styr = LoadIni("../styr.txt");
 						echo $styr['querys']["kat.$i.name"];
 						echo "</td><td>";
 						echo round($val) . "%";
-						
+
 						if ( $val > $styr['summary']['warn.lim'] )
 							echo " <img src='../" . $styr['summary']['warn.img'] . "' /> ";
-						
+
 						echo "</td></tr>";
 					}
 					echo "</table>" . "\n";
 				?>
-				
+
 				<br><hr><br>
-				
+
 				<canvas id="myCanvas" >
 				din browser st&ouml;der inte canvas
 				</canvas>
@@ -252,60 +253,131 @@ $styr = LoadIni("../styr.txt");
 					echo "Det som stressar dig mest är $max_name <br>\n";
 					$text = "";
 					$n = $styr['result']['num'];
-					$i = 1;
-					for (; $i<$n; ++$i) {
-						$v = $styr['result']["limit.$i.value"];
+					$si = 1;
+					for (; $si<$n; ++$si) {
+						$v = $styr['result']["limit.$si.value"];
 						if ($max < $v) break;
 					}
-					$text = $styr['result']["limit.$i.text"];
+					$text = $styr['result']["limit.$si.text"];
+
+					$pid = $styr['result']["limit.$si.prod"];
+					$pr_title = '';
+					$pr_desc = '';
+					$pr_price = 0;
+					$pr_img = '';
+					$query = "SELECT * FROM prod WHERE prod_id=" . $pid;
+					$res = mysqli_query( $emperator, $query );
+					if ($res) if ($row = mysqli_fetch_array($res)) {
+						$pr_title = $row['name'];
+						$pr_desc  = $row['pdesc'];
+						$pr_price = $row['price'];
+						$pr_img   = $row['image'];
+						$pr_unl   = $row['unlocks'];
+					}
 
 					echo $text;
+					echo " <br> \n";
+
+					$subs = explode(",", $pr_unl);
+
+					$pr_title_arr = [];
+					$pr_desc_arr = [];
+					$pr_price_arr = [];
+					$pr_img_arr = [];
+
+					foreach ($subs as $k=>$v) {
+						$query = "SELECT * FROM prod WHERE prod_id=" . $v;
+						$res = mysqli_query( $emperator, $query );
+						if ($res) if ($row = mysqli_fetch_array($res)) {
+							$pr_title_arr[] = $row['name'];
+							$pr_desc_arr[]  = $row['pdesc'];
+							$pr_price_arr[] = $row['price'];
+							$pr_img_arr[]   = $row['image'];
+						}
+					}
+
+					$i = 0; $n = count($subs);
+					echo " <br> \n";
+					echo " <table> <tr> ";
+					for ($i=0; $i<$n; ++$i) {
+						echo " <td> <h3> ";
+						echo $pr_title_arr[$i];
+						echo " </h3> </td> ";
+					}
+					echo " </tr> <tr> ";
+					for ($i=0; $i<$n; ++$i) {
+						echo " <td> <img width='20%' src='/article/";
+						echo $pr_img_arr[$i];
+						echo "' > </td> ";
+					}
+					echo " </tr> <tr> ";
+					for ($i=0; $i<$n; ++$i) {
+						echo " <td> <pre>";
+						echo $pr_desc_arr[$i];
+						echo "</pre> </td> ";
+					}
+
+					echo " </tr> <tr> ";
+					for ($i=0; $i<$n; ++$i) {
+						echo " <td> Ordinarie pris <br> ";
+						echo $pr_price_arr[$i];
+						echo " </td> ";
+					}
+
+					echo " </tr> </table> <br> <br> \n";
+
+					echo "<table> <tr> <td> ";
+					echo " <h1> " . $pr_title . " </h1> ";
+					echo " </td> </tr> <tr> <td> ";
+					echo " <pre>" . $pr_desc . "</pre> </td> <td> ";
+					echo " <canvas id='circCanv' width='384' height='384' > </canvas> </td> </tr> <tr> <td> ";
+					echo " <img width='20%' src='/article/" . $pr_img . "' /> </td> <td> ";
+					
+					echo " <canvas id='priceCanv' width='320' height='320' > </canvas> </td><td> ";
+
 					$img = $styr['result']['img'];
-					$lnk_t = $styr['result']["limit.$i.link.text"];
-					$lnk_u = $styr['result']["limit.$i.link.url"];
+					$lnk_t = $styr['result']["limit.$si.link.text"];
+					$lnk_u = $styr['result']["limit.$si.link.url"];
 					if (strpos($lnk_u, '?'))
 						$lnk_u .= "&id=" . $lid;
 					else
 						$lnk_u .= "?id=" . $lid;
-					
-					echo "<div style='float:right; margin:50px' > \n";
-					echo "<canvas id='circCanv' width='384' height='384' > </canvas> <br> <br> \n";
-					echo "</div> \n";
-					
-					echo "<div style='clear: right' > \n";
-					
-					echo "<br> <a href='$lnk_u'> <button class='shake_green' > $lnk_t </button> </a> <br> \n";
+					$lnk_u .= "?prod=" . $pid;
+
+					echo " <a href='$lnk_u'> <button class='shake_green' > $lnk_t </button> </a> </td> </tr> </table> ";
+
+					//echo "<div style='float:right; margin:50px' > \n";
+					//echo "<canvas id='circCanv' width='384' height='384' > </canvas> <br> <br> \n";
+					//echo "</div> \n";
+					//
+					//echo "<div style='clear: right' > \n";
+					//
+					//echo "<br> <a href='$lnk_u'> <button class='shake_green' > $lnk_t </button> </a> <br> \n";
+
 					echo "</div> \n";
 
 				?>
 
 				<br /> <br /> <br />
-				
+
 				<div style="display:none" >
 					<?php echo "<img id='tratt' src='../$img' onload='on_update()' /> \n"; ?>
 				</div>
 				<div style="display:none" >
 					<img id='circImg' src='../red-circle-free-png-2.png' onload='on_update_2()' /> 
 				</div>
-				
+				<div style="display:none" >
+					<?php echo "<img id='priceImg' src='../pris.jpg' onload='on_update_3(" . $pr_price . ")' /> \n" ?>
+				</div>
+
 			</div>
 		</div>
 		<?php
 			if (getparam('debug')=='true') {
 				echo "<div> " . $dbg . "</div>";
 			}
-		
 		?>
 	</body>
 
 </html>
-
-
-
-<?php
-
-
-
-
-?> 
 

@@ -21,6 +21,10 @@ div {
 	<h3> Skapa ny produkt </h3>
 
 	<form action='make_prod_save.php'>
+	
+	<label for="ptype"> Typ: </label> <br>
+	<input type="number" id="ptype" name="ptype" size="50">
+	<br><br><br>
 
 	<label for="title"> Rubrik: </label> <br>
 	<input type="text" id="title" name="title" size="50">
