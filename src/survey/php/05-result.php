@@ -221,7 +221,7 @@ $styr = LoadIni("../styr.txt");
 					echo "<table>";
 					for ($i = 1; $i <= $kn; ++$i)
 					{
-						echo "<tr>";
+						echo "<tr style='height:22px;'>";
 						$val = 100.0 * $kv[$i] / $km[$i];
 						$c = "#" . $styr['querys']["kat.$i.color"];
 						echo "<td> <font color='$c'> " . "⬤" . " </font>";
@@ -231,8 +231,8 @@ $styr = LoadIni("../styr.txt");
 						echo "</td><td>";
 						echo round($val) . "%";
 						
-						if ($val>50)
-							echo " <img src='../warn2.png' /> ";
+						if ( $val > $styr['summary']['warn.lim'] )
+							echo " <img src='../" . $styr['summary']['warn.img'] . "' /> ";
 						
 						echo "</td></tr>";
 					}

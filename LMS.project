@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="LMS" Version="11000" InternalType="">
+  <VirtualDirectory Name="coach">
+    <File Name="src/coach/make_prod_save.php"/>
+    <File Name="src/coach/edit_prod_save.php"/>
+    <File Name="src/coach/edit_prod.php"/>
+    <File Name="src/coach/index.html"/>
+    <File Name="src/coach/make_prod.php"/>
+    <File Name="src/coach/list_prod.php"/>
+  </VirtualDirectory>
   <VirtualDirectory Name="klarna">
     <VirtualDirectory Name="php">
       <File Name="src/klarna/php/validation.php"/>
@@ -23,7 +31,6 @@
   <VirtualDirectory Name="LMS">
     <VirtualDirectory Name="stuff">
       <File Name="src/common/main.css.php"/>
-      <File Name="src/coach/index.html"/>
       <File Name="ftp.txt"/>
       <File Name="debug.php"/>
       <File Name="db.txt"/>
