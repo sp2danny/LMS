@@ -342,7 +342,7 @@ $styr = LoadIni("../styr.txt");
 						$lnk_u .= "&id=" . $lid;
 					else
 						$lnk_u .= "?id=" . $lid;
-					$lnk_u .= "?prod=" . $pid;
+					$lnk_u .= "&prod=" . $pid;
 
 					echo " <a href='$lnk_u'> <button class='shake_green' > $lnk_t </button> </a> </td> </tr> </table> ";
 

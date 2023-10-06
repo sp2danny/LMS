@@ -10,6 +10,7 @@
   </VirtualDirectory>
   <VirtualDirectory Name="klarna">
     <VirtualDirectory Name="php">
+      <File Name="src/klarna/php/buy.php"/>
       <File Name="src/klarna/php/validation.php"/>
       <File Name="src/klarna/php/db.php"/>
       <File Name="src/klarna/php/start.php"/>
