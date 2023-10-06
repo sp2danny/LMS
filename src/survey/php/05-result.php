@@ -27,15 +27,16 @@ $styr = LoadIni("../styr.txt");
 				transform: rotate(0);
 				backface-visibility: hidden;
 				perspective: 1000px;
-				background-color: #96bf0d;
+				background-color: #66d40e;
 				color: white;
 				text-shadow: 0 4px 4px #000;
 				border-radius: 12px;
 				padding: 15px 32px;
 				text-align: center;
 				font-size: 22px;
-				margin: 8px 6px;
-				float: right;
+				margin: 22px 12px;
+				float: center;
+				width: 850px;
 			}
 
 			.shake_green:hover {
@@ -117,30 +118,52 @@ $styr = LoadIni("../styr.txt");
 
 			function on_update_3(ppp)
 			{
-				const canvas = document.getElementById("priceCanv");
-				const ctx = canvas.getContext("2d");
-				const img = document.getElementById("priceImg");
-				ctx.drawImage(img, 0, 0); 
-				ctx.font = "42px roboto";
+				var canvas = document.getElementById("priceCanv");
+				var ctx = canvas.getContext("2d");
+				var img = document.getElementById("priceImg");
+				ctx.drawImage(img, 0, 0, 140, 140);
+				ctx.font = "32px roboto";
 				var txt = " " + ppp.toString() + " :- ";
-				var xx = (320 - ctx.measureText(txt).width)/2;
-				ctx.fillText(txt, xx, 175);
+				var xx = (140 - ctx.measureText(txt).width)/2;
+				ctx.fillText(txt, xx, 90);
+				
+				txt = "Nu!";
+				xx = (140 - ctx.measureText(txt).width)/2;
+				ctx.fillText(txt, xx, 50);
+
+				canvas = document.getElementById("prisCanv2");
+				ctx = canvas.getContext("2d");
+				ctx.drawImage(img, 0, 0, 140, 140);
+				ctx.font = "32px roboto";
+				txt = " " + ppp.toString() + " :- ";
+				xx = (140 - ctx.measureText(txt).width)/2;
+				ctx.fillText(txt, xx, 90);
+				
+				txt = "Nu!";
+				xx = (140 - ctx.measureText(txt).width)/2;
+				ctx.fillText(txt, xx, 50);
 			}
 
 			function on_update_2()
 			{
-				const canvas = document.getElementById("circCanv");
-				const ctx = canvas.getContext("2d");
-				const img = document.getElementById("circImg");
+				var canvas = document.getElementById("circCanv");
+				var ctx = canvas.getContext("2d");
+				var img = document.getElementById("circImg");
 				ctx.drawImage(img, 0, 0); 
 				ctx.font = "42px roboto";
 				var txt = 
 				<?php 
-					$pkv = "0";
+					$pkv = "0"; $tim = "ingen upgift";
 					$query = "SELECT * FROM data WHERE type=50 AND pers=0";
 					$res = mysqli_query( $emperator, $query );
-					if ($res) if ($row = mysqli_fetch_array($res))
+					if ($res) if ($row = mysqli_fetch_array($res)) {
 						$pkv = $row['value_a'];
+						$t = $row['value_b'];
+						$tt = $row['date'];
+						$dt = date_create_from_format("Y-m-d H:i:s",$tt);
+						date_add($dt, date_interval_create_from_date_string($t . " days"));
+						$tim = date_format($dt, "Y-m-d");
+					}
 					echo "'" . $pkv . " platser';\n";
 				?>
 				
@@ -149,6 +172,18 @@ $styr = LoadIni("../styr.txt");
 				txt = "kvar";
 				xx = (384 - ctx.measureText(txt).width)/2;
 				ctx.fillText(txt, xx, 255);
+
+				canvas = document.getElementById("timeCanv");
+				ctx = canvas.getContext("2d");
+				ctx.drawImage(img, 0, 0); 
+				ctx.font = "22px roboto";
+				txt = <?php echo "'" . $tim . "';"; ?>
+
+				xx = (384 - ctx.measureText(txt).width)/2;
+				ctx.fillText(txt, xx, 255);
+				txt = "Erbjudandet upphör";
+				xx = (384 - ctx.measureText(txt).width)/2;
+				ctx.fillText(txt, xx, 175);
 			}
 
 			function on_update()
@@ -250,6 +285,7 @@ $styr = LoadIni("../styr.txt");
 				<br />
 
 				<?php
+					echo "<table> <tr> <td> ";
 					echo "Det som stressar dig mest är $max_name <br>\n";
 					$text = "";
 					$n = $styr['result']['num'];
@@ -277,6 +313,15 @@ $styr = LoadIni("../styr.txt");
 
 					echo $text;
 					echo " <br> \n";
+					
+					echo " </td> <td> ";
+					echo " &nbsp;&nbsp; ";
+					
+					echo " </td> <td> ";
+					echo " <canvas id='priceCanv' width='140' height='140' > </canvas> ";
+					echo " </td> </tr> </table> ";
+
+					
 
 					$subs = explode(",", $pr_unl);
 
@@ -306,7 +351,7 @@ $styr = LoadIni("../styr.txt");
 					}
 					echo " </tr> <tr> ";
 					for ($i=0; $i<$n; ++$i) {
-						echo " <td> <img width='20%' src='/article/";
+						echo " <td> <img width='95%' src='/article/";
 						echo $pr_img_arr[$i];
 						echo "' > </td> ";
 					}
@@ -319,21 +364,40 @@ $styr = LoadIni("../styr.txt");
 
 					echo " </tr> <tr> ";
 					for ($i=0; $i<$n; ++$i) {
-						echo " <td> Ordinarie pris <br> ";
+						echo " <td> Ord pris <br> ";
+						echo " <div style='color:red' > ";
 						echo $pr_price_arr[$i];
+						echo " </div> ";
 						echo " </td> ";
 					}
 
-					echo " </tr> </table> <br> <br> \n";
-
-					echo "<table> <tr> <td> ";
-					echo " <h1> " . $pr_title . " </h1> ";
-					echo " </td> </tr> <tr> <td> ";
-					echo " <pre>" . $pr_desc . "</pre> </td> <td> ";
-					echo " <canvas id='circCanv' width='384' height='384' > </canvas> </td> </tr> <tr> <td> ";
-					echo " <img width='20%' src='/article/" . $pr_img . "' /> </td> <td> ";
+					echo " </tr> <tr> ";
+					echo " <td colspan=3 > </td> ";
+					echo " <td> <canvas id='prisCanv2' width='140' height='140' > </canvas> </td> ";
 					
-					echo " <canvas id='priceCanv' width='320' height='320' > </canvas> </td><td> ";
+					echo " </tr> </table> <br> \n";
+
+					echo "<table> ";
+					echo " <tr> ";
+					echo " <td> &nbsp;&nbsp; </td> ";
+					echo " <td> <canvas id='circCanv' width='384' height='384' > </canvas> </td> ";
+					echo " <td> &nbsp;&nbsp; </td> ";
+					echo " <td> <canvas id='timeCanv' width='384' height='384' > </canvas> </td> ";
+					echo " <td> &nbsp;&nbsp; </td> ";
+					//echo " <td> <canvas id='prisCanv2' width='140' height='140' > </canvas> </td> ";
+					echo " </tr> </table> ";
+					
+					
+					//echo " <tr> <td colspan=3 > ";
+					//echo " <h1 style='text-align:center' > " . $pr_title . " </h1> ";
+					//echo " </td> </tr> ";
+					//echo " <tr> <td> ";
+					//echo " <pre>" . $pr_desc . "</pre> </td> <td> ";
+					//echo " <canvas id='circCanv' width='384' height='384' > </canvas> </td> ";
+					//echo " <td> <canvas id='timeCanv' width='384' height='384' > </canvas> </td> </tr> <tr> <td> ";
+					//echo " <img width='50%' src='/article/" . $pr_img . "' /> </td> <td> ";
+					//echo " <canvas id='priceCanv' width='320' height='320' > </canvas> </td><td> ";
+					//echo "  </td><td> ";
 
 					$img = $styr['result']['img'];
 					$lnk_t = $styr['result']["limit.$si.link.text"];
@@ -344,7 +408,8 @@ $styr = LoadIni("../styr.txt");
 						$lnk_u .= "?id=" . $lid;
 					$lnk_u .= "&prod=" . $pid;
 
-					echo " <a href='$lnk_u'> <button class='shake_green' > $lnk_t </button> </a> </td> </tr> </table> ";
+					echo " <a href='$lnk_u'> <button class='shake_green' > $lnk_t </button> </a> ";
+					//echo </td> </tr> </table> ";
 
 					//echo "<div style='float:right; margin:50px' > \n";
 					//echo "<canvas id='circCanv' width='384' height='384' > </canvas> <br> <br> \n";

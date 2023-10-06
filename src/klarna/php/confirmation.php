@@ -71,8 +71,18 @@ if ($res) if ($row = mysqli_fetch_array($res)) {
 echo <<<END
 
 <html>
-<head><title>Klar</title></head>
+<head><title>K&ouml;p Genomf&ouml;rt</title>
+<style>
+	div {
+		margin-top: 100px;
+		margin-bottom: 100px;
+		margin-right: 150px;
+		margin-left: 80px;
+	}
+</style>
+</head>
 <body>
+<div>
 <h3> Köp genomfört</h3>
 skapa konto:<br>
 <form action="../../site/common/regpers.php">
@@ -91,13 +101,13 @@ echo '<input type="hidden" id="kid" name="kid" value="'.$kid.'"  > ';
 echo <<<END
 
 <label for="pwd"> Lösenord: </label> <br>
-<input type="text" id="pwd" name="pwd" > <br>
+<input type="password" id="pwd" name="pwd" > <br>
 
 
-<input type="submit" value="Login">
+<input type="submit" value="Skapa Konto">
 
 </form>
-
+</div>
 </body>
 </html>
 
