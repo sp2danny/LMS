@@ -123,25 +123,25 @@ $styr = LoadIni("../styr.txt");
 				var img = document.getElementById("priceImg");
 				ctx.drawImage(img, 0, 0, 140, 140);
 				ctx.font = "32px roboto";
-				var txt = " " + ppp.toString() + " :- ";
-				var xx = (140 - ctx.measureText(txt).width)/2;
-				ctx.fillText(txt, xx, 90);
+				var txt1 = ppp.toString();
+				var ll = txt1.length;
+				if (ll>3) {
+					txt1 = txt1.slice(0, ll-3) + " " + txt1.slice(ll-3);
+				}
+				txt1 += ":-";
+				var xx1 = (140 - ctx.measureText(txt1).width)/2;
+				ctx.fillText(txt1, xx1, 90);
 				
-				txt = "Nu!";
-				xx = (140 - ctx.measureText(txt).width)/2;
-				ctx.fillText(txt, xx, 50);
+				var txt2 = "Nu!";
+				var xx2 = (140 - ctx.measureText(txt2).width)/2;
+				ctx.fillText(txt2, xx2, 50);
 
 				canvas = document.getElementById("prisCanv2");
 				ctx = canvas.getContext("2d");
 				ctx.drawImage(img, 0, 0, 140, 140);
 				ctx.font = "32px roboto";
-				txt = " " + ppp.toString() + " :- ";
-				xx = (140 - ctx.measureText(txt).width)/2;
-				ctx.fillText(txt, xx, 90);
-				
-				txt = "Nu!";
-				xx = (140 - ctx.measureText(txt).width)/2;
-				ctx.fillText(txt, xx, 50);
+				ctx.fillText(txt1, xx1, 90);
+				ctx.fillText(txt2, xx2, 50);
 			}
 
 			function on_update_2()
@@ -372,10 +372,7 @@ $styr = LoadIni("../styr.txt");
 					}
 
 					echo " </tr> <tr> ";
-					echo " <td colspan=3 > </td> ";
-					echo " <td> <canvas id='prisCanv2' width='140' height='140' > </canvas> </td> ";
-					
-					echo " </tr> </table> <br> \n";
+					echo " <td colspan=3 > ";
 
 					echo "<table> ";
 					echo " <tr> ";
@@ -384,8 +381,23 @@ $styr = LoadIni("../styr.txt");
 					echo " <td> &nbsp;&nbsp; </td> ";
 					echo " <td> <canvas id='timeCanv' width='384' height='384' > </canvas> </td> ";
 					echo " <td> &nbsp;&nbsp; </td> ";
-					//echo " <td> <canvas id='prisCanv2' width='140' height='140' > </canvas> </td> ";
 					echo " </tr> </table> ";
+
+					
+					echo " </td> ";
+					echo " <td> <canvas id='prisCanv2' width='140' height='140' > </canvas> </td> ";
+					
+					echo " </tr> </table> <br> \n";
+
+					//echo "<table> ";
+					//echo " <tr> ";
+					//echo " <td> &nbsp;&nbsp; </td> ";
+					//echo " <td> <canvas id='circCanv' width='384' height='384' > </canvas> </td> ";
+					//echo " <td> &nbsp;&nbsp; </td> ";
+					//echo " <td> <canvas id='timeCanv' width='384' height='384' > </canvas> </td> ";
+					//echo " <td> &nbsp;&nbsp; </td> ";
+					////echo " <td> <canvas id='prisCanv2' width='140' height='140' > </canvas> </td> ";
+					//echo " </tr> </table> ";
 					
 					
 					//echo " <tr> <td colspan=3 > ";
