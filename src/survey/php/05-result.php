@@ -162,7 +162,9 @@ $styr = LoadIni("../styr.txt");
 						$tt = $row['date'];
 						$dt = date_create_from_format("Y-m-d H:i:s",$tt);
 						date_add($dt, date_interval_create_from_date_string($t . " days"));
-						$tim = date_format($dt, "Y-m-d");
+						$now = date_create('now');
+						$dd = date_diff($now, $dt);
+						$tim = date_interval_format($dd, "%d") . " dagar";
 					}
 					echo "'" . $pkv . " platser';\n";
 				?>
@@ -176,14 +178,15 @@ $styr = LoadIni("../styr.txt");
 				canvas = document.getElementById("timeCanv");
 				ctx = canvas.getContext("2d");
 				ctx.drawImage(img, 0, 0); 
-				ctx.font = "22px roboto";
+				ctx.font = "42px roboto";
 				txt = <?php echo "'" . $tim . "';"; ?>
 
 				xx = (384 - ctx.measureText(txt).width)/2;
-				ctx.fillText(txt, xx, 255);
-				txt = "Erbjudandet upphör";
-				xx = (384 - ctx.measureText(txt).width)/2;
 				ctx.fillText(txt, xx, 175);
+				
+				txt = "kvar";
+				xx = (384 - ctx.measureText(txt).width)/2;
+				ctx.fillText(txt, xx, 255);
 			}
 
 			function on_update()
