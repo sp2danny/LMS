@@ -6,6 +6,7 @@ pers
 	pwd       string
 	pnr       string unique
 	grupp     string (8)
+	email     string
 
 data
 	data_id   int ai key

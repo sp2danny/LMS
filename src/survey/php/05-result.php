@@ -22,6 +22,10 @@ $styr = LoadIni("../styr.txt");
 		<link rel="icon" href="../../site/common/favicon.ico" />
 		
 		<style>
+			td {
+				border-spacing:18px;
+			}
+		
 			.shake_green {
 				animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both infinite;
 				transform: rotate(0);
@@ -99,7 +103,7 @@ $styr = LoadIni("../styr.txt");
 				$km[$k] += $w * 100;
 			}
 
-			$max_name = "";
+			$max_name = " &lt;ingen uppgift&gt; ";
 
 			$max = 0;
 			$kp = [];
@@ -135,6 +139,11 @@ $styr = LoadIni("../styr.txt");
 				var txt2 = "Nu!";
 				var xx2 = (140 - ctx.measureText(txt2).width)/2;
 				ctx.fillText(txt2, xx2, 50);
+				
+				var txt3 = "Betala via klarna";
+				ctx.font = "12px roboto";
+				var xx3 = (140 - ctx.measureText(txt3).width)/2;
+				ctx.fillText(txt3, xx3, 110);
 
 				canvas = document.getElementById("prisCanv2");
 				ctx = canvas.getContext("2d");
@@ -142,6 +151,8 @@ $styr = LoadIni("../styr.txt");
 				ctx.font = "32px roboto";
 				ctx.fillText(txt1, xx1, 90);
 				ctx.fillText(txt2, xx2, 50);
+				ctx.font = "12px roboto";
+				ctx.fillText(txt3, xx3, 110);
 			}
 
 			function on_update_2()
@@ -280,9 +291,7 @@ $styr = LoadIni("../styr.txt");
 
 				<br><hr><br>
 
-				<canvas id="myCanvas" >
-				din browser st&ouml;der inte canvas
-				</canvas>
+				<canvas id="myCanvas" > </canvas>
 				<br />
 
 				<br />
@@ -354,15 +363,16 @@ $styr = LoadIni("../styr.txt");
 					}
 					echo " </tr> <tr> ";
 					for ($i=0; $i<$n; ++$i) {
-						echo " <td> <img width='95%' src='/article/";
+						echo " <td style='padding-right:12px' > <img width='300px' src='/article/";
 						echo $pr_img_arr[$i];
 						echo "' > </td> ";
 					}
 					echo " </tr> <tr> ";
 					for ($i=0; $i<$n; ++$i) {
-						echo " <td> <pre>";
-						echo $pr_desc_arr[$i];
-						echo "</pre> </td> ";
+						echo " <td style='padding-right:12px' > ";
+						echo str_replace("\r\n", " <br> ", $pr_desc_arr[$i]);
+						//echo $pr_desc_arr[$i];
+						echo " <br> <br> </td> ";
 					}
 
 					echo " </tr> <tr> ";

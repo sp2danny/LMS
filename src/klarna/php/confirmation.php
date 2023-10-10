@@ -85,7 +85,10 @@ echo <<<END
 <div>
 <h3> Köp genomfört</h3>
 skapa konto:<br>
-<form action="../../site/common/regpers.php">
+<form action="../../site/common/regpers2.php">
+
+<label for="name"> Namn: </label> <br>
+<input type="text" id="name" name="name" > <br>
 
 <label for="pnr"> Personnummer: </label> <br>
 <input type="text" id="pnr" name="pnr" > <br>
