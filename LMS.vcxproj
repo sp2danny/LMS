@@ -19,43 +19,78 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\batt-1.1\index.php" />
-    <None Include="src\batt-1.1\score.php" />
+    <Text Include="db.txt" />
+    <Text Include="Kludd.txt" />
+    <Text Include="src\survey\styr.txt" />
+    <Text Include="TODO.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\coach\edit_prod.php" />
+    <None Include="src\coach\edit_prod_save.php" />
+    <None Include="src\coach\index.html" />
+    <None Include="src\coach\list_prod.php" />
+    <None Include="src\coach\make_prod.php" />
+    <None Include="src\coach\make_prod_save.php" />
+    <None Include="src\common\actually_delete.php" />
+    <None Include="src\common\cleanup_db.php" />
     <None Include="src\common\cmdparse.php" />
+    <None Include="src\common\cockpit-2.php" />
     <None Include="src\common\cockpit.php" />
+    <None Include="src\common\common-2.php" />
     <None Include="src\common\common.php" />
     <None Include="src\common\connect.php" />
+    <None Include="src\common\convert.php" />
+    <None Include="src\common\cps_post.php" />
+    <None Include="src\common\cp_settings.php" />
+    <None Include="src\common\create_group.php" />
+    <None Include="src\common\create_note.php" />
+    <None Include="src\common\create_report.php" />
     <None Include="src\common\create_report_p1.php" />
+    <None Include="src\common\delete_user.php" />
     <None Include="src\common\discdisplay.php" />
     <None Include="src\common\discquery.php" />
     <None Include="src\common\display_report.php" />
+    <None Include="src\common\dorate.php" />
+    <None Include="src\common\evaluator.php" />
     <None Include="src\common\forward.php" />
     <None Include="src\common\gap.php" />
     <None Include="src\common\gap_post.php" />
+    <None Include="src\common\getparam.php" />
     <None Include="src\common\head.php" />
     <None Include="src\common\index.php" />
     <None Include="src\common\login.php" />
-    <None Include="src\common\main-v01.css" />
+    <None Include="src\common\login2.php" />
+    <None Include="src\common\main.css.php" />
     <None Include="src\common\main.js.php" />
+    <None Include="src\common\make_group.php" />
+    <None Include="src\common\meter_disp.php" />
+    <None Include="src\common\next.php" />
+    <None Include="src\common\nypers.php" />
     <None Include="src\common\one_post.php" />
     <None Include="src\common\personal.php" />
     <None Include="src\common\post_disc.php" />
     <None Include="src\common\process_cmd.php" />
     <None Include="src\common\progress.php" />
     <None Include="src\common\pulselst.php" />
+    <None Include="src\common\rateit.php" />
+    <None Include="src\common\regpers.php" />
+    <None Include="src\common\regpers2.php" />
     <None Include="src\common\roundup.php" />
+    <None Include="src\common\roundup_debug.php" />
     <None Include="src\common\score.php" />
+    <None Include="src\common\show_details.php" />
+    <None Include="src\common\spdr_disp.php" />
     <None Include="src\common\spindel.php" />
+    <None Include="src\common\stapel_disp.php" />
+    <None Include="src\common\tagOut.php" />
+    <None Include="src\common\token.php" />
     <None Include="src\common\tq.php" />
     <None Include="src\common\tq_post.php" />
-    <None Include="src\debug.php" />
-    <None Include="src\index.html" />
-    <None Include="src\klarna\coach.html" />
-    <None Include="src\klarna\debug.html" />
-    <None Include="src\klarna\index.html" />
-    <None Include="src\klarna\login.php" />
+    <None Include="src\common\utbsel.php" />
+    <None Include="src\klarna\php\buy.php" />
     <None Include="src\klarna\php\checkout.php" />
     <None Include="src\klarna\php\confirmation.php" />
+    <None Include="src\klarna\php\db.php" />
     <None Include="src\klarna\php\dologin.php" />
     <None Include="src\klarna\php\getparam.php" />
     <None Include="src\klarna\php\login.php" />
@@ -63,13 +98,16 @@
     <None Include="src\klarna\php\start.php" />
     <None Include="src\klarna\php\terms.php" />
     <None Include="src\klarna\php\test.php" />
-    <None Include="src\survey\index.html" />
-    <None Include="src\survey\survey.php" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="db.txt" />
-    <Text Include="src\batt-1.1\styr.txt" />
-    <Text Include="src\klarna\klarna.txt" />
+    <None Include="src\klarna\php\validation.php" />
+    <None Include="src\survey\php\00-common.php" />
+    <None Include="src\survey\php\00-connect.php" />
+    <None Include="src\survey\php\01-b-register.php" />
+    <None Include="src\survey\php\01-register.php" />
+    <None Include="src\survey\php\02-b-lead_reg.php" />
+    <None Include="src\survey\php\02-lead_reg.php" />
+    <None Include="src\survey\php\03-intro.php" />
+    <None Include="src\survey\php\04-tratten.php" />
+    <None Include="src\survey\php\05-result.php" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

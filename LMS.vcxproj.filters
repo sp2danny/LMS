@@ -11,135 +11,266 @@
     <Filter Include="Source Files\klarna">
       <UniqueIdentifier>{d93fadc3-e0e4-45c8-89ab-0f2167d7ee44}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\coach">
+      <UniqueIdentifier>{bdd207d4-1449-4bb2-9d8d-a5f539eef685}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\survey">
+      <UniqueIdentifier>{533afed1-5844-4f85-b9a5-49f211ed416d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common">
+      <UniqueIdentifier>{852a8662-1511-4713-a943-566e3d20a754}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\index.html">
-      <Filter>Source Files</Filter>
+    <Text Include="db.txt">
+      <Filter>Source Files\stuff</Filter>
+    </Text>
+    <Text Include="TODO.txt">
+      <Filter>Source Files\stuff</Filter>
+    </Text>
+    <Text Include="Kludd.txt">
+      <Filter>Source Files\stuff</Filter>
+    </Text>
+    <Text Include="src\survey\styr.txt">
+      <Filter>Source Files\survey</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\coach\list_prod.php">
+      <Filter>Source Files\coach</Filter>
     </None>
-    <None Include="src\common\head.php">
-      <Filter>Source Files</Filter>
+    <None Include="src\coach\make_prod.php">
+      <Filter>Source Files\coach</Filter>
     </None>
-    <None Include="src\common\login.php">
-      <Filter>Source Files</Filter>
+    <None Include="src\coach\make_prod_save.php">
+      <Filter>Source Files\coach</Filter>
     </None>
-    <None Include="src\batt-1.1\index.php">
-      <Filter>Source Files</Filter>
+    <None Include="src\coach\edit_prod.php">
+      <Filter>Source Files\coach</Filter>
     </None>
-    <None Include="src\common\index.php">
-      <Filter>Source Files</Filter>
+    <None Include="src\coach\edit_prod_save.php">
+      <Filter>Source Files\coach</Filter>
     </None>
-    <None Include="src\common\connect.php">
-      <Filter>Source Files</Filter>
+    <None Include="src\coach\index.html">
+      <Filter>Source Files\coach</Filter>
     </None>
-    <None Include="src\common\common.php">
-      <Filter>Source Files</Filter>
+    <None Include="src\common\convert.php">
+      <Filter>Source Files\common</Filter>
     </None>
-    <None Include="src\common\score.php">
-      <Filter>Source Files</Filter>
+    <None Include="src\common\cp_settings.php">
+      <Filter>Source Files\common</Filter>
     </None>
-    <None Include="src\batt-1.1\score.php">
-      <Filter>Source Files</Filter>
+    <None Include="src\common\cps_post.php">
+      <Filter>Source Files\common</Filter>
     </None>
-    <None Include="src\common\personal.php">
-      <Filter>Source Files</Filter>
+    <None Include="src\common\create_group.php">
+      <Filter>Source Files\common</Filter>
     </None>
-    <None Include="src\common\main-v01.css">
-      <Filter>Source Files</Filter>
+    <None Include="src\common\create_note.php">
+      <Filter>Source Files\common</Filter>
     </None>
-    <None Include="src\common\pulselst.php">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="src\debug.php">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="src\common\cmdparse.php">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="src\common\process_cmd.php">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="src\common\one_post.php">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="src\common\progress.php">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="src\common\discdisplay.php">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="src\common\discquery.php">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="src\common\post_disc.php">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="src\common\gap.php">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="src\common\gap_post.php">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="src\common\spindel.php">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="src\common\main.js.php">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="src\common\tq.php">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="src\common\tq_post.php">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="src\common\cockpit.php">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="src\common\forward.php">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="src\common\roundup.php">
-      <Filter>Source Files</Filter>
+    <None Include="src\common\create_report.php">
+      <Filter>Source Files\common</Filter>
     </None>
     <None Include="src\common\create_report_p1.php">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\delete_user.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\discdisplay.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\discquery.php">
+      <Filter>Source Files\common</Filter>
     </None>
     <None Include="src\common\display_report.php">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\common</Filter>
     </None>
-    <None Include="src\survey\index.html">
-      <Filter>Source Files\stuff</Filter>
+    <None Include="src\common\dorate.php">
+      <Filter>Source Files\common</Filter>
     </None>
-    <None Include="src\survey\survey.php">
-      <Filter>Source Files\stuff</Filter>
+    <None Include="src\common\evaluator.php">
+      <Filter>Source Files\common</Filter>
     </None>
-    <None Include="src\klarna\php\start.php">
+    <None Include="src\common\forward.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\gap.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\gap_post.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\getparam.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\head.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\index.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\login.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\login2.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\main.css.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\main.js.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\make_group.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\meter_disp.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\next.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\nypers.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\one_post.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\personal.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\post_disc.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\process_cmd.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\progress.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\pulselst.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\rateit.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\regpers.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\regpers2.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\roundup.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\roundup_debug.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\score.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\show_details.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\spdr_disp.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\spindel.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\stapel_disp.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\tagOut.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\token.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\tq.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\tq_post.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\utbsel.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\actually_delete.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\cleanup_db.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\cmdparse.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\cockpit.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\cockpit-2.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\common.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\common-2.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\connect.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\survey\php\01-register.php">
+      <Filter>Source Files\survey</Filter>
+    </None>
+    <None Include="src\survey\php\02-b-lead_reg.php">
+      <Filter>Source Files\survey</Filter>
+    </None>
+    <None Include="src\survey\php\02-lead_reg.php">
+      <Filter>Source Files\survey</Filter>
+    </None>
+    <None Include="src\survey\php\03-intro.php">
+      <Filter>Source Files\survey</Filter>
+    </None>
+    <None Include="src\survey\php\04-tratten.php">
+      <Filter>Source Files\survey</Filter>
+    </None>
+    <None Include="src\survey\php\05-result.php">
+      <Filter>Source Files\survey</Filter>
+    </None>
+    <None Include="src\survey\php\00-common.php">
+      <Filter>Source Files\survey</Filter>
+    </None>
+    <None Include="src\survey\php\00-connect.php">
+      <Filter>Source Files\survey</Filter>
+    </None>
+    <None Include="src\survey\php\01-b-register.php">
+      <Filter>Source Files\survey</Filter>
+    </None>
+    <None Include="src\klarna\php\validation.php">
       <Filter>Source Files\klarna</Filter>
     </None>
-    <None Include="src\klarna\index.html">
+    <None Include="src\klarna\php\db.php">
       <Filter>Source Files\klarna</Filter>
     </None>
-    <None Include="src\klarna\coach.html">
-      <Filter>Source Files\klarna</Filter>
-    </None>
-    <None Include="src\klarna\debug.html">
-      <Filter>Source Files\klarna</Filter>
-    </None>
-    <None Include="src\klarna\php\login.php">
+    <None Include="src\klarna\php\terms.php">
       <Filter>Source Files\klarna</Filter>
     </None>
     <None Include="src\klarna\php\dologin.php">
       <Filter>Source Files\klarna</Filter>
     </None>
+    <None Include="src\klarna\php\login.php">
+      <Filter>Source Files\klarna</Filter>
+    </None>
+    <None Include="src\klarna\php\start.php">
+      <Filter>Source Files\klarna</Filter>
+    </None>
     <None Include="src\klarna\php\getparam.php">
       <Filter>Source Files\klarna</Filter>
     </None>
-    <None Include="src\klarna\login.php">
-      <Filter>Source Files\klarna</Filter>
-    </None>
-    <None Include="src\klarna\php\test.php">
-      <Filter>Source Files\klarna</Filter>
-    </None>
-    <None Include="src\klarna\php\push.php">
+    <None Include="src\klarna\php\buy.php">
       <Filter>Source Files\klarna</Filter>
     </None>
     <None Include="src\klarna\php\checkout.php">
@@ -148,19 +279,11 @@
     <None Include="src\klarna\php\confirmation.php">
       <Filter>Source Files\klarna</Filter>
     </None>
-    <None Include="src\klarna\php\terms.php">
+    <None Include="src\klarna\php\push.php">
       <Filter>Source Files\klarna</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="db.txt">
-      <Filter>Source Files</Filter>
-    </Text>
-    <Text Include="src\batt-1.1\styr.txt">
-      <Filter>Source Files</Filter>
-    </Text>
-    <Text Include="src\klarna\klarna.txt">
+    <None Include="src\klarna\php\test.php">
       <Filter>Source Files\klarna</Filter>
-    </Text>
+    </None>
   </ItemGroup>
 </Project>
