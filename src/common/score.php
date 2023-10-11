@@ -239,10 +239,12 @@ EOT;
 						echo '</table>' . $eol;
 						break;
 					case "next":
-						if ($snum >= $maxseg)
-							echo '<a href="' . '../common/personal.php?pnr=' . $pnr . '"> <button> ' . $cmd->rest . ' </button> </a>' . $eol;
-						else
+						if ($snum >= $maxseg) {
+							//echo '<a href="' . '../common/personal.php?pnr=' . $pnr . '"> <button> ' . $cmd->rest . ' </button> </a>' . $eol;
+							echo '<a href="' . '../common/rateit.php?pnr=' . $pnr . '&bnum=' . $bnum . '"> <button> ' . $cmd->rest . ' </button> </a>' . $eol;
+						} else {
 							echo '<a href="' . 'index.php?pnr=' . $pnr . '&seg=' . ($snum+1) . '"> <button> ' . $cmd->rest . ' </button> </a>' . $eol;
+						}
 						break;
 					case "again":
 						echo '<a href="' . 'index.php?pnr=' . $pnr . '&seg=' . ($snum) . '"> <button> ' . $cmd->rest . ' </button> </a>' . $eol;
