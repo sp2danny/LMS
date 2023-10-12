@@ -14,6 +14,8 @@ include 'common.php';
 
 $pnr = getparam('pnr');
 $bnum = getparam('bnum');
+$snum = getparam('snum');
+$maxs = getparam('maxs');
 
 for ($i=1; $i<=5; ++$i) {
 	echo " <td> ";
@@ -21,6 +23,8 @@ for ($i=1; $i<=5; ++$i) {
 	echo "dorate.php?score=" . $i;
 	echo "&pnr=" . $pnr;
 	echo "&bnum=" . $bnum;
+	echo "&snum=" . $snum;
+	echo "&maxs=" . $maxs;
 	echo "' > <img src='sc" . $i . ".png' /> </a> </td> \n";
 }
 

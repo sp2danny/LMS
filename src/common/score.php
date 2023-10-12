@@ -241,9 +241,10 @@ EOT;
 					case "next":
 						if ($snum >= $maxseg) {
 							//echo '<a href="' . '../common/personal.php?pnr=' . $pnr . '"> <button> ' . $cmd->rest . ' </button> </a>' . $eol;
-							echo '<a href="' . '../common/rateit.php?pnr=' . $pnr . '&bnum=' . $bnum . '"> <button> ' . $cmd->rest . ' </button> </a>' . $eol;
+							echo '<a href="' . '../common/rateit.php?pnr=' . $pnr . '&bnum=' . ($bnum+1) . '&snum=' . '1' . '&maxs=' . $maxseg .  '" > <button> ' . $cmd->rest . ' </button> </a>' . $eol;
 						} else {
-							echo '<a href="' . 'index.php?pnr=' . $pnr . '&seg=' . ($snum+1) . '"> <button> ' . $cmd->rest . ' </button> </a>' . $eol;
+							echo '<a href="' . '../common/rateit.php?pnr=' . $pnr . '&bnum=' . $bnum . '&snum=' . ($snum+1) . '&maxs=' . $maxseg .  '" > <button> ' . $cmd->rest . ' </button> </a>' . $eol;
+							//echo '<a href="' . 'index.php?pnr=' . $pnr . '&seg=' . ($snum+1) . '"> <button> ' . $cmd->rest . ' </button> </a>' . $eol;
 						}
 						break;
 					case "again":
