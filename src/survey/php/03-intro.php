@@ -40,6 +40,7 @@ $styr = LoadIni("../styr.txt");
 				<br /> <br />
 				<?php
 					$lid = getparam("lid");
+					$variant = getparam("variant");
 					echo "<a href='04-tratten.php?lid=$lid'>" . "\n";
 				?>
 					<button>

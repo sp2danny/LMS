@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="LMS" Version="11000" InternalType="">
+  <VirtualDirectory Name="stuff">
+    <File Name="src/common/main.css.php"/>
+    <File Name="ftp.txt"/>
+    <File Name="debug.php"/>
+    <File Name="db.txt"/>
+    <File Name="TODO.txt"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="survey">
+    <VirtualDirectory Name="php">
+      <File Name="src/survey/php/05-result.php"/>
+      <File Name="src/survey/php/04-tratten.php"/>
+      <File Name="src/survey/php/03-intro.php"/>
+      <File Name="src/survey/php/02-lead_reg.php"/>
+      <File Name="src/survey/php/02-b-lead_reg.php"/>
+      <File Name="src/survey/php/01-register.php"/>
+      <File Name="src/survey/php/01-b-register.php"/>
+      <File Name="src/survey/php/00-connect.php"/>
+      <File Name="src/survey/php/00-common.php"/>
+    </VirtualDirectory>
+    <File Name="src/survey/start.php"/>
+    <File Name="src/survey/listing.php"/>
+    <File Name="src/survey/index.html"/>
+    <File Name="src/survey/styr.txt"/>
+  </VirtualDirectory>
   <VirtualDirectory Name="coach">
     <File Name="src/coach/make_prod_save.php"/>
     <File Name="src/coach/edit_prod_save.php"/>
@@ -29,31 +53,8 @@
     <File Name="src/klarna/debug.html"/>
     <File Name="src/klarna/coach.html"/>
   </VirtualDirectory>
-  <VirtualDirectory Name="LMS">
-    <VirtualDirectory Name="stuff">
-      <File Name="src/common/main.css.php"/>
-      <File Name="ftp.txt"/>
-      <File Name="debug.php"/>
-      <File Name="db.txt"/>
-    </VirtualDirectory>
-    <VirtualDirectory Name="survey">
-      <File Name="src/survey/listing.php"/>
-      <VirtualDirectory Name="php">
-        <File Name="src/survey/php/02-b-lead_reg.php"/>
-        <File Name="src/survey/php/01-b-register.php"/>
-        <File Name="src/survey/php/05-result.php"/>
-        <File Name="src/survey/php/04-tratten.php"/>
-        <File Name="src/survey/php/03-intro.php"/>
-        <File Name="src/survey/php/02-lead_reg.php"/>
-        <File Name="src/survey/php/01-register.php"/>
-        <File Name="src/survey/php/00-connect.php"/>
-        <File Name="src/survey/php/00-common.php"/>
-      </VirtualDirectory>
-      <File Name="src/survey/styr.txt"/>
-      <File Name="src/survey/index.html"/>
-    </VirtualDirectory>
-  </VirtualDirectory>
-  <VirtualDirectory Name="src">
+  <VirtualDirectory Name="common">
+    <File Name="src/common/welcome.php"/>
     <File Name="src/common/mypage.php"/>
     <File Name="src/common/dorate.php"/>
     <File Name="src/common/rateit.php"/>

@@ -1,10 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
-<head> <title> Registrera </title> 
-</head>
-<body>
+<html><head>
 
 <?php
 
@@ -15,7 +12,7 @@ include_once 'convert.php';
 $pnr = getparam('pnr');
 $email = getparam('email');
 $name = getparam('name');
-$kid = getparam('kid');
+$lid = getparam('lid');
 $pwd = getparam('pwd');
 
 $ok = true;
@@ -24,6 +21,7 @@ $query = "SELECT * FROM pers WHERE pnr='" . $pnr . "'";
 $res = mysqli_query($emperator, $query);
 
 if ($row = mysqli_fetch_array($res)) {
+	echo "</head><body>";
 	echo convert('Denna person fanns redan i databasen, ingen åtgärd utfördes') . " <br />";
 } else {
 	$query = "INSERT INTO pers (pnr, pwd, name, email) VALUES ('" . $pnr . "', '" . $pwd . "', '" . $name . "', '" $email . "');";
@@ -40,14 +38,16 @@ if ($row = mysqli_fetch_array($res)) {
 			$query = "INSERT INTO data (pers, type, value_a) VALUES (" . $pid . ", 4, 0);";
 			$res = mysqli_query($emperator, $query);
 			$ok = $ok && $res;
-			$query = "INSERT INTO data (pers, type, value_a) VALUES (" . $pid . ", 9, " . $kid . ");";
+			$query = "INSERT INTO data (pers, type, value_a) VALUES (" . $pid . ", 15, " . $lid . ");";
 			$res = mysqli_query($emperator, $query);
 			$ok = $ok && $res;
 		}
 	}
 	if ($ok) {
-		echo convert('Kontot skapat') . " <br />";
+		//echo convert('Kontot skapat') . " <br />";
+		
 	} else {
+		echo "</head><body>";
 		echo convert('Något gick fel') . " <br />";
 	}
 }

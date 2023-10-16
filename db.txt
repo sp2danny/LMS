@@ -37,8 +37,8 @@ prod
 
 typer
 
-	namn        type         a            b            c
-	==========  ===========  ===========  ===========  ===========
+	namn        type         a            b            c            surv
+	==========  ===========  ===========  ===========  ===========  ===========
 	progress    1 u          batteri      segment    
 	klargjord   2            batteri      segment    
 	disk        3 u          hv           ud         
@@ -50,6 +50,10 @@ typer
  
 	mot-1       11
 	mot-2       12
+	
+    lead-id     15           lead-id
+    feedback    16           batteri      del                       score
+	utskick     17           lead-id      variant
 
 
 	namn        type         a            b            c

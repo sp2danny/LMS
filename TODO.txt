@@ -17,3 +17,7 @@ coach
 
 är du nöjd med att ha klarat denna del av utbildningen
 
+variant nummer
+välkomst sida - nu kör vi
+min sida - stapel
+
