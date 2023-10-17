@@ -25,9 +25,13 @@ $styr = LoadIni("../styr.txt");
 			td {
 				border-spacing:18px;
 			}
+
+			img.lite {
+				opacity: 0.5;
+			}
 		
 			.shake_green {
-				animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both infinite;
+				animation: shake 1.82s cubic-bezier(.36, .07, .19, .97) both infinite;
 				transform: rotate(0);
 				backface-visibility: hidden;
 				perspective: 1000px;
@@ -53,20 +57,20 @@ $styr = LoadIni("../styr.txt");
 			@keyframes shake {
 				10%,
 				90% {
-					transform: rotate(-1deg);
+					transform: rotate(-0.25deg);
 				}
 				20%,
 				80% {
-					transform: rotate(2deg);
+					transform: rotate(0.5deg);
 				}
 				30%,
 				50%,
 				70% {
-					transform: rotate(-4deg);
+					transform: rotate(-1deg);
 				}
 				40%,
 				60% {
-					transform: rotate(4deg);
+					transform: rotate(1deg);
 				}
 			}
 		</style>
@@ -188,7 +192,9 @@ $styr = LoadIni("../styr.txt");
 
 				canvas = document.getElementById("timeCanv");
 				ctx = canvas.getContext("2d");
+				ctx.globalAlpha = 0.4;
 				ctx.drawImage(img, 0, 0); 
+				ctx.globalAlpha = 1.0;
 				ctx.font = "42px roboto";
 				txt = <?php echo "'" . $tim . "';"; ?>
 
@@ -333,7 +339,7 @@ $styr = LoadIni("../styr.txt");
 					echo " <canvas id='priceCanv' width='140' height='140' > </canvas> ";
 					echo " </td> </tr> </table> ";
 
-					
+					echo " <p> <h1> Ditt personliga erbjudande: En kurs för dig i flera steg. Nu endast " . $pr_price . ":- </h1> </p> \n";
 
 					$subs = explode(",", $pr_unl);
 
