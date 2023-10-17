@@ -21,3 +21,6 @@ variant nummer
 välkomst sida - nu kör vi
 min sida - stapel
 
+pup i kanten
+kockpit -> min sidor
+
