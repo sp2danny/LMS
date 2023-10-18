@@ -45,14 +45,18 @@ if ($row = mysqli_fetch_array($res)) {
 	}
 	if ($ok) {
 		//echo convert('Kontot skapat') . " <br />";
-		
+		$link = "welcome.php?pid=" . $pid;
+		echo '<meta http-equiv="Refresh" content="0; url=';
+		echo "'" . $link . "'";
+		echo '" />';
+		echo "</head><body>";
 	} else {
 		echo "</head><body>";
 		echo convert('Något gick fel') . " <br />";
 	}
 }
 
-echo '<br /><br /><a href="login.php"><button>Logga in</button></a>';
+//echo '<br /><br /><a href="login.php"><button>Logga in</button></a>';
 
 ?>
 

@@ -377,6 +377,14 @@ function spiderMouseMove(event)
 include_once 'getparam.php';
 include_once 'convert.php';
 
+function redirect($link)
+{
+	$str  = '<meta http-equiv="Refresh" content="0; url=';
+	$str .=	"'" . $link . "'";
+	$str .= '" />';
+	return $str;
+}
+
 function QIT($val)
 {
 	if (is_numeric($val))
