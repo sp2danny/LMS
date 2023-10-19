@@ -11,24 +11,12 @@ text = <b>Välkommen till första steget i gratistesten som lägger grunden till
 
 button = Starta den kostnadsfria mätningen nu
 
-
 [querys]
 
 instructions = Kostnadsfri självskattning: Hur påverkad är du av negativ stress den senaste månaden? <br> Ange värde mellan 0-100. Där 0 är stämmer inte alls och 100 är stämmer precis.<br>   * Tänk på att vara ärlig mot dig själv när du svarar.<br>   * Det finns inget bra eller dåligt i de svar du ger.<br>   * Använd maximalt 10 sekunder på varje fråga.<br> Starta ditt test nu. Lycka till
 
 num = 15
 kat = 5
-
-# Ekonomi
-# Tid
-# Arbete
-# Familj
-# Vånner
-# Hälsa
-# Omvärld
-# Kasam, sammanhang, motivation, påverkan
-# Bostad
-# Egen person
 
 not = Stämmer inte alls
 full = Stämmer precis
@@ -44,7 +32,6 @@ kat.2.color = 335577
 kat.3.color = ff00ff
 kat.4.color = 00ff00
 kat.5.color = 112233
-
 
 query.1.text = 1. Jag känner ofta att jag får tid över till mig själv
 query.1.kat = 1
@@ -112,10 +99,9 @@ query.15.text = 15. Jag oroas av nyhetsrapporteringen
 query.15.kat = 5
 query.15.weight = 1.2
 
-
 [summary]
 
-text = <h1> Dina resultat i %</h1>
+text = <h1> Dina resultat i % </h1>
 button = Gå Vidare
 
 warn.lim = 50
@@ -123,54 +109,46 @@ warn.img = warn3.png
 
 [result]
 
-img=Stresstratt-7.png
-
-!break 2
-!text Skriv nu ut denna Återhämtningsguide.pdf och sätt in i din utbildningspärm.
-!text För att skriva ut dokumentet högerklickar du på dokumentet/utbildningsmaterialet och sedan klickar du på "öppna med förhandsvisning". Skriv sedan ut  dokumentet/utbildningsmaterialet ifrån din PDF läsare i datorn
-!break 2
-!embed width="85%" height="850px" ; Aterhamtningsguide.pdf
-!break 2
+img = Stresstratt-7.png
 
 num = 5
 
 limit.1.value = 10
-limit.1.text = Du har tillgång till ditt fulla intellekt <br> Ditt personliga erbjudande är att du kan möta våra bästa mentorer regelbundet och tillsammans utvecklas. Ett nätverk anpassat för de bästa mentorerna i Stockholm : XXXXX0 <br>  Du får 200:- rabatt med koden, Nystart2023. Anmäl dig redan idag, Lycka till<br>
-limit.1.link.text = Detta nätverk är bäst anpassat till de behov du har. Se mer redan NU<br>
-limit.1.link.url = https://mind2excellence.se/klarna/php/test.php
+limit.1.text = <b> Du har tillgång till ditt fulla intellekt </b> <br> Nedanstående utbildningar är speciellt anpassade för dig. <br> <br> <b> Specialerbjudande: </b> Köp tre steg i utbildningar anpassade till dig. Du betalar för två, och får en coachtimme på köpet. <br><br> Dina betalningar kan du enkelt dela upp med klarna.
+limit.1.link.text = <br> Du sparar 2 690:- &nbsp;&nbsp; Beställ&nbsp;HÄR&nbsp;redan&nbsp;NU! <br><br>
+limit.1.link.url = https://mind2excellence.se/klarna/php/buy.php
 limit.1.top = 45
 limit.1.bot = 265
 limit.1.prod = 3
 
 limit.2.value = 50
-limit.2.text = <b>Bra jobb. Ditt resultat ser bra ut. Du ligger i stressnivå ett</b> <br> Du kan såklart utveckla dig ännu mer. Vi har utifrån ditt resultat gjort ett personligt erbjudande till dig. En utbildning anpassad till dig: Anmäl dig redan idag, Lycka till
-
-limit.2.link.text = &nbsp; &nbsp; &nbsp; Besäll redan nu! &nbsp; &nbsp; &nbsp; 
-limit.2.link.url = https://mind2excellence.se/klarna/php/test.php
+limit.2.text = <b> Bra jobb. Ditt resultat ser bra ut. Du ligger i stressnivå ett. </b> <br> Nedanstående utbildningar är speciellt anpassade för dig. <br> <br> <b> Specialerbjudande: </b> Köp tre steg i utbildningar anpassade till dig. Du betalar för två, och får en coachtimme på köpet. <br><br> Dina betalningar kan du enkelt dela upp med klarna.
+limit.2.link.text = <br> Du sparar 2 690:- &nbsp;&nbsp; Beställ&nbsp;HÄR&nbsp;redan&nbsp;NU! <br><br>
+limit.2.link.url = https://mind2excellence.se/klarna/php/buy.php
 limit.2.top = 285
 limit.2.bot = 485
 limit.2.prod = 3
 
 limit.3.value = 75
-limit.3.text = Ditt resultat ligger i stressnivå två. Du kan ha nytta av att utveckla din förmåga att hantera negativ stress.<br> <br> Vi har gjort ett personligt erbjudande. En utbildning anpassad till dig: XXXXX2 <br> Du får 200:- rabatt med koden, Nystart2023. <br> <br> Anmäl dig redan idag, Lycka till<br><br>
-limit.3.link.text = Denna utbildning är bäst anpassad till de behov du har. Se ditt utbildningsförslag NU<br>
-limit.3.link.url = https://mind2excellence.se/klarna/php/test.php
+limit.3.text = <b> Ditt resultat ligger i stressnivå två. </b> <br> Du kan ha nytta av att utveckla din förmåga att hantera negativ stress. <br> <br> <b> Specialerbjudande: </b> Köp tre steg i utbildningar anpassade till dig. Du betalar för två, och får en coachtimme på köpet. <br><br> Dina betalningar kan du enkelt dela upp med klarna.
+limit.3.link.text = <br> Du sparar 2 690:- &nbsp;&nbsp; Beställ&nbsp;redan&nbsp;NU! <br><br>
+limit.3.link.url = https://mind2excellence.se/klarna/php/buy.php
 limit.3.top = 515
 limit.3.bot = 690
 limit.3.prod = 3
 
 limit.4.value = 90
-limit.4.text = Ditt resultat ligger i stressfas tre. Detta är en tydlig varningssignal för dig. <br>Du bör utveckla din förmåga att hantera negativ stress. <br> <br> Vi har gjort ett personligt erbjudande. En utbildning anpassad till dig: XXXXX3 <br> Du får 200:- rabatt med koden, Nystart2023. Anmäl dig redan idag, Lycka till<br><br>
-limit.4.link.text = Denna utbildning är bäst anpassad till de behov du har. Se ditt utbildningsförslag NU!<br>
-limit.4.link.url = https://mind2excellence.se/klarna/php/test.php
+limit.4.text = <b> Ditt resultat ligger i stressfas tre. </b> Detta är en tydlig varningssignal för dig. <br> Du bör utveckla din förmåga att hantera negativ stress. <br> <br> <b> Specialerbjudande: </b> Köp tre steg i utbildningar anpassade till dig. Du betalar för två, och får en coachtimme på köpet. <br><br> Dina betalningar kan du enkelt dela upp med klarna.
+limit.4.link.text = <br> Du sparar 2 690:- &nbsp;&nbsp; Beställ&nbsp;HÄR&nbsp;redan&nbsp;NU! <br><br>
+limit.4.link.url = https://mind2excellence.se/klarna/php/buy.php
 limit.4.top = 730
 limit.4.bot = 900
 limit.4.prod = 3
 
 limit.5.value = 100
-limit.5.text = Ditt resultat ligger i stressnivå fyra. Detta är en tydlig varningssignal för dig. <br>Du bör utveckla din förmåga att hantera negativ stress.<br> <br> Vi har gjort ett personligt erbjudande till dig:XXXXX4 <br> Du får 200:- rabatt med koden, Nystart2023. Anmäl dig redan idag, Lycka till<br> 
-limit.5.link.text = Denna utbildning är bäst anpassad till de behov du har. Se ditt utbildningsförslag NU!<br> 
-limit.5.link.url = https://mind2excellence.se/klarna/php/test.php
+limit.5.text = <b> Ditt resultat ligger i stressnivå fyra. </b> Detta är en tydlig varningssignal för dig. <br> Du bör utveckla din förmåga att hantera negativ stress. <br> <br> <b> Specialerbjudande: </b> Köp tre steg i utbildningar anpassade till dig. Du betalar för två, och får en coachtimme på köpet. <br><br> Dina betalningar kan du enkelt dela upp med klarna.
+limit.5.link.text = <br> Du sparar 2 690:- &nbsp;&nbsp; Beställ&nbsp;redan&nbsp;NU! <br><br>
+limit.5.link.url = https://mind2excellence.se/klarna/php/buy.php
 limit.5.top = 1040
 limit.5.bot = 1050
 limit.5.prod = 3
