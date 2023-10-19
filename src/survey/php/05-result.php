@@ -22,6 +22,11 @@ $styr = LoadIni("../styr.txt");
 		<link rel="icon" href="../../site/common/favicon.ico" />
 		
 		<style>
+
+			div {
+				font-family:    roboto;
+			}
+
 			td {
 				border-spacing:18px;
 			}
