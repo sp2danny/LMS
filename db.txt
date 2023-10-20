@@ -62,7 +62,7 @@ typer
 	notes       20           num                       text
 	lead        30-40        num
 	
-	platser     50           num
+	platser     50           num          dagar
 	
 	produkt     51           pr_num
 

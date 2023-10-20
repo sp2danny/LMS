@@ -169,8 +169,12 @@ $styr = LoadIni("../styr.txt");
 				var canvas = document.getElementById("circCanv");
 				var ctx = canvas.getContext("2d");
 				var img = document.getElementById("circImg");
+				
+				ctx.globalAlpha = 0.4;
 				ctx.drawImage(img, 0, 0); 
+				ctx.globalAlpha = 1.0;
 				ctx.font = "42px roboto";
+
 				var txt = 
 				<?php 
 					$pkv = "0"; $tim = "ingen upgift";
@@ -184,7 +188,8 @@ $styr = LoadIni("../styr.txt");
 						date_add($dt, date_interval_create_from_date_string($t . " days"));
 						$now = date_create('now');
 						$dd = date_diff($now, $dt);
-						$tim = date_interval_format($dd, "%d") . " dagar";
+						//$tim = date_interval_format($dd, "%d dagar %h timmar %i minuter %s sekunder") . " ";
+						$tim = date_interval_format($dd, "%d dagar");
 					}
 					echo "'" . $pkv . " platser';\n";
 				?>
