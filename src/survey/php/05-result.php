@@ -169,7 +169,7 @@ $styr = LoadIni("../styr.txt");
 				var canvas = document.getElementById("circCanv");
 				var ctx = canvas.getContext("2d");
 				var img = document.getElementById("circImg");
-				
+
 				ctx.clearRect(0, 0, canvas.width, canvas.height);
 				ctx.globalAlpha = 0.4;
 				ctx.drawImage(img, 0, 0); 
@@ -252,22 +252,22 @@ $styr = LoadIni("../styr.txt");
 				var ctx = cnv.getContext("2d");
 				var w = img.naturalWidth;
 				var h = img.naturalHeight;
-				
+
 				cnv.width = w;
 				cnv.height = h;
 				ctx.drawImage(img, 0, 0);
-				
+
 				var x,y;
 
 				<?php
-				
+
 					$dbg = "";
-				
+
 					for ($i = 1; $i <= $kn; ++$i)
 					{
 						$p = $kp[$i];
 						$c = "'#" . $styr['querys']["kat.$i.color"] . "'";
-						
+
 						$rn = $styr['result']['num'];
 						$lim = 1;
 						$lo = $up = 0;
@@ -283,9 +283,9 @@ $styr = LoadIni("../styr.txt");
 						$y1 = $styr['result']["limit.$lim.top"];
 						$y2 = $styr['result']["limit.$lim.bot"];
 						$y = $y1 + $pp*($y2-$y1);
-						
+
 						$dbg .= "kat $i (" . $styr['querys']["kat.$i.name"] . ") at $p % (lim $lim) mapped at $y <br>\n";
-						
+
 						echo "				x = w / 2 - w * ($kn-1) / 50 + w * $i / 25; \n";
 						echo "				y = $y; \n";
 						echo "				ctx.beginPath(); \n";
@@ -293,7 +293,7 @@ $styr = LoadIni("../styr.txt");
 						echo "				ctx.arc(x, y, 11, 0, 2 * Math.PI); \n";
 						echo "				ctx.fill(); \n";
 					}
-				
+
 				?>
 
 			}
@@ -308,7 +308,7 @@ $styr = LoadIni("../styr.txt");
 			<img width=50% src="../../site/common/logo.png" /> <br />
 			<div>
 				<br /> <br />
-				
+
 				<?php
 
 					echo $styr['summary']['text'];
@@ -369,10 +369,10 @@ $styr = LoadIni("../styr.txt");
 
 					echo $text;
 					echo " <br> \n";
-					
+
 					echo " </td> <td> ";
 					echo " &nbsp;&nbsp; ";
-					
+
 					echo " </td> <td> ";
 					echo " <canvas id='priceCanv' width='140' height='140' > </canvas> ";
 					echo " </td> </tr> </table> ";
@@ -440,10 +440,9 @@ $styr = LoadIni("../styr.txt");
 					echo " <td> &nbsp;&nbsp; </td> ";
 					echo " </tr> </table> ";
 
-					
 					echo " </td> ";
 					echo " <td> <canvas id='prisCanv2' width='140' height='140' > </canvas> </td> ";
-					
+
 					echo " </tr> </table> <br> \n";
 
 					//echo "<table> ";
@@ -455,8 +454,7 @@ $styr = LoadIni("../styr.txt");
 					//echo " <td> &nbsp;&nbsp; </td> ";
 					////echo " <td> <canvas id='prisCanv2' width='140' height='140' > </canvas> </td> ";
 					//echo " </tr> </table> ";
-					
-					
+
 					//echo " <tr> <td colspan=3 > ";
 					//echo " <h1 style='text-align:center' > " . $pr_title . " </h1> ";
 					//echo " </td> </tr> ";

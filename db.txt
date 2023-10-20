@@ -67,3 +67,5 @@ typer
 	produkt     51           pr_num
 
 	push        52           id                        type
+
+    startat     53

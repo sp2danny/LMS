@@ -45,7 +45,7 @@ if ($row = mysqli_fetch_array($res)) {
 	}
 	if ($ok) {
 		//echo convert('Kontot skapat') . " <br />";
-		$link = "welcome.php?pid=" . $pid;
+		$link = "welcome.php?pnr=" . $pnr;
 		echo '<meta http-equiv="Refresh" content="0; url=';
 		echo "'" . $link . "'";
 		echo '" />';
