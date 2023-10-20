@@ -170,12 +170,12 @@ $styr = LoadIni("../styr.txt");
 				var ctx = canvas.getContext("2d");
 				var img = document.getElementById("circImg");
 				
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
 				ctx.globalAlpha = 0.4;
 				ctx.drawImage(img, 0, 0); 
 				ctx.globalAlpha = 1.0;
 				ctx.font = "42px roboto";
 
-				var txt = 
 				<?php 
 					$pkv = "0"; $tim = "ingen upgift";
 					$query = "SELECT * FROM data WHERE type=50 AND pers=0";
@@ -186,14 +186,16 @@ $styr = LoadIni("../styr.txt");
 						$tt = $row['date'];
 						$dt = date_create_from_format("Y-m-d H:i:s",$tt);
 						date_add($dt, date_interval_create_from_date_string($t . " days"));
-						$now = date_create('now');
-						$dd = date_diff($now, $dt);
+						$ttt = date_format($dt, "Y-m-d H:i:s");
+						//$now = date_create('now');
+						//$dd = date_diff($now, $dt);
 						//$tim = date_interval_format($dd, "%d dagar %h timmar %i minuter %s sekunder") . " ";
-						$tim = date_interval_format($dd, "%d dagar");
+						//$tim = date_interval_format($dd, "%d dagar");
 					}
-					echo "'" . $pkv . " platser';\n";
+					echo "var txt = " . "'" . $pkv . " platser';\n";
+					echo "var dt = new Date('" . $ttt . "').getTime();\n";
 				?>
-				
+
 				var xx = (384 - ctx.measureText(txt).width)/2;
 				ctx.fillText(txt, xx, 175);
 				txt = "kvar";
@@ -202,18 +204,44 @@ $styr = LoadIni("../styr.txt");
 
 				canvas = document.getElementById("timeCanv");
 				ctx = canvas.getContext("2d");
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
 				ctx.globalAlpha = 0.4;
 				ctx.drawImage(img, 0, 0); 
 				ctx.globalAlpha = 1.0;
-				ctx.font = "42px roboto";
-				txt = <?php echo "'" . $tim . "';"; ?>
+				ctx.font = "28px roboto";
 
-				xx = (384 - ctx.measureText(txt).width)/2;
-				ctx.fillText(txt, xx, 175);
+				var now = new Date().getTime();
+				var distance = dt - now;
+
+				var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+				var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+				var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+				var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 				
+				var start = 145;
+				var offs = 28;
+
+				txt = days.toString() + " dagar"
+				xx = (384 - ctx.measureText(txt).width)/2;
+				ctx.fillText(txt, xx, start + 0*offs);
+				
+				txt = hours.toString() + " timmar"
+				xx = (384 - ctx.measureText(txt).width)/2;
+				ctx.fillText(txt, xx, start + 1*offs);
+
+				txt = minutes.toString() + " minuter"
+				xx = (384 - ctx.measureText(txt).width)/2;
+				ctx.fillText(txt, xx, start + 2*offs);
+				
+				txt = seconds.toString() + " sekunder"
+				xx = (384 - ctx.measureText(txt).width)/2;
+				ctx.fillText(txt, xx, start + 3*offs);
+
 				txt = "kvar";
 				xx = (384 - ctx.measureText(txt).width)/2;
-				ctx.fillText(txt, xx, 255);
+				ctx.fillText(txt, xx, start + 4*offs);
+				
+				setTimeout(on_update_2, 333);
 			}
 
 			function on_update()
