@@ -62,7 +62,7 @@ if ($tag==0) {
 		else
 			$arr[$var] = 1;
 	}
-	echo "<table> <tr> <th> variant </th> <th> antal </th> </tr> \n";
+	echo "<table> <tr> <th> email # </th> <th> start m&auml;t </th> </tr> \n";
 	foreach ($arr as $key => $val)
 	{
 		echo "<tr> <td> " . $key . " </td> ";
