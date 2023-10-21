@@ -4,6 +4,17 @@
 include "00-common.php";
 include "00-connect.php";
 
+function set_suv_val($i, $val, $lid)
+{
+	global $emperator;
+	$query = "INSERT INTO data (pers, type, value_a, value_b, surv) "
+		. "VALUES ('0', '54', '" . $i . "', '" . $val . "', '", . $lid . "');";
+
+	$res = mysqli_query( $emperator, $query );
+	return boolval($res);
+}
+
+
 $lid    = getparam('lid');
 $max    = 0; // getparam('val');
 
@@ -317,6 +328,7 @@ $styr = LoadIni("../styr.txt");
 					{
 						echo "<tr style='height:22px;'>";
 						$val = 100.0 * $kv[$i] / $km[$i];
+						set_suv_val($i, $val, $lid);
 						$c = "#" . $styr['querys']["kat.$i.color"];
 						echo "<td> <font color='$c'> " . "⬤" . " </font>";
 						echo " </td>\n";

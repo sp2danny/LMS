@@ -56,8 +56,8 @@ typer
 	utskick     17           lead-id      variant
 
 
-	namn        type         a            b            c
-	==========  ===========  ===========  ===========  ===========
+	namn        type         a            b            c            surv
+	==========  ===========  ===========  ===========  ===========  ===========
 	cp_sett     9            graph                     source
 	notes       20           num                       text
 	lead        30-40        num
@@ -69,3 +69,6 @@ typer
 	push        52           id                        type
 
     startat     53
+
+	tratt-res   54           index        value                     lid
+

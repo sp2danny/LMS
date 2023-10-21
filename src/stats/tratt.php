@@ -5,7 +5,7 @@
 		<title>
 			Tratten
 		</title>
-		
+
 		<style>
 			table {
 				border: 2px solid #000;
@@ -27,7 +27,7 @@
 				padding-right: 7px;
 				padding-left: 7px;
 			}
-			
+
 			body {
 				margin-top: 50px;
 				margin-bottom: 50px;
@@ -37,7 +37,7 @@
 		</style>
 
 	</head>
-	
+
 	<body> <div>
 
 		<hr />
@@ -69,9 +69,9 @@ if ($tag==0) {
 		echo " <td> " . $val . " </td> </tr> \n";
 	}
 	echo " </table> \n";
-	
+
 } else {
-	
+
 	$query = "SELECT * FROM data WHERE type='17' AND value_b='" . $tag . "'";
 	$result = mysqli_query($emperator, $query);
 	$num = 0;
@@ -82,7 +82,7 @@ if ($tag==0) {
 	echo "<tr> <td> " . $tag . " </td> ";
 	echo " <td> " . $num . " </td> </tr> \n";
 	echo " </table> \n";
-	
+
 }
 
 ?>
