@@ -69,6 +69,10 @@ typer
 	push        52           id                        type
 
     startat     53
+	
+	payed       54
+	
+	klarna-id   55
 
-	tratt-res   54           index        value                     lid
+	tratt-res   56           index        value                     lid
 

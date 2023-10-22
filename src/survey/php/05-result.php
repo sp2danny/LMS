@@ -8,7 +8,7 @@ function set_suv_val($i, $val, $lid)
 {
 	global $emperator;
 	$query = "INSERT INTO data (pers, type, value_a, value_b, surv) "
-		. "VALUES ('0', '54', '" . $i . "', '" . $val . "', '", . $lid . "');";
+		. "VALUES ('0', '56', '" . $i . "', '" . $val . "', '" . $lid . "');";
 
 	$res = mysqli_query( $emperator, $query );
 	return boolval($res);
