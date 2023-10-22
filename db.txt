@@ -34,6 +34,13 @@ prod
 	image     string
 	unlocks   string
 
+lead
+	lead_id   int ai key
+	name      string
+	email     string
+	phone     string
+	date      datetime auto
+
 
 typer
 
