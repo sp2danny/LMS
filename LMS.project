@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="LMS" Version="11000" InternalType="">
   <VirtualDirectory Name="stats">
+    <File Name="src/stats/index2.php"/>
+    <File Name="src/stats/createm.php"/>
     <File Name="src/stats/listing.php"/>
     <File Name="src/stats/tratt.php"/>
     <File Name="src/stats/index.php"/>

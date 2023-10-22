@@ -20,23 +20,23 @@
 	<body> <div>
 
 		<hr />
-		<h1> Full <h1>
+		<h1> Full </h1>
 		full listning <br>
 		<a href="tratt.php"> <button> Go! </button> </a>
 		<hr />
 		<h1> Variant </h1>
 		<form action="tratt.php">
 			<label for="tag"> utskicks-nummer </label> <br />
-			<input type="number" id="tag" name="tag" value="200" /> <br />
+			<input type="number" id="tag" name="tag" /> <br /> <br />
 			<input type="submit" value="Go!" /> <br />
 		</form>
 		<hr />
 		<h1> Datum </h1>
 		<form action="tratt.php">
 			<label for="startdate"> start datum </label> <br />
-			<input type="date" id="startdate" name="startdate" /> <br />
+			<input type="date" id="startdate" name="startdate" /> <br /> <br />
 			<label for="stopdate"> slut datum </label> <br />
-			<input type="date" id="stopdate" name="stopdate" /> <br />
+			<input type="date" id="stopdate" name="stopdate" /> <br /> <br />
 			<input type="submit" value="Go!" /> <br />
 		</form>
 
