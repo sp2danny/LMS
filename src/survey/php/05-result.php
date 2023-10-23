@@ -89,6 +89,12 @@ $styr = LoadIni("../styr.txt");
 					transform: rotate(1deg);
 				}
 			}
+			
+			.last {
+				font-family : <?php echo $styr['result']['last.font.family'] . ";" ?>
+				font-size : <?php echo $styr['result']['last.font.size'] . ";" ?>
+			}
+			
 		</style>
 
 		<?php
@@ -504,7 +510,9 @@ $styr = LoadIni("../styr.txt");
 				
 				<br /> <br /> <br />
 				
-				<?php echo "<p> " . $styr["result"]["last.text"] . "</p> \n"; ?>
+				<?php echo "<p class='last'> " . $styr["result"]["last.text"] . "</p> \n"; ?>
+
+				<?php echo "<p class='last'> <a href='" . $styr["result"]["last.link"] . "'> " . $styr["result"]["last.name"] . " </a> </p> \n"; ?>
 
 				<br /> <br /> <br />
 

@@ -47,7 +47,9 @@
 <?php
 
 include "../site/common/connect.php";
-include "../site/common/getparam.php";
+include "../survey/php/00-common.php";
+
+$styr = LoadIni("../survey/styr.txt");
 
 class LEAD {
 	public int $id;
@@ -103,6 +105,8 @@ if ($result) while ($row = mysqli_fetch_array($result))
 
 $tag = getparam("tag", 0);
 
+$limit = getparam("limit", 50);
+
 $start = getparam('startdate', '');
 $stop = getparam('stopdate', '');
 $b = false;
@@ -125,30 +129,81 @@ foreach ($arr as $key => $val)
 	if ($tag!=0)
 		if ($variant!=$tag)
 			continue;
+	$d = strtotime($val->date);
 	if ($hasd) {
-		$d = strtotime($val->date);
 		if ($d<$b) continue;
 		if ($d>$e) continue;
 	}
 	if (!array_key_exists($variant, $listing)) {
-		$listing[$variant]['start'] = 0;
+		$listing[$variant]['start'] = 1;
 		$listing[$variant]['tratt'] = 0;
+		$listing[$variant]['first'] = $d;
+		$listing[$variant]['last'] = $d;
+		$listing[$variant]['over'] = [];
+		for ($i=0; $i<=5; ++$i)
+			$listing[$variant]['over'][$i] = 0;
+	} else {
+		$listing[$variant]['start'] += 1;
+		if ($listing[$variant]['first'] < $d)
+			$listing[$variant]['first'] = $d;
+		if ($listing[$variant]['last'] < $d)
+			$listing[$variant]['last'] = $d;
+		if ($val->gjort) {
+			$anyover = false;
+			for ($i=1; $i<=5; ++$i) {
+				if ($val->tratt[$i] >= $limit) {
+					$listing[$variant]['over'][$i] += 1;
+					$anyover = true;
+				}
+			}
+			if ($anyover)
+				$listing[$variant]['over'][0] += 1;
+		}
 	}
 	
-	$listing[$variant]['start'] += 1;
 	if ($val->gjort)
 		$listing[$variant]['tratt'] += 1;
+		
 }
 
-echo "<table> <tr> <th> email # </th> <th> start m&auml;t </th> <th> gjort tratten </th> </tr> \n";
+echo "<table> <tr> <th> email # </th> <th> start m&auml;t </th> <th> första </th><th> sista <th> gjort tratten </th> ";
+for ($i=1; $i<=5; ++$i)
+	echo " <th> " . chr(64+$i) . " over " . $limit . " </th> ";
+echo " <th> " . " any over " . $limit . " </th> ";
+echo "</tr> \n";
 
 foreach ($listing as $key => $val)
 {
 	echo "<tr> ";
 	echo " <td> " . $key . " </td> ";
 	echo " <td> " . $val['start'] . " </td> ";
-	echo " <td> " . $val['tratt'] . " </td> ";
+	
+	echo " <td> " . date("Y M j", $val['first']) . " </td> ";
+	echo " <td> " . date("Y M j", $val['last'] ) . " </td> ";
+	
+	$per = 100.0 * $val['tratt'] / $val['start'];
+	echo " <td> " . $val['tratt'] . " (" . number_format($per,1,","," ") . "%) </td> ";
+
+	for ($i=1; $i<=5; ++$i) {
+		$per = 100.0 * $val['over'][$i] / $val['tratt'];
+		echo " <td> " . $val['over'][$i] . " (" . number_format($per,1,","," ") . "%) </td> ";
+	}
+
+	$per = 100.0 * $val['over'][0] / $val['tratt'];
+	echo " <td> " . $val['over'][0] . " (" . number_format($per,1,","," ") . "%) </td> ";
+
 	echo " </tr> \n";
+}
+echo " </table> \n";
+
+echo " <br> <br> <br> <hr> <br> <br> <br> ";
+
+echo "<table>";
+for ($i=1; $i<=5; ++$i) {
+	echo " <tr> ";
+	echo " <td> " . chr(64+$i) . " </td> ";
+	echo " <td> " . $styr['querys']["kat.$i.name"] . " </td> ";
+	echo " </tr> ";
 }
 echo " </table> \n";
 
