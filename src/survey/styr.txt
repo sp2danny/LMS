@@ -13,6 +13,12 @@ button = Starta den kostnadsfria mätningen nu
 
 [querys]
 
+preamble.text = Du får 1995:- i rabatt på våra produkter om fullföljer testet
+preamble.font = robota 22px
+
+post.text = Skriv ut och spara resultatet, så du kan följa din utveckling
+post.font = robota 22px
+
 instructions = Kostnadsfri självskattning: Hur påverkad är du av negativ stress den senaste månaden? <br> Ange värde mellan 0-100. Där 0 är stämmer inte alls och 100 är stämmer precis.<br>   * Tänk på att vara ärlig mot dig själv när du svarar.<br>   * Det finns inget bra eller dåligt i de svar du ger.<br>   * Använd maximalt 10 sekunder på varje fråga.<br> Starta ditt test nu. Lycka till
 
 num = 15

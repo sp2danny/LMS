@@ -501,6 +501,10 @@ $styr = LoadIni("../styr.txt");
 					echo "</div> \n";
 
 				?>
+				
+				<br /> <br /> <br />
+				
+				<?php echo "<p> " . $styr["result"]["last.text"] . "</p> \n"; ?>
 
 				<br /> <br /> <br />
 
