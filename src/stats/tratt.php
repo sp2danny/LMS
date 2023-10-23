@@ -60,6 +60,7 @@ class LEAD {
 	public int $utskick = -1;
 	public array $tratt;
 	public bool $gjort = false;
+	public bool $buy = false;
 }
 
 $query = "SELECT * FROM lead";
@@ -103,6 +104,16 @@ if ($result) while ($row = mysqli_fetch_array($result))
 	}
 }
 
+$query = "SELECT * FROM data WHERE type=54";
+$result = mysqli_query($emperator, $query);
+if ($result) while ($row = mysqli_fetch_array($result))
+{
+	$lid = $row['value_a'];
+	if (array_key_exists($lid, $arr)) {
+		$arr[$lid]->buy = true;
+	}
+}
+
 $tag = getparam("tag", 0);
 
 $limit = getparam("limit", 50);
@@ -140,6 +151,7 @@ foreach ($arr as $key => $val)
 		$listing[$variant]['first'] = $d;
 		$listing[$variant]['last'] = $d;
 		$listing[$variant]['over'] = [];
+		$listing[$variant]['buy'] = 0;
 		for ($i=0; $i<=5; ++$i)
 			$listing[$variant]['over'][$i] = 0;
 	} else {
@@ -160,16 +172,19 @@ foreach ($arr as $key => $val)
 				$listing[$variant]['over'][0] += 1;
 		}
 	}
-	
+
 	if ($val->gjort)
 		$listing[$variant]['tratt'] += 1;
-		
+	if ($val->buy)
+		$listing[$variant]['buy'] += 1;
+
 }
 
 echo "<table> <tr> <th> email # </th> <th> start m&auml;t </th> <th> första </th><th> sista <th> gjort tratten </th> ";
 for ($i=1; $i<=5; ++$i)
 	echo " <th> " . chr(64+$i) . " over " . $limit . " </th> ";
 echo " <th> " . " any over " . $limit . " </th> ";
+echo " <th> Köpt </th> ";
 echo "</tr> \n";
 
 foreach ($listing as $key => $val)
@@ -177,10 +192,10 @@ foreach ($listing as $key => $val)
 	echo "<tr> ";
 	echo " <td> " . $key . " </td> ";
 	echo " <td> " . $val['start'] . " </td> ";
-	
+
 	echo " <td> " . date("Y M j", $val['first']) . " </td> ";
 	echo " <td> " . date("Y M j", $val['last'] ) . " </td> ";
-	
+
 	$per = 100.0 * $val['tratt'] / $val['start'];
 	echo " <td> " . $val['tratt'] . " (" . number_format($per,1,","," ") . "%) </td> ";
 
@@ -191,6 +206,8 @@ foreach ($listing as $key => $val)
 
 	$per = 100.0 * $val['over'][0] / $val['tratt'];
 	echo " <td> " . $val['over'][0] . " (" . number_format($per,1,","," ") . "%) </td> ";
+
+	echo " <td> " . $val['buy'] . " </td> ";
 
 	echo " </tr> \n";
 }
