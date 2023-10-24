@@ -82,4 +82,9 @@ typer
 	klarna-id   55
 
 	tratt-res   56           index        value                     lid
+	
+	pdf dl cnt  57           antal        lead
+
+
+
 

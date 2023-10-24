@@ -216,6 +216,24 @@ echo " </table> \n";
 echo " <br> <br> <br> <hr> <br> <br> <br> ";
 
 echo "<table>";
+echo " <tr> ";
+echo " <th> variant </th> ";
+echo " <th> nedladdningar </th> ";
+echo " </tr> \n";
+$query = "SELECT * FROM data WHERE type=57";
+$result = mysqli_query($emperator, $query);
+if ($result) while ($row = mysqli_fetch_array($result))
+{
+	echo " <tr> ";
+	echo " <td> " . $row['value_b'] . " </td> ";
+	echo " <td> " . $row['value_a'] . " </td> ";
+	echo " </tr> \n";
+}
+echo "</table>\n";
+
+echo " <br> <br> <br> <hr> <br> <br> <br> ";
+
+echo "<table>";
 for ($i=1; $i<=5; ++$i) {
 	echo " <tr> ";
 	echo " <td> " . chr(64+$i) . " </td> ";

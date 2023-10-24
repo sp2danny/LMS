@@ -28,6 +28,14 @@ $max    = 0; // getparam('val');
 
 $styr = LoadIni("../styr.txt");
 
+$bid = 0;
+$query = "SELECT * FROM data WHERE type=17 AND value_a='$lid'";
+$result = mysqli_query($emperator, $query);
+if ($result) if ($row = mysqli_fetch_array($result))
+{
+	$bid = $row['value_b'];
+}
+
 ?> 
 
 <!DOCTYPE html>
@@ -335,6 +343,11 @@ $styr = LoadIni("../styr.txt");
 
 			function do_download()
 			{
+				fetch( <?php echo "'00-update.php?num=57&bid=$bid'"; ?> );
+				
+				//var ele = document.getElementById("dlarea");
+				//ele.innerHTML = "nu";
+				
 				var link=document.createElement('a');
 				link.href = <?php echo "'" . $styr["result"]["last.link"] . "';"; ?>
 				link.download = <?php echo "'" . $styr["result"]["last.nice"] . "';"; ?>
@@ -543,6 +556,9 @@ $styr = LoadIni("../styr.txt");
 				<?php echo "<p class='last'> " . $styr["result"]["last.text"] . "</p> \n"; ?>
 
 				<?php echo "<p class='last'>  <a href='javascript:;' onclick='do_download();' download='" . $styr["result"]["last.nice"]. "' > " . $styr["result"]["last.name"] . " </a> </p> \n"; ?>
+
+				<br />
+				<div id='dlarea'> </div>
 
 				<br /> <br /> <br />
 
