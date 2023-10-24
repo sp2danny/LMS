@@ -11,18 +11,34 @@ text = <b>Välkommen till första steget i gratistesten som lägger grunden till
 
 button = Starta den kostnadsfria mätningen nu
 
+
 [querys]
 
-preamble.text = Du får 1995:- i rabatt på våra produkter om fullföljer testet
-preamble.font = robota 22px
+button.text = Se ditt personliga resultat
 
-post.text = Skriv ut och spara resultatet, så du kan följa din utveckling
-post.font = robota 22px
+preamble.text = NU: Du får min. 2500:- i rabatt på våra produkter om fullföljer detta kostnadsfria test
+preamble.font.family = roboto
+preamble.font.size = 22px
 
-instructions = Kostnadsfri självskattning: Hur påverkad är du av negativ stress den senaste månaden? <br> Ange värde mellan 0-100. Där 0 är stämmer inte alls och 100 är stämmer precis.<br>   * Tänk på att vara ärlig mot dig själv när du svarar.<br>   * Det finns inget bra eller dåligt i de svar du ger.<br>   * Använd maximalt 10 sekunder på varje fråga.<br> Starta ditt test nu. Lycka till
+postamble.text = På nästa sida får du ditt eget personliga resultat på detta kostnadsfria stresstest. <br> Du får även en kostnadsfri återhämtningsguide. Denna guide hjälper dig till ett bättre liv. <br> Skriv ut guiden och spara resultatet i din egen utbildningspärm, så att du kan följa din utveckling över tiden.
+postamble.font.family = roboto
+postamble.font.size = 22px
+
+instructions = Kostnadsfri självskattning: Hur påverkad är du av negativ stress den senaste månaden? <br> Du får även en kostnadsfri återhämtningsguide du kan skriva ut och spara. <br> <br> Ange värde mellan 0-100. Där 0 är stämmer inte alls och 100 är stämmer precis.<br>   * Tänk på att vara ärlig mot dig själv när du svarar.<br>   * Det finns inget bra eller dåligt i de svar du ger.<br>   * Använd maximalt 10 sekunder på varje fråga.<br> Starta ditt test nu. Lycka till
 
 num = 15
 kat = 5
+
+# Ekonomi
+# Tid
+# Arbete
+# Familj
+# Vånner
+# Hälsa
+# Omvärld
+# Kasam, sammanhang, motivation, påverkan
+# Bostad
+# Egen person
 
 not = Stämmer inte alls
 full = Stämmer precis
@@ -38,6 +54,7 @@ kat.2.color = 335577
 kat.3.color = ff00ff
 kat.4.color = 00ff00
 kat.5.color = 112233
+
 
 query.1.text = 1. Jag känner ofta att jag får tid över till mig själv
 query.1.kat = 1
@@ -105,9 +122,10 @@ query.15.text = 15. Jag oroas av nyhetsrapporteringen
 query.15.kat = 5
 query.15.weight = 1.2
 
+
 [summary]
 
-text = <h1> Dina resultat i % </h1>
+text = <h1> Se ditt personliga resultat och hämta din återhämtningsguide nedan </h1>
 button = Gå Vidare
 
 warn.lim = 50
@@ -115,28 +133,29 @@ warn.img = warn3.png
 
 [result]
 
-img = Stresstratt-7.png
+img=Stresstratt-7.png
 
 num = 5
 
 limit.1.value = 10
-limit.1.text = <b> Du har tillgång till ditt fulla intellekt </b> <br> Nedanstående utbildningar är speciellt anpassade för dig. <br> <br> <b> Specialerbjudande: </b> Köp tre steg i utbildningar anpassade till dig. Du betalar för två, och får en coachtimme på köpet. <br><br> Dina betalningar kan du enkelt dela upp med klarna.
+limit.1.text = Du har tillgång till ditt fulla intellekt <br> </b> Nedanstående utbildningar är speciellt anpassade för dig. <br> <br> <b> Specialerbjudande: </b>  Köp tre steg i utbildningar anpassade till dig. Du betalar för två, och får en coachtimme på köpet. <br><br> Dina betalningar kan du enkelt dela upp med klarna.
 limit.1.link.text = <br> Du sparar 2 690:- &nbsp;&nbsp; Beställ&nbsp;HÄR&nbsp;redan&nbsp;NU! <br><br>
+
 limit.1.link.url = https://mind2excellence.se/klarna/php/buy.php
 limit.1.top = 45
 limit.1.bot = 265
 limit.1.prod = 3
 
 limit.2.value = 50
-limit.2.text = <b> Bra jobb. Ditt resultat ser bra ut. Du ligger i stressnivå ett. </b> <br> Nedanstående utbildningar är speciellt anpassade för dig. <br> <br> <b> Specialerbjudande: </b> Köp tre steg i utbildningar anpassade till dig. Du betalar för två, och får en coachtimme på köpet. <br><br> Dina betalningar kan du enkelt dela upp med klarna.
+limit.2.text =<br> <b>Bra jobb. Ditt resultat ser bra ut. Du ligger i stressnivå ett.</b> Nedanstående utbildningar är speciellt anpassade för dig. <br> <br> <b> Specialerbjudande: </b>  Köp tre steg i utbildningar anpassade till dig. Du betalar för två, och får en coachtimme på köpet. <br><br> Dina betalningar kan du enkelt dela upp med klarna.
 limit.2.link.text = <br> Du sparar 2 690:- &nbsp;&nbsp; Beställ&nbsp;HÄR&nbsp;redan&nbsp;NU! <br><br>
 limit.2.link.url = https://mind2excellence.se/klarna/php/buy.php
 limit.2.top = 285
 limit.2.bot = 485
 limit.2.prod = 3
-
+    
 limit.3.value = 75
-limit.3.text = <b> Ditt resultat ligger i stressnivå två. </b> <br> Du kan ha nytta av att utveckla din förmåga att hantera negativ stress. <br> <br> <b> Specialerbjudande: </b> Köp tre steg i utbildningar anpassade till dig. Du betalar för två, och får en coachtimme på köpet. <br><br> Dina betalningar kan du enkelt dela upp med klarna.
+limit.3.text = Ditt resultat ligger i stressnivå två. Du kan ha nytta av att utveckla din förmåga att hantera negativ stress. <br> <br> <b> Specialerbjudande: </b>  Köp tre steg i utbildningar anpassade till dig. Du betalar för två, och får en coachtimme på köpet. <br><br> Dina betalningar kan du enkelt dela upp med klarna.
 limit.3.link.text = <br> Du sparar 2 690:- &nbsp;&nbsp; Beställ&nbsp;redan&nbsp;NU! <br><br>
 limit.3.link.url = https://mind2excellence.se/klarna/php/buy.php
 limit.3.top = 515
@@ -144,7 +163,7 @@ limit.3.bot = 690
 limit.3.prod = 3
 
 limit.4.value = 90
-limit.4.text = <b> Ditt resultat ligger i stressfas tre. </b> Detta är en tydlig varningssignal för dig. <br> Du bör utveckla din förmåga att hantera negativ stress. <br> <br> <b> Specialerbjudande: </b> Köp tre steg i utbildningar anpassade till dig. Du betalar för två, och får en coachtimme på köpet. <br><br> Dina betalningar kan du enkelt dela upp med klarna.
+limit.4.text = Ditt resultat ligger i stressfas tre. Detta är en tydlig varningssignal för dig. <br>Du bör utveckla din förmåga att hantera negativ stress. <br> <br> <b> Specialerbjudande: </b>  Köp tre steg i utbildningar anpassade till dig. Du betalar för två, och får en coachtimme på köpet. <br><br> Dina betalningar kan du enkelt dela upp med klarna.
 limit.4.link.text = <br> Du sparar 2 690:- &nbsp;&nbsp; Beställ&nbsp;HÄR&nbsp;redan&nbsp;NU! <br><br>
 limit.4.link.url = https://mind2excellence.se/klarna/php/buy.php
 limit.4.top = 730
@@ -152,12 +171,18 @@ limit.4.bot = 900
 limit.4.prod = 3
 
 limit.5.value = 100
-limit.5.text = <b> Ditt resultat ligger i stressnivå fyra. </b> Detta är en tydlig varningssignal för dig. <br> Du bör utveckla din förmåga att hantera negativ stress. <br> <br> <b> Specialerbjudande: </b> Köp tre steg i utbildningar anpassade till dig. Du betalar för två, och får en coachtimme på köpet. <br><br> Dina betalningar kan du enkelt dela upp med klarna.
+limit.5.text = Ditt resultat ligger i stressnivå fyra. Detta är en tydlig varningssignal för dig. <br>Du bör utveckla din förmåga att hantera negativ stress.<br> <br> <b> Specialerbjudande: </b>  Köp tre steg i utbildningar anpassade till dig. Du betalar för två, och får en coachtimme på köpet. <br><br> Dina betalningar kan du enkelt dela upp med klarna.
 limit.5.link.text = <br> Du sparar 2 690:- &nbsp;&nbsp; Beställ&nbsp;redan&nbsp;NU! <br><br>
 limit.5.link.url = https://mind2excellence.se/klarna/php/buy.php
 limit.5.top = 1040
 limit.5.bot = 1050
 limit.5.prod = 3
 
+last.text = Skriv NU ut din egen Återhamtningsguide.pdf. Fyll i den och sätt in i din utbildningspärm. Följ sedan din egen utveckling mot ett friare liv med utbildning och mätbar utveckling. 
+last.link = ../Aterhamtningsguide_3.pdf
+last.nice = Återhämtningsguide.pdf
+last.name = Hämta din egen Återhämtningsguide här:
+last.font.family = roboto
+last.font.size = 23px
 
 
