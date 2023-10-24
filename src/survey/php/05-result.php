@@ -209,8 +209,8 @@ $styr = LoadIni("../styr.txt");
 						//$tim = date_interval_format($dd, "%d dagar %h timmar %i minuter %s sekunder") . " ";
 						//$tim = date_interval_format($dd, "%d dagar");
 					}
-					echo "var txt = " . "'" . $pkv . " platser';\n";
-					echo "var dt = new Date('" . $ttt . "').getTime();\n";
+					echo "\t\t\t\tvar txt = " . "'" . $pkv . " platser';\n";
+					echo "\t\t\t\tvar dt = new Date('" . $ttt . "').getTime();\n";
 				?>
 
 				var xx = (384 - ctx.measureText(txt).width)/2;
@@ -315,6 +315,14 @@ $styr = LoadIni("../styr.txt");
 
 			}
 
+			function do_download()
+			{
+				var link=document.createElement('a');
+				link.href = <?php echo "'" . $styr["result"]["last.link"] . "';"; ?>
+				link.download = <?php echo "'" . $styr["result"]["last.nice"] . "';"; ?>
+				link.click();
+				return false;
+			}
 		</script>
 
 	</head>
@@ -512,7 +520,7 @@ $styr = LoadIni("../styr.txt");
 				
 				<?php echo "<p class='last'> " . $styr["result"]["last.text"] . "</p> \n"; ?>
 
-				<?php echo "<p class='last'> <a href='" . $styr["result"]["last.link"] . "'> " . $styr["result"]["last.name"] . " </a> </p> \n"; ?>
+				<?php echo "<p class='last'>  <a href='javascript:;' onclick='do_download();' download='" . $styr["result"]["last.nice"]. "' > " . $styr["result"]["last.name"] . " </a> </p> \n"; ?>
 
 				<br /> <br /> <br />
 
