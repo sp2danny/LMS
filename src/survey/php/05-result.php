@@ -105,7 +105,12 @@ $styr = LoadIni("../styr.txt");
 			
 			.blurb {
 				font-family : <?php echo $styr['result']['blurb.font.family'] . ";" ?>
-				font-size : <?php echo $styr['result']['blurb.font.size'] . ";" ?>				
+				font-size : <?php echo $styr['result']['blurb.font.size'] . ";" ?>
+			}
+			
+			.pitch {
+				font-family : <?php echo $styr['result']['pitch.font.family'] . ";" ?>
+				font-size : <?php echo $styr['result']['pitch.font.size'] . ";" ?>
 			}
 			
 		</style>
@@ -417,7 +422,10 @@ $styr = LoadIni("../styr.txt");
 					echo " <canvas id='priceCanv' width='140' height='140' > </canvas> ";
 					echo " </td> </tr> </table> \n";
 
-					echo t(4) . " <h1> Ditt personliga erbjudande: En kurs för dig i flera steg. Nu endast " . $pr_price . ":- </h1> \n";
+					$pitch = $styr['result']['pitch.text'];
+					$pitch = str_replace("%price%", $pr_price, $pitch);
+					
+					echo t(4) . "<div class='pitch'> " . $pitch . " </div>\n";
 
 					$subs = explode(",", $pr_unl);
 
