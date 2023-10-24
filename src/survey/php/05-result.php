@@ -14,6 +14,14 @@ function set_suv_val($i, $val, $lid)
 	return boolval($res);
 }
 
+function t($n)
+{
+	$str = "";
+	for ($i=0; $i<$n; ++$i)
+		$str = $str . "\t";
+	return $str;
+}
+
 
 $lid    = getparam('lid');
 $max    = 0; // getparam('val');
@@ -93,6 +101,11 @@ $styr = LoadIni("../styr.txt");
 			.last {
 				font-family : <?php echo $styr['result']['last.font.family'] . ";" ?>
 				font-size : <?php echo $styr['result']['last.font.size'] . ";" ?>
+			}
+			
+			.blurb {
+				font-family : <?php echo $styr['result']['blurb.font.family'] . ";" ?>
+				font-size : <?php echo $styr['result']['blurb.font.size'] . ";" ?>				
 			}
 			
 		</style>
@@ -209,8 +222,8 @@ $styr = LoadIni("../styr.txt");
 						//$tim = date_interval_format($dd, "%d dagar %h timmar %i minuter %s sekunder") . " ";
 						//$tim = date_interval_format($dd, "%d dagar");
 					}
-					echo "\t\t\t\tvar txt = " . "'" . $pkv . " platser';\n";
-					echo "\t\t\t\tvar dt = new Date('" . $ttt . "').getTime();\n";
+					echo t(4) . "var txt = " . "'" . $pkv . " platser';\n";
+					echo t(4) . "var dt = new Date('" . $ttt . "').getTime();\n";
 				?>
 
 				var xx = (384 - ctx.measureText(txt).width)/2;
@@ -303,12 +316,12 @@ $styr = LoadIni("../styr.txt");
 
 						$dbg .= "kat $i (" . $styr['querys']["kat.$i.name"] . ") at $p % (lim $lim) mapped at $y <br>\n";
 
-						echo "				x = w / 2 - w * ($kn-1) / 50 + w * $i / 25; \n";
-						echo "				y = $y; \n";
-						echo "				ctx.beginPath(); \n";
-						echo "				ctx.fillStyle = $c ; \n";
-						echo "				ctx.arc(x, y, 11, 0, 2 * Math.PI); \n";
-						echo "				ctx.fill(); \n";
+						echo t(4) . "x = w / 2 - w * ($kn-1) / 50 + w * $i / 25; \n";
+						echo t(4) . "y = $y; \n";
+						echo t(4) . "ctx.beginPath(); \n";
+						echo t(4) . "ctx.fillStyle = $c ; \n";
+						echo t(4) . "ctx.arc(x, y, 11, 0, 2 * Math.PI); \n";
+						echo t(4) . "ctx.fill(); \n";
 					}
 
 				?>
@@ -336,17 +349,16 @@ $styr = LoadIni("../styr.txt");
 
 				<?php
 
-					echo $styr['summary']['text'];
-					echo "<table>";
+					echo $styr['summary']['text'] . "\n";
+					echo t(4) . "<table>\n";
 					for ($i = 1; $i <= $kn; ++$i)
 					{
-						echo "<tr style='height:22px;'>";
+						echo t(5) . "<tr style='height:22px;'>";
 						$val = 100.0 * $kv[$i] / $km[$i];
 						set_suv_val($i, $val, $lid);
 						$c = "#" . $styr['querys']["kat.$i.color"];
 						echo "<td> <font color='$c'> " . "⬤" . " </font>";
-						echo " </td>\n";
-						echo "<td>";
+						echo " </td> <td> ";
 						echo $styr['querys']["kat.$i.name"];
 						echo "</td><td>";
 						echo round($val) . "%";
@@ -354,9 +366,9 @@ $styr = LoadIni("../styr.txt");
 						if ( $val > $styr['summary']['warn.lim'] )
 							echo " <img src='../" . $styr['summary']['warn.img'] . "' /> ";
 
-						echo "</td></tr>";
+						echo "</td></tr>\n";
 					}
-					echo "</table>" . "\n";
+					echo t(4) . "</table>" . "\n";
 				?>
 
 				<br><hr><br>
@@ -367,8 +379,10 @@ $styr = LoadIni("../styr.txt");
 				<br />
 
 				<?php
-					echo "<table> <tr> <td> ";
-					echo "Det som stressar dig mest är $max_name <br>\n";
+					echo "<table> <tr> <td> \n";
+					echo t(4) . "<p class='blurb'> \n";
+
+					echo t(4) . "Det som stressar dig mest $max_name <br>\n";
 					$text = "";
 					$n = $styr['result']['num'];
 					$si = 1;
@@ -393,17 +407,17 @@ $styr = LoadIni("../styr.txt");
 						$pr_unl   = $row['unlocks'];
 					}
 
-					echo $text;
-					echo " <br> \n";
+					echo t(4) . $text . "\n";
+					echo t(4) . "<br> </p> \n";
 
-					echo " </td> <td> ";
+					echo t(4) . " </td> <td> ";
 					echo " &nbsp;&nbsp; ";
 
 					echo " </td> <td> ";
 					echo " <canvas id='priceCanv' width='140' height='140' > </canvas> ";
-					echo " </td> </tr> </table> ";
+					echo " </td> </tr> </table> \n";
 
-					echo " <p> <h1> Ditt personliga erbjudande: En kurs för dig i flera steg. Nu endast " . $pr_price . ":- </h1> </p> \n";
+					echo t(4) . " <h1> Ditt personliga erbjudande: En kurs för dig i flera steg. Nu endast " . $pr_price . ":- </h1> \n";
 
 					$subs = explode(",", $pr_unl);
 
@@ -512,7 +526,7 @@ $styr = LoadIni("../styr.txt");
 					//
 					//echo "<br> <a href='$lnk_u'> <button class='shake_green' > $lnk_t </button> </a> <br> \n";
 
-					echo "</div> \n";
+					//echo "</div> \n";
 
 				?>
 				
@@ -541,6 +555,7 @@ $styr = LoadIni("../styr.txt");
 				echo "<div> " . $dbg . "</div>";
 			}
 		?>
+
 	</body>
 
 </html>

@@ -133,6 +133,10 @@ warn.img = warn3.png
 
 [result]
 
+blurb.font.family = robota
+blurb.font.size = 22
+
+
 img=Stresstratt-7.png
 
 num = 5
