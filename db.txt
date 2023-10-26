@@ -90,8 +90,8 @@ typer
 	namn        type         a            b            c            surv
 	==========  ===========  ===========  ===========  ===========  ===========
 	
-	channel     70           platser      dagar        namn
-	variant     71           variantnmr   channel-id   kommentar
+	channel     70           platser      dagar        namn         flags
+	variant     71           variantnmr   channel-id   kommentar    flags
 
 
 

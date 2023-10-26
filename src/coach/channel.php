@@ -93,7 +93,7 @@ if ($res) while ($row = mysqli_fetch_array($res))
 	$dt = date_create_from_format("Y-m-d H:i:s",$tt);
 	date_add($dt, date_interval_create_from_date_string($t . " days"));
 	$df = date_diff($now, $dt);
-	$str = $df->format('%d dagar %h timmar');
+	$str = $df->days . ' dagar ' . $df->h . ' timmar';
 	$cid = $row['data_id'];
 	
 	echo " - " . " Tid kvar: " . $str . " <br /> \n";

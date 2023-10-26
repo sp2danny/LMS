@@ -15,6 +15,7 @@
     <File Name="TODO.txt"/>
   </VirtualDirectory>
   <VirtualDirectory Name="survey">
+    <File Name="src/survey/debug.php"/>
     <VirtualDirectory Name="php">
       <File Name="src/survey/php/00-update.php"/>
       <File Name="src/survey/php/05-result.php"/>

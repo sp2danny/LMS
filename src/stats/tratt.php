@@ -200,13 +200,19 @@ foreach ($listing as $key => $val)
 	echo " <td> " . $val['tratt'] . " (" . number_format($per,1,","," ") . "%) </td> ";
 
 	for ($i=1; $i<=5; ++$i) {
-		$per = 100.0 * $val['over'][$i] / $val['tratt'];
+		if ($val['tratt'])
+			$per = 100.0 * $val['over'][$i] / $val['tratt'];
+		else
+			$per = 0;
 		echo " <td> " . $val['over'][$i] . " (" . number_format($per,1,","," ") . "%) </td> ";
 	}
 
-	$per = 100.0 * $val['over'][0] / $val['tratt'];
-	echo " <td> " . $val['over'][0] . " (" . number_format($per,1,","," ") . "%) </td> ";
+	if ($val['tratt'])
+		$per = 100.0 * $val['over'][0] / $val['tratt'];
+	else
+		$per = 0;
 
+	echo " <td> " . $val['over'][0] . " (" . number_format($per,1,","," ") . "%) </td> ";
 	echo " <td> " . $val['buy'] . " </td> ";
 
 	echo " </tr> \n";
