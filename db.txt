@@ -70,20 +70,28 @@ typer
 	lead        30-40        num
 	
 	platser     50           num          dagar
-	
+
 	produkt     51           pr_num
 
 	push        52           id                        type
 
     startat     53
-	
+
 	payed       54
-	
+
 	klarna-id   55
 
 	tratt-res   56           index        value                     lid
-	
+
 	pdf dl cnt  57           antal        lead
+
+
+
+	namn        type         a            b            c            surv
+	==========  ===========  ===========  ===========  ===========  ===========
+	
+	channel     70           platser      dagar        namn
+	variant     71           variantnmr   channel-id   kommentar
 
 
 

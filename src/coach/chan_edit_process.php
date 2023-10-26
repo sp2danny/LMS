@@ -1,0 +1,39 @@
+
+<html>
+	
+<?php
+
+include "../site/common/connect.php";
+include "../site/common/getparam.php";
+
+$cid = getparam('cid');
+$nn  = getparam('name');
+$pp  = getparam('platser');
+$dd  = getparam('dagar');
+
+$query  = "UPDATE data SET";
+$query .= " value_c=" . "'" . $nn   . "'";
+$query .= ",value_a=" . "'" . $pp   . "'";
+$query .= ",value_b=" . "'" . $dd   . "'";
+$query .= " WHERE type=70 AND data_id=$cid";
+
+$res = mysqli_query($emperator, $query);
+
+if ($res) {
+	echo <<<EOL
+	<head>
+	<meta http-equiv="Refresh" content="0; url='channel.php'" />
+	</head>
+EOL;
+} else {
+	echo <<<EOL
+	<head></head><body>
+	Något gick fel <br>
+	<a href='channel.php'> <button> Tillbaka </button> </a>
+	</body>
+EOL;
+}
+
+?>
+
+</html>

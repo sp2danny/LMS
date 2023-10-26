@@ -33,6 +33,15 @@
     <File Name="src/survey/styr.txt"/>
   </VirtualDirectory>
   <VirtualDirectory Name="coach">
+    <File Name="src/coach/chan_erch_process.php"/>
+    <File Name="src/coach/chan_erch.php"/>
+    <File Name="src/coach/chan_edit_process.php"/>
+    <File Name="src/coach/chan_edit.php"/>
+    <File Name="src/coach/chan_nvar_process.php"/>
+    <File Name="src/coach/chan_nvar.php"/>
+    <File Name="src/coach/chan_new_process.php"/>
+    <File Name="src/coach/chan_new.php"/>
+    <File Name="src/coach/channel.php"/>
     <File Name="src/coach/make_prod_save.php"/>
     <File Name="src/coach/edit_prod_save.php"/>
     <File Name="src/coach/edit_prod.php"/>

@@ -22,7 +22,6 @@ function t($n)
 	return $str;
 }
 
-
 $lid    = getparam('lid');
 $max    = 0; // getparam('val');
 
@@ -35,6 +34,38 @@ if ($result) if ($row = mysqli_fetch_array($result))
 {
 	$bid = $row['value_b'];
 }
+
+$pkv = "0";
+$query = "SELECT * FROM data WHERE type=50 AND pers=0";
+$res = mysqli_query( $emperator, $query );
+if ($res) if ($row = mysqli_fetch_array($res)) {
+	$pkv = $row['value_a'];
+	$dagar = $row['value_b'];
+	$startd = $row['date'];
+}
+
+//	namn        type         a            b            c            surv
+//	==========  ===========  ===========  ===========  ===========  ===========
+//	channel     70           platser      dagar        namn
+//	variant     71           variantnmr   channel-id   kommentar
+
+$query = "SELECT * FROM data WHERE type=71 AND pers=0 AND value_a=$bid";
+$res = mysqli_query( $emperator, $query );
+if ($res) if ($row = mysqli_fetch_array($res)) {
+	$cid = $row['value_b'];
+}
+$query = "SELECT * FROM data WHERE type=70 AND pers=0 AND data_id=$cid";
+$res = mysqli_query( $emperator, $query );
+if ($res) if ($row = mysqli_fetch_array($res)) {
+	$pkv = $row['value_a'];
+	$dagar = $row['value_b'];
+	$startd = $row['date'];
+}
+
+$dt = date_create_from_format("Y-m-d H:i:s",$startd);
+date_add($dt, date_interval_create_from_date_string($dagar . " days"));
+$ttt = date_format($dt, "Y-m-d H:i:s");
+
 
 ?> 
 
@@ -187,11 +218,11 @@ if ($result) if ($row = mysqli_fetch_array($result))
 				txt1 += ":-";
 				var xx1 = (140 - ctx.measureText(txt1).width)/2;
 				ctx.fillText(txt1, xx1, 90);
-				
+
 				var txt2 = "Nu!";
 				var xx2 = (140 - ctx.measureText(txt2).width)/2;
 				ctx.fillText(txt2, xx2, 50);
-				
+
 				var txt3 = "Betala via klarna";
 				ctx.font = "12px roboto";
 				var xx3 = (140 - ctx.measureText(txt3).width)/2;
@@ -220,21 +251,6 @@ if ($result) if ($row = mysqli_fetch_array($result))
 				ctx.font = "42px roboto";
 
 				<?php 
-					$pkv = "0"; $tim = "ingen upgift";
-					$query = "SELECT * FROM data WHERE type=50 AND pers=0";
-					$res = mysqli_query( $emperator, $query );
-					if ($res) if ($row = mysqli_fetch_array($res)) {
-						$pkv = $row['value_a'];
-						$t = $row['value_b'];
-						$tt = $row['date'];
-						$dt = date_create_from_format("Y-m-d H:i:s",$tt);
-						date_add($dt, date_interval_create_from_date_string($t . " days"));
-						$ttt = date_format($dt, "Y-m-d H:i:s");
-						//$now = date_create('now');
-						//$dd = date_diff($now, $dt);
-						//$tim = date_interval_format($dd, "%d dagar %h timmar %i minuter %s sekunder") . " ";
-						//$tim = date_interval_format($dd, "%d dagar");
-					}
 					echo t(4) . "var txt = " . "'" . $pkv . " platser';\n";
 					echo t(4) . "var dt = new Date('" . $ttt . "').getTime();\n";
 				?>
@@ -344,10 +360,7 @@ if ($result) if ($row = mysqli_fetch_array($result))
 			function do_download()
 			{
 				fetch( <?php echo "'00-update.php?num=57&bid=$bid'"; ?> );
-				
-				//var ele = document.getElementById("dlarea");
-				//ele.innerHTML = "nu";
-				
+
 				var link=document.createElement('a');
 				link.href = <?php echo "'" . $styr["result"]["last.link"] . "';"; ?>
 				link.download = <?php echo "'" . $styr["result"]["last.nice"] . "';"; ?>
