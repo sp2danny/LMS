@@ -64,4 +64,14 @@ function getparam($key, $def = "")
 	}
 }
 
-?> 
+function get_styr($styr, $segment, $key, $variant = 0)
+{
+	$altkey = $key . "." . $variant;
+	$res = '';
+	if (array_key_exists($altkey, $styr[$segment]))
+		$res = $styr[$segment][$altkey];
+	else
+		$res = $styr[$segment][$key];
+	return $res;
+}
+

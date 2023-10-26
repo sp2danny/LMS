@@ -7,6 +7,22 @@ include "00-connect.php";
 
 $styr = LoadIni("../styr.txt");
 
+$lid      = getparam('lid');
+$variant  = 0;
+$cid      = 0;
+
+$query = "SELECT * FROM data WHERE type=17 AND value_a='$lid'";
+$res = mysqli_query($emperator, $query);
+if ($res) if ($row = mysqli_fetch_array($res))
+{
+	$variant = $row['value_b'];
+}
+$query = "SELECT * FROM data WHERE type=71 AND pers=0 AND value_a=$variant";
+$res = mysqli_query( $emperator, $query );
+if ($res) if ($row = mysqli_fetch_array($res)) {
+	$cid = $row['value_b'];
+}
+
 $eol = "\n";
 
 ?>
@@ -17,7 +33,7 @@ $eol = "\n";
 
 <head>
 
-  <title> <?php echo $styr["common"]["title"]; ?> </title>
+  <title> <?php echo get_styr($styr,"common","title",$variant); ?> </title>
 
   <link rel="stylesheet" href="../main-v03.css" />
   <link rel="icon" href="../../site/common/favicon.ico" />
