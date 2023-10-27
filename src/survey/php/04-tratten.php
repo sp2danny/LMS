@@ -101,12 +101,12 @@ $eol = "\n";
       padding-bottom: 10px;
 	}
 	p.preamble {
-		<?php echo "font-family: " . $styr["querys"]["preamble.font.family"] . ";\n" ?>
-		<?php echo "font-size: " . $styr["querys"]["preamble.font.size"] . ";\n" ?>
+		<?php echo "font-family: " . get_styr($styr, "querys", "preamble.font.family", $variant) . ";\n" ?>
+		<?php echo "font-size: " . get_styr($styr, "querys", "preamble.font.size", $variant) . ";\n" ?>
 	}
 	p.postamble {
-		<?php echo "font-family: " . $styr["querys"]["postamble.font.family"] . ";\n" ?>
-		<?php echo "font-size: " . $styr["querys"]["postamble.font.size"] . ";\n" ?>
+		<?php echo "font-family: " . get_styr($styr, "querys", "postamble.font.family", $variant) . ";\n" ?>
+		<?php echo "font-size: " . get_styr($styr, "querys", "postamble.font.size", $variant) . ";\n" ?>
 	}
 	
   </style>
@@ -132,9 +132,9 @@ $eol = "\n";
 		<img width=50% src="../../site/common/logo.png" /> <br />
 		<br /> <br /> 
 	
-		<?php echo "<p class='preamble' > \n" . $styr["querys"]["preamble.text"] . " </p> \n"; ?>
+		<?php echo "<p class='preamble' > \n" . get_styr($styr, "querys", "preamble.text", $variant) . " </p> \n"; ?>
 
-		<?php echo $styr["querys"]["instructions"]; ?>
+		<?php echo get_styr($styr, "querys", "instructions", $variant); ?>
 		<br /> <br /> 
 		<br /> <hr />
 		<div>
@@ -142,9 +142,9 @@ $eol = "\n";
 				<?php echo "<input type='hidden' id='lid' name='lid' value='" . getparam('lid') . "' />" . $eol; ?>
 				<table>
 					<?php
-						$num = $styr["querys"]["num"];
-						$qn  = $styr["querys"]["not"];
-						$qf  = $styr["querys"]["full"];
+						$num = get_styr($styr, "querys", "num", $variant);
+						$qn  = get_styr($styr, "querys", "not", $variant);
+						$qf  = get_styr($styr, "querys", "full", $variant);
 
 						echo "          <tr>" . $eol;
 						echo "            <td></td>" . $eol;
@@ -164,7 +164,7 @@ $eol = "\n";
 							echo "        <tr>" . $eol;
 							echo "          <td width='375px' >" . $eol;
 							//echo "            <label for='" . $qq . "' >" . $eol;
-							echo "              " . $styr["querys"]["query.$i.text"] . $eol;
+							echo "              " . get_styr($styr, "querys", "query.$i.text", $variant) . $eol;
 							//echo "            </label>" . $eol;
 							echo "          </td>" . $eol;
 							echo "          <td width='1px' >" . $eol;
@@ -187,9 +187,9 @@ $eol = "\n";
 				</table>
 				<hr />
 		
-				<?php echo "<p class='postamble' > \n" . $styr["querys"]["postamble.text"] . " </p> \n"; ?>
+				<?php echo "<p class='postamble' > \n" . get_styr($styr, "querys", "postamble.text", $variant) . " </p> \n"; ?>
 
-				<input class='shake_green' type='submit' value= <?php echo "'" . $styr["querys"]["button.text"] . "' />"; ?>
+				<input class='shake_green' type='submit' value= <?php echo "'" . get_styr($styr, "querys", "button.text", $variant) . "' />"; ?>
 			</form>
 			<br /> <br />
 		</div>

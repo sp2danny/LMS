@@ -1,0 +1,1 @@
+foo($styr[$aa]['bb']);

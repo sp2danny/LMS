@@ -24,7 +24,7 @@ $last_id = mysqli_insert_id($emperator);
 <html>
 	<head>
 
-		<title> <?php echo $styr["common"]["title"]; ?> </title>
+		<title> <?php echo get_styr($styr, "common", "title", $variant); ?> </title>
 
 		<link rel="stylesheet" href="../site/common/main-v03.css" />
 		<link rel="icon" href="../site/common/favicon.ico" />

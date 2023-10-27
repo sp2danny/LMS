@@ -74,7 +74,7 @@ $ttt = date_format($dt, "Y-m-d H:i:s");
 <html>
 	<head>
 
-		<title> <?php echo $styr['common']['title']; ?> </title>
+		<title> <?php echo get_styr($styr, 'common', 'title', $variant); ?> </title>
 
 		<link rel="stylesheet" href="../main-v03.css" />
 		<link rel="icon" href="../../site/common/favicon.ico" />
@@ -138,24 +138,24 @@ $ttt = date_format($dt, "Y-m-d H:i:s");
 			}
 			
 			.last {
-				font-family : <?php echo $styr['result']['last.font.family'] . ";" ?>
-				font-size : <?php echo $styr['result']['last.font.size'] . ";" ?>
+				font-family : <?php echo get_styr($styr, 'result', 'last.font.family', $variant) . ";" ?>
+				font-size : <?php echo get_styr($styr, 'result', 'last.font.size', $variant) . ";" ?>
 			}
 			
 			.blurb {
-				font-family : <?php echo $styr['result']['blurb.font.family'] . ";" ?>
-				font-size : <?php echo $styr['result']['blurb.font.size'] . ";" ?>
+				font-family : <?php echo get_styr($styr, 'result', 'blurb.font.family', $variant) . ";" ?>
+				font-size : <?php echo get_styr($styr, 'result', 'blurb.font.size', $variant) . ";" ?>
 			}
 			
 			.pitch {
-				font-family : <?php echo $styr['result']['pitch.font.family'] . ";" ?>
-				font-size : <?php echo $styr['result']['pitch.font.size'] . ";" ?>
+				font-family : <?php echo get_styr($styr, 'result', 'pitch.font.family', $variant) . ";" ?>
+				font-size : <?php echo get_styr($styr, 'result', 'pitch.font.size', $variant) . ";" ?>
 			}
 			
 		</style>
 
 		<?php
-			$kn = $styr['querys']['kat'];
+			$kn = get_styr($styr, 'querys', 'kat', $variant);
 
 			$kv = [];
 			$km = [];
@@ -166,7 +166,7 @@ $ttt = date_format($dt, "Y-m-d H:i:s");
 				$km[$i] = 0;
 			}
 
-			$nn = $styr['querys']['num'];
+			$nn = get_styr($styr, 'querys', 'num', $variant);
 
 			for ($i = 1; $i <= $nn; ++$i)
 			{
@@ -179,8 +179,8 @@ $ttt = date_format($dt, "Y-m-d H:i:s");
 					if ($a[$q]=='true')
 						$v = 100-$v;
 
-				$k = $styr['querys']["query.$i.kat"];
-				$w = $styr['querys']["query.$i.weight"];
+				$k = get_styr($styr, 'querys', "query.$i.kat", $variant);
+				$w = get_styr($styr, 'querys', "query.$i.weight", $variant);
 
 				$kv[$k] += $w * $v;
 				$km[$k] += $w * 100;
@@ -196,7 +196,7 @@ $ttt = date_format($dt, "Y-m-d H:i:s");
 				$kp[$i] = $val;
 				if ($val > $max) {
 					$max = $val;
-					$max_name = $styr['querys']["kat.$i.name"];
+					$max_name = get_styr($styr, 'querys', "kat.$i.name", $variant);
 				}
 			}
 		?>
@@ -325,25 +325,25 @@ $ttt = date_format($dt, "Y-m-d H:i:s");
 					for ($i = 1; $i <= $kn; ++$i)
 					{
 						$p = $kp[$i];
-						$c = "'#" . $styr['querys']["kat.$i.color"] . "'";
+						$c = "'#" . get_styr($styr, 'querys', "kat.$i.color", $variant) . "'";
 
-						$rn = $styr['result']['num'];
+						$rn = get_styr($styr, 'result', 'num', $variant);
 						$lim = 1;
 						$lo = $up = 0;
 						while (true)
 						{
 							if ($lim == $rn) break;
 							$lo = $up;
-							$up = $styr['result']["limit.$lim.value"];
+							$up = get_styr($styr, 'result', "limit.$lim.value", $variant);
 							if ($p<=$up) break;
 							++$lim;
 						}
 						$pp = ($p-$lo) / ($up-$lo);
-						$y1 = $styr['result']["limit.$lim.top"];
-						$y2 = $styr['result']["limit.$lim.bot"];
+						$y1 = get_styr($styr, 'result', "limit.$lim.top", $variant);
+						$y2 = get_styr($styr, 'result', "limit.$lim.bot", $variant);
 						$y = $y1 + $pp*($y2-$y1);
 
-						$dbg .= "kat $i (" . $styr['querys']["kat.$i.name"] . ") at $p % (lim $lim) mapped at $y <br>\n";
+						$dbg .= "kat $i (" . get_styr($styr, 'querys', "kat.$i.name", $variant) . ") at $p % (lim $lim) mapped at $y <br>\n";
 
 						echo t(4) . "x = w / 2 - w * ($kn-1) / 50 + w * $i / 25; \n";
 						echo t(4) . "y = $y; \n";
@@ -362,8 +362,8 @@ $ttt = date_format($dt, "Y-m-d H:i:s");
 				fetch( <?php echo "'00-update.php?num=57&bid=$bid'"; ?> );
 
 				var link=document.createElement('a');
-				link.href = <?php echo "'" . $styr["result"]["last.link"] . "';"; ?>
-				link.download = <?php echo "'" . $styr["result"]["last.nice"] . "';"; ?>
+				link.href = <?php echo "'" . get_styr($styr, "result", "last.link", $variant) . "';"; ?>
+				link.download = <?php echo "'" . get_styr($styr, "result", "last.nice", $variant) . "';"; ?>
 				link.click();
 				return false;
 			}
@@ -380,22 +380,22 @@ $ttt = date_format($dt, "Y-m-d H:i:s");
 
 				<?php
 
-					echo $styr['summary']['text'] . "\n";
+					echo get_styr($styr, 'summary', 'text', $variant) . "\n";
 					echo t(4) . "<table>\n";
 					for ($i = 1; $i <= $kn; ++$i)
 					{
 						echo t(5) . "<tr style='height:22px;'>";
 						$val = 100.0 * $kv[$i] / $km[$i];
 						set_suv_val($i, $val, $lid);
-						$c = "#" . $styr['querys']["kat.$i.color"];
+						$c = "#" . get_styr($styr, 'querys', "kat.$i.color", $variant);
 						echo "<td> <font color='$c'> " . "⬤" . " </font>";
 						echo " </td> <td> ";
-						echo $styr['querys']["kat.$i.name"];
+						echo get_styr($styr, 'querys', "kat.$i.name", $variant);
 						echo "</td><td>";
 						echo round($val) . "%";
 
-						if ( $val > $styr['summary']['warn.lim'] )
-							echo " <img src='../" . $styr['summary']['warn.img'] . "' /> ";
+						if ( $val > get_styr($styr, 'summary', 'warn.lim', $variant) )
+							echo " <img src='../" . get_styr($styr, 'summary', 'warn.img', $variant) . "' /> ";
 
 						echo "</td></tr>\n";
 					}
@@ -415,15 +415,15 @@ $ttt = date_format($dt, "Y-m-d H:i:s");
 
 					echo t(4) . "Det som stressar dig mest $max_name <br>\n";
 					$text = "";
-					$n = $styr['result']['num'];
+					$n = get_styr($styr, 'result', 'num', $variant);
 					$si = 1;
 					for (; $si<$n; ++$si) {
-						$v = $styr['result']["limit.$si.value"];
+						$v = get_styr($styr, 'result', "limit.$si.value", $variant);
 						if ($max < $v) break;
 					}
-					$text = $styr['result']["limit.$si.text"];
+					$text = get_styr($styr, 'result', "limit.$si.text", $variant);
 
-					$pid = $styr['result']["limit.$si.prod"];
+					$pid = get_styr($styr, 'result', "limit.$si.prod", $variant);
 					$pr_title = '';
 					$pr_desc = '';
 					$pr_price = 0;
@@ -448,7 +448,7 @@ $ttt = date_format($dt, "Y-m-d H:i:s");
 					echo " <canvas id='priceCanv' width='140' height='140' > </canvas> ";
 					echo " </td> </tr> </table> \n";
 
-					$pitch = $styr['result']['pitch.text'];
+					$pitch = get_styr($styr, 'result', 'pitch.text', $variant);
 					$pitch = str_replace("%price%", $pr_price, $pitch);
 					
 					echo t(4) . "<div class='pitch'> " . $pitch . " </div>\n";
@@ -540,9 +540,9 @@ $ttt = date_format($dt, "Y-m-d H:i:s");
 					//echo " <canvas id='priceCanv' width='320' height='320' > </canvas> </td><td> ";
 					//echo "  </td><td> ";
 
-					$img = $styr['result']['img'];
-					$lnk_t = $styr['result']["limit.$si.link.text"];
-					$lnk_u = $styr['result']["limit.$si.link.url"];
+					$img = get_styr($styr, 'result', 'img', $variant);
+					$lnk_t = get_styr($styr, 'result', "limit.$si.link.text", $variant);
+					$lnk_u = get_styr($styr, 'result', "limit.$si.link.url", $variant);
 					if (strpos($lnk_u, '?'))
 						$lnk_u .= "&id=" . $lid;
 					else
@@ -566,9 +566,9 @@ $ttt = date_format($dt, "Y-m-d H:i:s");
 				
 				<br /> <br /> <br />
 				
-				<?php echo "<p class='last'> " . $styr["result"]["last.text"] . "</p> \n"; ?>
+				<?php echo "<p class='last'> " . get_styr($styr, "result", "last.text", $variant) . "</p> \n"; ?>
 
-				<?php echo "<p class='last'>  <a href='javascript:;' onclick='do_download();' download='" . $styr["result"]["last.nice"]. "' > " . $styr["result"]["last.name"] . " </a> </p> \n"; ?>
+				<?php echo "<p class='last'>  <a href='javascript:;' onclick='do_download();' download='" . get_styr($styr, "result", "last.nice", $variant). "' > " . get_styr($styr, "result", "last.name", $variant) . " </a> </p> \n"; ?>
 
 				<br />
 				<div id='dlarea'> </div>

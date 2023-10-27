@@ -13,7 +13,7 @@ $styr = LoadIni("../styr.txt");
 <html>
 	<head>
 
-		<title> <?php echo $styr["common"]["title"]; ?> </title>
+		<title> <?php echo get_styr($styr, "common", "title", $variant); ?> </title>
 
 		<link rel="stylesheet" href="../../site/common/main-v03.css" />
 		<link rel="icon" href="../../site/common/favicon.ico" />
@@ -33,7 +33,7 @@ $styr = LoadIni("../styr.txt");
 
 				<?php
 
-					echo $styr["register"]["greeting"];
+					echo get_styr($styr, "register", "greeting", $variant);
 
 				?>
 				<br /> <br />

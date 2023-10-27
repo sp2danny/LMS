@@ -243,7 +243,7 @@ echo "<table>";
 for ($i=1; $i<=5; ++$i) {
 	echo " <tr> ";
 	echo " <td> " . chr(64+$i) . " </td> ";
-	echo " <td> " . $styr['querys']["kat.$i.name"] . " </td> ";
+	echo " <td> " . get_styr($styr, 'querys', "kat.$i.name", $variant) . " </td> ";
 	echo " </tr> ";
 }
 echo " </table> \n";

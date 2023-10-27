@@ -18,7 +18,7 @@ $eol = "\n";
 
   <?php
 
-    $kn = $styr['querys']['kat'];
+    $kn = get_styr($styr, 'querys', 'kat', $variant);
 	
     $kv = [];
     $km = [];
@@ -29,16 +29,16 @@ $eol = "\n";
         $km[$i] = 0;
 	}
 
-    $nn = $styr['querys']['num'];
+    $nn = get_styr($styr, 'querys', 'num', $variant);
 	
-	echo $styr['summary']['text'];
+	echo get_styr($styr, 'summary', 'text', $variant);
 
     for ($i = 1; $i <= $nn; ++$i)
     {
         $v = getparam('q' . $i);
 
-        $k = $styr['querys']['query.' . $i . '.kat'];
-        $w = $styr['querys']['query.' . $i . '.weight'];
+        $k = get_styr($styr, 'querys', 'query.' . $i . '.kat', $variant);
+        $w = get_styr($styr, 'querys', 'query.' . $i . '.weight', $variant);
 
         $kv[$k] += $w * $v;
         $km[$k] += $w * 100;
@@ -54,7 +54,7 @@ $eol = "\n";
 		if ($val > $max)
 			$max = $val;
 		echo "<td>";
-		echo $styr['querys']["kat.$i.name"];
+		echo get_styr($styr, 'querys', "kat.$i.name", $variant);
 		echo "</td><td>";
 		echo round($val) . "%";
 		echo "</td></tr>";
@@ -66,7 +66,7 @@ $eol = "\n";
 	
 	echo "<a href='$url' >";
 	echo "<button> ";
-	echo $styr['summary']['button'];
+	echo get_styr($styr, 'summary', 'button', $variant);
 	echo " </button> </a>";
 
 	//echo '<meta http-equiv = "refresh" content = ';
