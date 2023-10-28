@@ -51,6 +51,18 @@ include "../survey/php/00-common.php";
 
 $styr = LoadIni("../survey/styr.txt");
 
+$start = getparam('startdate', '');
+$stop = getparam('stopdate', '');
+$b = false;
+$e = false;
+
+if ($start != '')
+	$b = strtotime($start);
+if ($stop != '')
+	$e = strtotime($stop);
+
+$hasd = $b and $e;
+
 class LEAD {
 	public int $id;
 	public string $date;
@@ -69,7 +81,7 @@ $arr = [];
 while ($row = mysqli_fetch_array($result)) {
 
 	$lead = new LEAD;
-	
+
 	$idx = $row['lead_id'];
 	$lead->id = $idx;
 	$lead->date = $row['date'];
@@ -118,19 +130,9 @@ $tag = getparam("tag", 0);
 
 $limit = getparam("limit", 50);
 
-$start = getparam('startdate', '');
-$stop = getparam('stopdate', '');
-$b = false;
-$e = false;
-
-if ($start != '')
-	$b = strtotime($start);
-if ($stop != '')
-	$e = strtotime($stop);
-
-$hasd = $b and $e;
-
-if ($hasd) echo "limiting on date <br>\n";
+if ($hasd) {
+	echo "limiting on date between " . date("Y M j", $b) , " and " . date("Y M j", $e) . " <br>\n";
+}
 
 $listing = [];
 foreach ($arr as $key => $val)
@@ -156,21 +158,22 @@ foreach ($arr as $key => $val)
 			$listing[$variant]['over'][$i] = 0;
 	} else {
 		$listing[$variant]['start'] += 1;
-		if ($listing[$variant]['first'] < $d)
+		if ($d < $listing[$variant]['first'])
 			$listing[$variant]['first'] = $d;
-		if ($listing[$variant]['last'] < $d)
+		if ($d > $listing[$variant]['last'])
 			$listing[$variant]['last'] = $d;
-		if ($val->gjort) {
-			$anyover = false;
-			for ($i=1; $i<=5; ++$i) {
-				if ($val->tratt[$i] >= $limit) {
-					$listing[$variant]['over'][$i] += 1;
-					$anyover = true;
-				}
+	}
+
+	if ($val->gjort) {
+		$anyover = false;
+		for ($i=1; $i<=5; ++$i) {
+			if ($val->tratt[$i] >= $limit) {
+				$listing[$variant]['over'][$i] += 1;
+				$anyover = true;
 			}
-			if ($anyover)
-				$listing[$variant]['over'][0] += 1;
 		}
+		if ($anyover)
+			$listing[$variant]['over'][0] += 1;
 	}
 
 	if ($val->gjort)
@@ -196,7 +199,10 @@ foreach ($listing as $key => $val)
 	echo " <td> " . date("Y M j", $val['first']) . " </td> ";
 	echo " <td> " . date("Y M j", $val['last'] ) . " </td> ";
 
-	$per = 100.0 * $val['tratt'] / $val['start'];
+	if ($val['start'])
+		$per = 100.0 * $val['tratt'] / $val['start'];
+	else
+		$per = 0;
 	echo " <td> " . $val['tratt'] . " (" . number_format($per,1,","," ") . "%) </td> ";
 
 	for ($i=1; $i<=5; ++$i) {
