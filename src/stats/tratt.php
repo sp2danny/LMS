@@ -61,7 +61,9 @@ if ($start != '')
 if ($stop != '')
 	$e = strtotime($stop);
 
-$hasd = $b and $e;
+$hasd = ($b and $e) or (getparam('showdate')==='true');
+
+$nolead = getparam('nolead')==='true';
 
 class LEAD {
 	public int $id;
@@ -107,6 +109,10 @@ $query = "SELECT * FROM data WHERE type=56";
 $result = mysqli_query($emperator, $query);
 if ($result) while ($row = mysqli_fetch_array($result))
 {
+	if ($nolead)
+		if ($row['value_c']=='lead')
+			continue;
+
 	$idx = $row['value_a'];
 	$score = $row['value_b'];
 	$lid = $row['surv'];
