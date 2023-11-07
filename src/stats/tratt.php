@@ -59,9 +59,10 @@ $e = false;
 if ($start != '')
 	$b = strtotime($start);
 if ($stop != '')
-	$e = strtotime($stop);
+	$e = strtotime($stop . " 23:59:59");
 
-$hasd = ($b and $e) or (getparam('showdate')==='true');
+$sd = getparam('showdate')==='true';
+$hasd = boolval($b) and boolval($e);
 
 $nolead = getparam('nolead')==='true';
 
@@ -242,8 +243,10 @@ $query = "SELECT * FROM data WHERE type=57";
 $result = mysqli_query($emperator, $query);
 if ($result) while ($row = mysqli_fetch_array($result))
 {
+	$var = $row['value_b'];
+	if ($var <= 100) continue;
 	echo " <tr> ";
-	echo " <td> " . $row['value_b'] . " </td> ";
+	echo " <td> " . $var . " </td> ";
 	echo " <td> " . $row['value_a'] . " </td> ";
 	echo " </tr> \n";
 }
@@ -266,7 +269,7 @@ echo "<table> <tr> <th> id </th> <th> variant </th> ";
 for ($i=0; $i<5; ++$i)
 	echo " <th> " . chr(65+$i) . " </th> ";
 
-if ($hasd)
+if ($hasd or $sd)
 	echo " <th> datum </th> ";
 echo " </tr> \n";
 foreach ($arr as $key => $val)
@@ -288,7 +291,7 @@ foreach ($arr as $key => $val)
 	for ($i=1; $i<=5; ++$i) {
 		echo " <td> " . $val->tratt[$i] . " </td> ";
 	}
-	if ($hasd)
+	if ($hasd or $sd)
 		echo " <td> " . $val->date . " </td> ";	
 	echo " </tr> \n";
 }
