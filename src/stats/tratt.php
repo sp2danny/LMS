@@ -170,6 +170,19 @@ foreach ($arr as $key => $val)
 		if ($d > $listing[$variant]['last'])
 			$listing[$variant]['last'] = $d;
 	}
+	
+	if (getparam('no33')==='true') {
+		if ($val->gjort) {
+			$cnt33 = 0;
+			for ($i=1; $i<=5; ++$i) {
+				if ($val->tratt[$i] == 33) {
+					$cnt33 += 1;
+				}
+			}
+			if ($cnt33 >= 3)
+				$val->gjort = false;
+		}
+	}
 
 	if ($val->gjort) {
 		$anyover = false;
