@@ -64,6 +64,7 @@
     <None Include="src\common\main.js.php" />
     <None Include="src\common\make_group.php" />
     <None Include="src\common\meter_disp.php" />
+    <None Include="src\common\minsida.php" />
     <None Include="src\common\next.php" />
     <None Include="src\common\nypers.php" />
     <None Include="src\common\one_post.php" />

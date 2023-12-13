@@ -285,5 +285,8 @@
     <None Include="src\klarna\php\test.php">
       <Filter>Source Files\klarna</Filter>
     </None>
+    <None Include="src\common\minsida.php">
+      <Filter>Source Files\common</Filter>
+    </None>
   </ItemGroup>
 </Project>
