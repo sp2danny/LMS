@@ -149,7 +149,9 @@ function process_cmd($to, $data, $cmd, $args)
 		case 'onestop':
 			break;
 		case 'video':
-			$to->regLine('<iframe width="1280" height="720" src="https://player.vimeo.com/video/' . $args[0] . '"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>');
+			$to->regLine('<iframe width="1024" height="576" src="https://player.vimeo.com/video/' . $args[0] . '"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>');
+			//$to->regLine('<iframe width="800" src="https://player.vimeo.com/video/' . $args[0] . '"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>');
+			//$to->regLine('<iframe width="100%" src="https://player.vimeo.com/video/' . $args[0] . '"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>');
 			break;
 		case 'query':
 			$data->qnum++;
