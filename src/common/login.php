@@ -194,7 +194,7 @@ if ($logtxt)
 					echo '<input type="text" id="pnr" name="pnr"><br>' . $eol;
 					break;
 				case "start":
-					echo '<input type="submit" value="' . $cmd->params[0] . '">' . $eol;
+					echo '<input  style="height:40px; width:250px"  type="submit" value="' . $cmd->params[0] . '">' . $eol;
 					echo '</form>' . $eol;
 					break;
 				case "newlink":
