@@ -76,6 +76,58 @@ function ptbl($prow, $mynt, $score=0)
 	echo '</table>' . $eol;
 }
 
+function readini($ini)
+{
+	$res = [];
+	$seg = '';
+
+	while(true) {
+		$buffer = fgets($ini, 4096);
+		if (!$buffer) break;
+		$buffer = trim($buffer);
+		$len = strlen($buffer);
+		if ($len == 0) continue;
+		
+		if (str_starts_with($buffer, "#")) continue;
+
+		if (str_starts_with($buffer, "[") && str_ends_with($buffer, "]"))
+		{
+			$seg = substr($buffer, 1, -1);
+			$seg = trim($seg);
+			continue;
+		}
+		
+		$p = strpos($buffer, "=");
+		if ($p === false) continue;
+		
+		$key = substr($buffer, 0, $p);
+		$key = trim($key);
+		$val = substr($buffer, $p+1);
+		$val = trim($val);
+		
+		$res[$seg][$key] = $val;
+	}
+
+	return $res;
+}
+
+function to_link($alldata, $str)
+{
+	$p = strpos($str, '.');
+	if ($p===false) return "";
+	$bat = substr($str, 0, $p);
+	$seg = substr($str, $p+1);
+	
+	foreach ($alldata as $block) {		
+		if ($block->battNum != $bat) continue;
+		foreach ($block->lines as $line) {
+			if ($line->segment != $seg) continue;
+			return $line->link;
+		}
+	}
+	return "";
+}
+
 function all()
 {
 	global $emperator, $eol;
@@ -131,48 +183,51 @@ function all()
 		echo '<br /><br />' . $eol;
 	}
 
-	$alldata = roundup($pnr, $pid, $name);
-	$atnum = 0;
-	
-	//$flav = getparam('flav');
-	//if ($flav != "")
-	//	echo "<code> " . $flav . " </code> <br /> " . $eol;
+	$alldata = roundup($pnr, $pid, $name, true);
 
+	//echo '<table>' . $eol;	
 	//foreach ($alldata as $block) {
-	//	echo '<button type="button" class="collapsible"> ' /* . $block->battNum */ . ' &nbsp; ';
-	//	echo '<img width="12px" height="12px" src="';
-	//	if ($block->someDone) {
-	//		echo 'here';
-	//		$atnum = $block->atnum;
-	//	}
-	//	else if ($block->allDone)
-	//		echo "corr";
-	//	else
-	//		echo "blank";
-	//	echo '.png" > ';
-	//	echo $block->name . ' </button>';
-	//	echo '<div class="content" id="CntDiv' . $block->battNum .'" >';
-	//	echo '<ul style="list-style-type:none">';
+	//	echo '<tr colspan="3" >' . $eol;
+	//	echo '<td> ' . $block->name . '</td>' . $eol;
+	//	echo '</tr>' . $eol;		
 	//	foreach ($block->lines as $line) {
-	//		echo '<li> <img width="12px" height="12px" src="';
-	//		if($line->hasDone)
-	//			echo "corr";
-	//		else if ($line->isLink)
-	//			echo 'here';
-	//		else
-	//			echo "blank";
-	//		echo '.png" > ';
-	//		if ($line->isLink)
-	//			echo '<a href="' . $line->link . '" > ';
-	//		echo $line->name;
-	//		if ($line->isLink)
-	//			echo ' </a> ';
-	//		echo '</li>';
+	//		if ($line->isLink) {
+	//			echo '<tr>' . $eol;
+	//			echo '<td> ' . $block->battNum . "." . $line->segment . ' </td>' . $eol;
+	//			echo '<td> ' . $line->name . ' </td>' . $eol;
+	//			echo '<td> ' . $line->link . ' </td>' . $eol;
+	//			echo '</tr>' . $eol;
+	//		}
 	//	}
-	//	echo '</ul></div>';
 	//}
-	//echo '</ul>';
+	//echo '</table>' . $eol;
+	
+	$min_file = fopen("min.txt", "r");
+	$min_ini = readini($min_file);
+	fclose($min_file);
 
+	$cnt = $min_ini['survey']['count'];
+	
+	for ($i=1; $i<=$cnt; ++$i)
+	{
+		if ($i!=1)
+			echo "<hr>" . $eol;
+		
+		$key = $i . ".namn";
+		echo "Namn : " . $min_ini['survey'][$key] . " <br>" . $eol;
+
+		$key = $i . ".surv";
+		$val = $min_ini['survey'][$key];
+		//echo "Surv : " . $val . " - " . to_link($alldata, $val) . " <br>" . $eol;
+		$lnk = to_link($alldata, $val) . "&returnto=nymin";
+		echo "<a href='$lnk'> <button> G&ouml;r Testet </button> </a> <br> " . $eol; 
+		
+		$key = $i . ".result";
+		$val = $min_ini['survey'][$key];
+		//echo "Res : " . $val . " - " . to_link($alldata, $val) . " <br>" . $eol;
+		$lnk = to_link($alldata, $val) . "&returnto=nymin";
+		echo "<a href='$lnk'> <button> Se Resultat </button> </a> <br> ". $eol; 
+	}
 
 	echo '<script> ';
 	echo ' document.getElementById("CntDiv' . $atnum . '").style.display = "block";';

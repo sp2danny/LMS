@@ -36,7 +36,7 @@ function pr_aft()
 	return '</table>' . "\n";
 }
 
-function dodisc($data)
+function dodisc($data, $ret_to = "")
 {
 
 	$disc = fopen("../common/disc.txt", "r") or die("Unable to open file!");

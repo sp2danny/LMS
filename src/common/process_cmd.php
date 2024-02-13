@@ -46,7 +46,7 @@ function repl($data, $txt)
 	return $txt;
 }
 
-function process_cmd($to, $data, $cmd, $args)
+function process_cmd($to, $data, $cmd, $args, $ret_to = "")
 {
 	$eol = "\n";
 	
@@ -205,7 +205,7 @@ function process_cmd($to, $data, $cmd, $args)
 			$to->regLine('}');
 			$to->stopTag('script');
 
-			$to->regLine('<input id="SubmitBtn" type="submit" value="' . $args[1] . '" style="display:none;" /> <br />');
+			$to->regLine('<input id="SubmitBtn" type="submit" value="' . $args[1] . $ret_to . '" style="display:none;" /> <br />');
 			$to->stopTag('form');
 			$to->regLine('<button  id="CorrBtn" onclick="doCorr()">' . $args[0] . '</button> <br />');
 			$to->stopTag('div');

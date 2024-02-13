@@ -1,0 +1,9 @@
+
+[survey]
+
+count = 1
+
+1.namn = Discen
+1.surv = 1.4
+1.result = 1.5
+

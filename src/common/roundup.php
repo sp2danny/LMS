@@ -66,7 +66,7 @@ function mklink($batt, $seg, $pnr, $pid, $name)
 	return '../batt-' . $batt . '/index.php?seg=' . $seg . '&pnr=' . $pnr . '&pid=' . $pid . '&name='  . $name ;
 }
 
-function roundup($pnr, $pid, $name)
+function roundup($pnr, $pid, $name, $all = false )
 {
 	global $emperator;
 	
@@ -137,7 +137,7 @@ function roundup($pnr, $pid, $name)
 				$wantlink = true;
 				$alldata[$runnum]->lines[$i]->isLink = true;
 			}
-			if ($allsofar) {
+			if ($allsofar || $all) {
 				if ( true ) { // $alldata[$runnum]->lines[$i]->always) {
 					$alldata[$runnum]->lines[$i]->isLink = true;
 					$lnk = mklink($value, $i, $pnr, $pid, $name);

@@ -24,6 +24,10 @@ function index($styr, $local, $common)
 
 	$query = "SELECT * FROM pers WHERE pnr='" . $data->pnr . "'";
 
+	$ret_to = getparam("returnto");
+	if ($ret_to != "")
+		$ret_to = "&returnto=" . $ret_to;
+
 	$res = mysqli_query($emperator, $query);
 	$mynt = 0;
 	$name = getparam("name");
@@ -244,7 +248,7 @@ function index($styr, $local, $common)
 
 	foreach ($cmdlst as $cmd) {
 		if ($cmd->is_command) {
-			$w = process_cmd($to, $data, $cmd->command, $cmd->params);
+			$w = process_cmd($to, $data, $cmd->command, $cmd->params, $ret_to);
 			if (!($w===true))
 				echo $w;
 		} else if ($cmd->is_text) {
