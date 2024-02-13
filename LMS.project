@@ -72,6 +72,7 @@
     <File Name="src/klarna/coach.html"/>
   </VirtualDirectory>
   <VirtualDirectory Name="common">
+    <File Name="src/common/nymin.php"/>
     <File Name="src/common/ny.php"/>
     <File Name="src/common/minsida.php"/>
     <File Name="src/common/welcome.php"/>
