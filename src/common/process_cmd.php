@@ -3,6 +3,8 @@
 
 <?php
 
+include "debug.php";
+
 include "discquery.php";
 include "discdisplay.php";
 include "gap.php";
@@ -48,6 +50,9 @@ function repl($data, $txt)
 
 function process_cmd($to, $data, $cmd, $args, $ret_to = "")
 {
+	
+	debug_log('process_cmd(' . $cmd . "," . arr2str($args) . ")");
+	
 	$eol = "\n";
 	
 	$ret = true;
