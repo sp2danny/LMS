@@ -14,11 +14,21 @@ echo <<<EOT
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
+
+p.main {
+  padding-left:   40px;
+}
+
+div.hdr {
+  font-size: 18px;
+  font-weight: bold;
+}
+
 table tr td {
-  padding-left:   5px;
-  padding-right:  5px;
-  padding-top:    5px;
-  padding-bottom: 5px;
+  padding-left:   20px;
+  padding-right:  20px;
+  padding-top:    1px;
+  padding-bottom: 1px;
 }
 table.visitab {
   border: 2px solid black;
@@ -52,13 +62,20 @@ td.visitab {
   background-color: white;
 }
 </style>
-EOT;
 
+EOT;
 
 include 'common.php';
 include 'connect.php';
 
 $eol = "\n";
+
+echo "<script>" . $eol;
+echo "function newpage(i) { " . $eol;
+echo "	window.location.href = 'nymin.php?pnr=" . getparam('pnr') . "&at=' + i.toString(); " . $eol;
+echo "}" . $eol;
+echo "</script>" . $eol;
+
 
 echo '</head><body>' . $eol;
 echo '<br />' . $eol;
@@ -149,14 +166,14 @@ function all()
 		if ($row = mysqli_fetch_array($res))
 			$mynt = $row['value_a'];
 
-		ptbl($prow, $mynt);
+		//ptbl($prow, $mynt);
 		$pid = $prow['pers_id'];
 		$name = $prow['name'];
 	} else {
 		echo convert('Denna person hittades inte i databasen.') . " <br />" . $eol;
 		return;
 	}
-
+	
 	$dagens = array();
 	$ord = fopen("ord.txt", "r");
 	if ($ord)
@@ -183,9 +200,45 @@ function all()
 		echo '<br /><br />' . $eol;
 	}
 
+	$tit = array("Min utveckling", "Stresspåverkan", "Discanalys", "Mina styrkor", "Motivatorer");
+	
+	$n = count($tit);
+		
+	$at = getparam("at");
+	
+	echo "<hr> " . $eol;
+	echo "<table>" . $eol;
+	echo "<tr>" . $eol;
+	
+	for ($i=0; $i<$n; ++$i) {
+		echo "<td>" . $eol;
+		echo "<button> Settings </button>" . $eol;
+		if ($at == $i) {
+			echo "<button style='border-style:inset;' > Min Sida </button>" . $eol;
+		} else {
+			echo "<button onclick='newpage(".$i.")' > Min Sida </button>" . $eol;
+		}
+		echo "</td>" . $eol;
+	}
+
+	echo "</tr><tr>" . $eol;
+
+	for ($i=0; $i<$n; ++$i) {
+		echo "<td>" . $eol;
+		echo " <div class='hdr'> " . $tit[$i] . " </div> " . $eol;
+		echo "</td>" . $eol;
+	}
+	
+	
+	echo "</tr>" . $eol;
+	echo "</table>" . $eol;
+	echo "<hr> " . $eol;
+	
+	ptbl($prow, $mynt);
+
 	$alldata = roundup($pnr, $pid, $name, true);
 
-	//echo '<table>' . $eol;	
+	//echo '<table>' . $eol;
 	//foreach ($alldata as $block) {
 	//	echo '<tr colspan="3" >' . $eol;
 	//	echo '<td> ' . $block->name . '</td>' . $eol;
@@ -208,28 +261,38 @@ function all()
 
 	$cnt = $min_ini['survey']['count'];
 	
-	for ($i=1; $i<=$cnt; ++$i)
-	{
-		if ($i!=1)
-			echo "<hr>" . $eol;
-		
-		$key = $i . ".namn";
-		echo "Namn : " . $min_ini['survey'][$key] . " <br>" . $eol;
+	echo "<hr> " . $eol;
+	echo "<div style='margin-left: 25px;'> " . $eol;
+	
+	echo "<h1> " .  $tit[$at] . " </h1> " . $eol;
+	
+	if ($at == 2) {
+		for ($i=1; $i<=$cnt; ++$i)
+		{
+			if ($i!=1)
+				echo "<hr>" . $eol;
+			
+			$key = $i . ".namn";
+			echo "Namn : " . $min_ini['survey'][$key] . " <br />" . $eol;
 
-		$key = $i . ".surv";
-		$val = $min_ini['survey'][$key];
-		//echo "Surv : " . $val . " - " . to_link($alldata, $val) . " <br>" . $eol;
-		$lnk = to_link($alldata, $val) . "&returnto=nymin";
-		echo "<a href='$lnk'> <button> G&ouml;r Testet </button> </a> <br> " . $eol; 
-		
-		$key = $i . ".result";
-		$val = $min_ini['survey'][$key];
-		//echo "Res : " . $val . " - " . to_link($alldata, $val) . " <br>" . $eol;
-		$lnk = to_link($alldata, $val) . "&returnto=nymin";
-		echo "<a href='$lnk'> <button> Se Resultat </button> </a> <br> ". $eol; 
+			$key = $i . ".surv";
+			$val = $min_ini['survey'][$key];
+			//echo "Surv : " . $val . " - " . to_link($alldata, $val) . " <br>" . $eol;
+			$lnk = to_link($alldata, $val) . "&returnto=nymin";
+			echo "<a href='$lnk'> <button> G&ouml;r Testet </button> </a> <br /> " . $eol; 
+			
+			$key = $i . ".result";
+			$val = $min_ini['survey'][$key];
+			//echo "Res : " . $val . " - " . to_link($alldata, $val) . " <br>" . $eol;
+			$lnk = to_link($alldata, $val) . "&returnto=nymin";
+			echo "<a href='$lnk'> <button> Se Resultat </button> </a> <br /> ". $eol; 
+		}
 	}
+	
+	echo " </div> " . $eol;
 
 	echo '<script> ';
+	$atnum = 0;
 	echo ' document.getElementById("CntDiv' . $atnum . '").style.display = "block";';
 
 	echo <<<EOT
