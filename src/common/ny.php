@@ -1,11 +1,11 @@
 
-<!-- inlude one_post.php -->
+<!-- inlude ny.php -->
 
 <?php
 
-include 'process_cmd.php';
-include 'cmdparse.php';
-include 'progress.php';
+include_once 'process_cmd.php';
+include_once 'cmdparse.php';
+include_once 'progress.php';
 
 function ndq($str)
 {
@@ -64,6 +64,8 @@ function getSett($data) {
 
 function index($styr, $local, $common)
 {
+	debug_log('index() in ny.php');
+
 	global $emperator;
 
 	$to = new tagOut;

@@ -3,9 +3,10 @@
 
 <?php
 
-include 'process_cmd.php';
-include 'cmdparse.php';
-include 'progress.php';
+include_once 'process_cmd.php';
+include_once 'cmdparse.php';
+include_once 'progress.php';
+include_once 'debug.php';
 
 function ndq($str)
 {
@@ -64,11 +65,15 @@ function getSett($data) {
 
 function index($styr, $local, $common)
 {
+	debug_log('index() in one_post.php');
+
 	global $emperator;
 
 	$to = new tagOut;
 	
 	$data = new Data;
+	
+	$data->returnto = getparam('returnto', false);
 
 	$data->snum = getparam("seg", "1");
 

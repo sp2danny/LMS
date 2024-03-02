@@ -7,7 +7,7 @@ function getparam($key, $def = "")
 	$res = $def;
 
 	try {
-		if (array_key_exists("$key", $_GET)) {
+		if (array_key_exists($key, $_GET)) {
 			$res = $_GET[$key];
 			$ok = true;
 		}

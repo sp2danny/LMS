@@ -15,9 +15,10 @@
 //  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 // >
 
-include '../common/progress.php';
-include '../common/process_cmd.php';
-include '../common/cmdparse.php';
+include_once '../common/progress.php';
+include_once '../common/process_cmd.php';
+include_once '../common/cmdparse.php';
+include_once '../common/debug.php';
 
 class tagNul
 {

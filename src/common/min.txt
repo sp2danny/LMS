@@ -3,7 +3,11 @@
 
 count = 1
 
+1.filter = 2
 1.namn = Discen
-1.surv = 1.4
-1.result = 1.5
+1.surv = 5.1
+1.result = 5.2
+
+
+
 

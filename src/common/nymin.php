@@ -8,6 +8,7 @@
 
 include 'head.php';
 include 'roundup.php';
+include 'debug.php';
 
 echo <<<EOT
 
@@ -254,67 +255,76 @@ function all()
 	//	}
 	//}
 	//echo '</table>' . $eol;
-	
-	$min_file = fopen("min.txt", "r");
-	$min_ini = readini($min_file);
-	fclose($min_file);
 
-	$cnt = $min_ini['survey']['count'];
-	
-	echo "<hr> " . $eol;
-	echo "<div style='margin-left: 25px;'> " . $eol;
-	
-	echo "<h1> " .  $tit[$at] . " </h1> " . $eol;
-	
-	if ($at == 2) {
-		for ($i=1; $i<=$cnt; ++$i)
-		{
-			if ($i!=1)
-				echo "<hr>" . $eol;
-			
-			$key = $i . ".namn";
-			echo "Namn : " . $min_ini['survey'][$key] . " <br />" . $eol;
+	if ($at != '')
+	{
+		
+		$min_file = fopen("min.txt", "r");
+		$min_ini = readini($min_file);
+		fclose($min_file);
 
-			$key = $i . ".surv";
-			$val = $min_ini['survey'][$key];
-			//echo "Surv : " . $val . " - " . to_link($alldata, $val) . " <br>" . $eol;
-			$lnk = to_link($alldata, $val) . "&returnto=nymin";
-			echo "<a href='$lnk'> <button> G&ouml;r Testet </button> </a> <br /> " . $eol; 
-			
-			$key = $i . ".result";
-			$val = $min_ini['survey'][$key];
-			//echo "Res : " . $val . " - " . to_link($alldata, $val) . " <br>" . $eol;
-			$lnk = to_link($alldata, $val) . "&returnto=nymin";
-			echo "<a href='$lnk'> <button> Se Resultat </button> </a> <br /> ". $eol; 
+		echo "<hr> " . $eol;
+		echo "<div style='margin-left: 25px;'> " . $eol;
+
+		echo "<h1> " .  $tit[$at] . " </h1> " . $eol;
+
+		$cnt = $min_ini['survey']['count'];
+		
+		if ($at == 2) {
+			for ($i=1; $i<=$cnt; ++$i)
+			{
+				if ($i!=1)
+					echo "<hr>" . $eol;
+				
+				$key = $i . ".namn";
+				echo "Namn : " . $min_ini['survey'][$key] . " <br />" . $eol;
+
+				$key = $i . ".surv";
+				$val = $min_ini['survey'][$key];
+				//echo "Surv : " . $val . " - " . to_link($alldata, $val) . " <br>" . $eol;
+				$lnk = to_link($alldata, $val) . "&returnto=nymin";
+				debug_log('survey link : ' . $lnk);
+				echo "<a href='$lnk'> <button> G&ouml;r Testet </button> </a> <br /> " . $eol; 
+				
+				$key = $i . ".result";
+				$val = $min_ini['survey'][$key];
+				//echo "Res : " . $val . " - " . to_link($alldata, $val) . " <br>" . $eol;
+				$lnk = to_link($alldata, $val) . "&returnto=nymin";
+				debug_log('result link : ' . $lnk);
+				echo "<a href='$lnk'> <button> Se Resultat </button> </a> <br /> ". $eol; 
+			}
 		}
+		
+		echo " </div> " . $eol;
+
 	}
-	
-	echo " </div> " . $eol;
 
-	echo '<script> ';
-	$atnum = 0;
-	echo ' document.getElementById("CntDiv' . $atnum . '").style.display = "block";';
+//	echo '<script> ';
+//	$atnum = 0;
+//	echo ' document.getElementById("CntDiv' . $atnum . '").style.display = "block";';
+//
+//	echo <<<EOT
+//
+//var coll = document.getElementsByClassName("collapsible");
+//var i;
+//
+//for (i = 0; i < coll.length; i++) {
+//  coll[i].addEventListener("click", function() {
+//    //this.classList.toggle("active");
+//    var content = this.nextElementSibling;
+//    if (content.style.display === "block") {
+//      content.style.display = "none";
+//    } else {
+//      content.style.display = "block";
+//    }
+//  });
+//}
+//</script>
+//
+//
+//EOT;
+//
 
-	echo <<<EOT
-
-var coll = document.getElementsByClassName("collapsible");
-var i;
-
-for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function() {
-    //this.classList.toggle("active");
-    var content = this.nextElementSibling;
-    if (content.style.display === "block") {
-      content.style.display = "none";
-    } else {
-      content.style.display = "block";
-    }
-  });
-}
-</script>
-
-
-EOT;
 
 }
 

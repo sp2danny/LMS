@@ -3,12 +3,11 @@
 
 <?php
 
-include "debug.php";
-
-include "discquery.php";
-include "discdisplay.php";
-include "gap.php";
-include "tq.php";
+include_once "debug.php";
+include_once "discquery.php";
+include_once "discdisplay.php";
+include_once "gap.php";
+include_once "tq.php";
 
 class SRP
 {
@@ -33,6 +32,7 @@ class Data
 	public $replst = [];
 	public $title;
 	public $dagens = [];
+	public $returnto = false;
 }
 
 function repl($data, $txt)
@@ -51,7 +51,10 @@ function repl($data, $txt)
 function process_cmd($to, $data, $cmd, $args, $ret_to = "")
 {
 	
-	debug_log('process_cmd(' . $cmd . "," . arr2str($args) . ")");
+	$dbglg = 'process_cmd(' . $cmd . "," . arr2str($args) . ")";
+	if ($ret_to != '')
+		$dbglg .= ' (' . $ret_to . ')';
+	debug_log($dbglg);
 	
 	$eol = "\n";
 	
@@ -128,6 +131,9 @@ function process_cmd($to, $data, $cmd, $args, $ret_to = "")
 			$to->scTag('input', 'type="hidden" value="" id="TimeStop" name="timestop"');
 			$to->scTag('input', 'type="hidden" value="' . trim($args[2]) . '" id="TimeMax" name="timemax"');
 			$to->scTag('input', 'type="hidden" value="0" id="Score" name="score"');
+			if ($data->returnto) {
+				$to->scTag('input', 'type="hidden" value="' . $data->returnto . '" id="Returnto" name="returnto"');
+			}
 			$to->startTag('table');
 			break;
 		case 'one':
@@ -141,6 +147,9 @@ function process_cmd($to, $data, $cmd, $args, $ret_to = "")
 			$to->scTag('input', 'type="hidden" value="0" id="TimeStop" name="timestop"');
 			$to->scTag('input', 'type="hidden" value="' . trim($args[2]) . '" id="TimeMax" name="timemax"');
 			$to->scTag('input', 'type="hidden" value="0" id="Score" name="score"');
+			if ($data->returnto) {
+				$to->scTag('input', 'type="hidden" value="' . $data->returnto . '" id="Returnto" name="returnto"');
+			}
 			$to->startTag('div', 'id="AnswerDiv"');
 			$to->stopTag('div');
 			$to->stopTag('form');
@@ -222,7 +231,11 @@ function process_cmd($to, $data, $cmd, $args, $ret_to = "")
 			
 			$new_snum = $data->snum+1;
 			if ($new_snum <= $data->max) {
-				$to->startTag('button', 'onclick="location.href=' . "'" . '../common/forward.php?os=' . $data->snum . '&ob=' . $data->bnum . '&pnr=' . $data->pnr . '&bnum=' . $data->bnum . '&snum=' . $new_snum . "'" . '" type="button"');
+				$href = '../common/forward.php?os=' . $data->snum . '&ob=' . $data->bnum . '&pnr=' . $data->pnr . '&bnum=' . $data->bnum . '&snum=' . $new_snum;
+				if ($data->returnto) {
+					$href = '../common/' . $data->returnto . '.php?pnr=' . $data->pnr;
+				}
+				$to->startTag('button', 'onclick="location.href=' . "'" . $href . "'" . '" type="button"');
 				if (array_key_exists(0, $args))
 					$to->regLine($args[0]);
 				else
@@ -230,8 +243,13 @@ function process_cmd($to, $data, $cmd, $args, $ret_to = "")
 				$to->stopTag('button');
 				break;
 			}
+			// intentional fallthrough
 		case 'nextbatt':
-			$to->startTag('button', 'onclick="location.href=' . "'" . '../common/forward.php?os=' . $data->snum . '&ob=' . $data->bnum . '&pnr=' . $data->pnr . '&snum=1&bnum=' . ($data->bnum+1) . "'" . '" type="button"');
+			$href = '../common/forward.php?os=' . $data->snum . '&ob=' . $data->bnum . '&pnr=' . $data->pnr . '&snum=1&bnum=' . ($data->bnum+1);
+				if ($data->returnto) {
+					$href .= "&returnto=" . $data->returnto;
+				}
+			$to->startTag('button', 'onclick="location.href=' . "'" . $href . "'" . '" type="button"');
 			if (array_key_exists(0, $args))
 				$to->regLine($args[0]);
 			else

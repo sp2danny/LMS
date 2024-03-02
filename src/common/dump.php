@@ -3,9 +3,19 @@
 
 	<hr>
 	
-	<a href='logclear.php'>
-		<button> Clear </button>
-	</a>
+	<table> <tr>
+		<td>
+			<a href='logclear.php'>
+				<button> Clear </button>
+			</a>
+		</td><td>
+			&nbsp; &nbsp; &nbsp;
+		</td><td>
+			<a href='dump.php'>
+				<button> Reload </button>
+			</a>
+		</td>
+	</tr></table>
 
 	<hr>
 	
@@ -18,6 +28,7 @@
 		$buffer = fgets($fp, 4096);
 		if (!$buffer) break;
 		$buffer = trim($buffer);
+		$buffer = htmlspecialchars($buffer);
 		echo $buffer . "\n";
 	}
 	

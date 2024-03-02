@@ -3,13 +3,16 @@
 
 <?php
 
-include 'process_cmd.php';
-include 'cmdparse.php';
-include 'progress.php';
-include 'main.js.php';
+include_once 'process_cmd.php';
+include_once 'cmdparse.php';
+include_once 'progress.php';
+include_once 'main.js.php';
+include_once 'debug.php';
 
 function index($styr, $local, $common)
 {
+	debug_log('index() in index.php');
+
 	global $emperator;
 
 	$to = new tagOut;

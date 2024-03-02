@@ -72,6 +72,13 @@ if ($bnum == 0)
 
 // function mklink($batt, $seg, $pnr, $pid, $name)
 
+$returnto = getparam('returnto', false);
+
+if ($returnto)
+{
+	$link = '../common/' . $returnto . '.php?pnr=' . $pnr;
+}
+
 echo '<meta http-equiv="refresh" content="0; URL=';
 echo $link;
 echo '" />';

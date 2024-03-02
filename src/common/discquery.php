@@ -3,6 +3,8 @@
 
 <?php
 
+include_once 'debug.php';
+
 function my_mb_ucfirst($str) {
 	$fc = mb_strtoupper(mb_substr($str, 0, 1));
 	return $fc.mb_substr($str, 1);
@@ -72,7 +74,15 @@ function dodisc($data, $ret_to = "")
 	
 	$ret .= '<input type="text" name="pnr" value="';
 	$ret .= $data->pnr;
-	$ret .= '"> </div>' . "\n";
+	$ret .= '">  ' . "\n";
+	
+	if ($data->returnto) {
+		$ret .= '<input type="text" name="returnto" value="';
+		$ret .= $data->returnto;
+		$ret .= '">  ' . "\n";
+	}
+	
+	$ret .= '</div>' . "\n";
 
 	$ret .= pr_bef();
 	$n = count($qs["UD"]);
