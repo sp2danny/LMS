@@ -394,8 +394,15 @@ $ttt = date_format($dt, "Y-m-d H:i:s");
 						echo "</td><td>";
 						echo round($val) . "%";
 
-						if ( $val > get_styr($styr, 'summary', 'warn.lim', $variant) )
-							echo " <img src='../" . get_styr($styr, 'summary', 'warn.img', $variant) . "' /> ";
+                        if (array_key_exists('warn.rev',$styr['summary']) && $styr['summary']['warn.rev']) {
+    						if ( $val < $styr['summary']['warn.lim'] ) {
+	    						echo " <img src='../" . $styr['summary']['warn.img'] . "' /> ";
+    						}
+						} else {
+						    if ( $val > $styr['summary']['warn.lim'] ) {
+    							echo " <img src='../" . $styr['summary']['warn.img'] . "' /> ";
+						    }
+                        }
 
 						echo "</td></tr>\n";
 					}

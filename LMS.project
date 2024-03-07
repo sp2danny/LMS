@@ -8,6 +8,7 @@
     <File Name="src/stats/index.php"/>
   </VirtualDirectory>
   <VirtualDirectory Name="stuff">
+    <File Name="src/common/min.txt"/>
     <File Name="src/common/main.css.php"/>
     <File Name="ftp.txt"/>
     <File Name="debug.php"/>
@@ -72,6 +73,7 @@
     <File Name="src/klarna/coach.html"/>
   </VirtualDirectory>
   <VirtualDirectory Name="common">
+    <File Name="src/common/minkant.php"/>
     <File Name="src/common/logclear.php"/>
     <File Name="src/common/dump.php"/>
     <File Name="src/common/debug.php"/>

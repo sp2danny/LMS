@@ -1,13 +1,16 @@
 
 [survey]
 
-count = 1
+count = 2
 
 1.filter = 2
 1.namn = Discen
 1.surv = 5.1
 1.result = 5.2
 
-
+2.filter = 1
+2.namn = Stress
+2.ext = true
+2.surv = https://mind2excellence.se/survey/php/04-tratten.php
 
 

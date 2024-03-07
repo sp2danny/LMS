@@ -270,22 +270,35 @@ function all()
 
 		$cnt = $min_ini['survey']['count'];
 		
-		if ($at == 2) {
-			for ($i=1; $i<=$cnt; ++$i)
-			{
-				if ($i!=1)
-					echo "<hr>" . $eol;
-				
-				$key = $i . ".namn";
-				echo "Namn : " . $min_ini['survey'][$key] . " <br />" . $eol;
+		for ($i=1; $i<=$cnt; ++$i)
+		{
+			$key = $i . ".filter";
+			$ff = $min_ini['survey'][$key];
+			if ($ff != $at) continue;
 
+			$key = $i . ".namn";
+			echo "Namn : " . $min_ini['survey'][$key] . " <br />" . $eol;
+			
+			$key = $i . ".ext";
+			$ext = false;
+			if (array_key_exists($key,$min_ini['survey']))
+				$ext = $min_ini['survey'][$key];
+			
+			if ($ext) {
+				$key = $i . ".surv";
+				$val = $min_ini['survey'][$key];
+				//echo "Surv : " . $val . " - " . to_link($alldata, $val) . " <br>" . $eol;
+				$lnk = $val; // to_link($alldata, $val) . "&returnto=nymin";
+				debug_log('survey link : ' . $lnk);
+				echo "<a href='$lnk'> <button> G&ouml;r Testet </button> </a> <br /> " . $eol; 
+			} else {
 				$key = $i . ".surv";
 				$val = $min_ini['survey'][$key];
 				//echo "Surv : " . $val . " - " . to_link($alldata, $val) . " <br>" . $eol;
 				$lnk = to_link($alldata, $val) . "&returnto=nymin";
 				debug_log('survey link : ' . $lnk);
 				echo "<a href='$lnk'> <button> G&ouml;r Testet </button> </a> <br /> " . $eol; 
-				
+			
 				$key = $i . ".result";
 				$val = $min_ini['survey'][$key];
 				//echo "Res : " . $val . " - " . to_link($alldata, $val) . " <br>" . $eol;
