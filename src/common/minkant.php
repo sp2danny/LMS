@@ -447,20 +447,20 @@ EOT;
 		$to->regLine('<br /><br />');
 	}
 
-	$tit = array("Min utveckling", "Stresspåverkan", "Discanalys", "Mina styrkor", "Motivatorer");
-	
+	$tit = array("Min utveckling", "Stresspåverkan", "Discanalys", "Mina styrkor", "Motivatorer", "Samarbete", "Stress", "Fysik");
+
 	$n = count($tit);
-		
+
 	$at = getparam("at", '0');
-	
+
 	$to->scTag("hr");
 
 	$to->startTag("table");
 	$to->startTag("tr");
-	
+
 	for ($i=0; $i<$n; ++$i) {
 		$to->startTag("td");
-		$to->regLine("<button> Settings </button>");
+		//$to->regLine("<button> Settings </button>");
 		if ($at == $i) {
 			$to->regLine("<button style='border-style:inset;' > Min Sida </button>");
 		} else {
@@ -477,14 +477,14 @@ EOT;
 		$to->regLine(" <div class='hdr'> " . $tit[$i] . " </div> ");
 		$to->stopTag("td");
 	}
-	
+
 	$to->stopTag("tr");
 	$to->stopTag("table");
-	
+
 	$to->scTag("hr");
-	
+
 	ptbl($to, $prow, $mynt);
-	
+
 	$alldata = roundup($data->pnr, $data->pid, $data->name, true);
 
 	if ($at != '')

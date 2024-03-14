@@ -1,16 +1,27 @@
 
 <?php
 
+// --- class tagNull : does nothing --------------------------------------------
+
+class tagNul
+{
+	public function startTag ($tag, $attr = '') {}
+	public function stopTag  ($tag)             {}
+	public function scTag    ($tag, $attr = '') {}
+	public function regLine  ($line)            {}
+}
+
+// --- class tagOut : immidietly displays output -------------------------------
+
 class tagOut
 {
-
     private int $ind = 0;
 
     private $eol = "\n";
 
     private function doInd() {
         for ($i=0; $i < $this->ind; ++$i)
-            echo ' ';
+            echo '  ';
     }
 
     public function startTag($tag, $attr = '') {
@@ -39,6 +50,77 @@ class tagOut
         echo $line . $this->eol;
     }
 }
+
+// --- class tagDefer : displays output later ----------------------------------
+
+class tagDefer
+{
+    private int $ind = 0;
+
+    private $eol = "\n";
+	
+	private $lines = [];
+
+    private function doInd() {
+		$s = "";
+        for ($i=0; $i < $this->ind; ++$i)
+            $s .= '  ';
+		return $s;
+    }
+
+    public function startTag($tag, $attr = '') {
+        $s = $this->doInd();
+        $s .= '<' . $tag;
+        if ($attr)
+            $s .= ' ' . $attr . ' ';
+        $s .= '>' . $this->eol;
+        $this->ind += 2;
+		$lines[] = $s;
+    }
+
+    public function stopTag($tag) {
+        $this->ind -= 2;
+        $s = $this->doInd();
+        $s .= '</' . $tag;
+        $s .= '>' . $this->eol;
+		$lines[] = $s;
+    }
+    public function scTag($tag, $attr = '') {
+        $s = $this->doInd();
+        $s .= '<' . $tag;
+        if ($attr)
+            $s .= ' ' . $attr;
+        $s .= ' />' . $this->eol;
+		$lines[] = $s;
+    }
+    public function regLine($line) {
+        $s = $this->doInd();
+        $s .= $line . $this->eol;
+		$lines[] = $s;
+    }
+	
+	public function Output()
+	{
+		foreach ($lines as $l)
+			echo $l;
+		return $this;
+	}
+	public function Clear()
+	{
+		$lines = [];
+		$ind = 0;
+	}
+	public function Callback($callback)
+	{
+		foreach ($lines as $l)
+			$callback($l);
+		return $this;
+	}
+
+}
+
+
+
 
 ?>
 

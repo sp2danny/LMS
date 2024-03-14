@@ -19,14 +19,7 @@ include_once '../common/progress.php';
 include_once '../common/process_cmd.php';
 include_once '../common/cmdparse.php';
 include_once '../common/debug.php';
-
-class tagNul
-{
-	public function startTag ($tag, $attr = '') {}
-	public function stopTag  ($tag)             {}
-	public function scTag    ($tag, $attr = '') {}
-	public function regLine  ($line)            {}
-}
+include_once '../common/tagOut.php';
 
 function score($styr, $local, $common)
 {
@@ -118,7 +111,7 @@ EOT;
 	if ($dintid > $maxt) {
 		$ok = false;
 	}
-	
+
 	if (getparam('forceok')=='true')
 		$ok = true;
 
@@ -203,7 +196,7 @@ EOT;
 						}
 						$to->stopTag('div');
 						break;
-					
+
 					case "logo":
 						echo '<img width=90% src="logo.png"> <br>' . $eol;
 						break;
