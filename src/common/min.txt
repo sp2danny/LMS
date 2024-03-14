@@ -1,7 +1,7 @@
 
 [survey]
 
-count = 2
+count = 3
 
 1.filter = 2
 1.namn = Discen
@@ -13,4 +13,7 @@ count = 2
 2.ext = true
 2.surv = https://mind2excellence.se/survey/php/04-tratten.php
 
+3.filter = 0
+3.namn = Utveckling
+3.embed = https://mind2excellence.se/site/common/minsida.php
 

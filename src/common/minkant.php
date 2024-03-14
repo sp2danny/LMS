@@ -489,7 +489,6 @@ EOT;
 
 	if ($at != '')
 	{
-		
 		$min_file = fopen("min.txt", "r");
 		$min_ini = readini($min_file);
 		fclose($min_file);
@@ -512,7 +511,7 @@ EOT;
 			
 			$key = $i . ".ext";
 			$ext = false;
-			if (array_key_exists($key,$min_ini['survey']))
+			if (array_key_exists($key, $min_ini['survey']))
 				$ext = $min_ini['survey'][$key];
 			
 			if ($ext) {
@@ -522,9 +521,14 @@ EOT;
 				$lnk = $val; // to_link($alldata, $val) . "&returnto=nymin";
 				debug_log('survey link : ' . $lnk);
 				$to->regLine("<a href='$lnk'> <button> G&ouml;r Testet </button> </a> <br /> "); 
-			} else {
-				$key = $i . ".surv";
+			}
+			
+			$key = $i . ".surv";
+			$val = false;
+			if (array_key_exists($key, $min_ini['survey']))
 				$val = $min_ini['survey'][$key];
+
+			if ($val && !$ext) {
 				//echo "Surv : " . $val . " - " . to_link($alldata, $val) . " <br>" . $eol;
 				$lnk = to_link($alldata, $val) . "&returnto=nymin";
 				debug_log('survey link : ' . $lnk);
@@ -537,6 +541,18 @@ EOT;
 				debug_log('result link : ' . $lnk);
 				$to->regLine("<a href='$lnk'> <button> Se Resultat </button> </a> <br /> ");
 			}
+					
+			$key = $i . ".embed";
+			$emb = false;
+			if (array_key_exists($key,$min_ini['survey']))
+				$emb = $min_ini['survey'][$key];
+			
+			if ($emb) {
+				$lnk = $emb . "?pnr=" . $data->pnr;
+				debug_log('embed link : ' . $lnk);
+				$to->scTag('embed', 'type="text/html" src="' . $lnk . '"');
+			}
+			
 		}
 		
 		$to->stopTag('div');
@@ -548,7 +564,7 @@ EOT;
 	if (getparam("sticp", "0") == "1") {
 		$to->regLine('<div id="alt" class="xxx" state="0" >');
 		$to->regLine(getCP($data));
-		$to->regLine('</div>');		
+		$to->regLine('</div>');
 	} else {
 		$to->regLine('<div id="alt" class="xxx"></div>');
 	}
