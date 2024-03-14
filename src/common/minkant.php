@@ -442,12 +442,13 @@ EOT;
 	$n = count($dagens);
 	if ($n > 0) {
 		$i = rand(0, $n-1);
-		$to->regLine('<br /><br />');
 		$to->regLine('<center>' . $dagens[$i] . '</center>');;
-		$to->regLine('<br /><br />');
 	}
 
-	$tit = array("Min utveckling", "Stresspåverkan", "Discanalys", "Mina styrkor", "Motivatorer", "Samarbete", "Stress", "Fysik");
+	$tit = array(
+		"Utveckling", "Min PuP", "Stresspåverkan", "Discanalys", "Mina styrkor",
+		"Motivation", "Samarbete", "Kommunikation", "Mina mål", "Min Fysik"
+	);
 
 	$n = count($tit);
 
@@ -462,23 +463,23 @@ EOT;
 		$to->startTag("td");
 		//$to->regLine("<button> Settings </button>");
 		if ($at == $i) {
-			$to->regLine("<button style='border-style:inset;' > Min Sida </button>");
+			$to->regLine("<button style='border-style:inset;' > " . $tit[$i] . " </button>");
 		} else {
-			$to->regLine("<button onclick='newpage(".$i.")' > Min Sida </button>");
+			$to->regLine("<button onclick='newpage(".$i.")' > " . $tit[$i] . " </button>");
 		}
 		$to->stopTag("td");
 	}
 
 	$to->stopTag("tr");
-	$to->startTag("tr");
-
-	for ($i=0; $i<$n; ++$i) {
-		$to->startTag("td");
-		$to->regLine(" <div class='hdr'> " . $tit[$i] . " </div> ");
-		$to->stopTag("td");
-	}
-
-	$to->stopTag("tr");
+	
+	//$to->startTag("tr");
+	//for ($i=0; $i<$n; ++$i) {
+	//	$to->startTag("td");
+	//	$to->regLine(" <div class='hdr'> " . $tit[$i] . " </div> ");
+	//	$to->stopTag("td");
+	//}
+	//$to->stopTag("tr");
+	
 	$to->stopTag("table");
 
 	$to->scTag("hr");
@@ -496,7 +497,6 @@ EOT;
 		$to->scTag("hr");
 		$to->startTag("div", "style='margin-left: 25px;'");
 
-		$to->regLine("<h1> " .  $tit[$at] . " </h1> ");
 
 		$cnt = $min_ini['survey']['count'];
 		
@@ -507,7 +507,7 @@ EOT;
 			if ($ff != $at) continue;
 
 			$key = $i . ".namn";
-			$to->regLine("Namn : " . $min_ini['survey'][$key] . " <br />" );
+			$to->regLine("<h1> " . $min_ini['survey'][$key] . " </h1> ");
 			
 			$key = $i . ".ext";
 			$ext = false;
@@ -550,7 +550,7 @@ EOT;
 			if ($emb) {
 				$lnk = $emb . "?pnr=" . $data->pnr;
 				debug_log('embed link : ' . $lnk);
-				$to->scTag('embed', 'type="text/html" src="' . $lnk . '"');
+				$to->scTag('embed', 'type="text/html" width="1600" height="2400" src="' . $lnk . '"');
 			}
 			
 		}

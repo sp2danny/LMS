@@ -14,6 +14,6 @@ count = 3
 2.surv = https://mind2excellence.se/survey/php/04-tratten.php
 
 3.filter = 0
-3.namn = Utveckling
+3.namn = Min utveckling mot femte nivåns självledarskap
 3.embed = https://mind2excellence.se/site/common/minsida.php
 
