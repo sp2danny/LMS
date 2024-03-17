@@ -1,19 +1,23 @@
 
 [survey]
 
-count = 3
+count = 4
 
-1.filter = 2
-1.namn = Discen
-1.surv = 5.1
-1.result = 5.2
+1.filter = 0
+1.namn = Min utveckling mot femte nivåns självledarskap
+1.minor = #utbildning #äkta #ärlig #positiv #relevant #tillitsfull #livsbalans #omdömmesfull #motivation #målsättning #genomförandekompetens
+1.embed = https://mind2excellence.se/site/common/utveckling.php
 
 2.filter = 1
-2.namn = Stress
-2.ext = true
-2.surv = https://mind2excellence.se/survey/php/04-tratten.php
+2.namn = Personlig utvecklings plan
 
-3.filter = 0
-3.namn = Min utveckling mot femte nivåns självledarskap
-3.embed = https://mind2excellence.se/site/common/minsida.php
+3.filter = 2
+3.namn = Stress
+3.ext = true
+3.surv = https://mind2excellence.se/survey/php/04-tratten.php
 
+4.filter = 3
+4.namn = Disk Analys
+4.minor = Testa Din Personlighet
+4.surv = 5.1
+4.result = 5.2

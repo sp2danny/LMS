@@ -218,6 +218,14 @@ function index($local, $common)
 
 <style>
 
+body.nomarg {
+    background-color: #ffffff;
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
 p.main {
   padding-left:   40px;
 }
@@ -508,12 +516,19 @@ EOT;
 
 			$key = $i . ".namn";
 			$to->regLine("<h1> " . $min_ini['survey'][$key] . " </h1> ");
-			
+
+			$key = $i . ".minor";
+			$min = false;
+			if (array_key_exists($key, $min_ini['survey']))
+				$min = $min_ini['survey'][$key];
+			if ($min)
+				$to->regLine("<h5> " . $min . " </h5> ");
+
 			$key = $i . ".ext";
 			$ext = false;
 			if (array_key_exists($key, $min_ini['survey']))
 				$ext = $min_ini['survey'][$key];
-			
+
 			if ($ext) {
 				$key = $i . ".surv";
 				$val = $min_ini['survey'][$key];
@@ -522,7 +537,7 @@ EOT;
 				debug_log('survey link : ' . $lnk);
 				$to->regLine("<a href='$lnk'> <button> G&ouml;r Testet </button> </a> <br /> "); 
 			}
-			
+
 			$key = $i . ".surv";
 			$val = false;
 			if (array_key_exists($key, $min_ini['survey']))
