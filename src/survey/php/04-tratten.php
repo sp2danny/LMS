@@ -10,6 +10,17 @@ $styr = LoadIni("../styr.txt");
 $lid      = getparam('lid');
 $variant  = 0;
 $cid      = 0;
+$pnr      = getparam('pnr', false);
+$pid      = false;
+
+if ($pnr) {
+	$query = "SELECT * FROM pers WHERE pnr='$pnr'";
+	$res = mysqli_query($emperator, $query);
+	if ($res) if ($row = mysqli_fetch_array($res))
+	{
+		$pid = $row['pid'];
+	}
+}
 
 $query = "SELECT * FROM data WHERE type=17 AND value_a='$lid'";
 $res = mysqli_query($emperator, $query);
@@ -140,10 +151,11 @@ $eol = "\n";
 		<div>
 			<form id='gap' action='05-result.php' >
 				<?php echo "<input type='hidden' id='lid' name='lid' value='" . getparam('lid') . "' />" . $eol; ?>
+				<?php if ($pid) { echo "<input type='hidden' id='pid' name='pid' value='" . $pid . "' />" . $eol; } ?>
 				<table>
 					<?php
-						$num = get_styr($styr, "querys", "num", $variant);
-						$qn  = get_styr($styr, "querys", "not", $variant);
+						$num = get_styr($styr, "querys", "num",  $variant);
+						$qn  = get_styr($styr, "querys", "not",  $variant);
 						$qf  = get_styr($styr, "querys", "full", $variant);
 
 						echo "          <tr>" . $eol;

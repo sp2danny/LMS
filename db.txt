@@ -95,4 +95,12 @@ typer
 
 
 
+	namn        type         a            b            c            surv
+	==========  ===========  ===========  ===========  ===========  ===========
+	
+	stress      101          kat          val          namn         surv-num
+
+
+
+
 

@@ -14,6 +14,54 @@ function set_suv_val($i, $val, $lid)
 	return boolval($res);
 }
 
+function set_suv_val_pid($type, $i, $val, $pid, $surv)
+{
+	global $emperator;
+	$query = "INSERT INTO data (pers, type, value_a, value_b, surv) "
+		. "VALUES ('$pid', '$type', '$i', '$val', '$surv');";
+
+	$res = mysqli_query( $emperator, $query );
+	return boolval($res);
+}
+
+//surv
+//	surv_id   int ai key
+//	date      datetime auto
+//	name      string
+//	type      int
+//	pers      int pers_id
+//	seq       int
+
+function add_surv($type, $pid, $name = false)
+{
+	if (!$name)
+		$name = "Survey " . $type;
+		
+	$maxseq = 0;
+	
+	global $emperator;
+
+	$query = "SELECT * FROM surv WHERE type='$type' AND pers='$pid';";
+	$res = mysqli_query( $emperator, $query );
+	if ($result) while ($row = mysqli_fetch_array($result))
+	{
+		if ($row['seq'] > $maxseq)
+			$maxseq = $row['seq'];
+	}
+	
+	$maxseq += 1;
+	
+	$query = "INSERT INTO surv (name, type, pers, seq) "
+		. "VALUES ('$name', '$type', '$pers', '$maxseq');";
+	$res = mysqli_query( $emperator, $query );
+	
+	if ($res)
+		return mysql_insert_id($emperator);
+	else
+		return false;
+	
+}
+
 function t($n)
 {
 	$str = "";
@@ -379,6 +427,10 @@ $ttt = date_format($dt, "Y-m-d H:i:s");
 				<br /> <br />
 
 				<?php
+				
+					$if ($pid) {
+						$surv = add_surv(101, $pid, "Stress");
+					}
 
 					echo get_styr($styr, 'summary', 'text', $variant) . "\n";
 					echo t(4) . "<table>\n";
@@ -387,6 +439,9 @@ $ttt = date_format($dt, "Y-m-d H:i:s");
 						echo t(5) . "<tr style='height:22px;'>";
 						$val = 100.0 * $kv[$i] / $km[$i];
 						set_suv_val($i, $val, $lid);
+						if ($pid) {
+							set_suv_val_pid(101, $i, $val, $pid, $surv);
+						}
 						$c = "#" . get_styr($styr, 'querys', "kat.$i.color", $variant);
 						echo "<td> <font color='$c'> " . "⬤" . " </font>";
 						echo " </td> <td> ";
