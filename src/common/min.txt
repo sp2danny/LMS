@@ -70,5 +70,10 @@ count = 10
 10.level.lo = 1
 10.level.hi = 2
 
+11.filter = 10
+11.namn = Test
+11.button = Test
+11.level.lo = 1
+11.level.hi = 2
 
 

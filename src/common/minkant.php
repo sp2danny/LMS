@@ -491,6 +491,15 @@ EOT;
 	}
 
 	for ($i=0; $i<$n; ++$i) {
+		
+		if ($n>8) {
+			$half = (int) (($n+1) / 2);
+			if ($i == $half) {
+				$to->stopTag("tr");
+				$to->startTag("tr");
+			}
+		}
+
 		$to->startTag("td");
 		//$to->regLine("<button> Settings </button>");
 		if ($at == $i) {
@@ -573,7 +582,10 @@ EOT;
 				$emb = $min_ini['survey'][$key];
 			
 			if ($emb) {
-				$lnk = $emb . "?pnr=" . $data->pnr;
+				if (strpos($emb, "?") === false)
+					$lnk = $emb . "?pnr=" . $data->pnr;
+				else
+					$lnk = $emb . "&pnr=" . $data->pnr;
 				debug_log('embed link : ' . $lnk);
 				$to->scTag('embed', 'type="text/html" width="1600" height="2400" src="' . $lnk . '"');
 			}
