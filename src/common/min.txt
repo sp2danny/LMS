@@ -1,23 +1,74 @@
 
 [survey]
 
-count = 4
+count = 10
 
 1.filter = 0
+1.button = Utveckling
 1.namn = Min utveckling mot femte nivåns självledarskap
 1.minor = #utbildning #äkta #ärlig #positiv #relevant #tillitsfull #livsbalans #omdömmesfull #motivation #målsättning #genomförandekompetens
 1.embed = https://mind2excellence.se/site/common/utveckling.php
+1.level.lo = 1
+1.level.hi = 5
 
 2.filter = 1
+2.button = Min PuP
 2.namn = Personlig utvecklings plan
+2.level.lo = 1
+2.level.hi = 2
 
 3.filter = 2
 3.namn = Stress
+3.button = Stresspåverkan
 3.ext = true
 3.surv = https://mind2excellence.se/survey/php/04-tratten.php
+3.level.lo = 1
+3.level.hi = 2
 
 4.filter = 3
 4.namn = Disk Analys
+4.button = Discanalys
 4.minor = Testa Din Personlighet
 4.surv = 5.1
 4.result = 5.2
+4.level.lo = 1
+4.level.hi = 2
+
+5.filter = 4
+5.namn = Mina styrkor
+5.button = Mina styrkor
+5.level.lo = 1
+5.level.hi = 2
+
+6.filter = 5
+6.namn = Motivation
+6.button = Motivation
+6.level.lo = 1
+6.level.hi = 2
+
+7.filter = 6
+7.namn = Samarbete
+7.button = Samarbete
+7.level.lo = 1
+7.level.hi = 2
+
+8.filter = 7
+8.namn = Kommunikation
+8.button = Kommunikation
+8.level.lo = 1
+8.level.hi = 2
+
+9.filter = 8
+9.namn = Mina mål
+9.button = Mina mål
+9.level.lo = 1
+9.level.hi = 2
+
+10.filter = 9
+10.namn = Min Fysik
+10.button = Min Fysik
+10.level.lo = 1
+10.level.hi = 2
+
+
+

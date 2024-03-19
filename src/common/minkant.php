@@ -218,6 +218,16 @@ function index($local, $common)
 
 <style>
 
+button.ilbbaicl {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+h5.regular {
+  font-size: 16px;
+  font-weight: normal;
+}
+
 body.nomarg {
     background-color: #ffffff;
     margin-top: 5px;
@@ -453,10 +463,7 @@ EOT;
 		$to->regLine('<center>' . $dagens[$i] . '</center>');;
 	}
 
-	$tit = array(
-		"Utveckling", "Min PuP", "Stresspåverkan", "Discanalys", "Mina styrkor",
-		"Motivation", "Samarbete", "Kommunikation", "Mina mål", "Min Fysik"
-	);
+	$tit = array();
 
 	$n = count($tit);
 
@@ -466,28 +473,36 @@ EOT;
 
 	$to->startTag("table");
 	$to->startTag("tr");
+	
+	$min_file = fopen("min.txt", "r");
+	$min_ini = readini($min_file);
+	fclose($min_file);
+
+	$n = $min_ini['survey']['count'];
+		
+	for ($i=1; $i<=$n; ++$i)
+	{
+		$key = $i . ".filter";
+		$flt = $min_ini['survey'][$key];
+
+		$key = $i . ".button";
+		$btn = $min_ini['survey'][$key];
+		$tit[$flt] = $btn;
+	}
 
 	for ($i=0; $i<$n; ++$i) {
 		$to->startTag("td");
 		//$to->regLine("<button> Settings </button>");
 		if ($at == $i) {
-			$to->regLine("<button style='border-style:inset;' > " . $tit[$i] . " </button>");
+			$to->regLine("<button class='ilbbaicl' style='border-style:inset;' > " . $tit[$i] . " </button>");
 		} else {
-			$to->regLine("<button onclick='newpage(".$i.")' > " . $tit[$i] . " </button>");
+			$to->regLine("<button class='ilbbaicl' onclick='newpage(".$i.")' > " . $tit[$i] . " </button>");
 		}
 		$to->stopTag("td");
 	}
 
 	$to->stopTag("tr");
-	
-	//$to->startTag("tr");
-	//for ($i=0; $i<$n; ++$i) {
-	//	$to->startTag("td");
-	//	$to->regLine(" <div class='hdr'> " . $tit[$i] . " </div> ");
-	//	$to->stopTag("td");
-	//}
-	//$to->stopTag("tr");
-	
+
 	$to->stopTag("table");
 
 	$to->scTag("hr");
@@ -498,15 +513,10 @@ EOT;
 
 	if ($at != '')
 	{
-		$min_file = fopen("min.txt", "r");
-		$min_ini = readini($min_file);
-		fclose($min_file);
-
 		$to->scTag("hr");
 		$to->startTag("div", "style='margin-left: 25px;'");
 
-
-		$cnt = $min_ini['survey']['count'];
+		$n = $cnt = $min_ini['survey']['count'];
 		
 		for ($i=1; $i<=$cnt; ++$i)
 		{
@@ -522,7 +532,7 @@ EOT;
 			if (array_key_exists($key, $min_ini['survey']))
 				$min = $min_ini['survey'][$key];
 			if ($min)
-				$to->regLine("<h5> " . $min . " </h5> ");
+				$to->regLine("<h5 class='normal' > " . $min . " </h5> ");
 
 			$key = $i . ".ext";
 			$ext = false;
@@ -569,9 +579,7 @@ EOT;
 			}
 			
 		}
-		
 		$to->stopTag('div');
-
 	}
 
 	$to->stopTag('div');
@@ -587,14 +595,10 @@ EOT;
 	$to->stopTag('body');
 }
 
-
-
 $local = "./";
 $common = "./";
 
 index($local, $common);
-
-
 
 ?> 
 
