@@ -221,6 +221,8 @@ function index($local, $common)
 button.ilbbaicl {
   font-size: 24px;
   font-weight: bold;
+  width: 100%;
+  
 }
 
 h5.regular {
@@ -489,6 +491,8 @@ EOT;
 		$btn = $min_ini['survey'][$key];
 		$tit[$flt] = $btn;
 	}
+	
+	$nb2 = "&nbsp;&nbsp;";
 
 	for ($i=0; $i<$n; ++$i) {
 		
@@ -503,9 +507,9 @@ EOT;
 		$to->startTag("td");
 		//$to->regLine("<button> Settings </button>");
 		if ($at == $i) {
-			$to->regLine("<button class='ilbbaicl' style='border-style:inset;' > " . $tit[$i] . " </button>");
+			$to->regLine("<button class='ilbbaicl' style='border-style:inset;' > " . $nb2 .  $tit[$i] . $nb2 . " </button>");
 		} else {
-			$to->regLine("<button class='ilbbaicl' onclick='newpage(".$i.")' > " . $tit[$i] . " </button>");
+			$to->regLine("<button class='ilbbaicl' onclick='newpage(".$i.")' > " . $nb2 . $tit[$i] . $nb2 . " </button>");
 		}
 		$to->stopTag("td");
 	}
