@@ -57,7 +57,7 @@ typer
  
 	mot-1       11
 	mot-2       12
-	
+
     lead-id     15           lead-id
     feedback    16           batteri      del                       score
 	utskick     17           lead-id      variant
@@ -68,7 +68,7 @@ typer
 	cp_sett     9            graph                     source
 	notes       20           num                       text
 	lead        30-40        num
-	
+
 	platser     50           num          dagar
 
 	produkt     51           pr_num
@@ -89,7 +89,7 @@ typer
 
 	namn        type         a            b            c            surv
 	==========  ===========  ===========  ===========  ===========  ===========
-	
+
 	channel     70           platser      dagar        namn         flags
 	variant     71           variantnmr   channel-id   kommentar    flags
 
@@ -97,7 +97,7 @@ typer
 
 	namn        type         a            b            c            surv
 	==========  ===========  ===========  ===========  ===========  ===========
-	
+
 	stress      101          kat          val          namn         surv-num
 
 

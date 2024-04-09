@@ -98,18 +98,22 @@ function ndq($str)
 	return $out;
 }
 
+function addKV($lnk, $k, $v)
+{
+	if (strpos($lnk, '?')===false)
+		return $lnk . '?' . $k . '=' . $v;
+	else
+		return $lnk . '&' . $k . '=' . $v;
+}
+
 function getCP($data) {
 	$cp_site = 'https://mind2excellence.se/site/common/minsida.php';
 	$cp_have = false;
-	if ($data->pid!=0) {
-		$cp_site .= $cp_have ? "&" : "?";
-		$cp_have = true;
-		$cp_site .= "pid=" . $data->pid;
+	if ($data->pid != 0) {
+		$cp_site = addKV($cp_site, 'pid', $data->pid);
 	}
-	if ($data->pnr!=0) {
-		$cp_site .= $cp_have ? "&" : "?";
-		$cp_have = true;
-		$cp_site .= "pnr=" . $data->pnr;
+	if ($data->pnr != 0) {
+		$cp_site = addKV($cp_site, 'pnr', $data->pnr);
 	}
 	// <iframe src="some.pdf" style="min-height:100vh;width:100%" frameborder="0"></iframe>
 	return ' <iframe src="' . $cp_site . '" style="min-height:100vh;width:100%" frameborder="0" > ';
@@ -129,6 +133,15 @@ function getSett($data) {
 		$cp_site .= "pnr=" . $data->pnr;
 	}
 	return ' <iframe src="' . $cp_site . '" style="min-height:100vh;width:100%" frameborder="0" > ';
+}
+
+function rwd($ini, $seg, $key, $def)
+{
+	if (!array_key_exists($seg, $ini))
+		return $def;
+	if (!array_key_exists($key, $ini[$seg]))
+		return $def;
+	return $ini[$seg][$key];
 }
 
 function index($local, $common)
@@ -557,7 +570,13 @@ EOT;
 				$val = $min_ini['survey'][$key];
 				//echo "Surv : " . $val . " - " . to_link($alldata, $val) . " <br>" . $eol;
 				$lnk = $val; // to_link($alldata, $val) . "&returnto=nymin";
+				$key = $i . ".surv";
+				$do_pnr = rwd($min_ini, 'survey', $key, false);
+				if ($do_pnr)
+					$lnk = addKV($lnk, 'pnr', $data->pnr);
+				
 				debug_log('survey link : ' . $lnk);
+				
 				$to->regLine("<a href='$lnk'> <button> G&ouml;r Testet </button> </a> <br /> "); 
 			}
 

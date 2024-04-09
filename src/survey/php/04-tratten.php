@@ -151,6 +151,7 @@ $eol = "\n";
 		<div>
 			<form id='gap' action='05-result.php' >
 				<?php echo "<input type='hidden' id='lid' name='lid' value='" . getparam('lid') . "' />" . $eol; ?>
+				<?php echo "<input type='hidden' id='pnr' name='pnr' value='" . getparam('pnr') . "' />" . $eol; ?>
 				<?php if ($pid) { echo "<input type='hidden' id='pid' name='pid' value='" . $pid . "' />" . $eol; } ?>
 				<table>
 					<?php

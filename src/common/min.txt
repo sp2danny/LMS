@@ -1,7 +1,7 @@
 
 [survey]
 
-count = 11
+count = 10
 
 1.filter = 0
 1.button = Utveckling
@@ -24,6 +24,7 @@ count = 11
 3.surv = https://mind2excellence.se/survey/php/04-tratten.php
 3.level.lo = 1
 3.level.hi = 2
+3.pnr = true
 
 4.filter = 3
 4.namn = Disk Analys

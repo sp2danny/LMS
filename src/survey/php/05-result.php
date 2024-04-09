@@ -34,7 +34,7 @@ function set_suv_val_pid($type, $i, $val, $pid, $surv)
 
 function add_surv($type, $pid, $name = false)
 {
-	if (!$name)
+	if ($name === false)
 		$name = "Survey " . $type;
 		
 	$maxseq = 0;
