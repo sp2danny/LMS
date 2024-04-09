@@ -19,7 +19,7 @@ function arr2str($arr)
 
 function debug_log($str)
 {
-	// file_put_contents('../common/debug_logs.txt', date('Y-m-d H:i:s  ||  ') . $str . PHP_EOL, FILE_APPEND | LOCK_EX);
+	file_put_contents("../../site/common/debug_logs.txt", date('Y-m-d H:i:s  ||  ') . $str . PHP_EOL, FILE_APPEND | LOCK_EX);
 }
 
 ?>

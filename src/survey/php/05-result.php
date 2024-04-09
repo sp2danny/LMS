@@ -1,14 +1,18 @@
 
 <?php
 
-include "00-common.php";
-include "00-connect.php";
+include_once "00-common.php";
+include_once "00-connect.php";
+include_once '../../site/common/debug.php';
+
 
 function set_suv_val($i, $val, $lid)
 {
 	global $emperator;
 	$query = "INSERT INTO data (pers, type, value_a, value_b, surv) "
 		. "VALUES ('0', '56', '" . $i . "', '" . $val . "', '" . $lid . "');";
+		
+	debug_log($query);
 
 	$res = mysqli_query( $emperator, $query );
 	return boolval($res);
@@ -19,6 +23,7 @@ function set_suv_val_pid($type, $i, $val, $pid, $surv)
 	global $emperator;
 	$query = "INSERT INTO data (pers, type, value_a, value_b, surv) "
 		. "VALUES ('$pid', '$type', '$i', '$val', '$surv');";
+	debug_log($query);
 
 	$res = mysqli_query( $emperator, $query );
 	return boolval($res);
@@ -42,8 +47,9 @@ function add_surv($type, $pid, $name = false)
 	global $emperator;
 
 	$query = "SELECT * FROM surv WHERE type='$type' AND pers='$pid';";
+	debug_log($query);
 	$res = mysqli_query( $emperator, $query );
-	if ($result) while ($row = mysqli_fetch_array($result))
+	if ($res) while ($row = mysqli_fetch_array($res))
 	{
 		if ($row['seq'] > $maxseq)
 			$maxseq = $row['seq'];
@@ -52,11 +58,12 @@ function add_surv($type, $pid, $name = false)
 	$maxseq += 1;
 	
 	$query = "INSERT INTO surv (name, type, pers, seq) "
-		. "VALUES ('$name', '$type', '$pers', '$maxseq');";
+		. "VALUES ('$name', '$type', '$pid', '$maxseq');";
+	debug_log($query);
 	$res = mysqli_query( $emperator, $query );
 	
 	if ($res)
-		return mysql_insert_id($emperator);
+		return mysqli_insert_id($emperator);
 	else
 		return false;
 	
@@ -114,6 +121,7 @@ $dt = date_create_from_format("Y-m-d H:i:s",$startd);
 date_add($dt, date_interval_create_from_date_string($dagar . " days"));
 $ttt = date_format($dt, "Y-m-d H:i:s");
 
+$variant = 1;
 
 ?> 
 
@@ -428,9 +436,23 @@ $ttt = date_format($dt, "Y-m-d H:i:s");
 
 				<?php
 				
-					$if ($pid) {
+					$pnr = getparam('pnr');
+					$pid = getparam('pid');
+					if ($pnr && ! $pid) {
+						$query = "SELECT * FROM pers WHERE pnr='$pnr'";
+						$res = mysqli_query( $emperator, $query );
+						if ($res) if ($row = mysqli_fetch_array($res)) {
+							$pid = $row['pers_id'];
+						}
+					}
+					
+					debug_log("pnr & pid = " . $pnr . "," . $pid);
+
+					$surv = false;
+					if ($pid) {
 						$surv = add_surv(101, $pid, "Stress");
 					}
+					debug_log("surv = " . $surv);
 
 					echo get_styr($styr, 'summary', 'text', $variant) . "\n";
 					echo t(4) . "<table>\n";
@@ -439,7 +461,7 @@ $ttt = date_format($dt, "Y-m-d H:i:s");
 						echo t(5) . "<tr style='height:22px;'>";
 						$val = 100.0 * $kv[$i] / $km[$i];
 						set_suv_val($i, $val, $lid);
-						if ($pid) {
+						if ($surv) {
 							set_suv_val_pid(101, $i, $val, $pid, $surv);
 						}
 						$c = "#" . get_styr($styr, 'querys', "kat.$i.color", $variant);

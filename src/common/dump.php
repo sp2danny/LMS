@@ -23,7 +23,7 @@
 
 <?php
 
-	$fp = fopen("../common/debug_logs.txt", "r");
+	$fp = fopen("../../site/common/debug_logs.txt", "r");
 	if ($fp) while (true) {
 		$buffer = fgets($fp, 4096);
 		if (!$buffer) break;
