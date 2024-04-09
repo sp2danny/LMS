@@ -491,7 +491,7 @@ EOT;
 		$btn = $min_ini['survey'][$key];
 		$tit[$flt] = $btn;
 	}
-	
+
 	$nb2 = "&nbsp;&nbsp;";
 
 	for ($i=0; $i<$n; ++$i) {
@@ -571,7 +571,7 @@ EOT;
 				$lnk = to_link($alldata, $val) . "&returnto=nymin";
 				debug_log('survey link : ' . $lnk);
 				$to->regLine("<a href='$lnk'> <button> G&ouml;r Testet </button> </a> <br /> ");
-			
+
 				$key = $i . ".result";
 				$val = $min_ini['survey'][$key];
 				//echo "Res : " . $val . " - " . to_link($alldata, $val) . " <br>" . $eol;
@@ -579,12 +579,12 @@ EOT;
 				debug_log('result link : ' . $lnk);
 				$to->regLine("<a href='$lnk'> <button> Se Resultat </button> </a> <br /> ");
 			}
-					
+
 			$key = $i . ".embed";
 			$emb = false;
 			if (array_key_exists($key,$min_ini['survey']))
 				$emb = $min_ini['survey'][$key];
-			
+
 			if ($emb) {
 				if (strpos($emb, "?") === false)
 					$lnk = $emb . "?pnr=" . $data->pnr;
