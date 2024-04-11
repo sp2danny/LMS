@@ -104,7 +104,6 @@ $variant = 1;
 				$kv[$i+1] += $vals[$i];
 			}
 
-
 			$max_name = " &lt;ingen uppgift&gt; ";
 
 			$max = 0;
@@ -203,15 +202,15 @@ $variant = 1;
 						echo "</td><td>";
 						echo round($val) . "%";
 
-                        if (array_key_exists('warn.rev',$styr['summary']) && $styr['summary']['warn.rev']) {
+						if (array_key_exists('warn.rev',$styr['summary']) && $styr['summary']['warn.rev']) {
     						if ( $val < $styr['summary']['warn.lim'] ) {
-	    						echo " <img src='../" . $styr['summary']['warn.img'] . "' /> ";
+	    						echo " <img src='../../survey/" . $styr['summary']['warn.img'] . "' /> ";
     						}
 						} else {
-						    if ( $val > $styr['summary']['warn.lim'] ) {
-    							echo " <img src='../" . $styr['summary']['warn.img'] . "' /> ";
-						    }
-                        }
+							if ( $val > $styr['summary']['warn.lim'] ) {
+    							echo " <img src='../../survey/" . $styr['summary']['warn.img'] . "' /> ";
+							}
+						}
 
 						echo "</td></tr>\n";
 					}

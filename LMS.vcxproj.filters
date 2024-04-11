@@ -288,5 +288,17 @@
     <None Include="src\common\minsida.php">
       <Filter>Source Files\common</Filter>
     </None>
+    <None Include="src\common\dump.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\justsurv.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\onesurv.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\allsurv.php">
+      <Filter>Source Files\common</Filter>
+    </None>
   </ItemGroup>
 </Project>
