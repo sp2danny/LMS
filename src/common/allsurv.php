@@ -4,6 +4,64 @@
 include_once "../../survey/php/00-common.php";
 include_once "../../survey/php/00-connect.php";
 
+class DataPoint
+{
+	public $vals;
+	public $worst;
+	public $wname;
+	public $when;
+}
+
+
+function DrawData($dps, $to)
+{
+	$n = count($dps);
+
+	$str = "    ['" . $title . "'";
+	for ($i=0; $i<$n; ++$i) {
+		$str .= ", '" . $dps[$i]->wname . "'";
+	}
+	$str .= "],\n";
+
+	$str .= "      ['" . $m . "'";
+
+	for ($i=0; $i<$n; ++$i) {
+		if ($i > 0)
+			$str .= ", ";
+		$str .= $dps[$i]->worst;
+	}
+
+	$str .= "]";
+
+	$to->startTag('script');
+	$to->regLine("google.charts.load('current', {'packages':['bar']});");
+	$to->regLine("google.charts.setOnLoadCallback(drawChart_bar_" . $num . ");");
+	$to->regLine("function drawChart_bar_" . $num . "() {");
+	$to->regLine("  var data = google.visualization.arrayToDataTable([");
+	$to->regLine($str);
+	$to->regLine('  var options = {');
+	$to->regLine('    title: "' . $title . '",');
+	$to->regLine('    width: 450,');
+	$to->regLine('    legend: { position: "none" },');
+	$to->regLine('    chart: { title: "' . "" . '",'); // $title
+	$to->regLine('             subtitle: "" },');
+	$to->regLine('    bars: "horizontal", // Required for Material Bar Charts.');
+	$to->regLine('    axes: {');
+	$to->regLine('      x: {');
+	$to->regLine('        0: { side: "top", label: "Percentage"} // Top x-axis.');
+	$to->regLine('      }');
+	$to->regLine('    },');
+	$to->regLine('    bar: { groupWidth: "90%" }');
+	$to->regLine('  };');
+	$to->regLine('  var chart = new google.charts.Bar(document.getElementById("bar_chart_' . $num . '"));');
+	$to->regLine('  chart.draw(data, options);');
+	$to->regLine("}");
+	$to->stopTag("script");
+	$to->regLine('<div id="bar_chart_' . $num . '" style="width: 450px; height: 250px"></div>');
+
+	return true;
+}
+
 echo "<html><head></head><body>\n";
 
 $seqs = [];
@@ -31,14 +89,6 @@ if ($res) while ($row = mysqli_fetch_array($res))
 }
 
 echo "<hr>\n";
-
-class DataPoint
-{
-	public $vals;
-	public $worst;
-	public $wname;
-	public $when;
-}
 
 $dps = [];
 

@@ -73,6 +73,7 @@
     <File Name="src/klarna/coach.html"/>
   </VirtualDirectory>
   <VirtualDirectory Name="common">
+    <File Name="src/common/allsurv.php"/>
     <File Name="src/common/onesurv.php"/>
     <File Name="src/common/justsurv.php"/>
     <File Name="src/common/utveckling.php"/>
