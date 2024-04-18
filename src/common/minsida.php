@@ -3,6 +3,8 @@
 
 <?php
 
+$RETURNTO = 'minsida';
+
 include_once 'process_cmd.php';
 include_once 'cmdparse.php';
 include_once 'progress.php';
@@ -146,7 +148,9 @@ function rwd($ini, $seg, $key, $def)
 
 function index($local, $common)
 {
-	debug_log('index() in minsida.php');
+	global $RETURNTO;
+
+	debug_log("index() in $RETURNTO.php");
 
 	global $emperator;
 
@@ -383,7 +387,7 @@ EOT;
 
 	$to->stopTag('script');
 
-	echo '<title>' . $title . '</title>' . $eol;
+	echo '<title>' . $curPageName . " - " . $title . '</title>' . $eol;
 	echo '</head>' . $eol;
 
 	$to->startTag('body');
@@ -590,14 +594,14 @@ EOT;
 
 			if ($val && !$ext) {
 				//echo "Surv : " . $val . " - " . to_link($alldata, $val) . " <br>" . $eol;
-				$lnk = to_link($alldata, $val) . "&returnto=nymin";
+				$lnk = to_link($alldata, $val) . "&returnto=$RETURNTO";
 				debug_log('survey link : ' . $lnk);
 				$to->regLine("<a href='$lnk'> <button> G&ouml;r Testet </button> </a> <br /> ");
 
 				$key = $i . ".result";
 				$val = $min_ini['survey'][$key];
 				//echo "Res : " . $val . " - " . to_link($alldata, $val) . " <br>" . $eol;
-				$lnk = to_link($alldata, $val) . "&returnto=nymin";
+				$lnk = to_link($alldata, $val) . "&returnto=$RETURNTO";
 				debug_log('result link : ' . $lnk);
 				$to->regLine("<a href='$lnk'> <button> Se Resultat </button> </a> <br /> ");
 			}
@@ -618,7 +622,7 @@ EOT;
 			
 		}
 		
-		if ($at == 2)
+		if ($at == 2) // stress
 		{
 						
 			$pnr = getparam('pnr');
@@ -659,6 +663,51 @@ EOT;
 				$to->scTag('embed', "type='text/html' src='$lnk' width='1200' height='1600' ");
 				
 			}
+		}
+			
+		if ($at == 5) // motivation
+		{
+						
+			$pnr = getparam('pnr');
+			$pid = getparam('pid');
+			if ($pnr && ! $pid) {
+				$query = "SELECT * FROM pers WHERE pnr='$pnr'";
+				$res = mysqli_query($emperator, $query);
+				if ($res) if ($row = mysqli_fetch_array($res)) {
+					$pid = $row['pers_id'];
+				}
+			}
+
+			$n = 0;
+
+			$query = "SELECT * FROM surv WHERE type='102' AND pers='$pid';";
+			$res = mysqli_query( $emperator, $query );
+			if ($res) while ($row = mysqli_fetch_array($res))
+			{
+				$seq = $row['seq'];
+				$sid = $row['surv_id'];
+				++$n;
+			}
+			
+			if ($n<=0) {
+
+				$to->regLine(' --- inga surveys ännu ---');
+
+			} else if ($n==1) {
+
+				$lnk = "onesurv.php?sid=$sid&seq=$sid&pid=$pid&st=102";
+
+				$to->scTag('embed', "type='text/html' src='$lnk' width='1200' height='1600' ");
+
+			} else {
+
+				$lnk = "allsurv.php?pid=$pid&st=102";
+				
+				$to->scTag('embed', "type='text/html' src='$lnk' width='1200' height='1600' ");
+				
+			}
+			
+			
 
 		}
 		

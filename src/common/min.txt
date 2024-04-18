@@ -44,8 +44,11 @@ count = 10
 6.filter = 5
 6.namn = Motivation
 6.button = Motivation
+6.ext = true
+6.surv = https://mind2excellence.se/survey-Motivation/php/04-tratten.php
 6.level.lo = 1
 6.level.hi = 2
+6.pnr = true
 
 7.filter = 6
 7.namn = Samarbete
