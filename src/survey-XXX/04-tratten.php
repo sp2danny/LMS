@@ -7,31 +7,26 @@ include "00-connect.php";
 
 $styr = LoadIni("../styr.txt");
 
-$lid      = getparam('lid');
-$variant  = 0;
-$cid      = 0;
+$variant  = 1;
 $pnr      = getparam('pnr', false);
-$pid      = false;
+$pid      = getparam('pid', false);
 
 if ($pnr) {
 	$query = "SELECT * FROM pers WHERE pnr='$pnr'";
 	$res = mysqli_query($emperator, $query);
 	if ($res) if ($row = mysqli_fetch_array($res))
 	{
-		$pid = $row['pid'];
+		$pid = $row['pers_id'];
 	}
 }
-
-$query = "SELECT * FROM data WHERE type=17 AND value_a='$lid'";
-$res = mysqli_query($emperator, $query);
-if ($res) if ($row = mysqli_fetch_array($res))
-{
-	$variant = $row['value_b'];
-}
-$query = "SELECT * FROM data WHERE type=71 AND pers=0 AND value_a=$variant";
-$res = mysqli_query( $emperator, $query );
-if ($res) if ($row = mysqli_fetch_array($res)) {
-	$cid = $row['value_b'];
+else
+if ($pid) {
+	$query = "SELECT * FROM pers WHERE pers_id='$pid'";
+	$res = mysqli_query($emperator, $query);
+	if ($res) if ($row = mysqli_fetch_array($res))
+	{
+		$pnr = $row['pnr'];
+	}
 }
 
 $eol = "\n";
@@ -150,8 +145,7 @@ $eol = "\n";
 		<br /> <hr />
 		<div>
 			<form id='gap' action='05-result.php' >
-				<?php echo "<input type='hidden' id='lid' name='lid' value='" . getparam('lid') . "' />" . $eol; ?>
-				<?php echo "<input type='hidden' id='pnr' name='pnr' value='" . getparam('pnr') . "' />" . $eol; ?>
+				<?php if ($pnr) { echo "<input type='hidden' id='pnr' name='pnr' value='" . $pnr . "' />" . $eol; } ?>
 				<?php if ($pid) { echo "<input type='hidden' id='pid' name='pid' value='" . $pid . "' />" . $eol; } ?>
 				<table>
 					<?php

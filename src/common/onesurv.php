@@ -19,18 +19,45 @@ function t($n)
 
 $vals = [];
 
-$sid = getparam('sid');
-$pid = getparam('pid');
-$seq = getparam('seq');
+$sid   = getparam('sid');
+$pid   = getparam('pid');
+$seq   = getparam('seq');
+$sn    = getparam('sn', 101);
+$filt  = getparam('filt', 2);
 
-$query = "SELECT * FROM data WHERE pers='$pid' AND type='101' AND surv='$sid';";
+$ddd = "vals";
+$query = "SELECT * FROM data WHERE pers='$pid' AND type='$sn' AND surv='$sid';";
 $res = mysqli_query( $emperator, $query );
 if ($res) while ($row = mysqli_fetch_array($res))
 {
-	$vals[] = $row['value_b'];
+	$val = $row['value_b'];
+	$vals[] = $val;
+	$ddd .= " " . $val;
 }
 
-$styr = LoadIni("../../survey/styr.txt");
+debug_log($ddd);
+
+$min = LoadIni('min.txt');
+
+$nn = $min['survey']['count'];
+
+$pts = "https://mind2excellence.se/survey/";
+
+for ($ii=1; $ii<=$nn; ++$ii)
+{
+	// 1.filter = 0
+	$ff = $min['survey']["$ii.filter"];
+	if ($ff != $filt) continue;
+	$pts = $min['survey']["$ii.pts"];
+}
+
+debug_log("pts : " . $pts);
+
+$styr = LoadIni("$pts/styr.txt");
+
+$res_img = $styr['result']['img'];
+
+debug_log("res_img : " . $res_img);
 
 $variant = 1;
 
@@ -204,11 +231,11 @@ $variant = 1;
 
 						if (array_key_exists('warn.rev',$styr['summary']) && $styr['summary']['warn.rev']) {
     						if ( $val < $styr['summary']['warn.lim'] ) {
-	    						echo " <img src='../../survey/" . $styr['summary']['warn.img'] . "' /> ";
+	    						echo " <img src='$pts" . $styr['summary']['warn.img'] . "' /> ";
     						}
 						} else {
 							if ( $val > $styr['summary']['warn.lim'] ) {
-    							echo " <img src='../../survey/" . $styr['summary']['warn.img'] . "' /> ";
+    							echo " <img src='$pts" . $styr['summary']['warn.img'] . "' /> ";
 							}
 						}
 
@@ -224,7 +251,7 @@ $variant = 1;
 				<br />
 
 				<div style="display:none" >
-					<img id='tratt' src='../../survey/tratt-6.png' onload='on_update()' />
+					<?php echo "<img id='tratt' src='$pts/$res_img' onload='on_update()' />\n"; ?>
 				</div>
 
 			</div>

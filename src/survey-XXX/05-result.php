@@ -398,7 +398,9 @@ $variant = 1;
 					
 					$snum = get_styr($styr, 'common', 'survey.number', $variant);
 					$snam = get_styr($styr, 'common', 'survey.name',   $variant);
-
+					
+					debug_log("snum & snam = " . $snum . "," . $snam);
+					
 					$surv = ($pid!==false) && ($snum!==false);
 					if ($surv!==false) {
 						$surv = add_surv($snum, $pid, $snam);

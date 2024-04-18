@@ -652,13 +652,17 @@ EOT;
 
 			} else if ($n==1) {
 
-				$lnk = "onesurv.php?sid=$sid&seq=$sid&pid=$pid";
+				$lnk = "onesurv.php?sid=$sid&seq=$seq&pid=$pid";
+				
+				debug_log('embed link : ' . $lnk);
 				
 				$to->scTag('embed', "type='text/html' src='$lnk' width='1200' height='1600' ");
 
 			} else {
 				
 				$lnk = "allsurv.php?pid=$pid";
+				
+				debug_log('embed link : ' . $lnk);
 				
 				$to->scTag('embed', "type='text/html' src='$lnk' width='1200' height='1600' ");
 				
@@ -695,13 +699,17 @@ EOT;
 
 			} else if ($n==1) {
 
-				$lnk = "onesurv.php?sid=$sid&seq=$sid&pid=$pid&st=102";
+				$lnk = "onesurv.php?sid=$sid&seq=$seq&pid=$pid&st=102&filt=5";
+				
+				debug_log('embed link : ' . $lnk);
 
 				$to->scTag('embed', "type='text/html' src='$lnk' width='1200' height='1600' ");
 
 			} else {
 
-				$lnk = "allsurv.php?pid=$pid&st=102";
+				$lnk = "allsurv.php?pid=$pid&st=102&filt=5";
+				
+				debug_log('embed link : ' . $lnk);
 				
 				$to->scTag('embed', "type='text/html' src='$lnk' width='1200' height='1600' ");
 				
