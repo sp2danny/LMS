@@ -22,11 +22,14 @@ $vals = [];
 $sid   = getparam('sid');
 $pid   = getparam('pid');
 $seq   = getparam('seq');
-$sn    = getparam('sn', 101);
+$st    = getparam('st', 101);
 $filt  = getparam('filt', 2);
 
 $ddd = "vals";
-$query = "SELECT * FROM data WHERE pers='$pid' AND type='$sn' AND surv='$sid';";
+$query = "SELECT * FROM data WHERE pers='$pid' AND type='$st' AND surv='$sid';";
+
+debug_log("query : " . $query);
+
 $res = mysqli_query( $emperator, $query );
 if ($res) while ($row = mysqli_fetch_array($res))
 {

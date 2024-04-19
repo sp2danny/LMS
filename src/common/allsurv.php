@@ -8,6 +8,8 @@ include_once "../../survey/php/00-connect.php";
 
 include_once "tagOut.php";
 
+include_once 'debug.php';
+
 class DataPoint
 {
 	public $vals;
@@ -93,7 +95,9 @@ if ($pnr && ! $pid) {
 
 $n = 0;
 
-$query = "SELECT * FROM surv WHERE type='101' AND pers='$pid';";
+$st = getparam('st', 101);
+
+$query = "SELECT * FROM surv WHERE type='$st' AND pers='$pid';";
 $res = mysqli_query( $emperator, $query );
 if ($res) while ($row = mysqli_fetch_array($res))
 {
@@ -106,19 +110,42 @@ echo "<hr>\n";
 
 $dps = [];
 
-$styr = LoadIni("../../survey/styr.txt");
+
+$filt = getparam('filt', 2);
+
+$min = LoadIni('min.txt');
+
+$nn = $min['survey']['count'];
+
+$pts = "https://mind2excellence.se/survey/";
+
+for ($ii=1; $ii<=$nn; ++$ii)
+{
+	// 1.filter = 0
+	$ff = $min['survey']["$ii.filter"];
+	if ($ff != $filt) continue;
+	$pts = $min['survey']["$ii.pts"];
+}
+
+debug_log("pts : " . $pts);
+
+$styr = LoadIni("$pts/styr.txt");
+
+// $styr = LoadIni("../../survey/styr.txt");
 
 function getAndFill($sid, $seq)
 {
 	global $pid;
 	global $emperator;
 	global $styr;
+	global $st;
+	global $filt;
 
 	$vals = [];
 	$w = 0;
 	$wi = 0;
 
-	$query = "SELECT * FROM data WHERE pers='$pid' AND type='101' AND surv='$sid';";
+	$query = "SELECT * FROM data WHERE pers='$pid' AND type='$st' AND surv='$sid';";
 	$res = mysqli_query( $emperator, $query );
 	if ($res) while ($row = mysqli_fetch_array($res))
 	{
@@ -138,7 +165,7 @@ function getAndFill($sid, $seq)
 	$dp->worst = $w;
 	$dp->wname = get_styr($styr, 'querys', "kat.$wi.name", 1);
 	
-	$lnk = "onesurv.php?pid=$pid&sid=$sid&seq=$seq";
+	$lnk = "onesurv.php?pid=$pid&sid=$sid&seq=$seq&st=$st&filt=$filt";
 	$dp->link = $lnk;
 
 	return $dp;
@@ -171,7 +198,9 @@ for ($i=0; $i<$n; ++$i)
 
 		echo "\t\t<td> ";
 
-		$lnk = "onesurv.php?pid=$pid&sid=$sid&seq=$seq";
+		//$lnk = "onesurv.php?pid=$pid&sid=$sid&seq=$seq";
+		$lnk = "onesurv.php?pid=$pid&sid=$sid&seq=$seq&st=$st&filt=$filt";
+
 
 		echo "<a href='$lnk'> L&auml;nk </a>";
 		echo " </td>\n";
