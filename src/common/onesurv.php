@@ -17,7 +17,7 @@ function t($n)
 	return $str;
 }
 
-$vals = [];
+$vals  = [];
 
 $sid   = getparam('sid');
 $pid   = getparam('pid');
@@ -128,7 +128,7 @@ $variant = 1;
 
 				$km[$k] += $w * 100;
 			}
-			
+
 			for ($i = 0; $i < $kn; ++$i)
 			{
 				$kv[$i+1] += $vals[$i];
