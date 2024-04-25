@@ -1,4 +1,15 @@
 
+
+# namn           | survey | filter
+# ==================================
+# Stress         | 101    | 2
+# Motivation     | 102    | 5
+# Kommunikation  | 103    | 7
+# Malsattning    | 104    | 8
+# Samarbete      | 105    | 6
+
+
+
 [survey]
 
 count = 10
@@ -57,20 +68,35 @@ count = 10
 7.filter = 6
 7.namn = Samarbete
 7.button = Samarbete
+7.ext = true
+7.surv = https://mind2excellence.se/survey-Samarbete/php/04-tratten.php
+7.pts = https://mind2excellence.se/survey-Samarbete/
 7.level.lo = 1
 7.level.hi = 2
+7.pnr = true
+7.surveynumber = 105
 
 8.filter = 7
 8.namn = Kommunikation
 8.button = Kommunikation
+8.ext = true
+8.surv = https://mind2excellence.se/survey-Kommunikation/php/04-tratten.php
+8.pts = https://mind2excellence.se/survey-Kommunikation/
 8.level.lo = 1
 8.level.hi = 2
+8.pnr = true
+8.surveynumber = 103
 
 9.filter = 8
 9.namn = Mina mål
 9.button = Mina mål
+9.ext = true
+9.surv = https://mind2excellence.se/survey-Malsattning/php/04-tratten.php
+9.pts = https://mind2excellence.se/survey-Malsattning/
 9.level.lo = 1
 9.level.hi = 2
+9.pnr = true
+9.surveynumber = 104
 
 10.filter = 9
 10.namn = Min Fysik

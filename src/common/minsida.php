@@ -146,6 +146,41 @@ function rwd($ini, $seg, $key, $def)
 	return $ini[$seg][$key];
 }
 
+function survOut($to, $tn)
+{
+	global $emperator;
+
+	$pnr = getparam('pnr');
+	$pid = getparam('pid');
+	if ($pnr && ! $pid) {
+		$query = "SELECT * FROM pers WHERE pnr='$pnr'";
+		$res = mysqli_query($emperator, $query);
+		if ($res) if ($row = mysqli_fetch_array($res))
+			$pid = $row['pers_id'];
+	}
+
+	$n = 0;
+	$query = "SELECT * FROM surv WHERE type='$tn' AND pers='$pid';";
+	$res = mysqli_query( $emperator, $query );
+	if ($res) while ($row = mysqli_fetch_array($res)) {
+		$seq = $row['seq'];
+		$sid = $row['surv_id'];
+		++$n;
+	}
+	
+	if ($n<=0) {
+		$to->regLine(' --- inga surveys ännu ---');
+	} else if ($n==1) {
+		$lnk = "onesurv.php?sid=$sid&seq=$seq&pid=$pid";
+		debug_log('embed link : ' . $lnk);
+		$to->scTag('embed', "type='text/html' src='$lnk' width='1200' height='1600' ");
+	} else {
+		$lnk = "allsurv.php?pid=$pid";
+		debug_log('embed link : ' . $lnk);
+		$to->scTag('embed', "type='text/html' src='$lnk' width='1200' height='1600' ");
+	}
+}
+
 function index($local, $common)
 {
 	global $RETURNTO;
@@ -621,104 +656,32 @@ EOT;
 			}
 			
 		}
-		
+
 		if ($at == 2) // stress
 		{
-						
-			$pnr = getparam('pnr');
-			$pid = getparam('pid');
-			if ($pnr && ! $pid) {
-				$query = "SELECT * FROM pers WHERE pnr='$pnr'";
-				$res = mysqli_query($emperator, $query);
-				if ($res) if ($row = mysqli_fetch_array($res)) {
-					$pid = $row['pers_id'];
-				}
-			}
-
-			$n = 0;
-
-			$query = "SELECT * FROM surv WHERE type='101' AND pers='$pid';";
-			$res = mysqli_query( $emperator, $query );
-			if ($res) while ($row = mysqli_fetch_array($res))
-			{
-				$seq = $row['seq'];
-				$sid = $row['surv_id'];
-				++$n;
-			}
-			
-			if ($n<=0) {
-
-				$to->regLine(' --- inga surveys ännu ---');
-
-			} else if ($n==1) {
-
-				$lnk = "onesurv.php?sid=$sid&seq=$seq&pid=$pid";
-				
-				debug_log('embed link : ' . $lnk);
-				
-				$to->scTag('embed', "type='text/html' src='$lnk' width='1200' height='1600' ");
-
-			} else {
-				
-				$lnk = "allsurv.php?pid=$pid";
-				
-				debug_log('embed link : ' . $lnk);
-				
-				$to->scTag('embed', "type='text/html' src='$lnk' width='1200' height='1600' ");
-				
-			}
+			survOut($to, 101);
 		}
 			
 		if ($at == 5) // motivation
 		{
-						
-			$pnr = getparam('pnr');
-			$pid = getparam('pid');
-			if ($pnr && ! $pid) {
-				$query = "SELECT * FROM pers WHERE pnr='$pnr'";
-				$res = mysqli_query($emperator, $query);
-				if ($res) if ($row = mysqli_fetch_array($res)) {
-					$pid = $row['pers_id'];
-				}
-			}
-
-			$n = 0;
-
-			$query = "SELECT * FROM surv WHERE type='102' AND pers='$pid';";
-			$res = mysqli_query( $emperator, $query );
-			if ($res) while ($row = mysqli_fetch_array($res))
-			{
-				$seq = $row['seq'];
-				$sid = $row['surv_id'];
-				++$n;
-			}
-			
-			if ($n<=0) {
-
-				$to->regLine(' --- inga surveys ännu ---');
-
-			} else if ($n==1) {
-
-				$lnk = "onesurv.php?sid=$sid&seq=$seq&pid=$pid&st=102&filt=5";
-				
-				debug_log('embed link : ' . $lnk);
-
-				$to->scTag('embed', "type='text/html' src='$lnk' width='1200' height='1600' ");
-
-			} else {
-
-				$lnk = "allsurv.php?pid=$pid&st=102&filt=5";
-				
-				debug_log('embed link : ' . $lnk);
-				
-				$to->scTag('embed', "type='text/html' src='$lnk' width='1200' height='1600' ");
-				
-			}
-			
-			
-
+			survOut($to, 102);
 		}
-		
+
+		if ($at == 7) // Kommunikation
+		{
+			survOut($to, 103);
+		}
+
+		if ($at == 8) // Målsattning
+		{
+			survOut($to, 104);
+		}
+
+		if ($at == 9) // Samarbete
+		{
+			survOut($to, 105);
+		}
+
 		$to->stopTag('div');
 	}
 

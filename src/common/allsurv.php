@@ -119,12 +119,15 @@ $nn = $min['survey']['count'];
 
 $pts = "https://mind2excellence.se/survey/";
 
+$tit = "Title";
+
 for ($ii=1; $ii<=$nn; ++$ii)
 {
 	// 1.filter = 0
 	$ff = $min['survey']["$ii.filter"];
 	if ($ff != $filt) continue;
 	$pts = $min['survey']["$ii.pts"];
+	$tit = $min['survey']["$ii.namn"];
 }
 
 debug_log("pts : " . $pts);
@@ -222,7 +225,7 @@ $to = new tagOut;
 
 //function DrawData($title, $num, $dps, $to)
 
-DrawData("Stress", 1, $dps, $to);
+DrawData($tit, 1, $dps, $to);
 
 echo "</body></html>\n";
 
