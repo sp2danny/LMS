@@ -146,7 +146,7 @@ function rwd($ini, $seg, $key, $def)
 	return $ini[$seg][$key];
 }
 
-function survOut($to, $tn)
+function survOut($to, $tn, $filt)
 {
 	global $emperator;
 
@@ -171,11 +171,11 @@ function survOut($to, $tn)
 	if ($n<=0) {
 		$to->regLine(' --- inga surveys ännu ---');
 	} else if ($n==1) {
-		$lnk = "onesurv.php?sid=$sid&seq=$seq&pid=$pid";
+		$lnk = "onesurv.php?sid=$sid&seq=$seq&pid=$pid&st=$tn&filt=$filt";
 		debug_log('embed link : ' . $lnk);
 		$to->scTag('embed', "type='text/html' src='$lnk' width='1200' height='1600' ");
 	} else {
-		$lnk = "allsurv.php?pid=$pid";
+		$lnk = "allsurv.php?pid=$pid&st=$tn&filt=$filt";
 		debug_log('embed link : ' . $lnk);
 		$to->scTag('embed', "type='text/html' src='$lnk' width='1200' height='1600' ");
 	}
@@ -659,27 +659,27 @@ EOT;
 
 		if ($at == 2) // stress
 		{
-			survOut($to, 101);
+			survOut($to, 101, 2);
 		}
 			
 		if ($at == 5) // motivation
 		{
-			survOut($to, 102);
+			survOut($to, 102, 5);
 		}
 
 		if ($at == 7) // Kommunikation
 		{
-			survOut($to, 103);
+			survOut($to, 103, 7);
 		}
 
 		if ($at == 8) // Målsattning
 		{
-			survOut($to, 104);
+			survOut($to, 104, 8);
 		}
 
 		if ($at == 9) // Samarbete
 		{
-			survOut($to, 105);
+			survOut($to, 105, 9);
 		}
 
 		$to->stopTag('div');
