@@ -300,5 +300,8 @@
     <None Include="src\common\allsurv.php">
       <Filter>Source Files\common</Filter>
     </None>
+    <None Include="src\coach\buttons.php">
+      <Filter>Source Files\coach</Filter>
+    </None>
   </ItemGroup>
 </Project>

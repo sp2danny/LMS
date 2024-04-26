@@ -25,6 +25,7 @@
     <Text Include="TODO.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="src\coach\buttons.php" />
     <None Include="src\coach\edit_prod.php" />
     <None Include="src\coach\edit_prod_save.php" />
     <None Include="src\coach\index.html" />
