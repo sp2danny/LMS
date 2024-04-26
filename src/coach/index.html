@@ -8,11 +8,38 @@
 
 		<link rel="stylesheet" href="../site/common/main-v03.css">
 		<link rel="icon" href="../site/common/favicon.ico">
+
+		<script>
+
+			function replaceDiv(path) {
+				//window.location.href = path;
+				//elem = document.getElementById("replacerDiv");
+				//elem.innerHTML = "<iframe src='" + path + "'></iframe>";
+
+				var txtFile = new XMLHttpRequest();
+				txtFile.open("GET", path, true);
+				txtFile.onreadystatechange = function () {
+					if (txtFile.readyState === 4) {  // Makes sure the document is ready to parse.
+						if (txtFile.status === 200) {  // Makes sure it's found the file.
+							//allText = txtFile.responseText;
+							//lines = txtFile.responseText.split("\n"); // Will separate each line into an array
+							var customTextElement = document.getElementById('replacerDiv');
+							customTextElement.innerHTML = txtFile.responseText;
+						}
+					}
+				}
+				txtFile.send(null);
+
+
+			}
+
+		</script>
+
 	</head>
 
 	<body>
 		<div class="sidenav" >
-			<div class="indent" >
+			<div class="indent">
 				<h3> Coach interface </h3>
 				<hr />
 				<h5> Fr&aring;gor </h5>
@@ -21,14 +48,19 @@
 				<a href='Coachfragor/avsnitt-1.3.docx'> Avs 1.3 </a> <br />
 				<a href='Coachfragor/avsnitt-1.4.docx'> Avs 1.4 </a> <br />
 				<a href='Coachfragor/avsnitt-1.5.docx'> Avs 1.5 </a>
-				
+
 				<hr style="height:2px; visibility:hidden;" />
-				
+
 				<a href='Coachfragor/avsnitt-2.1.docx'> Avs 2.1 </a> <br />
 				<a href='Coachfragor/avsnitt-2.2.docx'> Avs 2.2 </a> <br />
 				<a href='Coachfragor/avsnitt-2.3.docx'> Avs 2.3 </a> <br />
 				<a href='Coachfragor/avsnitt-2.4.docx'> Avs 2.4 </a> <br />
-				
+
+				<hr style="height:2px; visibility:hidden;" />
+
+				<a href='Coachfragor/avsnitt-3.1.docx'> Avs 3.1 </a> <br />
+				<a href='Coachfragor/avsnitt-3.2.docx'> Avs 3.2 </a> <br />
+
 				<hr />
 				<h5> Process </h5>
 				<a href='Coachprocessen/Coachprocessen-2023.docx'> 2023 </a> <br />
@@ -43,15 +75,15 @@
 			<img width=50%  src=" ../site/common/logo.png" /> <br />
 			<div>
 				<br /> <br />
-				&nbsp; &nbsp; &nbsp; <a href='../site/common/create_report.php' > <button> Dina kunder </button> </a> <br /> <br />
-				&nbsp; &nbsp; &nbsp; <a href='../debug.php' > <button> Utbildningen i detaljerad visning </button> </a> <br /> <br />
-				&nbsp; &nbsp; &nbsp; <a href='../site/common/cleanup_db.php' > <button> Tar bort namn i systemet </button> </a> <br /> <br />
-				
-				&nbsp; &nbsp; &nbsp; <a href='make_prod.php' > <button> Skapa Ny Produkt </button> </a> <br /> <br />
-				&nbsp; &nbsp; &nbsp; <a href='list_prod.php' > <button> Lista Produkter </button> </a> <br /> <br />
-				
-				&nbsp; &nbsp; &nbsp; <a href='channel.php' > <button> Manage Channels </button> </a> <br /> <br />
-				
+				&nbsp; &nbsp; &nbsp; <button onclick="replaceDiv('../site/common/create_report.php')"> Dina kunder                       </button> 
+				&nbsp; &nbsp; &nbsp; <button onclick="replaceDiv('../debug.php')">                     Utbildningen i detaljerad visning </button> 
+				&nbsp; &nbsp; &nbsp; <button onclick="replaceDiv('../site/common/cleanup_db.php')">    Tar bort namn i systemet          </button> 
+				&nbsp; &nbsp; &nbsp; <button onclick="replaceDiv('make_prod.php')">                    Skapa Ny Produkt                  </button> 
+				&nbsp; &nbsp; &nbsp; <button onclick="replaceDiv('list_prod.php')">                    Lista Produkter                   </button> 
+				&nbsp; &nbsp; &nbsp; <button onclick="replaceDiv('channel.php')">                      Manage Channels                   </button> 
+			</div>
+			<hr />
+			<div id="replacerDiv">
 			</div>
 		</div>
 	</body>
