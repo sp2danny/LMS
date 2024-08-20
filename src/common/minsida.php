@@ -109,7 +109,7 @@ function addKV($lnk, $k, $v)
 }
 
 function getCP($data) {
-	$cp_site = 'https://mind2excellence.se/site/common/minsida.php';
+	$cp_site = 'https://mind2excellence.se/site/common/minsida.php?noside=true';
 	$cp_have = false;
 	if ($data->pid != 0) {
 		$cp_site = addKV($cp_site, 'pid', $data->pid);
@@ -263,6 +263,47 @@ function index($local, $common)
 
 	$data->name = $name;
 	$data->mynt = $mynt;
+	
+	$noside = (getparam("noside", "") == "true");
+	
+	echo <<<EOT
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+EOT;
+
+	if (!$noside)
+	{
+		echo <<<EOT
+
+		p.main {
+		  padding-left:   40px;
+		}
+		body {
+			background-color: #ffffff;
+			margin-top: 50px;
+			margin-right: 450px;
+			margin-left: 200px;
+			margin-bottom: 75px;
+		}
+EOT;
+	} else {
+		echo <<<EOT
+		p.main {
+		  padding-left:   0px;
+		}
+		body {
+			background-color: #ffffff;
+			margin-top: 0px;
+			margin-right: 0px;
+			margin-left: 0px;
+			margin-bottom: 0px;
+		}
+EOT;
+		
+	}
+
 
 	echo <<<EOT
 
@@ -288,10 +329,6 @@ body.nomarg {
     margin-right: 5px;
     margin-left: 5px;
     margin-bottom: 5px;
-}
-
-p.main {
-  padding-left:   40px;
 }
 
 div.hdr {
@@ -417,7 +454,11 @@ EOT;
 	$curPageName = substr($scrn, strrpos($scrn,"/")+1);  
 	
 	$to->regLine("function newpage(i) { ");
-	$to->regLine("	window.location.href = '$curPageName?pnr=" . getparam('pnr') . "&at=' + i.toString(); ");
+	$href = $curPageName;
+	if ($noside)
+		$href = addKV($href, 'noside', 'true');
+	$href = addKV($href, 'pnr', getparam('pnr'));
+	$to->regLine("	window.location.href = '$href&at=' + i.toString(); ");
 	$to->regLine("}");
 
 	$to->stopTag('script');
@@ -428,85 +469,91 @@ EOT;
 	$to->startTag('body');
 
 	$side = fopen("styrkant.txt", "r") or die("Unable to open file!");
-
-	$to->startTag ('div', 'class="sidenav"');
-	$to->startTag ('div', 'class="indent"');
-
-	$to->startTag ('div');
 	
-	$to->regLine("<button id='BtnSett' onClick='doChangeC()'> Settings </button>");
-	
-	if (getparam("sticp", "0") == "1") {
-		$to->regLine("<button id='BtnCP'  onClick='doChangeB()'> Min Sida </button>");
-	} else {
-		$to->regLine("<button id='BtnCP' onClick='doChangeB()'> Min Sida </button>");
-	}
 
-	$to->regline  ('<hr>');
-	$to->stopTag  ('div');
+	if (!$noside)
+	{
 
-	while (true) {
-		$buffer = fgets($side, 4096); // or break;
-		if (!$buffer) break;
-		$cmd = cmdparse($buffer);
-		if ($cmd->is_command) {
-			switch ($cmd->command) {
-				case 'text':
-					$txt = $cmd->rest;
-					$txt = str_replace('%name%', $data->name, $txt);
-					$txt = str_replace('%coin%', $data->mynt, $txt);
-					$txt = str_replace('%seg%',  $data->snum, $txt);
-					$txt = str_replace('%bat%',  $data->bnum, $txt);
-					$to->regLine($txt);
-					break;
-				case 'line':
-					$to->regLine('<hr color="' . $cmd->rest . '" />');
-					break;
-				case 'image':
-					if (count($cmd->params)>1) {
-						$to->regLine('<img width=' . $cmd->params[0] . '%  src="' . $cmd->params[1] . '" /> <br />');
-					} else {
-						$to->regLine('<img src="' . $cmd->params[0] . '" /> <br />');
-					}
-					break;
-				case 'name':
-					$to->regLine($prow['name']);
-					break;
-				case 'coin':
-					$to->regLine($mynt . ' mynt.');
-					break;
-				case 'seg':
-					$to->regLine($data->snum);
-					break;
-				case 'time':
-					$to->startTag('div', 'class="indent" id="TimerDisplay"');
-					$to->stopTag('div');
-					break;
-				case 'break':
-					$n = (int)$cmd->rest;
-					for ($i=0; $i<$n; ++$i)
-						$to->regLine('<br />');
-					break;
-				case 'sound':
-					// sound
-					break;
-				case 'prog':
-					$pro = 0; // (int)progress($data->snum, $maxseg);
-					if ($pro<0) $pro = 0;
-					if ($pro>100) $pro = 100;
-					$to->regLine('<canvas id="myCanvas" width="200" height="120" ></canvas>');
-					$to->startTag('script');
-					$to->regLine('var pro = ' . $pro . ';');
-					$to->regLine('var canvas = document.getElementById("myCanvas");');
-					$to->regLine('//setProgress(pro, canvas);');
-					$to->stopTag('script');
-					break;
+		$to->startTag ('div', 'class="sidenav"');
+		$to->startTag ('div', 'class="indent"');
+
+		$to->startTag ('div');
+		
+		$to->regLine("<button id='BtnSett' onClick='doChangeC()'> Settings </button>");
+		
+		if (getparam("sticp", "0") == "1") {
+			$to->regLine("<button id='BtnCP'  onClick='doChangeB()'> Min Sida </button>");
+		} else {
+			$to->regLine("<button id='BtnCP' onClick='doChangeB()'> Min Sida </button>");
+		}
+
+		$to->regline  ('<hr>');
+		$to->stopTag  ('div');
+
+		while (true) {
+			$buffer = fgets($side, 4096); // or break;
+			if (!$buffer) break;
+			$cmd = cmdparse($buffer);
+			if ($cmd->is_command) {
+				switch ($cmd->command) {
+					case 'text':
+						$txt = $cmd->rest;
+						$txt = str_replace('%name%', $data->name, $txt);
+						$txt = str_replace('%coin%', $data->mynt, $txt);
+						$txt = str_replace('%seg%',  $data->snum, $txt);
+						$txt = str_replace('%bat%',  $data->bnum, $txt);
+						$to->regLine($txt);
+						break;
+					case 'line':
+						$to->regLine('<hr color="' . $cmd->rest . '" />');
+						break;
+					case 'image':
+						if (count($cmd->params)>1) {
+							$to->regLine('<img width=' . $cmd->params[0] . '%  src="' . $cmd->params[1] . '" /> <br />');
+						} else {
+							$to->regLine('<img src="' . $cmd->params[0] . '" /> <br />');
+						}
+						break;
+					case 'name':
+						$to->regLine($prow['name']);
+						break;
+					case 'coin':
+						$to->regLine($mynt . ' mynt.');
+						break;
+					case 'seg':
+						$to->regLine($data->snum);
+						break;
+					case 'time':
+						$to->startTag('div', 'class="indent" id="TimerDisplay"');
+						$to->stopTag('div');
+						break;
+					case 'break':
+						$n = (int)$cmd->rest;
+						for ($i=0; $i<$n; ++$i)
+							$to->regLine('<br />');
+						break;
+					case 'sound':
+						// sound
+						break;
+					case 'prog':
+						$pro = 0; // (int)progress($data->snum, $maxseg);
+						if ($pro<0) $pro = 0;
+						if ($pro>100) $pro = 100;
+						$to->regLine('<canvas id="myCanvas" width="200" height="120" ></canvas>');
+						$to->startTag('script');
+						$to->regLine('var pro = ' . $pro . ';');
+						$to->regLine('var canvas = document.getElementById("myCanvas");');
+						$to->regLine('//setProgress(pro, canvas);');
+						$to->stopTag('script');
+						break;
+				}
 			}
 		}
-	}
 
-	$to->stopTag('div');
-	$to->stopTag('div');
+		$to->stopTag('div');
+		$to->stopTag('div');
+
+	}
 
 	fclose($side);
 
