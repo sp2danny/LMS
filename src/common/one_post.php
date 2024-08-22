@@ -30,18 +30,22 @@ function ndq($str)
 	return $out;
 }
 
+function addKV($lnk, $k, $v)
+{
+	if (strpos($lnk, '?')===false)
+		return $lnk . '?' . $k . '=' . $v;
+	else
+		return $lnk . '&' . $k . '=' . $v;
+}
+
 function getCP($data) {
-	$cp_site = 'https://mind2excellence.se/site/common/minsida.php';
+	$cp_site = 'https://mind2excellence.se/site/common/minsida.php?noside=true';
 	$cp_have = false;
-	if ($data->pid!=0) {
-		$cp_site .= $cp_have ? "&" : "?";
-		$cp_have = true;
-		$cp_site .= "pid=" . $data->pid;
+	if ($data->pid != 0) {
+		$cp_site = addKV($cp_site, 'pid', $data->pid);
 	}
-	if ($data->pnr!=0) {
-		$cp_site .= $cp_have ? "&" : "?";
-		$cp_have = true;
-		$cp_site .= "pnr=" . $data->pnr;
+	if ($data->pnr != 0) {
+		$cp_site = addKV($cp_site, 'pnr', $data->pnr);
 	}
 	// <iframe src="some.pdf" style="min-height:100vh;width:100%" frameborder="0"></iframe>
 	return ' <iframe src="' . $cp_site . '" style="min-height:100vh;width:100%" frameborder="0" > ';
