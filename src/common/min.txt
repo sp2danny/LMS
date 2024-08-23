@@ -12,7 +12,7 @@
 
 [survey]
 
-count = 12
+count = 14
 
 1.filter = 0
 1.button = Agera som en ledare
@@ -62,70 +62,82 @@ count = 12
 6.button = Mina styrkor
 6.level.lo = 1
 6.level.hi = 2
+6.pts = 1
+6.embed = https://mind2excellence.se/site/common/styrkor.php
 
 7.filter = 6
-7.namn = Nå världsklass
-7.button = Nå världsklass
+7.namn = Matcha
+7.button = Matcha
 7.level.lo = 1
 7.level.hi = 2
-7.color = #D1AD60
-7.embed = https://mind2excellence.se/site/common/worldclass.php
+7.embed = https://mind2excellence.se/site/common/matcha.php
+
 
 
 8.filter = 7
-8.namn = Motivation
-8.button = Motivation
-8.ext = true
-8.surv = https://mind2excellence.se/survey-Motivation/php/04-tratten.php
-8.pts = https://mind2excellence.se/survey-Motivation/
+8.namn = Nå världsklass
+8.button = Nå världsklass
 8.level.lo = 1
 8.level.hi = 2
-8.pnr = true
-8.surveynumber = 102
+8.color = #D1AD60
+8.embed = https://mind2excellence.se/site/common/worldclass.php
+
 
 9.filter = 8
-9.namn = Samarbete
-9.button = Samarbete
+9.namn = Motivation
+9.button = Motivation
 9.ext = true
-9.surv = https://mind2excellence.se/survey-Samarbete/php/04-tratten.php
-9.pts = https://mind2excellence.se/survey-Samarbete/
+9.surv = https://mind2excellence.se/survey-Motivation/php/04-tratten.php
+9.pts = https://mind2excellence.se/survey-Motivation/
 9.level.lo = 1
 9.level.hi = 2
 9.pnr = true
-9.surveynumber = 105
+9.surveynumber = 102
 
 10.filter = 9
-10.namn = Kommunikation
-10.button = Kommunikation
+10.namn = Samarbete
+10.button = Samarbete
 10.ext = true
-10.surv = https://mind2excellence.se/survey-Kommunikation/php/04-tratten.php
-10.pts = https://mind2excellence.se/survey-Kommunikation/
+10.surv = https://mind2excellence.se/survey-Samarbete/php/04-tratten.php
+10.pts = https://mind2excellence.se/survey-Samarbete/
 10.level.lo = 1
 10.level.hi = 2
 10.pnr = true
-10.surveynumber = 103
+10.surveynumber = 105
 
 11.filter = 10
-11.namn = Mina mål
-11.button = Mina mål
+11.namn = Kommunikation
+11.button = Kommunikation
 11.ext = true
-11.surv = https://mind2excellence.se/survey-Malsattning/php/04-tratten.php
-11.pts = https://mind2excellence.se/survey-Malsattning/
+11.surv = https://mind2excellence.se/survey-Kommunikation/php/04-tratten.php
+11.pts = https://mind2excellence.se/survey-Kommunikation/
 11.level.lo = 1
 11.level.hi = 2
 11.pnr = true
-11.surveynumber = 104
+11.surveynumber = 103
 
 12.filter = 11
-12.namn = Min Fysik
-12.button = Min Fysik
+12.namn = Mina mål
+12.button = Mina mål
+12.ext = true
+12.surv = https://mind2excellence.se/survey-Malsattning/php/04-tratten.php
+12.pts = https://mind2excellence.se/survey-Malsattning/
 12.level.lo = 1
 12.level.hi = 2
+12.pnr = true
+12.surveynumber = 104
 
 13.filter = 12
-13.namn = Test
-13.button = Test
+13.namn = Min Fysik
+13.button = Min Fysik
 13.level.lo = 1
 13.level.hi = 2
+
+14.filter = 13
+14.namn = Gaming
+14.button = Gaming
+14.level.lo = 1
+14.level.hi = 2
+14.embed = https://mind2excellence.se/site/common/gaming.php
 
 

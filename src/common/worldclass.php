@@ -2,48 +2,58 @@
 <meta charset="UTF-8"> 
 
 <html>
-<head></head>
+<head>
+<style>
+
+p {
+	/*font-family: Arial; */
+	font-size: 26px;
+}
+
+</style>
+</head>
 <body>
 
-<pre>
+<p>
 
-Lever jag i enlighet med mitt eget och Mind2Excellence´s missionstatement? 
+Lever jag i enlighet med mitt eget och Mind2Excellence´s missionstatement? <br> <br>
 
-(Den personliga missionen beskrivs ofta i ett mindre antal meningar som ger uttryck för dina
+(Den personliga missionen beskrivs ofta i ett mindre antal meningar som ger uttryck för dina <br>
 
-värderingar på ett positivt sätt)
-
-
-Svar// Vi är kulturbärare för en stärkande företagskultur som skapar världsklass
+värderingar på ett positivt sätt) <br> <br>
 
 
-- Vi gör varandra bra
+Svar// Vi är kulturbärare för en stärkande företagskultur som skapar världsklass <br> <br>
 
-- Vi stöder varandras målsättningar
 
-- Vi sätter kärnkompetensen i fokus-
+- Vi gör varandra bra <br>
 
-- Vi skapar respekt genom att vara föredömen
+- Vi stöder varandras målsättningar <br>
 
-- Vi låter inte kunskapen skiljas från beslutsfattandet
+- Vi sätter kärnkompetensen i fokus- <br>
 
-- Vi hyllar empati, etik & moral
+- Vi skapar respekt genom att vara föredömen <br>
 
-- Vi bidrar alltid med (H)ärlig energi och glädje på jobbet
+- Vi låter inte kunskapen skiljas från beslutsfattandet <br>
 
-- Vi söker alltid synergier och utveckling
+- Vi hyllar empati, etik & moral <br>
 
-- Vi levererar alltid högsta kvalité i tid
+- Vi bidrar alltid med (H)ärlig energi och glädje på jobbet <br>
 
-- Vi är generösa, prestigelösa och tydliga i vår kommunikation
+- Vi söker alltid synergier och utveckling <br>
 
-- Vi sätter människan i Centrum och kundnyttan först
+- Vi levererar alltid högsta kvalité i tid <br>
 
-- Vi är kärleksfullt stödjande
+- Vi är generösa, prestigelösa och tydliga i vår kommunikation <br>
 
-- Det är mänskligt att göra fel (ibland)
+- Vi sätter människan i Centrum och kundnyttan först <br>
 
-</pre>
+- Vi är kärleksfullt stödjande <br>
+
+- Det är mänskligt att göra fel (ibland) <br>
+
+</p>
+
 </body>
 </html>
 
