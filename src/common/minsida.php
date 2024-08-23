@@ -18,11 +18,23 @@ include_once 'roundup.php';
 
 function ptbl($to, $prow, $mynt, $score=0)
 {
-	$to->startTag('table');
-	$to->regLine('<tr> <td> Kundnummer    </td> <td> ' . $prow[ 'pers_id' ] . '</td> <td> &nbsp;&nbsp;&nbsp; </td> <td> Guldmynt     </td> <td> ' . $mynt   . '</td></tr>');
-	$to->regLine('<tr> <td> Namn          </td> <td> ' . $prow[ 'name'    ] . '</td> <td> &nbsp;&nbsp;&nbsp; </td> <td> Po&auml;ng   </td> <td> ' . $score  . '</td></tr>');
-	$to->regLine('<tr> <td> Personnummer  </td> <td> ' . $prow[ 'pnr'     ] . '</td> <td> &nbsp;&nbsp;&nbsp; </td> <td> </td> <td> </td> </tr>');
-	$to->regLine('<tr> <td> Medlem sedan  </td> <td> ' . $prow[ 'date'    ] . '</td> <td> &nbsp;&nbsp;&nbsp; </td> <td> </td> <td> </td> </tr>');
+	$arr = [];
+	$arr[] = "Du &auml;r fin";
+	$arr[] = "Jag &auml;r bra";
+	$arr[] = "Jag gillar mig sj&auml;lv som jag &auml;r";
+	$arr[] = "Jag vill utvecklas varje dag";
+	$arr[] = "Jag tror p&aring; mig sj&auml;lv";
+
+	$txt = $arr[rand(0,4)];
+
+	$div = "<div> <img src='heart.png' style='vertical-align: middle;' width='100px' /> <span style='vertical-align: middle;'> $txt </span> ";
+
+	$wtelf = '""';
+	$to->startTag('table', "class=$wtelf");
+	$to->regLine("<tr> <td class=$wtelf > Kundnummer    </td> <td class=$wtelf > " . $prow[ 'pers_id' ] . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td> <td class=$wtelf > Guldmynt     </td> <td class=$wtelf > $mynt   </td> </tr>");
+	$to->regLine("<tr> <td class=$wtelf > Namn          </td> <td class=$wtelf > " . $prow[ 'name'    ] . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td> <td class=$wtelf > Po&auml;ng   </td> <td class=$wtelf > $score  </td> </tr>");
+	$to->regLine("<tr> <td class=$wtelf > Personnummer  </td> <td class=$wtelf > " . $prow[ 'pnr'     ] . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td> <td colspan=2 rowspan=2 class=$wtelf > $div </td>  </tr>");
+	$to->regLine("<tr> <td class=$wtelf > Medlem sedan  </td> <td class=$wtelf > " . $prow[ 'date'    ] . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td>  </tr>");
 	$to->stopTag('table');
 }
 
@@ -315,7 +327,6 @@ button.ilbbaicl {
   font-size: 24px;
   font-weight: bold;
   width: 100%;
-  
 }
 
 h5.regular {
@@ -351,6 +362,27 @@ td.visitab {
   border: 1px solid grey;
   border-collapse: collapse;
 }
+
+p.allc
+{
+	text-align: center;
+	justify-content: center;
+	text-align-vertical
+	vertical-align: middle;
+}
+
+table.wtelf {
+  border: 2px solid #000;
+  margin-top: 25px;
+  border-collapse: collapse;
+}
+td.wtelf {
+  border: 1px solid #222;
+  margin-top: 7px;
+  margin-bottom: 7px;
+  border-collapse: collapse;
+}
+
 
 .collapsible {
   background-color: #FFF;
@@ -583,7 +615,9 @@ EOT;
 	fclose($min_file);
 
 	$n = $min_ini['survey']['count'];
-		
+
+	$fmap = [];
+
 	for ($i=1; $i<=$n; ++$i)
 	{
 		$key = $i . ".filter";
@@ -592,6 +626,8 @@ EOT;
 		$key = $i . ".button";
 		$btn = $min_ini['survey'][$key];
 		$tit[$flt] = $btn;
+
+		$fmap[$flt] = $i;
 	}
 
 	$nb2 = "&nbsp;&nbsp;";
@@ -608,10 +644,20 @@ EOT;
 
 		$to->startTag("td");
 		//$to->regLine("<button> Settings </button>");
+
+		$base = "<button class='ilbbaicl' ";
+		$base .= "style=' border-radius: 9px; ";
+		$key = $fmap[$i] . ".color";
+		if (array_key_exists($key, $min_ini['survey'])) {
+			$base .= "background-color:" . $min_ini['survey'][$key] ."; ";
+		}
+
 		if ($at == $i) {
-			$to->regLine("<button class='ilbbaicl' style='border-style:inset;' > " . $nb2 .  $tit[$i] . $nb2 . " </button>");
+			$base .= "border-style:inset;'";
+			$to->regLine($base . " > " . $nb2 .  $tit[$i] . $nb2 . " </button>");
 		} else {
-			$to->regLine("<button class='ilbbaicl' onclick='newpage(".$i.")' > " . $nb2 . $tit[$i] . $nb2 . " </button>");
+			$base .= "'";
+			$to->regLine($base . " onclick='newpage(".$i.")' > " . $nb2 . $tit[$i] . $nb2 . " </button>");
 		}
 		$to->stopTag("td");
 	}

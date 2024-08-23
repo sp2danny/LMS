@@ -34,6 +34,9 @@
     <Text Include="src\survey\styr.txt">
       <Filter>Source Files\survey</Filter>
     </Text>
+    <Text Include="src\common\min.txt">
+      <Filter>Source Files\common</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\coach\list_prod.php">
@@ -302,6 +305,12 @@
     </None>
     <None Include="src\coach\buttons.php">
       <Filter>Source Files\coach</Filter>
+    </None>
+    <None Include="src\common\main-v03.css">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\worldclass.php">
+      <Filter>Source Files\common</Filter>
     </None>
   </ItemGroup>
 </Project>

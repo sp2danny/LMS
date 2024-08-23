@@ -1,13 +1,30 @@
 
+table, th, td {
+  border: 0px;
+  margin-top: 2px;
+}
 
-.visitab {
+table.visitab {
   border: 1px solid black;
   margin-top: 2px;
   border-collapse: collapse;
 }
 
+th.visitab {
+  border: 1px solid black;
+}
 
-.hide { display: none; }
+td.visitab {
+    border: 1px solid black;
+}
+
+tr.visitab {
+    border: 1px solid black;
+}
+
+.hide {
+    display: none;
+}
 
 .show { display: block; }
 
@@ -54,15 +71,6 @@
 .range > input {
   width: 450px;
   margin: 0 -6px; /* Critical adjustment */
-}		
-
-
-
-
-
-table, th, td {
-    border: 0px;
-    margin-top: 2px;
 }
 
 .sidenav {

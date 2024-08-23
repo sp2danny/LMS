@@ -6,6 +6,10 @@
   border-collapse: collapse;
 }
 
+th.visitab, td.visitab {
+  border: 1px solid black;
+}
+
 
 .hide { display: none; }
 
@@ -16,13 +20,49 @@
     width: 450px;
 }
 
-body {
-    background-color: #ffffff;
-    margin-top: 50px;
-    margin-right: 450px;
-    margin-left: 200px;
-    margin-bottom: 75px;
+
+.range {
+  --ticksThickness: 2px;
+  --ticksHeight: 30%;
+  --ticksColor: silver;
+
+  display: inline-block;
+  background: silver;
+  background: linear-gradient(to right, var(--ticksColor) var(--ticksThickness), transparent 1px) repeat-x;
+  background-size: calc(100%/((var(--max) - var(--min)) / var(--step)) - .1%) var(--ticksHeight);
+  background-position: 0 bottom;
+  position: relative;
 }
+
+
+/* min / max labels at the edges */
+.range::before, .range::after {
+  font: 12px monospace;
+  content: counter(x);
+  position: absolute;
+  bottom: -2ch;
+}
+
+.range::before {
+  counter-reset: x var(--min);
+  transform: translateX(-50%);
+}
+
+.range::after {
+  counter-reset: x var(--max);
+  right: 0;
+  transform: translateX(50%);
+}
+
+
+.range > input {
+  width: 450px;
+  margin: 0 -6px; /* Critical adjustment */
+}		
+
+
+
+
 
 table, th, td {
     border: 0px;

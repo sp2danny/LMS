@@ -21,6 +21,7 @@
   <ItemGroup>
     <Text Include="db.txt" />
     <Text Include="Kludd.txt" />
+    <Text Include="src\common\min.txt" />
     <Text Include="src\survey\styr.txt" />
     <Text Include="TODO.txt" />
   </ItemGroup>
@@ -64,6 +65,7 @@
     <None Include="src\common\justsurv.php" />
     <None Include="src\common\login.php" />
     <None Include="src\common\login2.php" />
+    <None Include="src\common\main-v03.css" />
     <None Include="src\common\main.css.php" />
     <None Include="src\common\main.js.php" />
     <None Include="src\common\make_group.php" />
@@ -93,6 +95,7 @@
     <None Include="src\common\tq.php" />
     <None Include="src\common\tq_post.php" />
     <None Include="src\common\utbsel.php" />
+    <None Include="src\common\worldclass.php" />
     <None Include="src\klarna\php\buy.php" />
     <None Include="src\klarna\php\checkout.php" />
     <None Include="src\klarna\php\confirmation.php" />
