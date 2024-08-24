@@ -24,7 +24,17 @@ p {
 
 <p>
 
-Detta &auml;r mina kompetenser:
+Kompetensutveckling och matchning sker på nivå 4 i vår utbildning <br><br>
+
+De 4 frågorna: <br>
+1 - Vill du göra jobbet? <br>
+2 - Kan du göra jobbet? - är det rätt komptensmatchning<br>
+3 - Passar du in i gruppen? - tillsammanseffekten ger synergier och tillväxt <br>
+4 - Stöder företaget dina mål? <br>
+
+<br>
+
+Detta &auml;r mina kompetenser:<br>
 
 <ul>
 <li> 1 </li>

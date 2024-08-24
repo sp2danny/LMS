@@ -66,8 +66,8 @@ count = 14
 6.embed = https://mind2excellence.se/site/common/styrkor.php
 
 7.filter = 6
-7.namn = Matcha
-7.button = Matcha
+7.namn = De 4 frågorna som matchar dig rätt
+7.button = Matcha Kompetenser
 7.level.lo = 1
 7.level.hi = 2
 7.embed = https://mind2excellence.se/site/common/matcha.php
