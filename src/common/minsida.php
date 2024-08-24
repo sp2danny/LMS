@@ -24,9 +24,10 @@ function ptbl($to, $prow, $mynt, $score=0)
 	$arr[] = "Jag gillar mig sj&auml;lv som jag &auml;r";
 	$arr[] = "Jag vill utvecklas varje dag";
 	$arr[] = "Jag tror p&aring; mig sj&auml;lv";
-	$arr[] = "Jag är tacksam f&ouml;r varje dag";
+	$arr[] = "Jag &auml;r tacksam f&ouml;r varje dag";
 
-	$txt = $arr[rand(0,5)];
+	$top = count($arr)-1;
+	$txt = $arr[rand(0,$top)];
 
 	$div = "<div> <img src='heart.png' style='vertical-align: middle;' width='100px' /> <span style='vertical-align: middle;'> $txt </span> ";
 
