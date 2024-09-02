@@ -123,6 +123,9 @@ function all()
 	// echo '<hr />' . $eol;
 
 	//echo "<h5> #utbildning #äkta #ärlig #positiv #relevant #tillitsfull #livsbalans #omdömmesfull #motivation </h5> \n";
+	
+	echo "<table><tr><td>";
+	echo "<img src='AN.png' /> </td> <td> " . $eol;
 
 	echo "<div> " . $eol;
 
@@ -143,6 +146,7 @@ function all()
 	echo ' <embed type="text/html" src="' . $cp_site . '" width="1300px" height="370px" > ' . $eol;
 	echo "</div> " . $eol;
 
+	echo '</td> </tr> </table> ' . $eol;
 
 	echo '<hr />' . $eol;
 
