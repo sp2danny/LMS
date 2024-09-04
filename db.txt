@@ -75,7 +75,7 @@ typer
 
 	push        52           id                        type
 
-    startat     53
+	startat     53
 
 	payed       54
 

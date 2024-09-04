@@ -75,6 +75,7 @@
     <None Include="src\common\nypers.php" />
     <None Include="src\common\onesurv.php" />
     <None Include="src\common\one_post.php" />
+    <None Include="src\common\per.php" />
     <None Include="src\common\personal.php" />
     <None Include="src\common\post_disc.php" />
     <None Include="src\common\process_cmd.php" />
@@ -95,6 +96,7 @@
     <None Include="src\common\tq.php" />
     <None Include="src\common\tq_post.php" />
     <None Include="src\common\utbsel.php" />
+    <None Include="src\common\utveckling.php" />
     <None Include="src\common\worldclass.php" />
     <None Include="src\klarna\php\buy.php" />
     <None Include="src\klarna\php\checkout.php" />

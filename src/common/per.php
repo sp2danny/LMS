@@ -3,7 +3,7 @@
 
 <html>
 <head>
-  <title> Cockpit </title>
+  <title> P&Auml;R </title>
   <style>
     table.plain, th.plain, td.plain {
       border: 3px solid black;
@@ -102,8 +102,6 @@
 		}
 	}
 
-	$data_tbl = [];
-
 	function GetQ($pid, $a) {
 		global $emperator;
 		$obj = new stdClass();
@@ -123,18 +121,11 @@
 		return false;
 	}
 
-	//$pid = getparam("pid", 0);
-	for ($i=1; $i<=7; ++$i) {
-		$obj = GetQ($pid, $i);
-		$data_tbl[] = $obj;
-	}
-
 	echo "<table class='plain'>";
 	echo "<tr>";
-	foreach($data_tbl as $key => $entry)
-	{
 
-		echo "<td class='plain'> ";
+	{
+		echo "<td class='plain'> \n";
 
 		$to = new tagOut;
 
@@ -142,70 +133,66 @@
 		$data->pnr = $pnr;
 		$data->pid = $pid;
 
-		switch ($entry->type)
-		{
-			case 1:
-			{
-				$args = [];
-				$args[] = $entry->source;
-				$args[] = "1";
-				$args[] = "3";
-				$args[] = $entry->source;
-				display_stapel($to, $data, $args, $key);
-			}
-			break;
-			case 2:
-			{
-				$args = [];
-				$args[] = $entry->source;
-				$args[] = "1";
-				$args[] = "3";
-				$args[] = $entry->source;
-				display_spider($to, $data, $args, $key);
-			}
-			break;
-			case 3:
-			{
-				$args = [];
-				$args[] = $entry->source;
-				$args[] = "1";
-				$args[] = "3";
-				$args[] = $entry->source;
-				display_graph($to, $data, $args, $key);
-			}
-			break;
-			case 4:
-			{
-				$args = [];
-				$args[] = $entry->source;
-				$args[] = "1";
-				display_meter($to, $data, $args, $key);
-			}
-			break;
-
-		}
-
-		echo " </td>";
-
+		$args = [];
+		$args[] = "Positiv";
+		$args[] = "1";
+		$args[] = "3";
+		$args[] = "Arlig";
+		display_stapel($to, $data, $args, 1);
+		echo " </td> \n";
 	}
+
+	{
+		echo "<td class='plain'> \n";
+
+		$to = new tagOut;
+
+		$data = new Data;
+		$data->pnr = $pnr;
+		$data->pid = $pid;
+
+		$args = [];
+		$args[] = "Äkta";
+		$args[] = "1";
+		$args[] = "3";
+		$args[] = "Arlig";
+		display_stapel($to, $data, $args, 2);
+		echo " </td> \n";
+	}
+
+	{
+		echo "<td class='plain'> \n";
+
+		$to = new tagOut;
+
+		$data = new Data;
+		$data->pnr = $pnr;
+		$data->pid = $pid;
+
+		$args = [];
+		$args[] = "Relevant";
+		$args[] = "1";
+		$args[] = "3";
+		$args[] = "Arlig";
+		display_stapel($to, $data, $args, 3);
+		echo " </td> \n";
+	}
+
 	echo "</tr>\n";
 	echo "</table>\n";
 
-	//echo "<tr>\n";
-	//echo "<td class='plain' colspan=7 >\n";
-
 	$eol = "\n";
 
-	$snum = 3;
-	$maxseg = 7;
-	$pro = round(progress($snum, $maxseg));
-	echo '<div class="prog-footer">' . $eol;
-	echo '<div class="container"> <div class="progress">' . $eol;
-	echo '<div class="progress-bar" role="progressbar" aria-valuenow="' . $pro;
-	echo '" aria-valuemin="0" aria-valuemax="100" style="width:' . $pro . '%">' . $eol;
-	echo '<span class="sr-only">' . $pro . '% Complete</span>' . $eol;
-	echo ' &nbsp; ' . $pro . ' %' . $eol;
-	echo '</div></div></div></div>' . $eol;
+	//$snum = 3;
+	//$maxseg = 7;
+	//$pro = round(progress($snum, $maxseg));
+	//echo '<div class="prog-footer">' . $eol;
+	//echo '<div class="container"> <div class="progress">' . $eol;
+	//echo '<div class="progress-bar" role="progressbar" aria-valuenow="' . $pro;
+	//echo '" aria-valuemin="0" aria-valuemax="100" style="width:' . $pro . '%">' . $eol;
+	//echo '<span class="sr-only">' . $pro . '% Complete</span>' . $eol;
+	//echo ' &nbsp; ' . $pro . ' %' . $eol;
+	//echo '</div></div></div></div>' . $eol;
 
 
 

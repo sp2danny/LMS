@@ -129,8 +129,8 @@ function all()
 
 	echo "<div> " . $eol;
 
-	$alt = getparam('alt', 0);
-	$cp_site = 'https://mind2excellence.se/site/common/cockpit' . (($alt==1)?'-2':'') . '.php';
+	//$alt = getparam('alt', 0);
+	$cp_site = 'https://mind2excellence.se/site/common/per.php';
 	$cp_have = false;
 	if ($pid != 0) {
 		$cp_site .= $cp_have ? "&" : "?";
