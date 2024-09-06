@@ -124,7 +124,7 @@ function addKV($lnk, $k, $v)
 
 function getCP($data) {
 	$cp_site = 'https://mind2excellence.se/site/common/minsida.php?noside=true';
-	$cp_have = false;
+	//$cp_have = false;
 	if ($data->pid != 0) {
 		$cp_site = addKV($cp_site, 'pid', $data->pid);
 	}
@@ -137,19 +137,27 @@ function getCP($data) {
 
 function getSett($data) {
 	$cp_site = 'https://mind2excellence.se/site/common/cp_settings.php';
-	$cp_have = false;
+	//$cp_have = false;
 	if ($data->pid!=0) {
-		$cp_site .= $cp_have ? "&" : "?";
-		$cp_have = true;
-		$cp_site .= "pid=" . $data->pid;
+		$cp_site = addKV($cp_site, 'pid', $data->pid);
 	}
 	if ($data->pnr!=0) {
-		$cp_site .= $cp_have ? "&" : "?";
-		$cp_have = true;
-		$cp_site .= "pnr=" . $data->pnr;
+		$cp_site = addKV($cp_site, 'pnr', $data->pnr);
 	}
 	return ' <iframe src="' . $cp_site . '" style="min-height:100vh;width:100%" frameborder="0" > ';
 }
+
+function getUtb($data) {
+	$cp_site = 'https://mind2excellence.se/site/common/personal.php';
+	if ($data->pid!=0) {
+		$cp_site = addKV($cp_site, 'pid', $data->pid);
+	}
+	if ($data->pnr!=0) {
+		$cp_site = addKV($cp_site, 'pnr', $data->pnr);
+	}
+	return $cp_site ;
+}
+
 
 function rwd($ini, $seg, $key, $def)
 {
@@ -407,50 +415,59 @@ td.wtelf {
   overflow: hidden;
   background-color: white;
 }
+
+br.hs {
+	line-height: 9px;
+}
+
 </style>
 
 EOT;
 
 
 	$to->startTag('script');
-	
+
 	$to->regLine('function doChangeB() { ');
 	$to->regLine('  var obj = document.getElementById("alt"); ');
 	$to->regLine('  var main = document.getElementById("main"); ');
-    $to->regLine("  site = '" . getCP($data) . "'; ");
-    $to->regLine('  if(obj.getAttribute("state") == "1") { ');
+	$to->regLine("  site = '" . getCP($data) . "'; ");
+	$to->regLine('  if(obj.getAttribute("state") == "1") { ');
 	$to->regLine('    main.style.display = "block"; ');
 	$to->regLine('    obj.innerHTML = ""; ');
 	$to->regLine("    document.getElementById('BtnCP').style.borderStyle = 'outset'; ");
 	$to->regLine("    document.getElementById('BtnSett').style.borderStyle = 'outset'; ");
 	$to->regLine('    obj.setAttribute("state", "0"); ');
-    $to->regLine('  } else { ');
+	$to->regLine('  } else { ');
 	$to->regLine('    main.style.display = "none"; ');
 	$to->regLine('    obj.innerHTML = site; ');
 	$to->regLine("    document.getElementById('BtnCP').style.borderStyle = 'inset'; ");
 	$to->regLine("    document.getElementById('BtnSett').style.borderStyle = 'outset'; ");
 	$to->regLine('    obj.setAttribute("state", "1"); ');
-    $to->regLine('  }');
-    $to->regLine('}');
-	
+	$to->regLine('  }');
+	$to->regLine('}');
+
 	$to->regLine('function doChangeC() { ');
 	$to->regLine('  var obj = document.getElementById("alt"); ');
 	$to->regLine('  var main = document.getElementById("main"); ');
-    $to->regLine("  site = '" . getSett($data) . "'; ");
-    $to->regLine('  if (obj.getAttribute("state") == "2") { ');
+	$to->regLine("  site = '" . getSett($data) . "'; ");
+	$to->regLine('  if (obj.getAttribute("state") == "2") { ');
 	$to->regLine('    main.style.display = "block"; ');	
 	$to->regLine('    obj.innerHTML = ""; ');
 	$to->regLine("    document.getElementById('BtnCP').style.borderStyle = 'outset'; ");
 	$to->regLine("    document.getElementById('BtnSett').style.borderStyle = 'outset'; ");
 	$to->regLine('    obj.setAttribute("state", "0"); ');
-    $to->regLine('  } else { ');
+	$to->regLine('  } else { ');
 	$to->regLine('    main.style.display = "none"; ');
 	$to->regLine('    obj.innerHTML = site; ');
 	$to->regLine("    document.getElementById('BtnCP').style.borderStyle = 'outset'; ");
 	$to->regLine("    document.getElementById('BtnSett').style.borderStyle = 'inset'; ");
 	$to->regLine('    obj.setAttribute("state", "2"); ');
-    $to->regLine('  }');
-    $to->regLine('}');
+	$to->regLine('  }');
+	$to->regLine('}');
+
+	$to->regLine('function doChangeD() { ');
+	$to->regLine("  window.location.href = '" . getUtb($data) . "'; ");
+	$to->regLine('}');
 
 	$to->regLine('function setProgress(pro, cnv) {');
 	$to->regLine('  var ctx = cnv.getContext("2d");');
@@ -520,6 +537,8 @@ EOT;
 		} else {
 			$to->regLine("<button id='BtnCP' onClick='doChangeB()'> Min Sida </button>");
 		}
+
+		$to->regLine("<br class='hs'> <button id='BtnUtb' style='background-color:#5E5;font-size:15px;' onClick='doChangeD()'> &nbsp;Till utbildningen&nbsp; </button>");
 
 		$to->regline  ('<hr>');
 		$to->stopTag  ('div');

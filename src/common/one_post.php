@@ -67,6 +67,17 @@ function getSett($data) {
 	return ' <iframe src="' . $cp_site . '" style="min-height:100vh;width:100%" frameborder="0" > ';
 }
 
+function getUtb($data) {
+	$cp_site = 'https://mind2excellence.se/site/common/personal.php';
+	if ($data->pid!=0) {
+		$cp_site = addKV($cp_site, 'pid', $data->pid);
+	}
+	if ($data->pnr!=0) {
+		$cp_site = addKV($cp_site, 'pnr', $data->pnr);
+	}
+	return $cp_site ;
+}
+
 function index($styr, $local, $common)
 {
 	debug_log('index() in one_post.php');
@@ -289,6 +300,10 @@ function index($styr, $local, $common)
     $to->regLine('  }');
     $to->regLine('}');
 
+	$to->regLine('function doChangeD() { ');
+	$to->regLine("  window.location.href = '" . getUtb($data) . "'; ");
+	$to->regLine('}');
+
 	$to->regLine('function setProgress(pro, cnv) {');
 	$to->regLine('  var ctx = cnv.getContext("2d");');
 	$to->regLine('  ctx.fillStyle = "#F2F3F7";');
@@ -462,6 +477,8 @@ function index($styr, $local, $common)
 		} else {
 			$to->regLine("<button id='BtnCP' onClick='doChangeB()'> Min Sida </button>");
 		}
+
+		$to->regLine("<br class='hs'> <button id='BtnUtb' style='background-color:#5E5;font-size:15px;' onClick='doChangeD()'> &nbsp;Till utbildningen&nbsp; </button>");
 
 		$to->regline  ('<hr>');
 		$to->stopTag  ('div');

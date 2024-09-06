@@ -178,48 +178,57 @@ function all()
 	//}
 	
 
-	$alldata = roundup($pnr, $pid, $name);
-	$atnum = 0;
-	
-	$flav = getparam('flav');
-	if ($flav != "")
-		echo "<code> " . $flav . " </code> <br /> " . $eol;
+//	$alldata = roundup($pnr, $pid, $name);
+//	$atnum = 0;
+//	
+//	$flav = getparam('flav');
+//	if ($flav != "")
+//		echo "<code> " . $flav . " </code> <br /> " . $eol;
+//
+//	foreach ($alldata as $block) {
+//		echo '<button type="button" class="collapsible"> ' /* . $block->battNum */ . ' &nbsp; ';
+//		echo '<img width="12px" height="12px" src="';
+//		if ($block->someDone) {
+//			echo 'here';
+//			$atnum = $block->atnum;
+//		}
+//		else if ($block->allDone)
+//			echo "corr";
+//		else
+//			echo "blank";
+//		echo '.png" > ';
+//		echo $block->name . ' </button>';
+//		echo '<div class="content" id="CntDiv' . $block->battNum .'" >';
+//		echo '<ul style="list-style-type:none">';
+//		foreach ($block->lines as $line) {
+//			echo '<li> <img width="12px" height="12px" src="';
+//			if($line->hasDone)
+//				echo "corr";
+//			else if ($line->isLink)
+//				echo 'here';
+//			else
+//				echo "blank";
+//			echo '.png" > ';
+//			if ($line->isLink)
+//				echo '<a href="' . $line->link . '" > ';
+//			echo $line->name;
+//			if ($line->isLink)
+//				echo ' </a> ';
+//			echo '</li>';
+//		}
+//		echo '</ul></div>';
+//	}
+//	echo '</ul>';
 
-	foreach ($alldata as $block) {
-		echo '<button type="button" class="collapsible"> ' /* . $block->battNum */ . ' &nbsp; ';
-		echo '<img width="12px" height="12px" src="';
-		if ($block->someDone) {
-			echo 'here';
-			$atnum = $block->atnum;
+	$utv = fopen("utv.txt", "r");
+	if ($utv)
+	{
+		while (true) {
+			$buffer = fgets($utv, 4096);
+			if (!$buffer) break;
+			echo $buffer . "\n";
 		}
-		else if ($block->allDone)
-			echo "corr";
-		else
-			echo "blank";
-		echo '.png" > ';
-		echo $block->name . ' </button>';
-		echo '<div class="content" id="CntDiv' . $block->battNum .'" >';
-		echo '<ul style="list-style-type:none">';
-		foreach ($block->lines as $line) {
-			echo '<li> <img width="12px" height="12px" src="';
-			if($line->hasDone)
-				echo "corr";
-			else if ($line->isLink)
-				echo 'here';
-			else
-				echo "blank";
-			echo '.png" > ';
-			if ($line->isLink)
-				echo '<a href="' . $line->link . '" > ';
-			echo $line->name;
-			if ($line->isLink)
-				echo ' </a> ';
-			echo '</li>';
-		}
-		echo '</ul></div>';
 	}
-	echo '</ul>';
-
 
 
 	echo '<script> ';

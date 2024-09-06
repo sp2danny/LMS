@@ -111,11 +111,11 @@ function display_stapel($to, $data, $args, $num=1)
         $to->regLine('    title: "' . $title . '",');
 		//$to->regLine("    backgroundColor: '#EEE', ");
 		//$to->regLine("    chartArea: { backgroundColor: { fill: '#EEE', fillOpacity: 0.8 } }, " );
-        $to->regLine('    width: 450,');
+        $to->regLine('    width: 150,');
         $to->regLine('    legend: { position: "none" },');
         $to->regLine('    chart: { title: "' . "" . '",'); // $title
         $to->regLine('             subtitle: "" },');
-        $to->regLine('    bars: "horizontal", // Required for Material Bar Charts.');
+        $to->regLine('    bars: "vertical", // Required for Material Bar Charts.');
         $to->regLine('    axes: {');
         $to->regLine('      x: {');
         $to->regLine('        0: { side: "top", label: "Percentage"} // Top x-axis.');
@@ -136,7 +136,7 @@ function display_stapel($to, $data, $args, $num=1)
 		//$to->regLine("  chart.draw(data, options);");
 		$to->regLine("}");
 		$to->stopTag("script");
-		$to->regLine('<div id="bar_chart_' . $num . '" style="width: 450px; height: 250px"></div>');
+		$to->regLine('<div id="bar_chart_' . $num . '" style="width: 150px; height: 250px"></div>');
 
 	} else {
 		$to->regLine(' <div> &lt; Data Missing &gt; </div> ');

@@ -8,11 +8,11 @@
     table.plain, th.plain, td.plain {
       border: 3px solid black;
       border-collapse: collapse;
-	  background-color: #fff;
+      background-color: #fff;
       scrollbar-width: auto;
       scrollbar-height: auto;
     }
-	
+
     .prog-footer {
        position: fixed;
        left: 0;
@@ -139,6 +139,7 @@
 		$args[] = "3";
 		$args[] = "Arlig";
 		display_stapel($to, $data, $args, 1);
+		echo "<br> <center> " . $args[0] . " </center> ";
 		echo " </td> \n";
 	}
 
@@ -157,6 +158,7 @@
 		$args[] = "3";
 		$args[] = "Arlig";
 		display_stapel($to, $data, $args, 2);
+		echo "<br> <center> " . $args[0] . " </center> ";
 		echo " </td> \n";
 	}
 
@@ -175,6 +177,7 @@
 		$args[] = "3";
 		$args[] = "Arlig";
 		display_stapel($to, $data, $args, 3);
+		echo "<br> <center> " . $args[0] . " </center> ";
 		echo " </td> \n";
 	}
 
