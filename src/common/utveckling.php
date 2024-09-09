@@ -83,6 +83,15 @@ function ptbl($prow, $mynt, $score=0)
 
 }
 
+function addKV($lnk, $k, $v)
+{
+	if (strpos($lnk, '?')===false)
+		return $lnk . '?' . $k . '=' . $v;
+	else
+		return $lnk . '&' . $k . '=' . $v;
+}
+
+
 function all()
 {
 	global $emperator, $eol;
@@ -112,41 +121,45 @@ function all()
 		return;
 	}
 
-	// echo '<iframe ';
-	// echo 'src="cockpit.php?pnr=' . $pnr . '" ';
-	// echo 'name="targetframe" ';
-	// echo 'allowTransparency="true" ';
-	// echo 'scrolling="no" ';
-	// echo 'frameborder="0" ';
-	// echo '>';
-	// echo '</iframe>' . $eol;
-	// echo '<hr />' . $eol;
 
-	//echo "<h5> #utbildning #äkta #ärlig #positiv #relevant #tillitsfull #livsbalans #omdömmesfull #motivation </h5> \n";
-	
-	echo "<table><tr><td>";
-	echo "<img src='AN.png' /> </td> <td> " . $eol;
+	echo "<table>" . $eol;
 
-	echo "<div> " . $eol;
 
-	//$alt = getparam('alt', 0);
-	$cp_site = 'https://mind2excellence.se/site/common/per.php';
-	$cp_have = false;
-	if ($pid != 0) {
-		$cp_site .= $cp_have ? "&" : "?";
-		$cp_have = true;
-		$cp_site .= "pid=" . $pid;
-	}
-	if ($pnr != 0) {
-		$cp_site .= $cp_have ? "&" : "?";
-		$cp_have = true;
-		$cp_site .= "pnr=" . $pnr;
+	if (true) // per
+	{
+		echo "<tr><td>" . $eol;
+		echo "<img src='AN.png' /> </td> <td> " . $eol;
+
+		echo "<div> " . $eol;
+
+		$cp_site = 'https://mind2excellence.se/site/common/per.php';
+		$cp_site = addKV($cp_site, "pid", $pid);
+		$cp_site = addKV($cp_site, "pnr", $pnr);
+
+		echo ' <embed type="text/html" src="' . $cp_site . '" width="1300px" height="370px" > ' . $eol;
+		echo "</div> " . $eol;
+
+		echo '</td></tr> ' . $eol;
 	}
 
-	echo ' <embed type="text/html" src="' . $cp_site . '" width="1300px" height="370px" > ' . $eol;
-	echo "</div> " . $eol;
+	if (true) // at
+	{
+		echo "<tr><td>" . $eol;
+		echo "<img src='AN.png' /> </td> <td> " . $eol;
 
-	echo '</td> </tr> </table> ' . $eol;
+		echo "<div> " . $eol;
+
+		$cp_site = 'https://mind2excellence.se/site/common/at.php';
+		$cp_site = addKV($cp_site, "pid", $pid);
+		$cp_site = addKV($cp_site, "pnr", $pnr);
+
+		echo ' <embed type="text/html" src="' . $cp_site . '" width="1300px" height="370px" > ' . $eol;
+		echo "</div> " . $eol;
+
+		echo '</td></tr>' . $eol;
+	}
+
+	echo ' </table> ' . $eol;
 
 	echo '<hr />' . $eol;
 
@@ -169,56 +182,6 @@ function all()
 		}
 	}
 
-	//$n = count($dagens);
-	//if ($n > 0) {
-	//	$i = rand(0, $n-1);
-	//	echo '<br /><br />' . $eol;
-	//	echo '<center>' . $dagens[$i] . '</center>' . $eol;
-	//	echo '<br /><br />' . $eol;
-	//}
-	
-
-//	$alldata = roundup($pnr, $pid, $name);
-//	$atnum = 0;
-//	
-//	$flav = getparam('flav');
-//	if ($flav != "")
-//		echo "<code> " . $flav . " </code> <br /> " . $eol;
-//
-//	foreach ($alldata as $block) {
-//		echo '<button type="button" class="collapsible"> ' /* . $block->battNum */ . ' &nbsp; ';
-//		echo '<img width="12px" height="12px" src="';
-//		if ($block->someDone) {
-//			echo 'here';
-//			$atnum = $block->atnum;
-//		}
-//		else if ($block->allDone)
-//			echo "corr";
-//		else
-//			echo "blank";
-//		echo '.png" > ';
-//		echo $block->name . ' </button>';
-//		echo '<div class="content" id="CntDiv' . $block->battNum .'" >';
-//		echo '<ul style="list-style-type:none">';
-//		foreach ($block->lines as $line) {
-//			echo '<li> <img width="12px" height="12px" src="';
-//			if($line->hasDone)
-//				echo "corr";
-//			else if ($line->isLink)
-//				echo 'here';
-//			else
-//				echo "blank";
-//			echo '.png" > ';
-//			if ($line->isLink)
-//				echo '<a href="' . $line->link . '" > ';
-//			echo $line->name;
-//			if ($line->isLink)
-//				echo ' </a> ';
-//			echo '</li>';
-//		}
-//		echo '</ul></div>';
-//	}
-//	echo '</ul>';
 
 	$utv = fopen("utv.txt", "r");
 	if ($utv)

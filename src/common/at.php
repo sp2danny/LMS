@@ -89,11 +89,11 @@
 		$data->pid = $pid;
 
 		$args = [];
-		$args[] = "Positiv";
+		$args[] = "Ärlig";
 		$args[] = "1";
 		$args[] = "3";
 		$args[] = "Arlig";
-		display_stapel($to, $data, $args, 1);
+		display_stapel($to, $data, $args, 4);
 		echo "<br> <center> " . $args[0] . " </center> ";
 		echo " </td> \n";
 	}
@@ -108,30 +108,11 @@
 		$data->pid = $pid;
 
 		$args = [];
-		$args[] = "Äkta";
+		$args[] = "Tillitsfull";
 		$args[] = "1";
 		$args[] = "3";
 		$args[] = "Arlig";
-		display_stapel($to, $data, $args, 2);
-		echo "<br> <center> " . $args[0] . " </center> ";
-		echo " </td> \n";
-	}
-
-	{
-		echo "<td class='plain'> \n";
-
-		$to = new tagOut;
-
-		$data = new Data;
-		$data->pnr = $pnr;
-		$data->pid = $pid;
-
-		$args = [];
-		$args[] = "Relevant";
-		$args[] = "1";
-		$args[] = "3";
-		$args[] = "Arlig";
-		display_stapel($to, $data, $args, 3);
+		display_stapel($to, $data, $args, 5);
 		echo "<br> <center> " . $args[0] . " </center> ";
 		echo " </td> \n";
 	}
