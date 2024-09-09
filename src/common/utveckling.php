@@ -128,7 +128,7 @@ function all()
 	if (true) // per
 	{
 		echo "<tr><td>" . $eol;
-		echo "<img src='AN.png' /> </td> <td> " . $eol;
+		echo "<img src='AN.png' /> </td> <td style='width:462px;' > " . $eol;
 
 		echo "<div> " . $eol;
 
@@ -136,8 +136,15 @@ function all()
 		$cp_site = addKV($cp_site, "pid", $pid);
 		$cp_site = addKV($cp_site, "pnr", $pnr);
 
-		echo ' <embed type="text/html" src="' . $cp_site . '" width="1300px" height="370px" > ' . $eol;
+		echo ' <embed type="text/html" src="' . $cp_site . '" width="462px" height="296px" > ' . $eol;
 		echo "</div> " . $eol;
+
+		echo '</td><td> ' . $eol;
+
+		echo "<h1> Steg Ett </h1>" . $eol;
+		echo "<h3> Positiv, Äkta, Relevant </h3>" . $eol;
+		echo "Om man är <pre> Positiv, Äkta, Relevant </pre> så blir man omtyckt <br>" . $eol;
+		echo "Det är förutsättningen för att kunna fungera i grupp <br>" . $eol;
 
 		echo '</td></tr> ' . $eol;
 	}
@@ -145,7 +152,7 @@ function all()
 	if (true) // at
 	{
 		echo "<tr><td>" . $eol;
-		echo "<img src='AN.png' /> </td> <td> " . $eol;
+		echo "<img src='AN.png' /> </td> <td style='width:462px;' > " . $eol;
 
 		echo "<div> " . $eol;
 
@@ -153,8 +160,16 @@ function all()
 		$cp_site = addKV($cp_site, "pid", $pid);
 		$cp_site = addKV($cp_site, "pnr", $pnr);
 
-		echo ' <embed type="text/html" src="' . $cp_site . '" width="1300px" height="370px" > ' . $eol;
+		echo ' <embed type="text/html" src="' . $cp_site . '" width="462px" height="296px" > ' . $eol;
 		echo "</div> " . $eol;
+
+		echo '</td><td> ' . $eol;
+
+		echo "<h1> Steg Två </h1>" . $eol;
+		echo "<h3> Ärlig, Tillitsfull </h3>" . $eol;
+		echo "Om man är <pre> Ärlig, Tillitsfull </pre> så får man stabilitet &amp; trygghet <br>" . $eol;
+		echo "Det är förutsättningen för att må bra <br>" . $eol;
+
 
 		echo '</td></tr>' . $eol;
 	}
