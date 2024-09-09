@@ -1,7 +1,10 @@
-<br>
-<br>
-<h3> titel </h3>
-<br>
-mer text
-<br>
-<hr>
+[steg.1]
+tile = Positiv, äkta, relevant
+text = text goes here
+
+[steg.2]
+tile = Positiv, äkta, relevant
+text = text goes here
+
+[botten]
+text = <br> <br> <h3> titel </h3> <br> mer text <br> <hr>

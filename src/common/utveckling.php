@@ -1,10 +1,11 @@
 
-<!-- inlude personal.php -->
+<!-- inlude utveckling.php -->
 
 <?php
 
 include 'head.php';
 include 'roundup.php';
+include_once 'util.php'
 
 echo <<<EOT
 
@@ -83,13 +84,6 @@ function ptbl($prow, $mynt, $score=0)
 
 }
 
-function addKV($lnk, $k, $v)
-{
-	if (strpos($lnk, '?')===false)
-		return $lnk . '?' . $k . '=' . $v;
-	else
-		return $lnk . '&' . $k . '=' . $v;
-}
 
 
 function all()
@@ -121,6 +115,9 @@ function all()
 		return;
 	}
 
+	$utv_file = fopen("utv.txt", "r");
+	$utv_ini = readini($utv_file);
+
 
 	echo "<table>" . $eol;
 
@@ -142,7 +139,7 @@ function all()
 		echo '</td><td> ' . $eol;
 
 		echo "<h1> Steg Ett </h1>" . $eol;
-		echo "<h3> Positiv, Äkta, Relevant </h3>" . $eol;
+		echo "<h3> " . $utv_ini['steg.1']['title'] . " </h3>" . $eol;
 		echo "Om man är <pre> Positiv, Äkta, Relevant </pre> så blir man omtyckt <br>" . $eol;
 		echo "Det är förutsättningen för att kunna fungera i grupp <br>" . $eol;
 
