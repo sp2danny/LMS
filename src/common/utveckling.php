@@ -5,7 +5,7 @@
 
 include 'head.php';
 include 'roundup.php';
-include_once 'util.php'
+include_once 'util.php';
 
 echo <<<EOT
 
@@ -163,7 +163,7 @@ function all()
 		echo '</td><td> ' . $eol;
 
 		echo "<h1> Steg Två </h1>" . $eol;
-		echo "<h3> Ärlig, Tillitsfull </h3>" . $eol;
+		echo "<h3> " . $utv_ini['steg.2']['title'] . " </h3>" . $eol;
 		echo "Om man är <pre> Ärlig, Tillitsfull </pre> så får man stabilitet &amp; trygghet <br>" . $eol;
 		echo "Det är förutsättningen för att må bra <br>" . $eol;
 
@@ -194,41 +194,7 @@ function all()
 		}
 	}
 
-
-	$utv = fopen("utv.txt", "r");
-	if ($utv)
-	{
-		while (true) {
-			$buffer = fgets($utv, 4096);
-			if (!$buffer) break;
-			echo $buffer . "\n";
-		}
-	}
-
-
-	echo '<script> ';
-	echo ' document.getElementById("CntDiv' . $atnum . '").style.display = "block";';
-
-	echo <<<EOT
-
-var coll = document.getElementsByClassName("collapsible");
-var i;
-
-for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function() {
-    //this.classList.toggle("active");
-    var content = this.nextElementSibling;
-    if (content.style.display === "block") {
-      content.style.display = "none";
-    } else {
-      content.style.display = "block";
-    }
-  });
-}
-</script>
-
-
-EOT;
+	echo $utv_ini['botten']['text'] . $eol;
 
 }
 

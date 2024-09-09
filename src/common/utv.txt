@@ -1,9 +1,9 @@
 [steg.1]
-tile = Positiv, äkta, relevant
+title = Positiv, Ekta, Relevant
 text = text goes here
 
 [steg.2]
-tile = Positiv, äkta, relevant
+title = Positiv, äkta, relevant
 text = text goes here
 
 [botten]
