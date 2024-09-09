@@ -118,7 +118,7 @@ function display_stapel($to, $data, $args, $num=1)
         $to->regLine('    bars: "vertical", // Required for Material Bar Charts.');
         $to->regLine('    axes: {');
         $to->regLine('      x: {');
-        $to->regLine('        0: { side: "top", label: "Percentage"} // Top x-axis.');
+        $to->regLine('        0: { side: "top", label: "' . $title . '"} // Top x-axis.');
         $to->regLine('      }');
         $to->regLine('    },');
         $to->regLine('    bar: { groupWidth: "90%" }');

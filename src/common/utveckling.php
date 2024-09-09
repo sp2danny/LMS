@@ -128,7 +128,7 @@ function all()
 	if (true) // per
 	{
 		echo "<tr><td>" . $eol;
-		echo "<img src='AN.png' /> </td> <td style='width:462px;' > " . $eol;
+		echo "<img src='per.png' /> </td> <td style='width:462px;' > " . $eol;
 
 		echo "<div> " . $eol;
 
@@ -152,7 +152,7 @@ function all()
 	if (true) // at
 	{
 		echo "<tr><td>" . $eol;
-		echo "<img src='AN.png' /> </td> <td style='width:462px;' > " . $eol;
+		echo "<img src='gen.png' /> </td> <td style='width:462px;' > " . $eol;
 
 		echo "<div> " . $eol;
 
