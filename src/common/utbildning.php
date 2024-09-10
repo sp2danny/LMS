@@ -1,9 +1,9 @@
 
-<!-- inlude minsida.php -->
+<!-- inlude utbildning.php -->
 
 <?php
 
-$RETURNTO = 'minsida';
+$RETURNTO = 'utbildning';
 
 include_once 'process_cmd.php';
 include_once 'cmdparse.php';
@@ -58,8 +58,6 @@ function to_link($alldata, $str)
 	return "";
 }
 
-
-
 function getCP($data) {
 	$cp_site = 'https://mind2excellence.se/site/common/minsida.php?noside=true';
 	if ($data->pid != 0) {
@@ -83,18 +81,6 @@ function getSett($data) {
 	}
 	return ' <iframe src="' . $cp_site . '" style="min-height:100vh;width:100%" frameborder="0" > ';
 }
-
-function getUtb($data) {
-	$cp_site = 'https://mind2excellence.se/site/common/personal.php';
-	if ($data->pid!=0) {
-		$cp_site = addKV($cp_site, 'pid', $data->pid);
-	}
-	if ($data->pnr!=0) {
-		$cp_site = addKV($cp_site, 'pnr', $data->pnr);
-	}
-	return $cp_site ;
-}
-
 
 function rwd($ini, $seg, $key, $def)
 {
@@ -128,7 +114,7 @@ function survOut($to, $tn, $filt)
 	}
 	
 	if ($n<=0) {
-		$to->regLine(' --- inga surveys ännu ---');
+		$to->regLine(' --- inga surveys �nnu ---');
 	} else if ($n==1) {
 		$lnk = "onesurv.php?sid=$sid&seq=$seq&pid=$pid&st=$tn&filt=$filt";
 		debug_log('embed link : ' . $lnk);
@@ -218,7 +204,7 @@ function index($local, $common)
 	$data->dagens = $dagens;
 
 	
-	$title = 'Min Sida';
+	$title = 'Utbildningen';
 
 	$data->name = $name;
 	$data->mynt = $mynt;
@@ -402,10 +388,6 @@ EOT;
 	$to->regLine('  }');
 	$to->regLine('}');
 
-	$to->regLine('function doChangeD() { ');
-	$to->regLine("  window.location.href = '" . getUtb($data) . "'; ");
-	$to->regLine('}');
-
 	$to->regLine('function setProgress(pro, cnv) {');
 	$to->regLine('  var ctx = cnv.getContext("2d");');
 	$to->regLine('  ctx.fillStyle = "#F2F3F7";');
@@ -457,7 +439,6 @@ EOT;
 	$to->startTag('body');
 
 	$side = fopen("styrkant.txt", "r") or die("Unable to open file!");
-	
 
 	if (!$noside)
 	{
@@ -565,176 +546,11 @@ EOT;
 
 	$to->scTag("hr");
 
-	$to->startTag("table");
-	$to->startTag("tr");
-	
-	$min_file = fopen("min.txt", "r");
-	$min_ini = readini($min_file);
-	fclose($min_file);
-
-	$n = $min_ini['survey']['count'];
-
-	$fmap = [];
-
-	for ($i=1; $i<=$n; ++$i)
-	{
-		$key = $i . ".filter";
-		$flt = $min_ini['survey'][$key];
-
-		$key = $i . ".button";
-		$btn = $min_ini['survey'][$key];
-		$tit[$flt] = $btn;
-
-		$fmap[$flt] = $i;
-	}
-
-	$nb2 = "&nbsp;&nbsp;";
-
-	for ($i=0; $i<$n; ++$i) {
-		
-		if ($n>8) {
-			$half = (int) (($n+1) / 2);
-			if ($i == $half) {
-				$to->stopTag("tr");
-				$to->startTag("tr");
-			}
-		}
-
-		$to->startTag("td");
-		//$to->regLine("<button> Settings </button>");
-
-		$base = "<button class='ilbbaicl' ";
-		$base .= "style=' border-radius: 9px; ";
-		$key = $fmap[$i] . ".color";
-		if (array_key_exists($key, $min_ini['survey'])) {
-			$base .= "background-color:" . $min_ini['survey'][$key] ."; ";
-		}
-
-		if ($at == $i) {
-			$base .= "border-style:inset;'";
-			$to->regLine($base . " > " . $nb2 .  $tit[$i] . $nb2 . " </button>");
-		} else {
-			$base .= "'";
-			$to->regLine($base . " onclick='newpage(".$i.")' > " . $nb2 . $tit[$i] . $nb2 . " </button>");
-		}
-		$to->stopTag("td");
-	}
-
-	$to->stopTag("tr");
-
-	$to->stopTag("table");
-
 	$to->scTag("hr");
 
 	ptbl($to, $prow, $mynt);
 
 	$alldata = roundup($data->pnr, $data->pid, $data->name, true);
-
-	if ($at != '')
-	{
-		$to->scTag("hr");
-		$to->startTag("div", "style='margin-left: 25px;'");
-
-		$n = $cnt = $min_ini['survey']['count'];
-		
-		for ($i=1; $i<=$cnt; ++$i)
-		{
-			$key = $i . ".filter";
-			$ff = $min_ini['survey'][$key];
-			if ($ff != $at) continue;
-
-			$key = $i . ".namn";
-			$to->regLine("<h1> " . $min_ini['survey'][$key] . " </h1> ");
-
-			$key = $i . ".minor";
-			$min = false;
-			if (array_key_exists($key, $min_ini['survey']))
-				$min = $min_ini['survey'][$key];
-			if ($min)
-				$to->regLine("<h5 class='normal' > " . $min . " </h5> ");
-
-			$key = $i . ".ext";
-			$ext = false;
-			if (array_key_exists($key, $min_ini['survey']))
-				$ext = $min_ini['survey'][$key];
-
-			if ($ext) {
-				$key = $i . ".surv";
-				$val = $min_ini['survey'][$key];
-				//echo "Surv : " . $val . " - " . to_link($alldata, $val) . " <br>" . $eol;
-				$lnk = $val; // to_link($alldata, $val) . "&returnto=nymin";
-				$key = $i . ".surv";
-				$do_pnr = rwd($min_ini, 'survey', $key, false);
-				if ($do_pnr)
-					$lnk = addKV($lnk, 'pnr', $data->pnr);
-				
-				debug_log('survey link : ' . $lnk);
-				
-				$to->regLine("<a href='$lnk'> <button> G&ouml;r Testet </button> </a> <br /> "); 
-			}
-
-			$key = $i . ".surv";
-			$val = false;
-			if (array_key_exists($key, $min_ini['survey']))
-				$val = $min_ini['survey'][$key];
-
-			if ($val && !$ext) {
-				//echo "Surv : " . $val . " - " . to_link($alldata, $val) . " <br>" . $eol;
-				$lnk = to_link($alldata, $val) . "&returnto=$RETURNTO";
-				debug_log('survey link : ' . $lnk);
-				$to->regLine("<a href='$lnk'> <button> G&ouml;r Testet </button> </a> <br /> ");
-
-				$key = $i . ".result";
-				$val = $min_ini['survey'][$key];
-				//echo "Res : " . $val . " - " . to_link($alldata, $val) . " <br>" . $eol;
-				$lnk = to_link($alldata, $val) . "&returnto=$RETURNTO";
-				debug_log('result link : ' . $lnk);
-				$to->regLine("<a href='$lnk'> <button> Se Resultat </button> </a> <br /> ");
-			}
-
-			$key = $i . ".embed";
-			$emb = false;
-			if (array_key_exists($key,$min_ini['survey']))
-				$emb = $min_ini['survey'][$key];
-
-			if ($emb) {
-				if (strpos($emb, "?") === false)
-					$lnk = $emb . "?pnr=" . $data->pnr;
-				else
-					$lnk = $emb . "&pnr=" . $data->pnr;
-				debug_log('embed link : ' . $lnk);
-				$to->scTag('embed', 'type="text/html" width="1600" height="2400" src="' . $lnk . '"');
-			}
-			
-		}
-
-		if ($at == 2) // stress
-		{
-			survOut($to, 101, 2);
-		}
-			
-		if ($at == 5) // motivation
-		{
-			survOut($to, 102, 5);
-		}
-
-		if ($at == 7) // Kommunikation
-		{
-			survOut($to, 103, 7);
-		}
-
-		if ($at == 8) // Målsattning
-		{
-			survOut($to, 104, 8);
-		}
-
-		if ($at == 9) // Samarbete
-		{
-			survOut($to, 105, 9);
-		}
-
-		$to->stopTag('div');
-	}
 
 	$to->stopTag('div');
 

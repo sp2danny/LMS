@@ -321,5 +321,11 @@
     <None Include="src\common\at.php">
       <Filter>Source Files\common</Filter>
     </None>
+    <None Include="src\common\util.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\utbildning.php">
+      <Filter>Source Files\common</Filter>
+    </None>
   </ItemGroup>
 </Project>

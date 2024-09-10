@@ -96,7 +96,9 @@
     <None Include="src\common\token.php" />
     <None Include="src\common\tq.php" />
     <None Include="src\common\tq_post.php" />
+    <None Include="src\common\utbildning.php" />
     <None Include="src\common\utbsel.php" />
+    <None Include="src\common\util.php" />
     <None Include="src\common\utveckling.php" />
     <None Include="src\common\worldclass.php" />
     <None Include="src\klarna\php\buy.php" />

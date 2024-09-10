@@ -44,5 +44,26 @@ function addKV($lnk, $k, $v)
 		return $lnk . '&' . $k . '=' . $v;
 }
 
+function ndq($str)
+{
+	$in = false;
+	$out = "";
+	$n = strlen($str);
+	$i = 0;
+	while ($i<$n) {
+		$c = $str[$i];
+		++$i;
+		if ( ($c == '"') || ($c == "'") ) {
+			$in = ! $in;
+			if ($in)
+				$out .= "``";
+			else
+				$out .= "´´";
+		} else {
+			$out .= $c;
+		}
+	}
+	return $out;
+}
 
 ?>
