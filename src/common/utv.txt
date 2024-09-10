@@ -1,10 +1,14 @@
 [steg.1]
 title = Positiv, Ekta, Relevant
-text = text goes here
+text = Om man är <pre> Positiv, Äkta, Relevant </pre> så blir man omtyckt <br> Det är förutsättningen för att kunna fungera i grupp <br>
 
 [steg.2]
-title = Positiv, äkta, relevant
-text = text goes here
+title = Ärlig, Tillitsfull, Omdömmesfull
+text = Om man är <pre> Ärlig, Tillitsfull </pre> så får man stabilitet &amp; trygghet <br> Det är förutsättningen för att må bra <br>
+
+[steg.3]
+title = Vinnare
+text = Vinnare
 
 [botten]
-text = <br> <br> <h3> titel </h3> <br> mer text <br> <hr>
+text = <br> <br> <h3> titel </h3> <br> avslutande text <br> <hr>

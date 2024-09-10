@@ -117,6 +117,26 @@
 		echo " </td> \n";
 	}
 
+	{
+		echo "<td class='plain'> \n";
+
+		$to = new tagOut;
+
+		$data = new Data;
+		$data->pnr = $pnr;
+		$data->pid = $pid;
+
+		$args = [];
+		$args[] = "Omdömmesfull";
+		$args[] = "1";
+		$args[] = "3";
+		$args[] = "Arlig";
+		display_stapel($to, $data, $args, 6);
+		echo "<br> <center> " . $args[0] . " </center> ";
+		echo " </td> \n";
+	}
+
+
 	echo "</tr>\n";
 	echo "</table>\n";
 

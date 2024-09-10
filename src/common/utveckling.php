@@ -22,10 +22,10 @@ body.nomarg {
 }
 
 table tr td {
-  padding-left:   5px;
-  padding-right:  5px;
-  padding-top:    5px;
-  padding-bottom: 5px;
+  padding-left:   11px;
+  padding-right:  11px;
+  padding-top:    1px;
+  padding-bottom: 1px;
 }
 table.visitab {
   border: 2px solid black;
@@ -140,11 +140,17 @@ function all()
 
 		echo "<h1> Steg Ett </h1>" . $eol;
 		echo "<h3> " . $utv_ini['steg.1']['title'] . " </h3>" . $eol;
-		echo "Om man är <pre> Positiv, Äkta, Relevant </pre> så blir man omtyckt <br>" . $eol;
-		echo "Det är förutsättningen för att kunna fungera i grupp <br>" . $eol;
+		echo $utv_ini['steg.1']['text'] . $eol;
+
 
 		echo '</td></tr> ' . $eol;
+
+		echo '<tr> <td colspan=3> <center> text med länk </center> </td></tr> ' . $eol;
+
+		echo '<tr> <td colspan=3> &nbsp; </td> </tr>' . $eol;
 	}
+
+
 
 	if (true) // at
 	{
@@ -164,12 +170,36 @@ function all()
 
 		echo "<h1> Steg Två </h1>" . $eol;
 		echo "<h3> " . $utv_ini['steg.2']['title'] . " </h3>" . $eol;
-		echo "Om man är <pre> Ärlig, Tillitsfull </pre> så får man stabilitet &amp; trygghet <br>" . $eol;
-		echo "Det är förutsättningen för att må bra <br>" . $eol;
-
+		echo $utv_ini['steg.2']['text'] . $eol;
 
 		echo '</td></tr>' . $eol;
+
+		echo '<tr> <td colspan=3> <center> text med länk </center> </td></tr> ' . $eol;
+
+		echo '<tr> <td colspan=3> &nbsp; </td> </tr>' . $eol;
+
 	}
+
+
+	if (true) // win
+	{
+		echo "<tr><td colspan=2>" . $eol;
+		echo "<center> <img src='winner.png' /> </center> " . $eol;
+
+
+		echo '</td><td> ' . $eol;
+
+		echo "<h1> Steg Tre </h1>" . $eol;
+		echo "<h3> " . $utv_ini['steg.3']['title'] . " </h3>" . $eol;
+		echo $utv_ini['steg.3']['text'] . $eol;
+
+		echo '</td></tr>' . $eol;
+
+		//echo '<tr> <td colspan=3> <center> text med länk </center> </td></tr> ' . $eol;
+		//echo '<tr> <td colspan=3> &nbsp; </td> </tr>' . $eol;
+
+	}
+
 
 	echo ' </table> ' . $eol;
 
