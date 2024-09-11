@@ -118,9 +118,7 @@ function all()
 	$utv_file = fopen("utv.txt", "r");
 	$utv_ini = readini($utv_file);
 
-
 	echo "<table>" . $eol;
-
 
 	if (true) // per
 	{
@@ -150,8 +148,6 @@ function all()
 		echo '<tr> <td colspan=3> &nbsp; </td> </tr>' . $eol;
 	}
 
-
-
 	if (true) // at
 	{
 		echo "<tr><td>" . $eol;
@@ -180,7 +176,6 @@ function all()
 
 	}
 
-
 	if (true) // win
 	{
 		echo "<tr><td colspan=2>" . $eol;
@@ -200,11 +195,9 @@ function all()
 
 	}
 
-
 	echo ' </table> ' . $eol;
 
 	echo '<hr />' . $eol;
-
 
 	$dagens = array();
 	$ord = fopen("ord.txt", "r");
@@ -234,11 +227,5 @@ all();
 
 </body>
 </html>
-
-
-
-
-
-
 
 
