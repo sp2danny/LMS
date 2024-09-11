@@ -11,4 +11,6 @@ title = Vinnare
 text = Vinnare
 
 [botten]
-text = <br> <br> <h3> titel </h3> <br> avslutande text <br> <hr>
+text = I första steget: Skapar du en egen insikt i hur du och din hjärna är hårdkodade sedan 300 000 år. Du får förståelse för hur omgivningen <br> runt dig, din hjärnas belöningssystem och stressen begränsar dig. Du lär dig sedan förstå dina dolda drivkrafter och hur du kan använda <br> dessa till att skapa en långsiktigt hållbar motivation för dig själv. Vi hjälper dig att starta upp din egen personliga utvecklingsplan (PUP). <br> Den stödjer dig hela vägen till den högsta nivåns självledarskap.<br> &quot;Kan du leda dig själv, kan du leda andra.&quot;<br><br>I nästa steg: Formar du ditt bästa jag och gör dig fri, oberoende. Du lägger grunden till en vinnare. Du skapar nya vanor som maximerar <br> din egen personliga potential, når balans i ditt liv och skapar långsiktig hållbarhet i förändringen dina nya vanor och att utveckla din <br> personliga utvecklingsplan (PUP).<br><br>I tredje steget: Lär du dig att grunderna för att maximalt verka i ett vinnande TEAM. Med utbildningen får du sedan verktygen att skapa <br> egna elitteam och nå världsklass tillsammans med oss. <br> Under hela utbildningen mäts dina framsteg med vår Pulsgenerator. &quot;Det som mäts blir gjort.&quot; <br> <br> <br> <img src='niva_s.jpg'> 
+
+
