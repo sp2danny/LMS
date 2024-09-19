@@ -456,7 +456,7 @@ EOT;
 			$to->regLine("<button id='BtnCP' onClick='doChangeB()'> Min Sida </button>");
 		}
 
-		$to->regLine("<br class='hs'> <button id='BtnUtb' style='background-color:#5E5;font-size:15px;' onClick='doChangeD()'> &nbsp;Till utbildningen&nbsp; </button>");
+		//$to->regLine("<br class='hs'> <button id='BtnUtb' style='background-color:#5E5;font-size:15px;' onClick='doChangeD()'> &nbsp;Till utbildningen&nbsp; </button>");
 
 		$to->regline  ('<hr>');
 		$to->stopTag  ('div');
@@ -546,11 +546,122 @@ EOT;
 
 	$to->scTag("hr");
 
+
+
+
+	$tit = array();
+
+	$at = getparam("at", '0');
+
+	$to->startTag("table");
+	$to->startTag("tr");
+	
+	$utb_file = fopen("utb.txt", "r");
+	$utb_ini = readini($utb_file);
+	fclose($utb_file);
+
+	$n = $utb_ini['general']['levels.count'];
+
+	for ($i=1; $i<=$n; ++$i)
+	{
+		$tit[] = 'Niv&aring; ' . $i;
+
+	}
+
+	$nb2 = "&nbsp;&nbsp;";
+	$i = 0;
+
+	$start = -1;
+	$stop = -1;
+
+	foreach ($tit as $value) {
+		++$i;
+		$to->startTag("td");
+
+		$base = "<button class='ilbbaicl' ";
+		$base .= "style=' border-radius: 9px; ";
+
+		$seg = 'level.' . $i;
+		$img = $utb_ini[$seg]['img'];
+
+		$base .= "background: url($img); width:152px; height:119px; ";
+
+		if ($at == $i) {
+			$base .= "border-style:inset;'";
+			$to->regLine($base . " > " . /* $nb2 .  $value . $nb2 . */ " </button>");
+			$start = $utb_ini[$seg]['batt.start'];
+			$stop = $utb_ini[$seg]['batt.stop'];
+		} else {
+			$base .= "'";
+			$to->regLine($base . " onclick='newpage(".$i.")' > " . /* $nb2 . $value . $nb2 . */ " </button>");
+		}
+		$to->scTag("br");
+		$to->regLine("<h3> " . $utb_ini[$seg]['name.major'] . " </h3>");
+		$to->regLine("<h9> " . $utb_ini[$seg]['name.minor'] . " </h9>");
+
+		$to->stopTag("td");
+	}
+
+	$to->stopTag("tr");
+
+	$to->stopTag("table");
+
 	$to->scTag("hr");
+
+
+
+
+
 
 	ptbl($to, $prow, $mynt);
 
+	$to->scTag("hr");
+
 	$alldata = roundup($data->pnr, $data->pid, $data->name, true);
+
+	foreach ($alldata as $block) {
+
+		$nn = $block->battNum;
+		if ($nn < $start) continue;
+		if ($nn > $stop) continue;
+
+
+		echo '<button type="button" class="collapsible"> ' /* . $block->battNum */ . ' &nbsp; ';
+		echo '<img width="12px" height="12px" src="';
+		if ($block->someDone) {
+			echo 'here';
+			$atnum = $block->atnum;
+		}
+		else if ($block->allDone)
+			echo "corr";
+		else
+			echo "blank";
+		echo '.png" > ';
+		echo $block->name . ' </button>';
+		echo '<div class="content" id="CntDiv' . $block->battNum .'" >';
+		echo '<ul style="list-style-type:none">';
+		foreach ($block->lines as $line) {
+			echo '<li> <img width="12px" height="12px" src="';
+			if($line->hasDone)
+				echo "corr";
+			else if ($line->isLink)
+				echo 'here';
+			else
+				echo "blank";
+			echo '.png" > ';
+			if ($line->isLink)
+				echo '<a href="' . $line->link . '" > ';
+			echo $line->name;
+			if ($line->isLink)
+				echo ' </a> ';
+			echo '</li>';
+		}
+		echo '</ul></div>';
+	}
+	//echo '</ul>';
+
+
+
 
 	$to->stopTag('div');
 
@@ -564,6 +675,7 @@ EOT;
 
 	$to->stopTag('body');
 }
+
 
 $local = "./";
 $common = "./";

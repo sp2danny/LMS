@@ -1,0 +1,40 @@
+[general]
+levels.count = 5
+
+[level.1]
+batt.start = 1
+batt.stop = 3
+img = lev1.png
+name.major = Niv&aring; Ett
+name.minor = Meditation
+
+[level.2]
+batt.start = 1
+batt.stop = 3
+img = lev1.png
+name.major = Niv&aring; Tv&aring;
+name.minor = Meditation
+
+[level.3]
+batt.start = 1
+batt.stop = 3
+img = lev1.png
+name.major = Niv&aring; Tre
+name.minor = Meditation
+
+[level.4]
+batt.start = 1
+batt.stop = 3
+img = lev1.png
+name.major = Niv&aring; Fyra
+name.minor = Meditation
+
+[level.5]
+batt.start = 1
+batt.stop = 3
+img = lev1.png
+name.major = Niv&aring; Fem
+name.minor = Meditation
+
+
+

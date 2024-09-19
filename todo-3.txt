@@ -6,3 +6,8 @@ fixa bugg i motivation
 ärlig, tillitsfull, ombömmesfull
 
 stresstratt text länk
+
+bild-knapp för nivåer. med text och progress-bar
+
+
+drop-down med person / grupp perstektiv
