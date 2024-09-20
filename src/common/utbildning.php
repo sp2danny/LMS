@@ -562,6 +562,9 @@ EOT;
 
 	$n = $utb_ini['general']['levels.count'];
 
+	$ww = $utb_ini['general']['button.width'];
+	$hh = $utb_ini['general']['button.height'];
+
 	for ($i=1; $i<=$n; ++$i)
 	{
 		$tit[] = 'Niv&aring; ' . $i;
@@ -584,7 +587,7 @@ EOT;
 		$seg = 'level.' . $i;
 		$img = $utb_ini[$seg]['img'];
 
-		$base .= "background: url($img); width:152px; height:119px; ";
+		$base .= "background: url($img); width:" . $ww . "px; height:" . $hh . "px; ";
 
 		if ($at == $i) {
 			$base .= "border-style:inset;'";

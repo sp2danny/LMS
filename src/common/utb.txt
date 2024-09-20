@@ -1,5 +1,7 @@
 [general]
 levels.count = 5
+button.width = 152
+button.height = 119
 
 [level.1]
 batt.start = 1
