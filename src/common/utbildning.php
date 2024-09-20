@@ -213,6 +213,9 @@ function index($local, $common)
 	
 	echo <<<EOT
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
@@ -249,10 +252,12 @@ EOT;
 		
 	}
 
-
 	echo <<<EOT
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+		</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <style>
 
@@ -546,8 +551,9 @@ EOT;
 
 	$to->scTag("hr");
 
+	ptbl($to, $prow, $mynt);
 
-
+	$to->scTag("hr");
 
 	$tit = array();
 
@@ -577,6 +583,8 @@ EOT;
 	$start = -1;
 	$stop = -1;
 
+	$alldata = roundup($data->pnr, $data->pid, $data->name, true);
+
 	foreach ($tit as $value) {
 		++$i;
 		$to->startTag("td");
@@ -586,6 +594,21 @@ EOT;
 
 		$seg = 'level.' . $i;
 		$img = $utb_ini[$seg]['img'];
+
+		$b1 = $utb_ini[$seg]['batt.start'];
+		$b2 = $utb_ini[$seg]['batt.stop'];
+
+		$b_tot = 0;
+		$b_don = 0;
+
+		foreach ($alldata as $block) {
+			$nn = $block->battNum;
+			if ($nn < $b1) continue;
+			if ($nn > $b2) continue;
+			++$b_tot;
+			if ($block->allDone)
+				++$b_don;
+		}
 
 		$base .= "background: url($img); width:" . $ww . "px; height:" . $hh . "px; ";
 
@@ -600,7 +623,18 @@ EOT;
 		}
 		$to->scTag("br");
 		$to->regLine("<h3> " . $utb_ini[$seg]['name.major'] . " </h3>");
-		$to->regLine("<h9> " . $utb_ini[$seg]['name.minor'] . " </h9>");
+		$to->regLine("<h9> " . $utb_ini[$seg]['name.minor'] . " </h9> <br>");
+
+		//$to->regLine("<small> " . $b_don . " / " . $b_tot . " </small> <br> " );
+
+		if ($b_tot >= 1) {
+			$pro = intval(($b_don * 100) / $b_tot);
+
+			$to->regLine(' <div class="progress"> ');
+			$to->regLine(' <div class="progress-bar" role="progressbar" aria-valuenow="' . $pro . '" aria-valuemin="0" aria-valuemax="100" style="width:' . $pro . '%"> ');
+			$to->regLine(' <span class="sr-only">' . $pro . '% Complete</span> </div> </div>  ');
+
+		}
 
 		$to->stopTag("td");
 	}
@@ -610,17 +644,6 @@ EOT;
 	$to->stopTag("table");
 
 	$to->scTag("hr");
-
-
-
-
-
-
-	ptbl($to, $prow, $mynt);
-
-	$to->scTag("hr");
-
-	$alldata = roundup($data->pnr, $data->pid, $data->name, true);
 
 	foreach ($alldata as $block) {
 
@@ -662,6 +685,30 @@ EOT;
 		echo '</ul></div>';
 	}
 	//echo '</ul>';
+
+		echo '<script> ';
+	echo ' document.getElementById("CntDiv' . $atnum . '").style.display = "block";';
+
+	echo <<<EOT
+
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    //this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+
+
+EOT;
 
 
 

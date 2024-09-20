@@ -5,35 +5,35 @@ button.height = 119
 
 [level.1]
 batt.start = 1
-batt.stop = 3
+batt.stop = 6
 img = lev1.png
 name.major = Niv&aring; Ett
 name.minor = Meditation
 
 [level.2]
-batt.start = 1
-batt.stop = 3
+batt.start = 7
+batt.stop = 13
 img = lev1.png
 name.major = Niv&aring; Tv&aring;
 name.minor = Meditation
 
 [level.3]
-batt.start = 1
-batt.stop = 3
+batt.start = 14
+batt.stop = 18
 img = lev1.png
 name.major = Niv&aring; Tre
 name.minor = Meditation
 
 [level.4]
-batt.start = 1
-batt.stop = 3
+batt.start = 19
+batt.stop = 24
 img = lev1.png
 name.major = Niv&aring; Fyra
 name.minor = Meditation
 
 [level.5]
-batt.start = 1
-batt.stop = 3
+batt.start = 25
+batt.stop = 99
 img = lev1.png
 name.major = Niv&aring; Fem
 name.minor = Meditation
