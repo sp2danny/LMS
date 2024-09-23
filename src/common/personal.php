@@ -1,21 +1,295 @@
 
-<!-- inlude personal.php -->
+<!-- inlude utbildning.php -->
 
 <?php
 
-include 'head.php';
-include 'roundup.php';
+$RETURNTO = 'utbildning';
 
-echo <<<EOT
+include_once 'process_cmd.php';
+include_once 'cmdparse.php';
+include_once 'progress.php';
+include_once 'debug.php';
+
+include_once 'head.php';
+include_once 'common.php';
+include_once 'tagOut.php';
+include_once 'connect.php';
+include_once 'roundup.php';
+include_once 'util.php';
+
+function ptbl($to, $prow, $mynt, $score=0)
+{
+	$arr = [];
+	$arr[] = "Du &auml;r fin";
+	$arr[] = "Jag &auml;r bra";
+	$arr[] = "Jag gillar mig sj&auml;lv som jag &auml;r";
+	$arr[] = "Jag vill utvecklas varje dag";
+	$arr[] = "Jag tror p&aring; mig sj&auml;lv";
+	$arr[] = "Jag &auml;r tacksam f&ouml;r varje dag";
+
+	$top = count($arr)-1;
+	$txt = $arr[rand(0,$top)];
+
+	$div = "<div> <img src='heart.png' style='vertical-align: middle;' width='100px' /> <span style='vertical-align: middle;'> $txt </span> ";
+
+	$wtelf = '""';
+	$to->startTag('table', "class=$wtelf");
+	$to->regLine("<tr> <td class=$wtelf > Kundnummer    </td> <td class=$wtelf > " . $prow[ 'pers_id' ] . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td> <td class=$wtelf > Guldmynt     </td> <td class=$wtelf > $mynt   </td> </tr>");
+	$to->regLine("<tr> <td class=$wtelf > Namn          </td> <td class=$wtelf > " . $prow[ 'name'    ] . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td> <td class=$wtelf > Po&auml;ng   </td> <td class=$wtelf > $score  </td> </tr>");
+	$to->regLine("<tr> <td class=$wtelf > Personnummer  </td> <td class=$wtelf > " . $prow[ 'pnr'     ] . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td> <td colspan=2 rowspan=2 class=$wtelf > $div </td>  </tr>");
+	$to->regLine("<tr> <td class=$wtelf > Medlem sedan  </td> <td class=$wtelf > " . $prow[ 'date'    ] . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td>  </tr>");
+	$to->stopTag('table');
+}
+
+function to_link($alldata, $str)
+{
+	$p = strpos($str, '.');
+	if ($p===false) return "";
+	$bat = substr($str, 0, $p);
+	$seg = substr($str, $p+1);
+	
+	foreach ($alldata as $block) {		
+		if ($block->battNum != $bat) continue;
+		foreach ($block->lines as $line) {
+			if ($line->segment != $seg) continue;
+			return $line->link;
+		}
+	}
+	return "";
+}
+
+function getCP($data) {
+	$cp_site = 'https://mind2excellence.se/site/common/minsida.php?noside=true';
+	if ($data->pid != 0) {
+		$cp_site = addKV($cp_site, 'pid', $data->pid);
+	}
+	if ($data->pnr != 0) {
+		$cp_site = addKV($cp_site, 'pnr', $data->pnr);
+	}
+	// <iframe src="some.pdf" style="min-height:100vh;width:100%" frameborder="0"></iframe>
+	return ' <iframe src="' . $cp_site . '" style="min-height:100vh;width:100%" frameborder="0" > ';
+}
+
+function getSett($data) {
+	$cp_site = 'https://mind2excellence.se/site/common/cp_settings.php';
+	//$cp_have = false;
+	if ($data->pid!=0) {
+		$cp_site = addKV($cp_site, 'pid', $data->pid);
+	}
+	if ($data->pnr!=0) {
+		$cp_site = addKV($cp_site, 'pnr', $data->pnr);
+	}
+	return ' <iframe src="' . $cp_site . '" style="min-height:100vh;width:100%" frameborder="0" > ';
+}
+
+function rwd($ini, $seg, $key, $def)
+{
+	if (!array_key_exists($seg, $ini))
+		return $def;
+	if (!array_key_exists($key, $ini[$seg]))
+		return $def;
+	return $ini[$seg][$key];
+}
+
+function survOut($to, $tn, $filt)
+{
+	global $emperator;
+
+	$pnr = getparam('pnr');
+	$pid = getparam('pid');
+	if ($pnr && ! $pid) {
+		$query = "SELECT * FROM pers WHERE pnr='$pnr'";
+		$res = mysqli_query($emperator, $query);
+		if ($res) if ($row = mysqli_fetch_array($res))
+			$pid = $row['pers_id'];
+	}
+
+	$n = 0;
+	$query = "SELECT * FROM surv WHERE type='$tn' AND pers='$pid';";
+	$res = mysqli_query( $emperator, $query );
+	if ($res) while ($row = mysqli_fetch_array($res)) {
+		$seq = $row['seq'];
+		$sid = $row['surv_id'];
+		++$n;
+	}
+	
+	if ($n<=0) {
+		$to->regLine(' --- inga surveys ännu ---');
+	} else if ($n==1) {
+		$lnk = "onesurv.php?sid=$sid&seq=$seq&pid=$pid&st=$tn&filt=$filt";
+		debug_log('embed link : ' . $lnk);
+		$to->scTag('embed', "type='text/html' src='$lnk' width='1200' height='1600' ");
+	} else {
+		$lnk = "allsurv.php?pid=$pid&st=$tn&filt=$filt";
+		debug_log('embed link : ' . $lnk);
+		$to->scTag('embed', "type='text/html' src='$lnk' width='1200' height='1600' ");
+	}
+}
+
+function index($local, $common)
+{
+	global $RETURNTO;
+
+	debug_log("index() in $RETURNTO.php");
+
+	global $emperator;
+
+	$to = new tagOut;
+	
+	$data = new Data;
+
+	$name = getparam("name");
+
+	$data->pnr = getparam("pnr", "0");
+
+	$query = "SELECT * FROM pers WHERE pnr='" . $data->pnr . "'";
+
+	$pid = getparam("pid", "0");
+
+	$res = mysqli_query($emperator, $query);
+	$mynt = 0;
+	if (!$res)
+	{
+		$to->regLine('DB Error');
+	} else {
+		$prow = mysqli_fetch_array($res);
+		$name = $prow['name'];
+		if (!$prow) {
+			$to->regLine('DB Error');
+		} else {
+			$pid = $prow['pers_id'];
+			$query = 'SELECT * FROM data WHERE pers=' . $pid . ' AND type=4';
+			$res = mysqli_query($emperator, $query);
+			if ($row = mysqli_fetch_array($res)) {
+				$mynt = $row['value_a'];
+			}
+		}
+	}
+	
+	$data->pid = $pid;
+	
+	for ($qi=11; $qi<20; ++$qi) {
+		$query = "SELECT value_c FROM data WHERE pers=" . $pid . " AND type=" . $qi;
+		$res = mysqli_query($emperator, $query);
+		if ($res) {
+			if ($row = mysqli_fetch_array($res)) {
+				$srp = new SRP;
+				$srp->str = "%get-" . $qi . "%";
+				$srp->repl = $row['value_c'];
+				$data->replst[] = $srp;
+				echo '<!-- ' . 'storing ' . $srp->str . ' as ' . $srp->repl . ' -->';
+			}
+		}
+	}
+
+	$eol = "\n";
+	
+	$dagens = array();
+	$ord = fopen("../common/ord.txt", "r");
+	if ($ord)
+	{
+		while (true) {
+			$buffer = fgets($ord, 4096);
+			if (!$buffer) break;
+			$buffer = trim($buffer);
+			$len = strlen($buffer);
+			if ($len == 0) continue;
+			$cc = 0;
+			for ($idx=0; $idx<$len; ++$idx)
+				$cc = $cc ^ ord($buffer[$idx]);
+			if ($len != 105 || $cc != 8)
+				$dagens[] = $buffer;
+		}
+	}
+	$data->dagens = $dagens;
+
+	
+	$title = 'Utbildningen';
+
+	$data->name = $name;
+	$data->mynt = $mynt;
+	
+	$noside = (getparam("noside", "") == "true");
+	
+	echo <<<EOT
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
+EOT;
+
+	if (!$noside)
+	{
+		echo <<<EOT
+
+		p.main {
+		  padding-left:   40px;
+		}
+		body {
+			background-color: #ffffff;
+			margin-top: 50px;
+			margin-right: 450px;
+			margin-left: 200px;
+			margin-bottom: 75px;
+		}
+EOT;
+	} else {
+		echo <<<EOT
+		p.main {
+		  padding-left:   0px;
+		}
+		body {
+			background-color: #ffffff;
+			margin-top: 0px;
+			margin-right: 0px;
+			margin-left: 0px;
+			margin-bottom: 0px;
+		}
+EOT;
+		
+	}
+
+	echo <<<EOT
+
+		</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<style>
+
+button.ilbbaicl {
+  font-size: 24px;
+  font-weight: bold;
+  width: 100%;
+}
+
+h5.regular {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+body.nomarg {
+    background-color: #ffffff;
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+div.hdr {
+  font-size: 18px;
+  font-weight: bold;
+}
+
 table tr td {
-  padding-left:   5px;
-  padding-right:  5px;
-  padding-top:    5px;
-  padding-bottom: 5px;
+  padding-left:   20px;
+  padding-right:  20px;
+  padding-top:    1px;
+  padding-bottom: 1px;
 }
 table.visitab {
   border: 2px solid black;
@@ -26,6 +300,27 @@ td.visitab {
   border: 1px solid grey;
   border-collapse: collapse;
 }
+
+p.allc
+{
+	text-align: center;
+	justify-content: center;
+	text-align-vertical
+	vertical-align: middle;
+}
+
+table.wtelf {
+  border: 2px solid #000;
+  margin-top: 25px;
+  border-collapse: collapse;
+}
+td.wtelf {
+  border: 1px solid #222;
+  margin-top: 7px;
+  margin-bottom: 7px;
+  border-collapse: collapse;
+}
+
 
 .collapsible {
   background-color: #FFF;
@@ -48,94 +343,315 @@ td.visitab {
   overflow: hidden;
   background-color: white;
 }
+
+br.hs {
+	line-height: 9px;
+}
+
 </style>
+
 EOT;
 
 
-include 'common.php';
-include 'connect.php';
+	$to->startTag('script');
 
-$eol = "\n";
+	$to->regLine('function doChangeB() { ');
+	$to->regLine('  var obj = document.getElementById("alt"); ');
+	$to->regLine('  var main = document.getElementById("main"); ');
+	$to->regLine("  site = '" . getCP($data) . "'; ");
+	$to->regLine('  if(obj.getAttribute("state") == "1") { ');
+	$to->regLine('    main.style.display = "block"; ');
+	$to->regLine('    obj.innerHTML = ""; ');
+	$to->regLine("    document.getElementById('BtnCP').style.borderStyle = 'outset'; ");
+	$to->regLine("    document.getElementById('BtnSett').style.borderStyle = 'outset'; ");
+	$to->regLine('    obj.setAttribute("state", "0"); ');
+	$to->regLine('  } else { ');
+	$to->regLine('    main.style.display = "none"; ');
+	$to->regLine('    obj.innerHTML = site; ');
+	$to->regLine("    document.getElementById('BtnCP').style.borderStyle = 'inset'; ");
+	$to->regLine("    document.getElementById('BtnSett').style.borderStyle = 'outset'; ");
+	$to->regLine('    obj.setAttribute("state", "1"); ');
+	$to->regLine('  }');
+	$to->regLine('}');
 
-echo '</head><body>' . $eol;
-echo '<br />' . $eol;
-echo '<img width=50%  src="logo.png" /> <br />';
-echo '<br /> <br />' . $eol;
+	$to->regLine('function doChangeC() { ');
+	$to->regLine('  var obj = document.getElementById("alt"); ');
+	$to->regLine('  var main = document.getElementById("main"); ');
+	$to->regLine("  site = '" . getSett($data) . "'; ");
+	$to->regLine('  if (obj.getAttribute("state") == "2") { ');
+	$to->regLine('    main.style.display = "block"; ');	
+	$to->regLine('    obj.innerHTML = ""; ');
+	$to->regLine("    document.getElementById('BtnCP').style.borderStyle = 'outset'; ");
+	$to->regLine("    document.getElementById('BtnSett').style.borderStyle = 'outset'; ");
+	$to->regLine('    obj.setAttribute("state", "0"); ');
+	$to->regLine('  } else { ');
+	$to->regLine('    main.style.display = "none"; ');
+	$to->regLine('    obj.innerHTML = site; ');
+	$to->regLine("    document.getElementById('BtnCP').style.borderStyle = 'outset'; ");
+	$to->regLine("    document.getElementById('BtnSett').style.borderStyle = 'inset'; ");
+	$to->regLine('    obj.setAttribute("state", "2"); ');
+	$to->regLine('  }');
+	$to->regLine('}');
 
-function ptbl($prow, $mynt, $score=0)
-{
-	global $eol;
-	echo '<table>' . $eol;
-	echo '<tr> <td> Kundnummer    </td> <td> ' . $prow[ 'pers_id' ] . '</td> <td> &nbsp;&nbsp;&nbsp; </td> <td> Guldmynt     </td> <td> ' . $mynt   . '</td></tr>' . $eol;
-	echo '<tr> <td> Namn          </td> <td> ' . $prow[ 'name'    ] . '</td> <td> &nbsp;&nbsp;&nbsp; </td> <td> Po&auml;ng   </td> <td> ' . $score  . '</td></tr>' . $eol;
-	echo '<tr> <td> Personnummer  </td> <td> ' . $prow[ 'pnr'     ] . '</td> <td> &nbsp;&nbsp;&nbsp; </td> <td> </td> <td> </td> </tr>' . $eol;
-	echo '<tr> <td> Medlem sedan  </td> <td> ' . $prow[ 'date'    ] . '</td> <td> &nbsp;&nbsp;&nbsp; </td> <td> </td> <td> </td> </tr>' . $eol;
-	echo '</table>' . $eol;
-}
+	$to->regLine('function setProgress(pro, cnv) {');
+	$to->regLine('  var ctx = cnv.getContext("2d");');
+	$to->regLine('  ctx.fillStyle = "#F2F3F7";');
+	$to->regLine('  ctx.fillRect(0,0,200,200);');
+	$to->regLine('  ctx.strokeStyle = "#000";');
+	$to->regLine('  ctx.lineWidth = 12;');
+	$to->regLine('  ctx.beginPath();');
+	$to->regLine('  ctx.arc(100, 100, 75, 1 * Math.PI, 2 * Math.PI);');
+	$to->regLine('  ctx.stroke(); ');
+	$to->regLine('  ctx.strokeStyle = "#fff";');
+	$to->regLine('  ctx.lineWidth = 10;');
+	$to->regLine('  ctx.beginPath();');
+	$to->regLine('  ctx.arc(100, 100, 75, 1.01 * Math.PI, 1.99 * Math.PI);');
+	$to->regLine('  ctx.stroke();');
 
-function all()
-{
-	global $emperator, $eol;
+	$to->regLine('  if (pro > 0) {');
+	$to->regLine('    ctx.strokeStyle = "#7fff7f";');
+	$to->regLine('    ctx.lineWidth = 10;');
+	$to->regLine('    ctx.beginPath();');
+	$to->regLine('    ctx.arc(100, 100, 75, 1.01 * Math.PI, (1.01+0.98*(pro/100.0)) * Math.PI);');
+	$to->regLine('    ctx.stroke();');
+	$to->regLine('  }');
 
-	$pnr = getparam('pnr');
+	$to->regLine('  ctx.fillStyle = "#7f7";');
+	$to->regLine('  ctx.lineWidth = 1;');
+	$to->regLine('  ctx.strokeStyle = "#000";');
+	$to->regLine('  ctx.font = "35px Arial";');
+	$to->regLine('  ctx.textAlign = "center"; ');
+	$to->regLine('  ctx.fillText( pro.toString() + " %", 100, 98); ');
+	$to->regLine('  ctx.strokeText( pro.toString() + " %", 100, 98); ');
+	$to->regLine('}');
+	
+	$scrn = $_SERVER["SCRIPT_NAME"];
+	$curPageName = substr($scrn, strrpos($scrn,"/")+1);  
+	
+	$to->regLine("function newpage(i) { ");
+	$href = $curPageName;
+	if ($noside)
+		$href = addKV($href, 'noside', 'true');
+	$href = addKV($href, 'pnr', getparam('pnr'));
+	$to->regLine("	window.location.href = '$href&at=' + i.toString(); ");
+	$to->regLine("}");
 
-	$query = "SELECT * FROM pers WHERE pnr='" . $pnr . "'";
+	$to->stopTag('script');
 
-	$res = mysqli_query($emperator, $query);
-	$prow = false;
-	$pid = 0;
-	$name = '';
+	echo '<title>' . $curPageName . " - " . $title . '</title>' . $eol;
+	echo '</head>' . $eol;
 
-	if ($prow = mysqli_fetch_array($res)) {
+	$to->startTag('body');
 
-		$query = 'SELECT * FROM data WHERE pers=' . $prow['pers_id'] . ' AND type=4';
-		$res = mysqli_query($emperator, $query);
-		$mynt = 0;
-		if ($row = mysqli_fetch_array($res))
-			$mynt = $row['value_a'];
+	$side = fopen("styrkant.txt", "r") or die("Unable to open file!");
 
-		ptbl($prow, $mynt);
-		$pid = $prow['pers_id'];
-		$name = $prow['name'];
-	} else {
-		echo convert('Denna person hittades inte i databasen.') . " <br />" . $eol;
-		return;
-	}
-
-	$dagens = array();
-	$ord = fopen("ord.txt", "r");
-	if ($ord)
+	if (!$noside)
 	{
-		while (true) {
-			$buffer = fgets($ord, 4096);
-			if (!$buffer) break;
-			$buffer = trim($buffer);
-			$len = strlen($buffer);
-			if ($len == 0) continue;
-			$cc = 0;
-			for ($idx=0; $idx<$len; ++$idx)
-				$cc = $cc ^ ord($buffer[$idx]);
-			if ($len != 105 || $cc != 8)
-				$dagens[] = $buffer;
+
+		$to->startTag ('div', 'class="sidenav"');
+		$to->startTag ('div', 'class="indent"');
+
+		$to->startTag ('div');
+		
+		$to->regLine("<button id='BtnSett' onClick='doChangeC()'> Settings </button>");
+		
+		if (getparam("sticp", "0") == "1") {
+			$to->regLine("<button id='BtnCP'  onClick='doChangeB()'> Min Sida </button>");
+		} else {
+			$to->regLine("<button id='BtnCP' onClick='doChangeB()'> Min Sida </button>");
 		}
+
+		//$to->regLine("<br class='hs'> <button id='BtnUtb' style='background-color:#5E5;font-size:15px;' onClick='doChangeD()'> &nbsp;Till utbildningen&nbsp; </button>");
+
+		$to->regline  ('<hr>');
+		$to->stopTag  ('div');
+
+		while (true) {
+			$buffer = fgets($side, 4096); // or break;
+			if (!$buffer) break;
+			$cmd = cmdparse($buffer);
+			if ($cmd->is_command) {
+				switch ($cmd->command) {
+					case 'text':
+						$txt = $cmd->rest;
+						$txt = str_replace('%name%', $data->name, $txt);
+						$txt = str_replace('%coin%', $data->mynt, $txt);
+						$txt = str_replace('%seg%',  $data->snum, $txt);
+						$txt = str_replace('%bat%',  $data->bnum, $txt);
+						$to->regLine($txt);
+						break;
+					case 'line':
+						$to->regLine('<hr color="' . $cmd->rest . '" />');
+						break;
+					case 'image':
+						if (count($cmd->params)>1) {
+							$to->regLine('<img width=' . $cmd->params[0] . '%  src="' . $cmd->params[1] . '" /> <br />');
+						} else {
+							$to->regLine('<img src="' . $cmd->params[0] . '" /> <br />');
+						}
+						break;
+					case 'name':
+						$to->regLine($prow['name']);
+						break;
+					case 'coin':
+						$to->regLine($mynt . ' mynt.');
+						break;
+					case 'seg':
+						$to->regLine($data->snum);
+						break;
+					case 'time':
+						$to->startTag('div', 'class="indent" id="TimerDisplay"');
+						$to->stopTag('div');
+						break;
+					case 'break':
+						$n = (int)$cmd->rest;
+						for ($i=0; $i<$n; ++$i)
+							$to->regLine('<br />');
+						break;
+					case 'sound':
+						// sound
+						break;
+					case 'prog':
+						$pro = 0; // (int)progress($data->snum, $maxseg);
+						if ($pro<0) $pro = 0;
+						if ($pro>100) $pro = 100;
+						$to->regLine('<canvas id="myCanvas" width="200" height="120" ></canvas>');
+						$to->startTag('script');
+						$to->regLine('var pro = ' . $pro . ';');
+						$to->regLine('var canvas = document.getElementById("myCanvas");');
+						$to->regLine('//setProgress(pro, canvas);');
+						$to->stopTag('script');
+						break;
+				}
+			}
+		}
+
+		$to->stopTag('div');
+		$to->stopTag('div');
+
 	}
+
+	fclose($side);
+
+	$to->startTag('div', 'id="main" class="main"');
+
+	$to->regLine('<br /> <img width=50%  src="logo.png" /> <br /> <br /> <br />');
 
 	$n = count($dagens);
 	if ($n > 0) {
 		$i = rand(0, $n-1);
-		echo '<br /><br />' . $eol;
-		echo '<center>' . $dagens[$i] . '</center>' . $eol;
-		echo '<br /><br />' . $eol;
+		$to->regLine('<center>' . $dagens[$i] . '</center>');;
 	}
 
-	$alldata = roundup($pnr, $pid, $name);
-	$atnum = 0;
+	$tit = array();
+
+	$n = count($tit);
+
+	$at = getparam("at", '0');
+
+	$to->scTag("hr");
+
+	ptbl($to, $prow, $mynt);
+
+	$to->scTag("hr");
+
+	$tit = array();
+
+	$at = getparam("at", '0');
+
+	$to->startTag("table");
+	$to->startTag("tr");
 	
-	//$flav = getparam('flav');
-	//if ($flav != "")
-	//	echo "<code> " . $flav . " </code> <br /> " . $eol;
+	$utb_file = fopen("utb.txt", "r");
+	$utb_ini = readini($utb_file);
+	fclose($utb_file);
+
+	$n = $utb_ini['general']['levels.count'];
+
+	$ww = $utb_ini['general']['button.width'];
+	$hh = $utb_ini['general']['button.height'];
+
+	for ($i=1; $i<=$n; ++$i)
+	{
+		$tit[] = 'Niv&aring; ' . $i;
+
+	}
+
+	$nb2 = "&nbsp;&nbsp;";
+	$i = 0;
+
+	$start = -1;
+	$stop = -1;
+
+	$alldata = roundup($data->pnr, $data->pid, $data->name, true);
+
+	foreach ($tit as $value) {
+		++$i;
+		$to->startTag("td");
+
+		$base = "<button class='ilbbaicl' ";
+		$base .= "style=' border-radius: 9px; ";
+
+		$seg = 'level.' . $i;
+		$img = $utb_ini[$seg]['img'];
+
+		$b1 = $utb_ini[$seg]['batt.start'];
+		$b2 = $utb_ini[$seg]['batt.stop'];
+
+		$b_tot = 0;
+		$b_don = 0;
+
+		foreach ($alldata as $block) {
+			$nn = $block->battNum;
+			if ($nn < $b1) continue;
+			if ($nn > $b2) continue;
+			++$b_tot;
+			if ($block->allDone)
+				++$b_don;
+		}
+
+		$base .= "background: url($img); width:" . $ww . "px; height:" . $hh . "px; ";
+
+		if ($at == $i) {
+			$base .= "border-style:inset;'";
+			$to->regLine($base . " > " . /* $nb2 .  $value . $nb2 . */ " </button>");
+			$start = $utb_ini[$seg]['batt.start'];
+			$stop = $utb_ini[$seg]['batt.stop'];
+		} else {
+			$base .= "'";
+			$to->regLine($base . " onclick='newpage(".$i.")' > " . /* $nb2 . $value . $nb2 . */ " </button>");
+		}
+		$to->scTag("br");
+		$to->regLine("<h3> " . $utb_ini[$seg]['name.major'] . " </h3>");
+		$to->regLine("<h9> " . $utb_ini[$seg]['name.minor'] . " </h9> <br>");
+
+		//$to->regLine("<small> " . $b_don . " / " . $b_tot . " </small> <br> " );
+
+		if ($b_tot >= 1) {
+			$pro = intval(($b_don * 100) / $b_tot);
+
+			$to->regLine(' <div class="progress"> ');
+			$to->regLine(' <div class="progress-bar" role="progressbar" aria-valuenow="' . $pro . '" aria-valuemin="0" aria-valuemax="100" style="width:' . $pro . '%"> ');
+			$to->regLine(' <span class="sr-only">' . $pro . '% Complete</span> </div> </div>  ');
+
+		}
+
+		$to->stopTag("td");
+	}
+
+	$to->stopTag("tr");
+
+	$to->stopTag("table");
+
+	$to->scTag("hr");
 
 	foreach ($alldata as $block) {
+
+		$nn = $block->battNum;
+		if ($nn < $start) continue;
+		if ($nn > $stop) continue;
+
+
 		echo '<button type="button" class="collapsible"> ' /* . $block->battNum */ . ' &nbsp; ';
 		echo '<img width="12px" height="12px" src="';
 		if ($block->someDone) {
@@ -170,8 +686,7 @@ function all()
 	}
 	//echo '</ul>';
 
-
-	echo '<script> ';
+		echo '<script> ';
 	echo ' document.getElementById("CntDiv' . $atnum . '").style.display = "block";';
 
 	echo <<<EOT
@@ -195,19 +710,29 @@ for (i = 0; i < coll.length; i++) {
 
 EOT;
 
+
+
+
+	$to->stopTag('div');
+
+	if (getparam("sticp", "0") == "1") {
+		$to->regLine('<div id="alt" class="xxx" state="0" >');
+		$to->regLine(getCP($data));
+		$to->regLine('</div>');
+	} else {
+		$to->regLine('<div id="alt" class="xxx"></div>');
+	}
+
+	$to->stopTag('body');
 }
 
-all();
 
-?>
+$local = "./";
+$common = "./";
 
-</body>
+index($local, $common);
+
+?> 
+
 </html>
-
-
-
-
-
-
-
 
