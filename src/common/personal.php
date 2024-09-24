@@ -623,7 +623,7 @@ EOT;
 		}
 		$to->scTag("br");
 		$to->regLine("<h3> " . $utb_ini[$seg]['name.major'] . " </h3>");
-		$to->regLine("<h9> " . $utb_ini[$seg]['name.minor'] . " </h9> <br>");
+		$to->regLine("<h5 class='regular'> " . $utb_ini[$seg]['name.minor'] . " </h5> <br>");
 
 		//$to->regLine("<small> " . $b_don . " / " . $b_tot . " </small> <br> " );
 

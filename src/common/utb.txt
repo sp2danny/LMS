@@ -6,37 +6,37 @@ button.height = 119
 [level.1]
 batt.start = 1
 batt.stop = 6
-img = lev1.png
-name.major = Niv&aring; Ett
-name.minor = Meditation
+img = A1.3.jpeg
+name.major = Nivå 1: <br> Förstå dig själv
+name.minor = Du är hårdkodad
 
 [level.2]
 batt.start = 7
 batt.stop = 13
-img = lev1.png
-name.major = Niv&aring; Tv&aring;
-name.minor = Meditation
+img = A2.jpeg
+name.major = Nivå 2:<br> Bli ditt Bästa jag
+name.minor = Första steget mot frihet
 
 [level.3]
 batt.start = 14
 batt.stop = 18
-img = lev1.png
-name.major = Niv&aring; Tre
-name.minor = Meditation
+img = A3.jpeg
+name.major = Nivå 3:<br> Bli omtyckt
+name.minor = Världsklass i gruppen
 
 [level.4]
 batt.start = 19
 batt.stop = 24
-img = lev1.png
-name.major = Niv&aring; Fyra
-name.minor = Meditation
+img = A4.2.jpeg
+name.major = Nivå 4:<br> Din egen UGL
+name.minor = Bredda din självmedvetenhet
 
 [level.5]
 batt.start = 25
 batt.stop = 99
-img = lev1.png
-name.major = Niv&aring; Fem
-name.minor = Meditation
+img = A5.jpeg
+name.major = Nivå 5:<br> Vägen till din frihet
+name.minor = Nå dina sanna mål
 
 
 
