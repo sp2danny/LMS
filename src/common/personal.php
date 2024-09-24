@@ -213,8 +213,6 @@ function index($local, $common)
 	
 	echo <<<EOT
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -254,12 +252,6 @@ EOT;
 
 	echo <<<EOT
 
-		</style>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-<style>
 
 button.ilbbaicl {
   font-size: 24px;
@@ -301,12 +293,26 @@ td.visitab {
   border-collapse: collapse;
 }
 
+.progbar {
+  border: 1px solid grey;
+  border-radius: 5px;
+  color : #000;
+  background-color : #f1f1f1;
+}
+
+.auto-container {
+  content : "";
+  display : table;
+  clear : both;
+}
+
+
 p.allc
 {
-	text-align: center;
-	justify-content: center;
-	text-align-vertical
-	vertical-align: middle;
+  text-align: center;
+  justify-content: center;
+  text-align-vertical;
+  vertical-align: middle;
 }
 
 table.wtelf {
@@ -565,7 +571,7 @@ EOT;
 	$to->stopTag('td');
 	$to->startTag('td');
 	
-	$to->scTag("img", "src='niva_s.jpg'");
+	$to->scTag("img", "src='niva_sc.png'");
 
 	$to->stopTag('td');
 	$to->stopTag('tr');
@@ -629,6 +635,8 @@ EOT;
 				++$b_don;
 		}
 
+		$to->regLine(' <div class="auto-container"> ');
+
 		$base .= "background: url($img); background-size: cover; width:" . $ww . "px; height:" . $hh . "px; ";
 
 		if ($at == $i) {
@@ -641,6 +649,7 @@ EOT;
 			$to->regLine($base . " onclick='newpage(".$i.")' > " . /* $nb2 . $value . $nb2 . */ " </button>");
 		}
 		$to->scTag("br");
+
 		$to->regLine("<h3> " . $utb_ini[$seg]['name.major'] . " </h3>");
 		$to->regLine("<h5 class='regular'> " . $utb_ini[$seg]['name.minor'] . " </h5> <br>");
 
@@ -648,12 +657,17 @@ EOT;
 
 		if ($b_tot >= 1) {
 			$pro = intval(($b_don * 100) / $b_tot);
+			$col = $utb_ini[$seg]['color'];
 
-			$to->regLine(' <div class="progress"> ');
-			$to->regLine(' <div class="progress-bar" role="progressbar" aria-valuenow="' . $pro . '" aria-valuemin="0" aria-valuemax="100" style="width:' . $pro . '%"> ');
-			$to->regLine(' <span class="sr-only">' . $pro . '% Complete</span> </div> </div>  ');
+			//$to->regLine(" <progress value='$pro' max='100' width='" . $ww . "px'  style='bar-color: $col' > </progress> <br>  ");
+
+			$to->regLine("<div class='progbar' >");
+			$to->regLine("<div style='background-color : $col; border-radius: 5px; height:18px; width:$pro%;' > </div> ");
+			$to->regLine("</div><br>");
 
 		}
+
+		$to->regLine("</div>");
 
 		$to->stopTag("td");
 	}
