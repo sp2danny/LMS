@@ -114,7 +114,7 @@ function survOut($to, $tn, $filt)
 	}
 	
 	if ($n<=0) {
-		$to->regLine(' --- inga surveys ännu ---');
+		$to->regLine(' --- inga surveys Ã¤nnu ---');
 	} else if ($n==1) {
 		$lnk = "onesurv.php?sid=$sid&seq=$seq&pid=$pid&st=$tn&filt=$filt";
 		debug_log('embed link : ' . $lnk);
@@ -230,10 +230,10 @@ EOT;
 		}
 		body {
 			background-color: #ffffff;
-			margin-top: 50px;
-			margin-right: 450px;
-			margin-left: 200px;
-			margin-bottom: 75px;
+			margin-top: 30px;
+			margin-right: 440px;
+			margin-left: 30px;
+			margin-bottom: 55px;
 		}
 EOT;
 	} else {
@@ -286,8 +286,8 @@ div.hdr {
 }
 
 table tr td {
-  padding-left:   20px;
-  padding-right:  20px;
+  padding-left:   5px;
+  padding-right:  5px;
   padding-top:    1px;
   padding-bottom: 1px;
 }
@@ -551,7 +551,26 @@ EOT;
 
 	$to->scTag("hr");
 
+	$to->startTag('table');
+	$to->startTag('tr');
+	$to->startTag('td');
+
 	ptbl($to, $prow, $mynt);
+	
+	$to->stopTag('td');
+	$to->startTag('td');
+	
+	$to->regLine('&nbsp;&nbsp;&nbsp;');
+	
+	$to->stopTag('td');
+	$to->startTag('td');
+	
+	$to->scTag("img", "src='niva_s.jpg'");
+
+	$to->stopTag('td');
+	$to->stopTag('tr');
+	$to->stopTag('table');
+	
 
 	$to->scTag("hr");
 
