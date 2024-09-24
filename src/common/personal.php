@@ -59,16 +59,17 @@ function to_link($alldata, $str)
 }
 
 function getCP($data) {
-	$cp_site = 'https://mind2excellence.se/site/common/minsida.php?noside=true';
+	$cp_site = 'https://mind2excellence.se/site/common/minsida.php';
 	if ($data->pid != 0) {
 		$cp_site = addKV($cp_site, 'pid', $data->pid);
 	}
 	if ($data->pnr != 0) {
 		$cp_site = addKV($cp_site, 'pnr', $data->pnr);
 	}
-	// <iframe src="some.pdf" style="min-height:100vh;width:100%" frameborder="0"></iframe>
-	return ' <iframe src="' . $cp_site . '" style="min-height:100vh;width:100%" frameborder="0" > ';
+	return $cp_site ;
 }
+
+
 
 function getSett($data) {
 	$cp_site = 'https://mind2excellence.se/site/common/cp_settings.php';
@@ -362,22 +363,7 @@ EOT;
 	$to->startTag('script');
 
 	$to->regLine('function doChangeB() { ');
-	$to->regLine('  var obj = document.getElementById("alt"); ');
-	$to->regLine('  var main = document.getElementById("main"); ');
-	$to->regLine("  site = '" . getCP($data) . "'; ");
-	$to->regLine('  if(obj.getAttribute("state") == "1") { ');
-	$to->regLine('    main.style.display = "block"; ');
-	$to->regLine('    obj.innerHTML = ""; ');
-	$to->regLine("    document.getElementById('BtnCP').style.borderStyle = 'outset'; ");
-	$to->regLine("    document.getElementById('BtnSett').style.borderStyle = 'outset'; ");
-	$to->regLine('    obj.setAttribute("state", "0"); ');
-	$to->regLine('  } else { ');
-	$to->regLine('    main.style.display = "none"; ');
-	$to->regLine('    obj.innerHTML = site; ');
-	$to->regLine("    document.getElementById('BtnCP').style.borderStyle = 'inset'; ");
-	$to->regLine("    document.getElementById('BtnSett').style.borderStyle = 'outset'; ");
-	$to->regLine('    obj.setAttribute("state", "1"); ');
-	$to->regLine('  }');
+	$to->regLine("  window.location.href = '" . getCP($data) . "'; ");
 	$to->regLine('}');
 
 	$to->regLine('function doChangeC() { ');
