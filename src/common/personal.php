@@ -610,7 +610,7 @@ EOT;
 				++$b_don;
 		}
 
-		$base .= "background: url($img); width:" . $ww . "px; height:" . $hh . "px; ";
+		$base .= "background: url($img); background-size: cover; width:" . $ww . "px; height:" . $hh . "px; ";
 
 		if ($at == $i) {
 			$base .= "border-style:inset;'";
