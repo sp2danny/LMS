@@ -603,6 +603,7 @@ EOT;
 	$stop = -1;
 
 	$alldata = roundup($data->pnr, $data->pid, $data->name, true);
+	$first = true;
 
 	foreach ($tit as $value) {
 		++$i;
@@ -628,6 +629,17 @@ EOT;
 			if ($block->allDone)
 				++$b_don;
 		}
+
+		$to->startTag("center");
+		if ($b_tot == $b_don) {
+			$to->regLine("<img src='corr.png' /> <br /> ");
+		} else if ($first) {
+			$to->regLine("<img src='here.png' style='transform: rotate(90deg);' /> <br /> ");
+			$first = false;
+		} else {
+			$to->regLine("<img src='blank.png' /> <br /> ");
+		}
+		$to->stopTag("center");
 
 		$to->regLine(' <div class="auto-container"> ');
 
