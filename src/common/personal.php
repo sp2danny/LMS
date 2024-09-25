@@ -127,6 +127,14 @@ function survOut($to, $tn, $filt)
 	}
 }
 
+function pagename($ns, $cpn) {
+	$href = $cpn;
+	if ($ns)
+		$href = addKV($href, 'noside', 'true');
+	$href = addKV($href, 'pnr', getparam('pnr'));
+	return $href;
+}
+
 function index($local, $common)
 {
 	global $RETURNTO;
@@ -419,13 +427,13 @@ EOT;
 	
 	$scrn = $_SERVER["SCRIPT_NAME"];
 	$curPageName = substr($scrn, strrpos($scrn,"/")+1);  
-	
+
 	$to->regLine("function newpage(i) { ");
 	$href = $curPageName;
 	if ($noside)
 		$href = addKV($href, 'noside', 'true');
 	$href = addKV($href, 'pnr', getparam('pnr'));
-	$to->regLine("	window.location.href = '$href&at=' + i.toString(); ");
+	$to->regLine("	window.location.href = '" . pagename($noside, $curPageName) . "&at=' + i.toString();");
 	$to->regLine("}");
 
 	$to->stopTag('script');
@@ -643,11 +651,13 @@ EOT;
 
 		if ($b_tot >= 1) {
 			$pro = intval(($b_don * 100) / $b_tot);
+			if ($pro<=0) $pro = 1;
 			$col = $utb_ini[$seg]['color'];
+			$bkg = $utb_ini[$seg]['background'];
 
 			//$to->regLine(" <progress value='$pro' max='100' width='" . $ww . "px'  style='bar-color: $col' > </progress> <br>  ");
 
-			$to->regLine("<div class='progbar' >");
+			$to->regLine("<div class='progbar' style='background-color : $bkg;' >");
 			$to->regLine("<div style='background-color : $col; border-radius: 5px; height:18px; width:$pro%;' > </div> ");
 			$to->regLine("</div><br>");
 
