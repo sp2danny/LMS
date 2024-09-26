@@ -376,11 +376,6 @@ EOT;
 
 	$to->startTag('script');
 
-	if (getparam("at", '0') != 0)
-	{
-		$to->regLine('window.scrollTo(0, 500);');
-	}
-
 	$to->regLine('function doChangeB() { ');
 	$to->regLine("  window.location.href = '" . getCP($data) . "'; ");
 	$to->regLine('}');
@@ -753,9 +748,17 @@ EOT;
 	}
 	//echo '</ul>';
 
+
+
 	echo '<script> ';
 	if ($atnum != -1)
 		echo ' document.getElementById("CntDiv' . $atnum . '").style.display = "block";';
+
+	if (getparam("at", '0') != 0)
+	{
+		$to->regLine('window.scrollTo(0, 850);');
+	}
+
 
 	echo <<<EOT
 
