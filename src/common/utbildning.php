@@ -1,5 +1,5 @@
 
-<!-- inlude personal.php -->
+<!-- inlude utbildning.php -->
 
 <?php
 
@@ -68,8 +68,6 @@ function getCP($data) {
 	}
 	return $cp_site ;
 }
-
-
 
 function getSett($data) {
 	$cp_site = 'https://mind2excellence.se/site/common/cp_settings.php';
@@ -353,20 +351,14 @@ td.wtelf {
   background-color: #EEE;
 }
 .content {
-  padding: 3px 3px;
+  padding: 3px 8px;
   display: none;
   overflow: hidden;
   background-color: white;
 }
 
 br.hs {
-  line-height: 9px;
-}
-
-ul, li {
-  font-size: 15px;
-  padding: 3px;
-  margin-left: 22px;
+	line-height: 9px;
 }
 
 </style>
@@ -704,13 +696,12 @@ EOT;
 
 	$to->scTag("hr");
 
-	$atnum = -1;
-
 	foreach ($alldata as $block) {
 
 		$nn = $block->battNum;
 		if ($nn < $start) continue;
 		if ($nn > $stop) continue;
+
 
 		echo '<button type="button" class="collapsible"> ' /* . $block->battNum */ . ' &nbsp; ';
 		echo '<img width="12px" height="12px" src="';
@@ -726,20 +717,14 @@ EOT;
 		echo $block->name . ' </button>';
 		echo '<div class="content" id="CntDiv' . $block->battNum .'" >';
 		echo '<ul style="list-style-type:none">';
-		$frst = true;
 		foreach ($block->lines as $line) {
 			echo '<li> <img width="12px" height="12px" src="';
-			if ($line->hasDone) {
+			if($line->hasDone)
 				echo "corr";
-			} else if ($line->isLink) {
-				if ($frst)
-					echo 'here';
-				else
-					echo "blank";
-				$frst = false;
-			} else {
+			else if ($line->isLink)
+				echo 'here';
+			else
 				echo "blank";
-			}
 			echo '.png" > ';
 			if ($line->isLink)
 				echo '<a href="' . $line->link . '" > ';
@@ -749,13 +734,11 @@ EOT;
 			echo '</li>';
 		}
 		echo '</ul></div>';
-		echo "\n";
 	}
 	//echo '</ul>';
 
-	echo '<script> ';
-	if ($atnum != -1)
-		echo ' document.getElementById("CntDiv' . $atnum . '").style.display = "block";';
+		echo '<script> ';
+	echo ' document.getElementById("CntDiv' . $atnum . '").style.display = "block";';
 
 	echo <<<EOT
 
