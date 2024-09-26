@@ -48,7 +48,7 @@ function to_link($alldata, $str)
 	$bat = substr($str, 0, $p);
 	$seg = substr($str, $p+1);
 	
-	foreach ($alldata as $block) {		
+	foreach ($alldata as $block) {
 		if ($block->battNum != $bat) continue;
 		foreach ($block->lines as $line) {
 			if ($line->segment != $seg) continue;
@@ -614,7 +614,7 @@ EOT;
 		++$i;
 		$to->startTag("td");
 
-		$base = "<button class='ilbbaicl' ";
+		$base = "<div class='ilbbaicl' ";
 		$base .= "style=' border-radius: 9px; ";
 
 		$seg = 'level.' . $i;
@@ -635,6 +635,7 @@ EOT;
 				++$b_don;
 		}
 
+
 		$to->startTag("center");
 		if ($b_tot == $b_don) {
 			$to->regLine("<img src='corr.png' /> <br /> ");
@@ -646,18 +647,22 @@ EOT;
 		}
 		$to->stopTag("center");
 
-		$to->regLine(' <div class="auto-container"> ');
+		$pn = pagename($noside, "personal.php");
+		$pn = addKV($pn, "at", $i);
+		$to->startTag("a", "href='$pn'");
+		$to->startTag('div', 'class="auto-container"');
 
 		$base .= "background: url($img); background-size: cover; width:" . $ww . "px; height:" . $hh . "px; ";
 
 		if ($at == $i) {
 			$base .= "border-style:inset;'";
-			$to->regLine($base . " > " . /* $nb2 .  $value . $nb2 . */ " </button>");
+			$to->regLine($base . " > " . /* $nb2 .  $value . $nb2 . */ " </div>");
 			$start = $utb_ini[$seg]['batt.start'];
 			$stop = $utb_ini[$seg]['batt.stop'];
 		} else {
 			$base .= "'";
-			$to->regLine($base . " onclick='newpage(".$i.")' > " . /* $nb2 . $value . $nb2 . */ " </button>");
+			//$to->regLine($base . " onclick='newpage(".$i.")' > " . /* $nb2 . $value . $nb2 . */ " </button>");
+			$to->regLine($base . " > </div>");
 		}
 		$to->scTag("br");
 
@@ -680,7 +685,9 @@ EOT;
 
 		}
 
-		$to->regLine("</div>");
+		$to->stopTag("div");
+
+		$to->stopTag("a");
 
 		$to->stopTag("td");
 	}
