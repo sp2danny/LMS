@@ -1,9 +1,12 @@
 
-<!-- inlude utbildning.php -->
+
+
+
+<!-- inlude kurser.php -->
 
 <?php
 
-$RETURNTO = 'utbildning';
+$RETURNTO = 'kurser';
 
 include_once 'process_cmd.php';
 include_once 'cmdparse.php';
@@ -16,6 +19,14 @@ include_once 'tagOut.php';
 include_once 'connect.php';
 include_once 'roundup.php';
 include_once 'util.php';
+
+function t($n)
+{
+	$str = "";
+	for ($i=0; $i<$n; ++$i)
+		$str = $str . "\t";
+	return $str;
+}
 
 function ptbl($to, $prow, $mynt, $score=0)
 {
@@ -115,7 +126,7 @@ function survOut($to, $tn, $filt)
 	}
 	
 	if ($n<=0) {
-		$to->regLine(' --- inga surveys Ã¤nnu ---');
+		$to->regLine(' --- inga surveys ännu ---');
 	} else if ($n==1) {
 		$lnk = "onesurv.php?sid=$sid&seq=$seq&pid=$pid&st=$tn&filt=$filt";
 		debug_log('embed link : ' . $lnk);
@@ -176,20 +187,6 @@ function index($local, $common)
 	}
 	
 	$data->pid = $pid;
-	
-	for ($qi=11; $qi<20; ++$qi) {
-		$query = "SELECT value_c FROM data WHERE pers=" . $pid . " AND type=" . $qi;
-		$res = mysqli_query($emperator, $query);
-		if ($res) {
-			if ($row = mysqli_fetch_array($res)) {
-				$srp = new SRP;
-				$srp->str = "%get-" . $qi . "%";
-				$srp->repl = $row['value_c'];
-				$data->replst[] = $srp;
-				echo '<!-- ' . 'storing ' . $srp->str . ' as ' . $srp->repl . ' -->';
-			}
-		}
-	}
 
 	$eol = "\n";
 	
@@ -212,8 +209,7 @@ function index($local, $common)
 	}
 	$data->dagens = $dagens;
 
-	
-	$title = 'Utbildningen';
+	$title = 'Kurser';
 
 	$data->name = $name;
 	$data->mynt = $mynt;
@@ -576,179 +572,8 @@ EOT;
 	$to->stopTag('td');
 	$to->stopTag('tr');
 	$to->stopTag('table');
-	
 
 	$to->scTag("hr");
-
-	$tit = array();
-
-	$at = getparam("at", '0');
-
-	$to->startTag("table");
-	$to->startTag("tr");
-	
-	$utb_file = fopen("utb.txt", "r");
-	$utb_ini = readini($utb_file);
-	fclose($utb_file);
-
-	$n = $utb_ini['general']['levels.count'];
-
-	$ww = $utb_ini['general']['button.width'];
-	$hh = $utb_ini['general']['button.height'];
-
-	for ($i=1; $i<=$n; ++$i)
-	{
-		$tit[] = 'Niv&aring; ' . $i;
-
-	}
-
-	$nb2 = "&nbsp;&nbsp;";
-	$i = 0;
-
-	$start = -1;
-	$stop = -1;
-
-	$alldata = roundup($data->pnr, $data->pid, $data->name, true);
-	$first = true;
-
-	foreach ($tit as $value) {
-		++$i;
-		$to->startTag("td");
-
-		$base = "<div class='ilbbaicl' ";
-		$base .= "style=' border-radius: 9px; ";
-
-		$seg = 'level.' . $i;
-		$img = $utb_ini[$seg]['img'];
-
-		$b1 = $utb_ini[$seg]['batt.start'];
-		$b2 = $utb_ini[$seg]['batt.stop'];
-
-		$b_tot = 0;
-		$b_don = 0;
-
-		foreach ($alldata as $block) {
-			$nn = $block->battNum;
-			if ($nn < $b1) continue;
-			if ($nn > $b2) continue;
-			++$b_tot;
-			if ($block->allDone)
-				++$b_don;
-		}
-
-
-		$to->startTag("center");
-		if ($b_tot == $b_don) {
-			$to->regLine("<img src='corr.png' /> <br /> ");
-		} else if ($first) {
-			$to->regLine("<img src='here.png' style='transform: rotate(90deg);' /> <br /> ");
-			$first = false;
-		} else {
-			$to->regLine("<img src='blank.png' /> <br /> ");
-		}
-		$to->stopTag("center");
-
-		$pn = pagename($noside, "personal.php");
-		$pn = addKV($pn, "at", $i);
-		$to->startTag("a", "href='$pn'");
-		$to->startTag('div', 'class="auto-container"');
-
-		$base .= "background: url($img); background-size: cover; width:" . $ww . "px; height:" . $hh . "px; ";
-
-		if ($at == $i) {
-			$base .= "border-style:inset;'";
-			$to->regLine($base . " > " . /* $nb2 .  $value . $nb2 . */ " </div>");
-			$start = $utb_ini[$seg]['batt.start'];
-			$stop = $utb_ini[$seg]['batt.stop'];
-		} else {
-			$base .= "'";
-			//$to->regLine($base . " onclick='newpage(".$i.")' > " . /* $nb2 . $value . $nb2 . */ " </button>");
-			$to->regLine($base . " > </div>");
-		}
-		$to->scTag("br");
-
-		$to->regLine("<h3> " . $utb_ini[$seg]['name.major'] . " </h3>");
-		$to->regLine("<h5 class='regular'> " . $utb_ini[$seg]['name.minor'] . " </h5> <br>");
-
-		//$to->regLine("<small> " . $b_don . " / " . $b_tot . " </small> <br> " );
-
-		if ($b_tot >= 1) {
-			$pro = intval(($b_don * 100) / $b_tot);
-			if ($pro<=0) $pro = 1;
-			$col = $utb_ini[$seg]['color'];
-			$bkg = $utb_ini[$seg]['background'];
-
-			//$to->regLine(" <progress value='$pro' max='100' width='" . $ww . "px'  style='bar-color: $col' > </progress> <br>  ");
-
-			$to->regLine("<div class='progbar' style='background-color : $bkg;' >");
-			$to->regLine("<div style='background-color : $col; border-radius: 5px; height:18px; width:$pro%;' > </div> ");
-			$to->regLine("</div><br>");
-
-		}
-
-		$to->stopTag("div");
-
-		$to->stopTag("a");
-
-		$to->stopTag("td");
-	}
-
-	$to->stopTag("tr");
-
-	$to->stopTag("table");
-
-	$to->scTag("hr");
-
-	$atnum = -1;
-
-	foreach ($alldata as $block) {
-
-		$nn = $block->battNum;
-		if ($nn < $start) continue;
-		if ($nn > $stop) continue;
-
-		echo '<button type="button" class="collapsible"> ' /* . $block->battNum */ . ' &nbsp; ';
-		echo '<img width="12px" height="12px" src="';
-		if ($block->someDone) {
-			echo 'here';
-			$atnum = $block->atnum;
-		}
-		else if ($block->allDone)
-			echo "corr";
-		else
-			echo "blank";
-		echo '.png" > ';
-		echo $block->name . ' </button>';
-		echo '<div class="content" id="CntDiv' . $block->battNum .'" >';
-		echo '<ul style="list-style-type:none">';
-		$frst = true;
-		foreach ($block->lines as $line) {
-			echo '<li> <img width="12px" height="12px" src="';
-			if ($line->hasDone) {
-				echo "corr";
-			} else if ($line->isLink) {
-				if ($frst)
-					echo 'here';
-				else
-					echo "blank";
-				$frst = false;
-			} else {
-				echo "blank";
-			}
-			echo '.png" > ';
-			if ($line->isLink)
-				echo '<a href="' . $line->link . '" > ';
-			echo $line->name;
-			if ($line->isLink)
-				echo ' </a> ';
-			echo '</li>';
-		}
-		echo '</ul></div>';
-		echo "\n";
-	}
-	//echo '</ul>';
-
-
 
 	echo '<script> ';
 	if ($atnum != -1)
@@ -784,7 +609,58 @@ EOT;
 
 
 
-	$to->stopTag('div');
+
+	$pr_title_arr = [];
+	$pr_desc_arr = [];
+	$pr_price_arr = [];
+	$pr_img_arr = [];
+
+
+	$query = "SELECT * FROM prod";
+	$res = mysqli_query( $emperator, $query );
+	$n = 0;
+	if ($res) while ($row = mysqli_fetch_array($res)) {
+		$pr_title_arr[] = $row['name'];
+		$pr_desc_arr[]  = $row['pdesc'];
+		$pr_price_arr[] = $row['price'];
+		$pr_img_arr[]   = $row['image'];
+		++$n;
+	}
+
+	echo " <br> \n";
+	echo " <table> <tr> ";
+	for ($i=0; $i<$n; ++$i) {
+		echo " <td> <h3> ";
+		echo $pr_title_arr[$i];
+		echo " </h3> </td> ";
+	}
+	echo " </tr> <tr> ";
+	for ($i=0; $i<$n; ++$i) {
+		echo " <td style='padding-right:12px' > <img width='300px' src='/article/";
+		echo $pr_img_arr[$i];
+		echo "' > </td> ";
+	}
+	echo " </tr> <tr> ";
+	for ($i=0; $i<$n; ++$i) {
+		echo " <td style='padding-right:12px' > ";
+		echo str_replace("\r\n", " <br> ", $pr_desc_arr[$i]);
+		echo " <br> <br> </td> ";
+	}
+
+	echo " </tr> <tr> ";
+	for ($i=0; $i<$n; ++$i) {
+		echo " <td> Ord pris <br> ";
+		echo " <div style='color:red' > ";
+		echo $pr_price_arr[$i];
+		echo " </div> ";
+		echo " </td> ";
+	}
+
+	echo " </tr> </table> <br> \n";
+
+
+
+
 
 	if (getparam("sticp", "0") == "1") {
 		$to->regLine('<div id="alt" class="xxx" state="0" >');
