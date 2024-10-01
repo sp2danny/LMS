@@ -489,9 +489,9 @@ EOT;
 			$to->regLine("<button id='BtnCP' onClick='doChangeB()'> Min Sida </button>");
 		}
 
-		$to->regLine("<br class='hs'> <button id='BtnUtb' style='background-color:#5E5;font-size:15px;' onClick='doChangeD()'> &nbsp;Till utbildningen&nbsp; </button>");
+		$to->regLine("<br class='hs'> <button id='BtnUtb' style='background-color:#5E5;font-size:15px;' onClick='doChangeD()'> &nbsp;Min Utbildning&nbsp; </button>");
 
-		$to->regLine("<br class='hs'> <button id='BtnUtb' style='background-color:#5E5;font-size:15px;' onClick='doChangeE()'> &nbsp;Kurser&nbsp; </button>");
+		$to->regLine("<br class='hs'> <button id='BtnKrs' style='background-color:#5E5;font-size:15px;' onClick='doChangeE()'> &nbsp;Våra Event och Kurser&nbsp; </button>");
 
 		$to->regline  ('<hr>');
 		$to->stopTag  ('div');
@@ -509,6 +509,12 @@ EOT;
 						$txt = str_replace('%seg%',  $data->snum, $txt);
 						$txt = str_replace('%bat%',  $data->bnum, $txt);
 						$to->regLine($txt);
+						break;
+					case 'link':
+						$lnk = $cmd->params[0];
+						$to->startTag("a", "href=$lnk");
+						$to->regLine($cmd->params[1]);
+						$to->stopTag("a");
 						break;
 					case 'line':
 						$to->regLine('<hr color="' . $cmd->rest . '" />');

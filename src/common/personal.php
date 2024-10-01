@@ -8,12 +8,16 @@ $url = "utbildning.php";
 
 $pnr = getparam('pnr');
 $pid = getparam('pid');
+$at  = getparam('at');
 
-if ($pid !== false) {
+if ($pid != "") {
 	$url = addKV($url, 'pid', $pid);
 }
-if ($pnr !== false) {
+if ($pnr != "") {
 	$url = addKV($url, 'pnr', $pnr);
+}
+if ($at != "") {
+	$url = addKV($url, 'at', $at);
 }
 
 echo "<html><head>\n";

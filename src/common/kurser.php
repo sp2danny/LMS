@@ -80,7 +80,27 @@ function getCP($data) {
 	return $cp_site ;
 }
 
+function getUtb($data) {
+	$cp_site = 'https://mind2excellence.se/site/common/personal.php';
+	if ($data->pid!=0) {
+		$cp_site = addKV($cp_site, 'pid', $data->pid);
+	}
+	if ($data->pnr!=0) {
+		$cp_site = addKV($cp_site, 'pnr', $data->pnr);
+	}
+	return $cp_site ;
+}
 
+function getKurs($data) {
+	$cp_site = 'https://mind2excellence.se/site/common/kurser.php';
+	if ($data->pid!=0) {
+		$cp_site = addKV($cp_site, 'pid', $data->pid);
+	}
+	if ($data->pnr!=0) {
+		$cp_site = addKV($cp_site, 'pnr', $data->pnr);
+	}
+	return $cp_site ;
+}
 
 function getSett($data) {
 	$cp_site = 'https://mind2excellence.se/site/common/cp_settings.php';
@@ -395,6 +415,14 @@ EOT;
 	$to->regLine('  }');
 	$to->regLine('}');
 
+	$to->regLine('function doChangeD() { ');
+	$to->regLine("  window.location.href = '" . getUtb($data) . "'; ");
+	$to->regLine('}');
+
+	$to->regLine('function doChangeE() { ');
+	$to->regLine("  window.location.href = '" . getKurs($data) . "'; ");
+	$to->regLine('}');
+
 	$to->regLine('function setProgress(pro, cnv) {');
 	$to->regLine('  var ctx = cnv.getContext("2d");');
 	$to->regLine('  ctx.fillStyle = "#F2F3F7";');
@@ -463,7 +491,10 @@ EOT;
 			$to->regLine("<button id='BtnCP' onClick='doChangeB()'> Min Sida </button>");
 		}
 
-		//$to->regLine("<br class='hs'> <button id='BtnUtb' style='background-color:#5E5;font-size:15px;' onClick='doChangeD()'> &nbsp;Till utbildningen&nbsp; </button>");
+		$to->regLine("<br class='hs'> <button id='BtnUtb' style='background-color:#5E5;font-size:15px;' onClick='doChangeD()'> &nbsp;Min Utbildning&nbsp; </button>");
+
+		//$to->regLine("<br class='hs'> <button id='BtnKrs' style='background-color:#5E5;font-size:15px;' onClick='doChangeE()'> &nbsp;Våra Event och Kurser&nbsp; </button>");
+
 
 		$to->regline  ('<hr>');
 		$to->stopTag  ('div');
@@ -481,6 +512,12 @@ EOT;
 						$txt = str_replace('%seg%',  $data->snum, $txt);
 						$txt = str_replace('%bat%',  $data->bnum, $txt);
 						$to->regLine($txt);
+						break;
+					case 'link':
+						$lnk = $cmd->params[0];
+						$to->startTag("a", "href=$lnk");
+						$to->regLine($cmd->params[1]);
+						$to->stopTag("a");
 						break;
 					case 'line':
 						$to->regLine('<hr color="' . $cmd->rest . '" />');
