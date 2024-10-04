@@ -784,8 +784,6 @@ EOT;
 	}
 	//echo '</ul>';
 
-
-
 	echo '<script> ';
 	if ($atnum != -1)
 		echo ' document.getElementById("CntDiv' . $atnum . '").style.display = "block";';
@@ -822,8 +820,6 @@ function(e){ LiveAgent.createButton('d7903992', e); });
 <!-- End of LiveAgent integration script -->
 
 EOT;
-
-
 
 
 	$to->stopTag('div');
