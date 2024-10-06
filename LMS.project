@@ -77,6 +77,7 @@
     <File Name="src/klarna/coach.html"/>
   </VirtualDirectory>
   <VirtualDirectory Name="common">
+    <File Name="src/common/kurser.php"/>
     <File Name="src/common/utbildning.php"/>
     <File Name="src/common/main-v03.css"/>
     <File Name="src/common/allsurv.php"/>
