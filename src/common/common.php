@@ -369,7 +369,14 @@ function spiderMouseMove(event)
 		border-collapse:separate; 
 		border-spacing: 0 1em;
 	}
-  
+
+	.main {
+		margin-left: 160px;  /* Same as the width of the sidenav */
+		margin-right: 260px;  /* Same as the width of the sidenav */
+		font-size: 28px; /* Increased text to enable scrolling */
+		padding: 0px 10px;
+	}
+
 </style>
 
 <?php
