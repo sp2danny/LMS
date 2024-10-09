@@ -39,7 +39,7 @@ function addKV($lnk, $k, $v)
 }
 
 function getCP($data) {
-	$cp_site = 'https://mind2excellence.se/site/common/minsida.php?noside=true';
+	$cp_site = 'https://www.mind2excellence.se/site/common/minsida.php?noside=true';
 	$cp_have = false;
 	if ($data->pid != 0) {
 		$cp_site = addKV($cp_site, 'pid', $data->pid);
@@ -52,7 +52,7 @@ function getCP($data) {
 }
 
 function getSett($data) {
-	$cp_site = 'https://mind2excellence.se/site/common/cp_settings.php';
+	$cp_site = 'https://www.mind2excellence.se/site/common/cp_settings.php';
 	$cp_have = false;
 	if ($data->pid!=0) {
 		$cp_site .= $cp_have ? "&" : "?";
@@ -68,7 +68,7 @@ function getSett($data) {
 }
 
 function getUtb($data) {
-	$cp_site = 'https://mind2excellence.se/site/common/personal.php';
+	$cp_site = 'https://www.mind2excellence.se/site/common/utbildning.php';
 	if ($data->pid!=0) {
 		$cp_site = addKV($cp_site, 'pid', $data->pid);
 	}

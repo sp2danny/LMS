@@ -70,7 +70,7 @@ function to_link($alldata, $str)
 }
 
 function getCP($data) {
-	$cp_site = 'https://mind2excellence.se/site/common/minsida.php';
+	$cp_site = 'https://www.mind2excellence.se/site/common/minsida.php';
 	if ($data->pid != 0) {
 		$cp_site = addKV($cp_site, 'pid', $data->pid);
 	}
@@ -81,7 +81,7 @@ function getCP($data) {
 }
 
 function getUtb($data) {
-	$cp_site = 'https://mind2excellence.se/site/common/personal.php';
+	$cp_site = 'https://www.mind2excellence.se/site/common/personal.php';
 	if ($data->pid!=0) {
 		$cp_site = addKV($cp_site, 'pid', $data->pid);
 	}
@@ -92,7 +92,7 @@ function getUtb($data) {
 }
 
 function getKurs($data) {
-	$cp_site = 'https://mind2excellence.se/site/common/kurser.php';
+	$cp_site = 'https://www.mind2excellence.se/site/common/kurser.php';
 	if ($data->pid!=0) {
 		$cp_site = addKV($cp_site, 'pid', $data->pid);
 	}
@@ -103,7 +103,7 @@ function getKurs($data) {
 }
 
 function getSett($data) {
-	$cp_site = 'https://mind2excellence.se/site/common/cp_settings.php';
+	$cp_site = 'https://www.mind2excellence.se/site/common/cp_settings.php';
 	//$cp_have = false;
 	if ($data->pid!=0) {
 		$cp_site = addKV($cp_site, 'pid', $data->pid);
@@ -146,7 +146,7 @@ function survOut($to, $tn, $filt)
 	}
 	
 	if ($n<=0) {
-		$to->regLine(' --- inga surveys ännu ---');
+		$to->regLine(' --- inga surveys Ã¤nnu ---');
 	} else if ($n==1) {
 		$lnk = "onesurv.php?sid=$sid&seq=$seq&pid=$pid&st=$tn&filt=$filt";
 		debug_log('embed link : ' . $lnk);
@@ -493,7 +493,7 @@ EOT;
 
 		$to->regLine("<br class='hs'> <button id='BtnUtb' style='background-color:#5E5;font-size:15px;' onClick='doChangeD()'> &nbsp;Min Utbildning&nbsp; </button>");
 
-		//$to->regLine("<br class='hs'> <button id='BtnKrs' style='background-color:#5E5;font-size:15px;' onClick='doChangeE()'> &nbsp;Våra Event och Kurser&nbsp; </button>");
+		//$to->regLine("<br class='hs'> <button id='BtnKrs' style='background-color:#5E5;font-size:15px;' onClick='doChangeE()'> &nbsp;VÃ¥ra Event och Kurser&nbsp; </button>");
 
 
 		$to->regline  ('<hr>');
