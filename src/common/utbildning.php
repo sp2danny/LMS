@@ -252,7 +252,7 @@ EOT;
 	{
 		echo <<<EOT
 
-		p.main {
+		/*p.main {
 		  padding-left:   40px;
 		}
 		body {
@@ -261,7 +261,7 @@ EOT;
 			margin-right: 440px;
 			margin-left: 30px;
 			margin-bottom: 55px;
-		}
+		}*/
 EOT;
 	} else {
 		echo <<<EOT
@@ -689,7 +689,7 @@ EOT;
 		$to->startTag("a", "href='$pn'");
 		$to->startTag('div', 'class="auto-container"');
 
-		$base .= "background: url($img); background-size: cover; width:" . $ww . "px; height:" . $hh . "px; ";
+		$base .= "background: url($img); background-size: cover; width:" . round(0.9*$ww) . "px; height:" . round(0.9*$hh) . "px; ";
 
 		if ($at == $i) {
 			$base .= "border-style:inset;'";

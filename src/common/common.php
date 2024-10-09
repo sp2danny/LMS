@@ -371,10 +371,13 @@ function spiderMouseMove(event)
 	}
 
 	.main {
-		margin-left: 160px;  /* Same as the width of the sidenav */
+		margin-left: 15px;  /* Same as the width of the sidenav */
 		margin-right: 260px;  /* Same as the width of the sidenav */
 		font-size: 28px; /* Increased text to enable scrolling */
 		padding: 0px 10px;
+	}
+	body {
+		margin-bottom: 75px;
 	}
 
 </style>

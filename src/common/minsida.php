@@ -246,15 +246,15 @@ EOT;
 	{
 		echo <<<EOT
 
-		p.main {
-		  padding-left:   40px;
-		}
+		/*p.main {
+			padding-left:   40px;
+		}*/
 		body {
 			background-color: #ffffff;
-			margin-top: 50px;
+			/*margin-top: 50px;
 			margin-right: 450px;
 			margin-left: 200px;
-			margin-bottom: 75px;
+			margin-bottom: 75px;*/
 		}
 EOT;
 	} else {
