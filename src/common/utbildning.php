@@ -495,9 +495,10 @@ EOT;
 			$to->regLine("<button id='BtnCP' onClick='doChangeB()'> Min Sida </button>");
 		}
 
-		//$to->regLine("<br class='hs'> <button id='BtnUtb' style='background-color:#5E5;font-size:15px;' onClick='doChangeD()'> &nbsp;Min Utbildning&nbsp; </button>");
+		$eg = empgreen();
 
-		$to->regLine("<br class='hs'> <button id='BtnKrs' style='background-color:#5E5;font-size:15px;' onClick='doChangeE()'> &nbsp;Våra Event och Kurser&nbsp; </button>");
+		//$to->regLine("<br class='hs'> <button id='BtnUtb' style='background-color:" . $eg . ";font-size:15px;' onClick='doChangeD()'> &nbsp;Min Utbildning&nbsp; </button>");
+		$to->regLine("<br class='hs'> <button id='BtnKrs' style='background-color:" . $eg . "; font-size:15px;' onClick='doChangeE()'> &nbsp;Våra Event och Kurser&nbsp; </button>");
 
 		$to->regline  ('<hr>');
 		$to->stopTag  ('div');

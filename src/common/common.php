@@ -519,7 +519,10 @@ function COU( $db, $id_n, $id_v, $sup_n, $sup_v, $key ) // Create Or Update
 
 
 
-
+function empgreen()
+{
+	return "#96BF0D";
+}
 
 
 
