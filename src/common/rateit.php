@@ -15,6 +15,8 @@ $bnum = getparam('bnum');
 $snum = getparam('snum');
 $maxs = getparam('maxs');
 
+echo "<br><br><center>";
+
 echo "<p> &Auml;r du n&ouml;jd med att ha klarat denna del i utbildningen? </p> <br> \n";
 
 echo " <table> <tr> ";
@@ -34,6 +36,12 @@ for ($i=1; $i<=5; ++$i) {
 
 </tr>
 </table>
+
+</center>
+
+<br><br>
+
+<center> Du kan avsluta n&auml;rsomhelst, och forts&auml;tta fr&aring;n d&auml;r du var </center>
 
 </body>
 </html>
