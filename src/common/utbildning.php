@@ -212,7 +212,7 @@ function index($local, $common)
 	}
 
 	$eol = "\n";
-	
+
 	$dagens = array();
 	$ord = fopen("../common/ord.txt", "r");
 	if ($ord)
@@ -232,14 +232,13 @@ function index($local, $common)
 	}
 	$data->dagens = $dagens;
 
-	
 	$title = 'Utbildningen';
 
 	$data->name = $name;
 	$data->mynt = $mynt;
-	
+
 	$noside = (getparam("noside", "") == "true");
-	
+
 	echo <<<EOT
 
 
@@ -356,7 +355,6 @@ td.wtelf {
   border-collapse: collapse;
 }
 
-
 .collapsible {
   background-color: #FFF;
   color: black;
@@ -392,7 +390,6 @@ ul, li {
 </style>
 
 EOT;
-
 
 	$to->startTag('script');
 
@@ -613,7 +610,6 @@ EOT;
 	$to->stopTag('td');
 	$to->stopTag('tr');
 	$to->stopTag('table');
-	
 
 	$to->scTag("hr");
 
@@ -623,7 +619,7 @@ EOT;
 
 	$to->startTag("table");
 	$to->startTag("tr");
-	
+
 	$utb_file = fopen("utb.txt", "r");
 	$utb_ini = readini($utb_file);
 	fclose($utb_file);
@@ -636,7 +632,6 @@ EOT;
 	for ($i=1; $i<=$n; ++$i)
 	{
 		$tit[] = 'Niv&aring; ' . $i;
-
 	}
 
 	$nb2 = "&nbsp;&nbsp;";
@@ -672,7 +667,6 @@ EOT;
 			if ($block->allDone)
 				++$b_don;
 		}
-
 
 		$to->startTag("center");
 		if ($b_tot == $b_don) {
@@ -720,7 +714,6 @@ EOT;
 			$to->regLine("<div class='progbar' style='background-color : $bkg;' >");
 			$to->regLine("<div style='background-color : $col; border-radius: 5px; height:18px; width:$pro%;' > </div> ");
 			$to->regLine("</div><br>");
-
 		}
 
 		$to->stopTag("div");
@@ -794,7 +787,6 @@ EOT;
 		$to->regLine('window.scrollTo(0, 850);');
 	}
 
-
 	echo <<<EOT
 
 var coll = document.getElementsByClassName("collapsible");
@@ -822,7 +814,6 @@ function(e){ LiveAgent.createButton('d7903992', e); });
 
 EOT;
 
-
 	$to->stopTag('div');
 
 	if (getparam("sticp", "0") == "1") {
@@ -835,7 +826,6 @@ EOT;
 
 	$to->stopTag('body');
 }
-
 
 $local = "./";
 $common = "./";
