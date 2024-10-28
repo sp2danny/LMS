@@ -195,7 +195,7 @@ if ($logtxt)
 					break;
 				case "start":
 					$eg = empgreen();
-					$sty = "height:40px; width:250px; background-color:$eg;";
+					$sty = "height:40px; width:250px; background-color:$eg; font-size:15px;";
 					echo '<input  style="' . $sty . '"  type="submit" value="' . $cmd->params[0] . '">' . $eol;
 					echo '</form>' . $eol;
 					break;

@@ -36,6 +36,7 @@
     <None Include="src\common\actually_delete.php" />
     <None Include="src\common\allsurv.php" />
     <None Include="src\common\at.php" />
+    <None Include="src\common\check_pnr.php" />
     <None Include="src\common\cleanup_db.php" />
     <None Include="src\common\cmdparse.php" />
     <None Include="src\common\cockpit-2.php" />

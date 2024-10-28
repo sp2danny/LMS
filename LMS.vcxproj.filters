@@ -330,5 +330,8 @@
     <None Include="src\common\kurser.php">
       <Filter>Source Files\common</Filter>
     </None>
+    <None Include="src\common\check_pnr.php">
+      <Filter>Source Files\common</Filter>
+    </None>
   </ItemGroup>
 </Project>
