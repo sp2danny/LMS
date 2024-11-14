@@ -163,7 +163,16 @@ function process_cmd($to, $data, $cmd, $args, $ret_to = "")
 		case 'onestop':
 			break;
 		case 'video':
-			$to->regLine('<iframe width="1024" height="576" src="https://player.vimeo.com/video/' . $args[0] . '"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>');
+			$n = count($args);
+			$img = trim($args[0]);
+			$pro = 100;
+			if ($n>=2) {
+				$pro = $args[0];
+				$img = trim($args[1]);
+			}
+			$w = intval(1024 * $pro / 100);
+			$h = intval(576 * $pro / 100);
+			$to->regLine('<iframe width="' . $w . '" height="' . $h . '" src="https://player.vimeo.com/video/' . $img . '"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>');
 			//$to->regLine('<iframe width="800" src="https://player.vimeo.com/video/' . $args[0] . '"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>');
 			//$to->regLine('<iframe width="100%" src="https://player.vimeo.com/video/' . $args[0] . '"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>');
 			break;
