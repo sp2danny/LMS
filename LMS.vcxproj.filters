@@ -333,5 +333,11 @@
     <None Include="src\common\check_pnr.php">
       <Filter>Source Files\common</Filter>
     </None>
+    <None Include="src\common\pnr.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="debug.php">
+      <Filter>Source Files\coach</Filter>
+    </None>
   </ItemGroup>
 </Project>

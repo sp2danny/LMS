@@ -68,7 +68,7 @@ function segments($battname)
 
 $eol = "\n";
 echo '</head><body>' . $eol;
-$pnr = '5906195697';
+$pnr = 'debug';
 $query = "SELECT * FROM pers WHERE pnr='" . $pnr . "'";
 $res = mysqli_query($emperator, $query);
 $prow = false;

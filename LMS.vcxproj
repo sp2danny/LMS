@@ -26,6 +26,7 @@
     <Text Include="TODO.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="debug.php" />
     <None Include="src\coach\buttons.php" />
     <None Include="src\coach\edit_prod.php" />
     <None Include="src\coach\edit_prod_save.php" />
@@ -80,6 +81,7 @@
     <None Include="src\common\one_post.php" />
     <None Include="src\common\per.php" />
     <None Include="src\common\personal.php" />
+    <None Include="src\common\pnr.php" />
     <None Include="src\common\post_disc.php" />
     <None Include="src\common\process_cmd.php" />
     <None Include="src\common\progress.php" />

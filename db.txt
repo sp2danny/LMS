@@ -61,6 +61,7 @@ typer
     lead-id     15           lead-id
     feedback    16           batteri      del                       score
 	utskick     17           lead-id      variant
+	EULA        18           pers-id      version
 
 
 	namn        type         a            b            c            surv
