@@ -8,8 +8,6 @@
 <?php
 
 include_once 'connect.php';
-include_once 'roundup.php';
-include_once 'util.php';
 
 function pnr_fix($pnr)
 {
