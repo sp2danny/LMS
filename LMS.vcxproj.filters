@@ -340,4 +340,9 @@
       <Filter>Source Files\coach</Filter>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\common\dologin.php">
+      <Filter>Source Files\common</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>

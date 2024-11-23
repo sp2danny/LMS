@@ -127,6 +127,9 @@
     <None Include="src\survey\php\04-tratten.php" />
     <None Include="src\survey\php\05-result.php" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\common\dologin.php" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>

@@ -189,7 +189,7 @@ if ($logtxt)
 					echo '<img width=70% src="logo.png"> <br>' . $eol;
 					break;
 				case "login":
-					echo '<form action="' . 'personal.php' . '" method="GET">' . $eol;
+					echo '<form action="' . 'dologin.php' . '" method="GET">' . $eol;
 					echo '<br><br><label for="pnr">' . $cmd->params[0] . '</label>' . $eol;
 					echo '<input type="text" id="pnr" name="pnr"><br>' . $eol;
 					break;

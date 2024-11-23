@@ -68,7 +68,7 @@ echo "\t<table>\n";
 
 echo "\t\t<tr>\n";
 
-echo "\t\t\t<th> PNR </th> <th> Name </th> <th> Fixed </th> <th> Age </th> <th> Data </th> <th> PID </th>\n";
+echo "\t\t\t<th> PNR </th> <th> Name </th> <th> Fixed </th> <th> Age </th> <th> Data </th> <th> PID </th> <th> Action </th> \n";
 
 echo "\t\t</tr>\n";
 
@@ -78,17 +78,32 @@ if ($res) while ($prow = mysqli_fetch_array($res)) {
 
 	echo "\t\t<tr>\n";
 
+	$act = false;
+
+	$pid = $prow["pers_id"];
 	$pnr = $prow["pnr"];
 	$nam = $prow["name"];
 	$fix = pnr_fix($pnr);
 	$age = "n/a";
-	if (!$fix)
+	if (!$fix) {
 		$fix = "&lt;error&gt;";
-	else
+		$act = true;
+		$act_name = "Delete";
+	} else {
 		$age = "2024" - substr($fix, 0, 4);
+	}
 
+	if ( (!$act) && ($pnr != $fix) )
+	{
+		$act = true;
+		$act_name = "Fix";
+	}
+
+	if ($pid==1) {
+		$act = false;
+		$fix = " &nbsp; ";
+	}
 	$cnt = "n/a";
-	$pid = $prow["pers_id"];
 
 	$query2 = "SELECT COUNT(*) AS total FROM data WHERE pers='$pid'";
 	$res2 = mysqli_query($emperator, $query2);
@@ -102,8 +117,11 @@ if ($res) while ($prow = mysqli_fetch_array($res)) {
 		$cnt = "query failed";
 	}
 
+	$astr = " &nbsp; ";
+	if ($act)
+		$astr = " <button> " . $act_name . " </button> ";
 
-	echo "\t\t\t<td> $pnr </td> <td> $nam </td> <td> $fix </td> <td> $age </td> <td> $cnt </td> <td> $pid </td>\n";
+	echo "\t\t\t<td> $pnr </td> <td> $nam </td> <td> $fix </td> <td> $age </td> <td> $cnt </td> <td> $pid </td> <td> $astr </td> \n";
 
 	echo "\t\t</tr>\n";
 
