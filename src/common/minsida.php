@@ -172,25 +172,28 @@ function index($local, $common)
 
 	$res = mysqli_query($emperator, $query);
 	$mynt = 0;
-	if (!$res)
-	{
-		$to->regLine('DB Error');
-	} else {
+	$prow = false;
+	if ($res)
 		$prow = mysqli_fetch_array($res);
-		$name = $prow['name'];
-		if (!$prow) {
-			$to->regLine('DB Error');
-		} else {
-			$pid = $prow['pers_id'];
-			$query = 'SELECT * FROM data WHERE pers=' . $pid . ' AND type=4';
-			$res = mysqli_query($emperator, $query);
-			if ($row = mysqli_fetch_array($res)) {
-				$mynt = $row['value_a'];
-			}
-		}
+
+	if (!$prow) {
+		$query = "SELECT * FROM pers WHERE pers_id='" . $pid . "'";
+		$res = mysqli_query($emperator, $query);
+		$prow = mysqli_fetch_array($res);
 	}
-	
+
+	$name = $prow['name'];
+	$pid = $prow['pers_id'];
+	$data->pnr = $prow['pnr'];
 	$data->pid = $pid;
+
+	$query = 'SELECT * FROM data WHERE pers=' . $pid . ' AND type=4';
+	$res = mysqli_query($emperator, $query);
+	if ($row = mysqli_fetch_array($res)) {
+		$mynt = $row['value_a'];
+	}
+
+
 	
 	for ($qi=11; $qi<20; ++$qi) {
 		$query = "SELECT value_c FROM data WHERE pers=" . $pid . " AND type=" . $qi;

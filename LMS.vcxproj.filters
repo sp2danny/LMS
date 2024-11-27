@@ -339,6 +339,12 @@
     <None Include="debug.php">
       <Filter>Source Files\coach</Filter>
     </None>
+    <None Include="src\common\do_eula.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\eula_agree.php">
+      <Filter>Source Files\common</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\common\dologin.php">

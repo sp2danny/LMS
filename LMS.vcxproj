@@ -57,7 +57,9 @@
     <None Include="src\common\discquery.php" />
     <None Include="src\common\display_report.php" />
     <None Include="src\common\dorate.php" />
+    <None Include="src\common\do_eula.php" />
     <None Include="src\common\dump.php" />
+    <None Include="src\common\eula_agree.php" />
     <None Include="src\common\evaluator.php" />
     <None Include="src\common\forward.php" />
     <None Include="src\common\gap.php" />

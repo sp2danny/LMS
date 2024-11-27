@@ -40,16 +40,50 @@ function pnr_fix($pnr)
 
 $arg = getparam('pnr');
 $fix = pnr_fix($arg);
-
 $pid = 0;
+$lnk = 'error.php';
 
-$query = "SELECT * FROM pers WHERE pnr='$fix'";
-$res = mysqli_query($emperator, $query);
-if ($res) if ($prow = mysqli_fetch_array($res)) {
+if (!$pid) {
+	$query = "SELECT * FROM pers WHERE pnr='$fix'";
+	$res = mysqli_query($emperator, $query);
+	if ($res) if ($prow = mysqli_fetch_array($res)) {
 
-	$pid = $prow['pers_id'];
+		$pid = $prow['pers_id'];
+	}
 }
 
+if (!$pid) {
+	$query = "SELECT * FROM pers WHERE pnr='$arg'";
+	$res = mysqli_query($emperator, $query);
+	if ($res) if ($prow = mysqli_fetch_array($res)) {
+
+		$pid = $prow['pers_id'];
+	}
+}
+
+if (!$pid) {
+	$lnk = "notfound.php";
+} else {
+	$did_eula = false;
+	$query = "SELECT * FROM data WHERE pers='$pid' AND type='18'";
+	$res = mysqli_query($emperator, $query);
+	if ($res) if ($prow = mysqli_fetch_array($res)) {
+		$did_eula = true;
+	}
+
+	if ($did_eula) {
+		$lnk = "minsida.php?pid=" . $pid;
+	} else {
+		$lnk = "do_eula.php?pid=" . $pid;
+	}
+}
+
+echo "<meta http-equiv='refresh' content='0; url=$lnk' /> \n";
+
+?>
 
 
+<head>
+<body></body>
+</html>
 
