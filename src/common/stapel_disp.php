@@ -30,7 +30,10 @@ function display_stapel($to, $data, $args, $num=1)
 	}
 
 	$pnr = getparam("pnr", "0");
-	$query = "SELECT * FROM pers WHERE pnr='" .$pnr . "'";
+	if ($pnr!=0)
+		$query = "SELECT * FROM pers WHERE pnr='" . $pnr . "'";
+	else
+		$query = "SELECT * FROM pers WHERE pers_id='" . $data->pid . "'";
 	$pid = 0;
 	$err = false;
 	$res = mysqli_query($emperator, $query);
@@ -41,6 +44,7 @@ function display_stapel($to, $data, $args, $num=1)
 		if (!$prow) {
 			$err = 'DB Error, fetch person --'.$query.'--';
 		} else {
+			$pnr = $prow['pnr'];
 			$pid = $prow['pers_id'];
 			$pnam = $prow['name'];
 		}

@@ -91,8 +91,8 @@
 		$args = [];
 		$args[] = "Ärlig";
 		$args[] = "1";
-		$args[] = "3";
-		$args[] = "Arlig";
+		$args[] = "2";
+		$args[] = "akta";
 		display_stapel($to, $data, $args, 4);
 		echo "<br> <center> " . $args[0] . " </center> ";
 		echo " </td> \n";
@@ -110,8 +110,8 @@
 		$args = [];
 		$args[] = "Tillitsfull";
 		$args[] = "1";
-		$args[] = "3";
-		$args[] = "Arlig";
+		$args[] = "2";
+		$args[] = "tillit";
 		display_stapel($to, $data, $args, 5);
 		echo "<br> <center> " . $args[0] . " </center> ";
 		echo " </td> \n";
@@ -127,10 +127,10 @@
 		$data->pid = $pid;
 
 		$args = [];
-		$args[] = "Omdömmesfull";
+		$args[] = "Omdömesfull";
 		$args[] = "1";
-		$args[] = "3";
-		$args[] = "Arlig";
+		$args[] = "2";
+		$args[] = "omdome";
 		display_stapel($to, $data, $args, 6);
 		echo "<br> <center> " . $args[0] . " </center> ";
 		echo " </td> \n";

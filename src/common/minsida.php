@@ -165,16 +165,18 @@ function index($local, $common)
 	$name = getparam("name");
 
 	$data->pnr = getparam("pnr", "0");
-
-	$query = "SELECT * FROM pers WHERE pnr='" . $data->pnr . "'";
+	
+	$prow = false;
+	$mynt = 0;
 
 	$pid = getparam("pid", "0");
 
-	$res = mysqli_query($emperator, $query);
-	$mynt = 0;
-	$prow = false;
-	if ($res)
-		$prow = mysqli_fetch_array($res);
+	if ($data->pnr != 0) {
+		$query = "SELECT * FROM pers WHERE pnr='" . $data->pnr . "'";
+		$res = mysqli_query($emperator, $query);
+		if ($res)
+			$prow = mysqli_fetch_array($res);
+	}
 
 	if (!$prow) {
 		$query = "SELECT * FROM pers WHERE pers_id='" . $pid . "'";
@@ -193,8 +195,6 @@ function index($local, $common)
 		$mynt = $row['value_a'];
 	}
 
-
-	
 	for ($qi=11; $qi<20; ++$qi) {
 		$query = "SELECT value_c FROM data WHERE pers=" . $pid . " AND type=" . $qi;
 		$res = mysqli_query($emperator, $query);
@@ -462,7 +462,7 @@ EOT;
 	$href = $curPageName;
 	if ($noside)
 		$href = addKV($href, 'noside', 'true');
-	$href = addKV($href, 'pnr', getparam('pnr'));
+	$href = addKV($href, 'pid', $pid);
 	$to->regLine("	window.location.href = '$href&at=' + i.toString(); ");
 	$to->regLine("}");
 
@@ -474,7 +474,6 @@ EOT;
 	$to->startTag('body');
 
 	$side = fopen("styrkant.txt", "r") or die("Unable to open file!");
-	
 
 	if (!$noside)
 	{

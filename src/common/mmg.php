@@ -3,7 +3,7 @@
 
 <html>
 <head>
-  <title> P&Auml;R </title>
+  <title> MMG </title>
   <style>
     table.plain, th.plain, td.plain {
       border: 3px solid black;
@@ -40,6 +40,7 @@
 		$query = "SELECT * FROM pers WHERE pers_id='" .$pid . "'";
 
 	$res = mysqli_query($emperator, $query);
+	$pid = 0;
 	$name = '';
 
 	if (!$res)
@@ -74,9 +75,6 @@
 		}
 		return false;
 	}
-	
-	// echo "<br> <h1> " . $pnr . " : " . $pid . " </h1> <br> \n";
-
 
 	echo "<table class='plain'>";
 	echo "<tr>";
@@ -91,11 +89,11 @@
 		$data->pid = $pid;
 
 		$args = [];
-		$args[] = "Positiv";
+		$args[] = "Motivation";
 		$args[] = "1";
 		$args[] = "2";
-		$args[] = "positivitet";
-		display_stapel($to, $data, $args, 1);
+		$args[] = "motivation";
+		display_stapel($to, $data, $args, 7);
 		echo "<br> <center> " . $args[0] . " </center> ";
 		echo " </td> \n";
 	}
@@ -110,11 +108,11 @@
 		$data->pid = $pid;
 
 		$args = [];
-		$args[] = "Äkta";
+		$args[] = "Målsättning";
 		$args[] = "1";
 		$args[] = "2";
-		$args[] = "akta";
-		display_stapel($to, $data, $args, 2);
+		$args[] = "goal";
+		display_stapel($to, $data, $args, 8);
 		echo "<br> <center> " . $args[0] . " </center> ";
 		echo " </td> \n";
 	}
@@ -129,14 +127,15 @@
 		$data->pid = $pid;
 
 		$args = [];
-		$args[] = "Relevant";
+		$args[] = "Genomförande";
 		$args[] = "1";
 		$args[] = "2";
-		$args[] = "relevans";
-		display_stapel($to, $data, $args, 3);
+		$args[] = "genomforande";
+		display_stapel($to, $data, $args, 9);
 		echo "<br> <center> " . $args[0] . " </center> ";
 		echo " </td> \n";
 	}
+
 
 	echo "</tr>\n";
 	echo "</table>\n";

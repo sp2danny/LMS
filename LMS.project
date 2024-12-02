@@ -77,6 +77,11 @@
     <File Name="src/klarna/coach.html"/>
   </VirtualDirectory>
   <VirtualDirectory Name="common">
+    <File Name="src/common/mmg.php"/>
+    <File Name="src/common/display_user.php"/>
+    <File Name="src/common/per.php"/>
+    <File Name="src/common/at.php"/>
+    <File Name="src/common/dologin.php"/>
     <File Name="src/common/util.php"/>
     <File Name="src/common/pnr.php"/>
     <File Name="src/common/kurser.php"/>

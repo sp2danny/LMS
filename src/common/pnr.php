@@ -66,7 +66,7 @@ echo "\t<table>\n";
 
 echo "\t\t<tr>\n";
 
-echo "\t\t\t<th> PNR </th> <th> Name </th> <th> Fixed </th> <th> Age </th> <th> Data </th> <th> PID </th> <th> Action </th> \n";
+echo "\t\t\t<th> PNR </th> <th> Name </th> <th> Fixed </th> <th> Age </th> <th> Data </th> <th> PID </th> <th> Action </th>  <th> Measures </th> \n";
 
 echo "\t\t</tr>\n";
 
@@ -77,6 +77,7 @@ if ($res) while ($prow = mysqli_fetch_array($res)) {
 	echo "\t\t<tr>\n";
 
 	$act = false;
+	$act_lnk = false;
 
 	$pid = $prow["pers_id"];
 	$pnr = $prow["pnr"];
@@ -87,6 +88,7 @@ if ($res) while ($prow = mysqli_fetch_array($res)) {
 		$fix = "&lt;error&gt;";
 		$act = true;
 		$act_name = "Delete";
+		$act_lnk = "delete_user.php?pid=" . $pid;
 	} else {
 		$age = "2024" - substr($fix, 0, 4);
 	}
@@ -116,11 +118,23 @@ if ($res) while ($prow = mysqli_fetch_array($res)) {
 	}
 
 	$astr = " &nbsp; ";
-	if ($act)
-		$astr = " <button> " . $act_name . " </button> ";
+	if ($act) {
+		
+		$astr = " ";
+		
+		if ($act_lnk)
+			$astr .= "<a href='" . $act_lnk . "'> ";
+		
+		$astr .= "<button> " . $act_name . " </button> ";
+		
+		if ($act_lnk)
+			$astr .= "</a> ";
+
+	}
 
 	echo "\t\t\t<td> $pnr </td> <td> $nam </td> <td> $fix </td> <td> $age </td> <td> $cnt </td> <td> $pid </td> <td> $astr </td> \n";
 
+	echo "\t\t\t<td> <button> List </button>  </td> \n";
 	echo "\t\t</tr>\n";
 
 }
