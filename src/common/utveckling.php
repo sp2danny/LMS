@@ -194,7 +194,7 @@ function all()
 		////echo '<tr> <td colspan=3> &nbsp; </td> </tr>' . $eol;
 		
 		echo "<tr><td>" . $eol;
-		echo "<img src='winner.png' /> </td> <td style='width:462px;' > " . $eol;
+		echo "<img src='win.png' /> </td> <td style='width:462px;' > " . $eol;
 
 		echo "<div> " . $eol;
 
