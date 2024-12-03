@@ -102,7 +102,7 @@ typer
 	stress      101          kat          val          namn         surv-num
 	motivation  102          kat          val          namn         surv-num
 
-
+	värdegrund  201 u        val
 
 
 
