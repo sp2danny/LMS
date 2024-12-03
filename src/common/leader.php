@@ -16,6 +16,15 @@ p {
 
 <p>
 
+<pre>
+
+<?php
+
+var_dump(array_merge($_GET, $_POST));
+
+?>
+
+</pre>
 
 Nedanstående värdegrunder tar dig till högsta nivåns självledarskap: <br> 
 

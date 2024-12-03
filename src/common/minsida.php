@@ -423,37 +423,6 @@ EOT;
 	$to->regLine("  window.location.href = '" . getKurs($data) . "'; ");
 	$to->regLine('}');
 
-	$to->regLine('function setProgress(pro, cnv) {');
-	$to->regLine('  var ctx = cnv.getContext("2d");');
-	$to->regLine('  ctx.fillStyle = "#F2F3F7";');
-	$to->regLine('  ctx.fillRect(0,0,200,200);');
-	$to->regLine('  ctx.strokeStyle = "#000";');
-	$to->regLine('  ctx.lineWidth = 12;');
-	$to->regLine('  ctx.beginPath();');
-	$to->regLine('  ctx.arc(100, 100, 75, 1 * Math.PI, 2 * Math.PI);');
-	$to->regLine('  ctx.stroke(); ');
-	$to->regLine('  ctx.strokeStyle = "#fff";');
-	$to->regLine('  ctx.lineWidth = 10;');
-	$to->regLine('  ctx.beginPath();');
-	$to->regLine('  ctx.arc(100, 100, 75, 1.01 * Math.PI, 1.99 * Math.PI);');
-	$to->regLine('  ctx.stroke();');
-
-	$to->regLine('  if (pro > 0) {');
-	$to->regLine('    ctx.strokeStyle = "#7fff7f";');
-	$to->regLine('    ctx.lineWidth = 10;');
-	$to->regLine('    ctx.beginPath();');
-	$to->regLine('    ctx.arc(100, 100, 75, 1.01 * Math.PI, (1.01+0.98*(pro/100.0)) * Math.PI);');
-	$to->regLine('    ctx.stroke();');
-	$to->regLine('  }');
-
-	$to->regLine('  ctx.fillStyle = "#7f7";');
-	$to->regLine('  ctx.lineWidth = 1;');
-	$to->regLine('  ctx.strokeStyle = "#000";');
-	$to->regLine('  ctx.font = "35px Arial";');
-	$to->regLine('  ctx.textAlign = "center"; ');
-	$to->regLine('  ctx.fillText( pro.toString() + " %", 100, 98); ');
-	$to->regLine('  ctx.strokeText( pro.toString() + " %", 100, 98); ');
-	$to->regLine('}');
 	
 	$scrn = $_SERVER["SCRIPT_NAME"];
 	$curPageName = substr($scrn, strrpos($scrn,"/")+1);  
@@ -669,19 +638,16 @@ EOT;
 			if ($ff != $at) continue;
 
 			$key = $i . ".namn";
-			$to->regLine("<h1> " . $min_ini['survey'][$key] . " </h1> ");
+			$tit = rwd($min_ini, 'survey', $key, '');
+			$to->regLine("<h1> " . $tit . " </h1> ");
 
 			$key = $i . ".minor";
-			$min = false;
-			if (array_key_exists($key, $min_ini['survey']))
-				$min = $min_ini['survey'][$key];
+			$min = rwd($min_ini, 'survey', $key, false);
 			if ($min)
 				$to->regLine("<h5 class='normal' > " . $min . " </h5> ");
 
 			$key = $i . ".ext";
-			$ext = false;
-			if (array_key_exists($key, $min_ini['survey']))
-				$ext = $min_ini['survey'][$key];
+			$ext = rwd($min_ini, 'survey', $key, false);
 
 			if ($ext) {
 				$key = $i . ".surv";
@@ -692,6 +658,9 @@ EOT;
 				$do_pnr = rwd($min_ini, 'survey', $key, false);
 				if ($do_pnr)
 					$lnk = addKV($lnk, 'pnr', $data->pnr);
+				$do_pid = rwd($min_ini, 'survey', $i.".pid" , false);
+				if ($do_pid)
+					$lnk = addKV($lnk, 'pid', $data->pid);
 				
 				debug_log('survey link : ' . $lnk);
 				
@@ -699,9 +668,7 @@ EOT;
 			}
 
 			$key = $i . ".surv";
-			$val = false;
-			if (array_key_exists($key, $min_ini['survey']))
-				$val = $min_ini['survey'][$key];
+			$val = rwd($min_ini, 'survey', $key, false);
 
 			if ($val && !$ext) {
 				//echo "Surv : " . $val . " - " . to_link($alldata, $val) . " <br>" . $eol;
@@ -718,15 +685,13 @@ EOT;
 			}
 
 			$key = $i . ".embed";
-			$emb = false;
-			if (array_key_exists($key,$min_ini['survey']))
-				$emb = $min_ini['survey'][$key];
+			$emb = rwd($min_ini, 'survey', $key, false);
 
 			if ($emb) {
-				if (strpos($emb, "?") === false)
-					$lnk = $emb . "?pnr=" . $data->pnr;
-				else
-					$lnk = $emb . "&pnr=" . $data->pnr;
+				$lnk = addKV($emb, "pnr", $data->pnr);
+				$do_pid = rwd($min_ini, 'survey', $i.".pid" , false);
+				if ($do_pid)
+					$lnk = addKV($lnk, 'pid', $data->pid);
 				debug_log('embed link : ' . $lnk);
 				$to->scTag('embed', 'type="text/html" width="1600" height="2400" src="' . $lnk . '"');
 			}
