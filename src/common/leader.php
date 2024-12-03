@@ -6,11 +6,9 @@
 <style>
 
 p {
-	/*font-family: Arial; */
 	font-size: 26px;
 }
 
-/* */
 datalist {
   display: flex;
   flex-direction: column;
@@ -18,7 +16,6 @@ datalist {
   writing-mode: vertical-lr;
   width: 170px;
 }
-/* */
 
 </style>
 
