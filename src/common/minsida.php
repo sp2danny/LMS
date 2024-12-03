@@ -279,9 +279,6 @@ EOT;
 
 	echo <<<EOT
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<style>
 
 button.ilbbaicl {
   font-size: 24px;
@@ -376,6 +373,14 @@ EOT;
 
 
 	$to->startTag('script');
+	
+	$to->regLine('function db_update(tp, pid, a = "", b = "") { ');
+	$to->regLine('  var str = "db_upd.php?tp=" + tp + "&pid=" + pid;');
+	$to->regLine('  if (a!="") str += "&a=" + a;');
+	$to->regLine('  if (b!="") str += "&b=" + b;');
+	$to->regLine('  fetch(str);');
+	$to->regLine('}');
+	
 
 	$to->regLine('function doChangeB() { ');
 	$to->regLine('  var obj = document.getElementById("alt"); ');
