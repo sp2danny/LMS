@@ -58,8 +58,6 @@ function to_link($alldata, $str)
 	return "";
 }
 
-
-
 function getCP($data) {
 	$cp_site = 'https://www.mind2excellence.se/site/common/minsida.php?noside=true';
 	if ($data->pid != 0) {
@@ -230,7 +228,6 @@ function index($local, $common)
 	}
 	$data->dagens = $dagens;
 
-	
 	$title = 'Min Sida';
 
 	$data->name = $name;
@@ -574,7 +571,6 @@ EOT;
 	$n = $min_ini['survey']['count'];
 
 	$fmap = [];
-	
 	$pros = [];
 
 	for ($i=1; $i<=$n; ++$i)
@@ -606,7 +602,6 @@ EOT;
 		}
 
 		$to->startTag("td");
-		//$to->regLine("<button> Settings </button>");
 
 		$base = "<button class='ilbbaicl' ";
 		$base .= "style=' border-radius: 9px; ";
@@ -621,7 +616,6 @@ EOT;
 			$row = data_last("SELECT * FROM data WHERE pers=$pid AND type=$pro");
 			if ($row !== false)
 				$fbn .= ' ' . $row['value_a'] . '&nbsp;%';
-
 		}
 		if ($at == $i) {
 			$base .= "border-style:inset;'";
@@ -718,24 +712,24 @@ EOT;
 			
 		}
 
-		if ($at == 2) // stress
+		if ($at == 3) // stress
 		{
-			survOut($to, 101, 2);
+			survOut($to, 101, 3);
 		}
 			
-		if ($at == 5) // motivation
+		if ($at == 8) // motivation
 		{
-			survOut($to, 102, 5);
+			survOut($to, 102, 8);
 		}
 
-		if ($at == 7) // Kommunikation
+		if ($at == 10) // Kommunikation
 		{
-			survOut($to, 103, 7);
+			survOut($to, 103, 10);
 		}
 
-		if ($at == 8) // Målsattning
+		if ($at == 11) // Målsattning
 		{
-			survOut($to, 104, 8);
+			survOut($to, 104, 11);
 		}
 
 		if ($at == 9) // Samarbete
@@ -745,6 +739,7 @@ EOT;
 
 		$to->stopTag('div');
 	}
+
 
 	$to->stopTag('div');
 
@@ -756,7 +751,7 @@ EOT;
 		$to->regLine('<div id="alt" class="xxx"></div>');
 	}
 
-		echo <<<EOT
+	echo <<<EOT
 
 	<!-- Start of LiveAgent integration script: Chat button: Chattknapp -->
 	<script type="text/javascript">
@@ -767,6 +762,7 @@ EOT;
 	<!-- End of LiveAgent integration script -->
 
 EOT;
+
 
 	$to->stopTag('body');
 }

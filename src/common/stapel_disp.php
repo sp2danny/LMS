@@ -8,16 +8,10 @@ class DP3 {
     public $vals = [];
 };
 
-function display_stapel($to, $data, $args, $num=1)
+function collect_stapel($pid, $args)
 {
 	global $emperator;
-
-	//$to->regLine('stapel');
 	
-	
-	// !graph Titel, 1, 3, Motivation, Balans
-	
-	$title  = $args[0];
 	$m_strt = $args[1];
 	$m_stop = $args[2];
 
@@ -29,31 +23,11 @@ function display_stapel($to, $data, $args, $num=1)
 		$dps[] = $dp;
 	}
 
-	$pnr = getparam("pnr", "0");
-	if ($pnr!=0)
-		$query = "SELECT * FROM pers WHERE pnr='" . $pnr . "'";
-	else
-		$query = "SELECT * FROM pers WHERE pers_id='" . $data->pid . "'";
-	$pid = 0;
-	$err = false;
-	$res = mysqli_query($emperator, $query);
-	if (!$res) {
-		$err = 'DB Error, query person --'.$query.'--';
-	} else {
-		$prow = mysqli_fetch_array($res);
-		if (!$prow) {
-			$err = 'DB Error, fetch person --'.$query.'--';
-		} else {
-			$pnr = $prow['pnr'];
-			$pid = $prow['pers_id'];
-			$pnam = $prow['name'];
-		}
-	}
-	
 	$n = count($dps);
 	for ($i=0; $i<$n; ++$i) {
 		for ($m=$m_strt; $m<=$m_stop; ++$m) {
-			$query = "SELECT * FROM surv WHERE type=8 AND pers='" .$pid . "' AND name='" . $dps[$i]->name . "' AND seq=" . $m;
+			$query = "SELECT * FROM surv WHERE type=8 AND pers='" .$pid;
+			$query .= "' AND name='" . $dps[$i]->name . "' AND seq=" . $m;
 			$sid = 0;
 			$res = mysqli_query($emperator, $query);
 			if (!$res) {
@@ -81,6 +55,25 @@ function display_stapel($to, $data, $args, $num=1)
 			}
 		}
 	}
+
+	return $dps;
+}
+
+function display_stapel($to, $data, $args, $num=1)
+{
+	global $emperator;
+
+	//$to->regLine('stapel');
+	
+	
+	// !graph Titel, 1, 3, Motivation, Balans
+	
+	$title  = $args[0];
+	$m_strt = $args[1];
+	$m_stop = $args[2];
+
+	$dps = collect_stapel($data->pid, $args);
+	$n = count($dps);
 
 	$oksf = true;
 	$str = "    ['" . $title . "'";
@@ -130,7 +123,6 @@ function display_stapel($to, $data, $args, $num=1)
         $to->regLine('  var chart = new google.charts.Bar(document.getElementById("bar_chart_' . $num . '"));');
         $to->regLine('  chart.draw(data, options);');
 
-		
 		//$to->regLine("  var options = {");
 		//$to->regLine("    title: '" . $title . "',");
 		//$to->regLine("    curveType: 'function',");
@@ -145,12 +137,8 @@ function display_stapel($to, $data, $args, $num=1)
 	} else {
 		$to->regLine(' <div> &lt; Data Missing &gt; </div> ');
 	}
-	
 
 	return true;
 }
 
-
 ?>
-
-
