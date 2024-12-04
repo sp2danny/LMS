@@ -19,6 +19,17 @@ datalist {
 
 </style>
 
+<script>
+
+function db_update(tp, pid, a = "", b = "") {
+  var str = "db_upd.php?tp=" + tp + "&pid=" + pid;
+  if (a!="") str += "&a=" + a;
+  if (b!="") str += "&b=" + b;
+  fetch(str);
+}
+
+</script>
+
 </head>
 <body>
 
@@ -75,8 +86,7 @@ $have_vg = false;
 $pid = getparam('pid');
 
 $query = "SELECT * FROM data WHERE type='201' AND pers='$pid';";
-$res = mysqli_query( $emperator, $query );
-if ($res) if ($row = mysqli_fetch_array($res)) {
+if ($row = data_last($query)) {
 	$have_vg = true;
 	$vg_val = $row['value_a'];
 }
@@ -91,26 +101,25 @@ echo "\n</td><td>\n";
 
 // <input type="range" min="0" max="100" step="25" list="steplist">
 
-echo "  <input type='range' id='vg_slide' name='vg' min='0' max='100' step='1' list='steplist'  ";
+echo " <input type='range' id='vg_slide' name='vg' min='0' max='100' step='1' list='steplist' ";
 
 if ($have_vg) {
 	echo " value='$vg_val' ";
 }
 
-echo " onChange='document.getElementById(\"vg_btn\").disabled = false;' /> ";
+echo " onChange='document.getElementById(\"vg_btn\").disabled = false;' /> \n";
 echo " <datalist id='steplist'> <option value='0' label='0' > </option> <option value='100' label='100' > </option> </datalist> \n";
 
 echo "\n</td><td>\n";
 
-echo " &nbsp; <button id='vg_btn' disabled onClick='document.getElementById(\"vg_btn\").disabled = true;' > Save </button> <br> \n";
+echo " &nbsp; <button id='vg_btn' disabled ";
+echo " onClick='document.getElementById(\"vg_btn\").disabled = true; ";
+echo " db_update(201, $pid, document.getElementById(\"vg_slide\").value ); ' > Save </button> <br> \n";
 
 echo "\n</td></tr></table>\n";
 
 ?>
 
-
-
 </p>
 </body>
 </html>
-

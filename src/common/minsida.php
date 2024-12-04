@@ -574,6 +574,8 @@ EOT;
 	$n = $min_ini['survey']['count'];
 
 	$fmap = [];
+	
+	$pros = [];
 
 	for ($i=1; $i<=$n; ++$i)
 	{
@@ -582,8 +584,12 @@ EOT;
 
 		$key = $i . ".button";
 		$btn = $min_ini['survey'][$key];
-		$tit[$flt] = $btn;
 
+		$key = $i . ".pro";
+		$pro = rwd($min_ini, 'survey', $key, false);
+
+		$pros[$flt] = $pro;
+		$tit[$flt] = $btn;
 		$fmap[$flt] = $i;
 	}
 
@@ -609,13 +615,22 @@ EOT;
 			$base .= "background-color:" . $min_ini['survey'][$key] ."; ";
 		}
 
+		$fbn = $nb2 .  $tit[$i] . $nb2;
+		$pro = $pros[$i];
+		if ($pro !== false) {
+			$row = data_last("SELECT * FROM data WHERE pers=$pid AND type=$pro");
+			if ($row !== false)
+				$fbn .= ' ' . $row['value_a'] . '&nbsp;%';
+
+		}
 		if ($at == $i) {
 			$base .= "border-style:inset;'";
-			$to->regLine($base . " > " . $nb2 .  $tit[$i] . $nb2 . " </button>");
+			$to->regLine($base . " > " . $fbn . " </button>");
 		} else {
 			$base .= "'";
-			$to->regLine($base . " onclick='newpage(".$i.")' > " . $nb2 . $tit[$i] . $nb2 . " </button>");
+			$to->regLine($base . " onclick='newpage(".$i.")' > " . $fbn . " </button>");
 		}
+
 		$to->stopTag("td");
 	}
 
