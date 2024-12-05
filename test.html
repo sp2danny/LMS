@@ -1,0 +1,240 @@
+
+<!DOCTYPE html>
+
+<!-- meta charset="UTF-8" --> 
+
+<html>
+<head>
+
+	<title> Grupp Skattning </title>
+
+<style>
+
+* {
+	font-size: 26px;	
+}
+
+p {
+	font-size: 26px;
+	margin-left: 15px;
+}
+
+body {
+	margin-bottom: 75px;
+	margin-left: 15px;
+	margin-right: 260px;
+	font-size: 28px;
+	padding: 0px 10px;
+	background-color: #ffffff;
+}
+
+.sw
+{
+    width: 450px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+
+
+
+<!-- inlude debug.php -->
+
+
+
+ 
+
+<!-- inlude stapel_disp.php -->
+
+<div id="main" class="main" >
+    <br /> <img width=50%  src="logo.png" /> <br /> <br /> <br />
+</div>
+<p>
+    grupp-skattning av  Daniel N <br>
+
+    grupp-skattning för Hans Engberg <br><hr>
+
+    <form action='grp_skt.php' >
+        <input name='for' type='hidden' value='16' />
+        <input name='by' type='hidden' value='15' />
+        <table>
+            <tr>
+                <td>
+                    skattning
+                </td>
+                <td>
+                    arlig
+                </td>
+                <td>
+                    <input class='sw' min=0 max=100 step=1 value=57 list='tick-arlig' name='arlig' type='range' /> 
+                    <datalist id='tick-arlig' >
+                        <option> 0 </option>
+                        <option> 57 </option>
+                        <option> 100 </option>
+                    </datalist>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    skattning
+                </td>
+                <td>
+                    tillit
+                </td>
+                <td>
+                    <input class='sw' min=0 max=100 step=1 value=56 list='tick-tillit' name='tillit' type='range' /> 
+                    <datalist id='tick-tillit' >
+                        <option> 0 </option>
+                        <option> 56 </option>
+                        <option> 100 </option>
+                    </datalist>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    skattning
+                </td>
+                <td>
+                    akta
+                </td>
+                <td>
+                    <input class='sw' min=0 max=100 step=1 value=48 list='tick-akta' name='akta' type='range' /> 
+                    <datalist id='tick-akta' >
+                        <option> 0 </option>
+                        <option> 48 </option>
+                        <option> 100 </option>
+                    </datalist>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    skattning
+                </td>
+                <td>
+                    positivitet
+                </td>
+                <td>
+                    <input class='sw' min=0 max=100 step=1 value=53 list='tick-positivitet' name='positivitet' type='range' /> 
+                    <datalist id='tick-positivitet' >
+                        <option> 0 </option>
+                        <option> 53 </option>
+                        <option> 100 </option>
+                    </datalist>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    skattning
+                </td>
+                <td>
+                    relevans
+                </td>
+                <td>
+                    <input class='sw' min=0 max=100 step=1 value=58 list='tick-relevans' name='relevans' type='range' /> 
+                    <datalist id='tick-relevans' >
+                        <option> 0 </option>
+                        <option> 58 </option>
+                        <option> 100 </option>
+                    </datalist>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    skattning
+                </td>
+                <td>
+                    balans
+                </td>
+                <td>
+                    <input class='sw' min=0 max=100 step=1 value=55 list='tick-balans' name='balans' type='range' /> 
+                    <datalist id='tick-balans' >
+                        <option> 0 </option>
+                        <option> 55 </option>
+                        <option> 100 </option>
+                    </datalist>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    skattning
+                </td>
+                <td>
+                    omdome
+                </td>
+                <td>
+                    <input class='sw' min=0 max=100 step=1 value=52 list='tick-omdome' name='omdome' type='range' /> 
+                    <datalist id='tick-omdome' >
+                        <option> 0 </option>
+                        <option> 52 </option>
+                        <option> 100 </option>
+                    </datalist>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    skattning
+                </td>
+                <td>
+                    motivation
+                </td>
+                <td>
+                    <input class='sw' min=0 max=100 step=1 value=57 list='tick-motivation' name='motivation' type='range' /> 
+                    <datalist id='tick-motivation' >
+                        <option> 0 </option>
+                        <option> 57 </option>
+                        <option> 100 </option>
+                    </datalist>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    skattning
+                </td>
+                <td>
+                    goal
+                </td>
+                <td>
+                    <input class='sw' min=0 max=100 step=1 value=54 list='tick-goal' name='goal' type='range' /> 
+                    <datalist id='tick-goal' >
+                        <option> 0 </option>
+                        <option> 54 </option>
+                        <option> 100 </option>
+                    </datalist>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    skattning
+                </td>
+                <td>
+                    genomforande
+                </td>
+                <td>
+                    <input class='sw' min=0 max=100 step=1 value=51 list='tick-genomforande' name='genomforande' type='range' /> 
+                    <datalist id='tick-genomforande' >
+                        <option> 0 </option>
+                        <option> 51 </option>
+                        <option> 100 </option>
+                    </datalist>
+                </td>
+            </tr>
+        </table>
+        <input type='submit' />
+    </form>
+</p>
+
+
+</body>
+
+</html>
+
+
+
+
+
+

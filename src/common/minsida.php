@@ -439,7 +439,7 @@ EOT;
 
 	$to->stopTag('script');
 
-	echo '<title>' . $curPageName . " - " . $title . '</title>' . $eol;
+	echo '<title>' . $title . '</title>' . $eol;
 	echo '</head>' . $eol;
 
 	$to->startTag('body');

@@ -77,6 +77,8 @@
     <File Name="src/klarna/coach.html"/>
   </VirtualDirectory>
   <VirtualDirectory Name="common">
+    <File Name="src/common/grp_skt.php"/>
+    <File Name="src/common/grupp_skatt.php"/>
     <File Name="src/common/db_upd.php"/>
     <File Name="src/common/worldclass.php"/>
     <File Name="src/common/leader.php"/>
