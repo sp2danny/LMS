@@ -137,10 +137,10 @@ $prow = mysqli_fetch_array($res);
 
 $grp = $prow['grupp'];
 
-$query = "SELECT * FROM pers WHERE grupp='$grp'";;
+$query = "SELECT * FROM pers WHERE grupp='$grp'";
 $res = mysqli_query($emperator, $query);
-if ($res) while ($row = mysqli_fetch_array($res)) {
-
+if ($res) while ($row = mysqli_fetch_array($res))
+{
 	echo "\t\t<tr>\n";
 
 	$pid = $row["pers_id"];
@@ -155,8 +155,15 @@ if ($res) while ($row = mysqli_fetch_array($res)) {
 
 	echo "\t\t\t<td> $pnr </td> <td> $nam </td> <td> $dsc </td> <td> $vg </td> <td> $ms </td> ";
 	echo " <td> $par </td> <td> $ato </td> <td> $mmg </td> \n";
-
+	
 	echo "\t\t</tr>\n";
+	$vals = collect_stapel_all($pid);
+	$str = all2str($vals);
+	if (strlen($str) > 0) {
+		echo "\t\t<tr> <td colspan=8 style='background:#eee; ' > \n";
+		echo "\t\t\t" . $str . "\n";
+		echo "\t\t</td></tr>\n";
+	}
 }
 
 echo "\t</table>\n";

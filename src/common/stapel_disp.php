@@ -8,6 +8,53 @@ class DP3 {
     public $vals = [];
 };
 
+function all2str($survs)
+{
+	$frst = true;
+	$str = "";
+	foreach ($survs as $key => $val)
+	{
+		if (!$frst) $str .= ", ";
+		$frst = false;
+		$str .= $key;
+		$str .= "(";
+		$f = true;
+		foreach ($val as $v) {
+			if (!$f) $str .= ",";
+			$f = false;
+			$str .= $v;
+		}
+		$str .= ")";
+	}
+	return $str;
+}
+
+function collect_stapel_all($pid)
+{
+	global $emperator;
+		
+	$survs = [];
+
+	$query = "SELECT * FROM surv WHERE type=8 AND pers='" .$pid . "'";
+	$res = mysqli_query($emperator, $query);
+	if ($res) while($row = mysqli_fetch_array($res))
+	{
+		$sid = $row['surv_id'];
+		$name = $row['name'];
+		$query2  = "SELECT * FROM data WHERE pers='" .$pid . "'" . " AND type=8" ;
+		$query2 .= " AND surv='" . $sid . "'";
+		$res2 = mysqli_query($emperator, $query2);
+		if ($res2) while($row2 = mysqli_fetch_array($res2)) {
+			$val = $row2['value_a'];
+			$survs[$name][$row['seq']] = $val;
+		}
+		ksort($survs[$name]);
+	}
+
+	return $survs;
+}
+
+
 function collect_stapel($pid, $args)
 {
 	global $emperator;
