@@ -115,6 +115,22 @@ function mmg($pid)
 	return dps2str($dps);
 }
 
+function ant($pid)
+{
+	global $emperator;
+	$ret = [];
+	$ret['antal'] = 0;
+	$ret['lista'] = [];
+	$query = "SELECT * FROM surv WHERE type=209 AND pers=$pid";
+	$res = mysqli_query($emperator, $query);
+	if ($res) while($row = mysqli_fetch_array($res))
+	{
+		$ret['antal'] += 1;
+		$ret['lista'][] = $row['seq'];
+	}
+	return $ret;
+}
+
 echo "\t<br><br>\n";
 
 echo "\t<table>\n";
@@ -122,7 +138,7 @@ echo "\t<table>\n";
 echo "\t\t<tr>\n";
 
 echo "\t\t\t<th> PNR </th> <th> Name </th> <th> disc </th> <th> V.G. </th> <th> M.S. </th> ";
-echo " <th> PÄR </th> <th> ÄTO </th> <th> MMG </th> \n";
+echo " <th> PÄR </th> <th> ÄTO </th> <th> MMG </th> <th> GrpSkt </th> <th> Ant </th> <td> Lst </td> \n";
 
 //      positiv     äkta        relevant
 //      ärlig       tillitsfull omdömesfull
@@ -143,24 +159,62 @@ if ($res) while ($row = mysqli_fetch_array($res))
 {
 	echo "\t\t<tr>\n";
 
-	$pid = $row["pers_id"];
+	$for = $row["pers_id"];
 	$pnr = $row["pnr"];
 	$nam = $row["name"];
-	$dsc = discdisplay($pid);
-	$vg = vg($pid);
-	$ms = ms($pid);
-	$par = par($pid);
-	$ato = ato($pid);
-	$mmg = mmg($pid);
+	$dsc = discdisplay($for);
+	$vg  =  vg($for);
+	$ms  =  ms($for);
+	$par = par($for);
+	$ato = ato($for);
+	$mmg = mmg($for);
+	$ant = ant($for);
+
+	$vals = collect_stapel_all($for);
+	$str = all2str($vals);
+	
+	$lst = true;
+	
+	$dosk = true;
+	if ($pid == $for)
+		$dosk = false;
+	if (strlen($str) <= 0) {
+		$dosk = false;
+		$lst = false;
+	}
+	if (array_search($pid, $ant['lista']) !== false)
+		$dosk = false;
+		
+	$ant = $ant['antal'];
+	
+	if ($ant < 2)
+		$lst = false;
 
 	echo "\t\t\t<td> $pnr </td> <td> $nam </td> <td> $dsc </td> <td> $vg </td> <td> $ms </td> ";
 	echo " <td> $par </td> <td> $ato </td> <td> $mmg </td> \n";
 	
+	if ($dosk) {
+		echo " <td> <a href='";
+		echo "grupp_skatt.php?pid=$pid&for=$for";
+		echo "'> grupp skattning </a> </td> \n";
+	} else {
+		echo " <td> &nbsp; </td> \n";
+	}
+
+	echo " <td> $ant </td> \n";
+	
+	if ($lst) {
+		echo " <td> <a href='";
+		echo "gs_listn.php?pid=$for";
+		echo "'> listning </a> </td> \n";
+	} else {
+		echo " <td> &nbsp; </td> \n";
+	}
+
 	echo "\t\t</tr>\n";
-	$vals = collect_stapel_all($pid);
-	$str = all2str($vals);
+
 	if (strlen($str) > 0) {
-		echo "\t\t<tr> <td colspan=8 style='background:#eee; ' > \n";
+		echo "\t\t<tr> <td colspan=11 style='background:#eee; ' > \n";
 		echo "\t\t\t" . $str . "\n";
 		echo "\t\t</td></tr>\n";
 	}
