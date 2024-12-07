@@ -31,6 +31,46 @@ body {
 
 </style>
 
+<?php
+
+$BaseDomain = "mind2excellence.se/site/";
+
+
+include_once 'main.js.php';
+//include_once 'common.php';
+?>
+
+<style>
+	th {
+		background: #ddd;
+	}
+	td, tr, table {
+		background: #fff;
+	}
+	th, td, tr, table {
+		border-collapse: collapse; 
+		padding-left: 8px;
+		padding-right: 13px;
+		padding-top: 3px;
+		padding-bottom: 3px;
+		border: 1px solid #eee;
+	}
+</style>
+
+
+<script>
+function doDraw(id)
+{
+	var cnv = document.getElementById(id);
+	var ctx = cnv.getContext("2d");
+
+	ctx.beginPath();
+	ctx.rect(20, 20, 150, 100);
+	ctx.fill();
+}
+</script>
+
+
 </head>
 
 <body>
@@ -41,6 +81,7 @@ body {
 include_once "connect.php";
 include_once "getparam.php";
 include_once 'stapel_disp.php';
+
 
 function collect_grp($pid)
 {
@@ -134,6 +175,47 @@ function index()
 	}
 	
 	echo "</table>\n";
+	
+	echo "<br /> <br /> <br /> \n";
+	echo "<canvas id='cnv1' width='800px' height='800px' >\n";
+	echo "</canvas>\n";
+	
+	echo "<script>\n";
+	
+	$nn = "var names = [";
+	$v1 = "var val_1 = [";
+	$v2 = "var val_2 = [";
+	$v3 = "var val_3 = [";
+	$frst = true;
+	foreach ($mmg as $key => $val)
+	{
+		if (!$frst) {
+			$nn .= ", ";
+			$v1 .= ", ";
+			$v2 .= ", ";
+			$v3 .= ", ";
+		}
+		$frst = false;
+		$nn .= "'" . $key . "'";
+		$v1 .= $val['min'];
+		$v2 .= $val['max'];
+		$v3 .= $val['grp'];
+	}
+	$nn .= "];\n";
+	$v1 .= "];\n";
+	$v2 .= "];\n";
+	$v3 .= "];\n";
+	
+	echo $nn;
+	echo $v1;
+	echo $v2;
+	echo $v3;
+
+	//echo "doDraw('cnv1');\n";
+
+	echo "DrawSpider('cnv1', 9, val_2, names, val_1, val_3, '', 'spindel');\n";
+	
+	echo "</script>\n";
 
 }
 
