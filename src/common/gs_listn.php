@@ -36,7 +36,7 @@ body {
 $BaseDomain = "mind2excellence.se/site/";
 
 
-include_once 'main.js.php';
+include_once 'spindel.js.php';
 //include_once 'common.php';
 ?>
 
@@ -186,6 +186,7 @@ function index()
 	$v1 = "var val_1 = [";
 	$v2 = "var val_2 = [";
 	$v3 = "var val_3 = [";
+	$mx = "var maxs  = [";
 	$frst = true;
 	foreach ($mmg as $key => $val)
 	{
@@ -194,26 +195,30 @@ function index()
 			$v1 .= ", ";
 			$v2 .= ", ";
 			$v3 .= ", ";
+			$mx .= ", ";
 		}
 		$frst = false;
 		$nn .= "'" . $key . "'";
 		$v1 .= $val['min'];
 		$v2 .= $val['max'];
 		$v3 .= $val['grp'];
+		$mx .= 100;
 	}
 	$nn .= "];\n";
 	$v1 .= "];\n";
 	$v2 .= "];\n";
 	$v3 .= "];\n";
+	$mx .= "];\n";
 	
 	echo $nn;
 	echo $v1;
 	echo $v2;
 	echo $v3;
+	echo $mx;
 
 	//echo "doDraw('cnv1');\n";
 
-	echo "DrawSpider('cnv1', 9, val_2, names, val_1, val_3, '', 'spindel');\n";
+	echo "DrawSpider('cnv1', 9, maxs, val_2, val_1, val_3, 'minor', 'spindel');\n";
 	
 	echo "</script>\n";
 
