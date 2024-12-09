@@ -21,13 +21,12 @@
 
 <?php
 
-	include('connect.php');
-	include('common.php');
-
-	include('main.js.php');
-	include('tagOut.php');
-	include('process_cmd.php');
-	include('stapel_disp.php');
+	include_once 'connect.php';
+	include_once 'common.php';
+	include_once 'main.js.php';
+	include_once 'tagOut.php';
+	include_once 'process_cmd.php';
+	include_once 'stapel_disp.php';
 
 	echo "</head><body>";
 
@@ -55,66 +54,32 @@
 			$name = $prow['name'];
 		}
 	}
-
-	function GetQ($pid, $a) {
-		global $emperator;
-		$obj = new stdClass();
-
-		$query = "SELECT * FROM data WHERE type=9 AND pers='" . $pid . "' AND value_a='" . $a . "'";
-
-		$res = mysqli_query( $emperator, $query );
-		if ($res) {
-			$row = mysqli_fetch_array($res);
-			if ($row) {
-				$data_id = $row['data_id'];
-				$obj->type = $row['value_b'];
-				$obj->source = $row['value_c'];
-				return $obj;
-			}
-		}
-		return false;
-	}
 	
-	// echo "<br> <h1> " . $pnr . " : " . $pid . " </h1> <br> \n";
-
+	$survs = collect_stapel_all($pid);
 
 	echo "<table class='plain'>";
 	echo "<tr>";
+	
+	$to = new tagOut;
 
 	{
 		echo "<td class='plain'> \n";
-
-		$to = new tagOut;
-
-		$data = new Data;
-		$data->pnr = $pnr;
-		$data->pid = $pid;
 
 		$args = [];
 		$args[] = "Positiv";
-		$args[] = "1";
-		$args[] = "2";
 		$args[] = "positivitet";
-		display_stapel($to, $data, $args, 1);
+		display_stapel_survs($to, $args, $survs, 1);
 		echo "<br> <center> " . $args[0] . " </center> ";
 		echo " </td> \n";
 	}
 
 	{
 		echo "<td class='plain'> \n";
-
-		$to = new tagOut;
-
-		$data = new Data;
-		$data->pnr = $pnr;
-		$data->pid = $pid;
 
 		$args = [];
 		$args[] = "Äkta";
-		$args[] = "1";
-		$args[] = "2";
 		$args[] = "akta";
-		display_stapel($to, $data, $args, 2);
+		display_stapel_survs($to, $args, $survs, 2);
 		echo "<br> <center> " . $args[0] . " </center> ";
 		echo " </td> \n";
 	}
@@ -122,18 +87,10 @@
 	{
 		echo "<td class='plain'> \n";
 
-		$to = new tagOut;
-
-		$data = new Data;
-		$data->pnr = $pnr;
-		$data->pid = $pid;
-
 		$args = [];
 		$args[] = "Relevant";
-		$args[] = "1";
-		$args[] = "2";
 		$args[] = "relevans";
-		display_stapel($to, $data, $args, 3);
+		display_stapel_survs($to, $args, $survs, 3);
 		echo "<br> <center> " . $args[0] . " </center> ";
 		echo " </td> \n";
 	}

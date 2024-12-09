@@ -269,7 +269,7 @@ function genericDrawSpider()
 	ctx.moveTo(8,hh-8-12*1);
 	ctx.lineTo(28,hh-8-12*1);
 	ctx.stroke();
-	ctx.fillText("Chefsskattning",32,hh-8-12*1+3);
+	ctx.fillText("Gruppskattning",32,hh-8-12*1+3);
 
 	if (was_missing)
 	{

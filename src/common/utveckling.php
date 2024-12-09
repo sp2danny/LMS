@@ -3,9 +3,12 @@
 
 <?php
 
-include 'head.php';
-include 'roundup.php';
+include_once 'head.php';
+include_once 'roundup.php';
 include_once 'util.php';
+include_once 'stapel_disp.php';
+include_once 'common.php';
+include_once 'connect.php';
 
 echo <<<EOT
 
@@ -61,10 +64,6 @@ td.visitab {
 </style>
 EOT;
 
-
-include 'common.php';
-include 'connect.php';
-
 $eol = "\n";
 
 echo '</head><body class="nomarg" >' . $eol;
@@ -84,7 +83,33 @@ function ptbl($prow, $mynt, $score=0)
 
 }
 
+function min_max($arr)
+{
+	$have = false;
+	$min = $max = 0;
+	foreach ($arr as $val)
+	{
+		if (!$have) {
+			$min = $max = $val;
+			$have = true;
+		} else {
+			if ($val < $min) $min = $val;
+			if ($val > $max) $max = $val;
+		}
+	}
+	return [$min, $max];
+}
 
+function collect_sum_diff($survs, $ids)
+{
+	$tot = 0;
+	foreach ($ids as $id)
+	{
+		$mm = min_max($survs[$id]);
+		$tot += ($mm[1] - $mm[0]);
+	}
+	return $tot;
+}
 
 function all()
 {
@@ -119,6 +144,8 @@ function all()
 	$utv_ini = readini($utv_file);
 
 	echo "<table>" . $eol;
+	
+	$survs = collect_stapel_all($pid);
 
 	if (true) // per
 	{
@@ -135,11 +162,10 @@ function all()
 		echo "</div> " . $eol;
 
 		echo '</td><td> ' . $eol;
-
-		echo "<h1> Steg Ett </h1>" . $eol;
+		$tot = collect_sum_diff($survs, ["positivitet", "akta", "relevans"]);
+		echo "<h1> Steg Ett +$tot </h1>" . $eol;
 		echo "<h3> " . $utv_ini['steg.1']['title'] . " </h3>" . $eol;
 		echo $utv_ini['steg.1']['text'] . $eol;
-
 
 		echo '</td></tr> ' . $eol;
 
@@ -178,21 +204,6 @@ function all()
 
 	if (true) // win
 	{
-		//echo "<tr><td colspan=2>" . $eol;
-		//echo "<center> <img src='winner.png' /> </center> " . $eol;
-		//
-		//
-		//echo '</td><td> ' . $eol;
-		//
-		//echo "<h1> Steg Tre </h1>" . $eol;
-		//echo "<h3> " . $utv_ini['steg.3']['title'] . " </h3>" . $eol;
-		//echo $utv_ini['steg.3']['text'] . $eol;
-		//
-		//echo '</td></tr>' . $eol;
-		//
-		////echo '<tr> <td colspan=3> <center> text med länk </center> </td></tr> ' . $eol;
-		////echo '<tr> <td colspan=3> &nbsp; </td> </tr>' . $eol;
-		
 		echo "<tr><td>" . $eol;
 		echo "<img src='win.png' /> </td> <td style='width:462px;' > " . $eol;
 
