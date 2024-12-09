@@ -4,78 +4,67 @@
 var spider_canvas;
 var spider_count;
 var spider_targets;
-var spider_targ_s;
-var spider_val_e;
+var spider_val_e_min;
+var spider_val_e_max;
 var spider_val_b;
-var spider_shrt_desc;
+var spider_names;
 var spider_mx;
 var spider_my;
 var spider_title;
 var spider_gap_n;
-var spider_gap_p;
+
 var spider_gap_tot_n;
 var spider_gap_tot_t;
 
-function DrawSpider( canvas, count, targets, targ_s, val_e, val_b, shrt_desc, title )
+function DrawSpider( canvas, count, targets, val_e_min, val_e_max, val_b, title, names )
 {
-
 	spider_canvas = document.getElementById(canvas);
 	spider_count = count;
 	spider_targets = targets;
-	spider_targ_s = targ_s;
-	spider_val_e = val_e;
+	spider_val_e_min = val_e_min;
+	spider_val_e_max = val_e_max;
 	spider_val_b = val_b;
-	spider_shrt_desc = shrt_desc;
 	spider_mx = -1;
 	spider_my = -1;
 	spider_title = title;
 	spider_gap_n = [];
-	spider_gap_p = [];
+
+	spider_names = names;
 
 	accu_n = 0;
 	accu_p = 0;
 	cnt = 0;
-	for( i = 0 ; i<count ; ++i )
+	for (i = 0 ; i<count ; ++i)
 	{
-		if( (val_e[i]!=0) && (val_b[i]!=0) )
-		{
-			val = ( val_e[i]*0.5 ) + ( val_b[i]*0.5 ) ;
-		}
-		else if( val_e[i]!=0 )
-		{
-			val = val_e[i] ;
-		}
-		else if( val_b[i]!=0 )
-		{
-			val = val_b[i] ;
-		}
-		else
-		{
-			continue;
-		}
-		if( targets[i] != 0 )
+		var tot_val = 0;
+		var tot_num = 0;
+		if (val_e_min[i] != 0) { tot_val += val_e_min[i]; ++tot_num; }
+		if (val_e_max[i] != 0) { tot_val += val_e_min[i]; ++tot_num; }
+		if (val_b[i] != 0)     { tot_val += val_b[i];     ++tot_num; }
+		
+		if (!tot_num) continue;
+		
+		val = tot_val / tot_num;
+		
+
+		if (targets[i] != 0)
 		{
 			val_n = val / targets[i] ;
 		} else {
 			val_n = 0;
 		}
-		if( targ_s[i] != 0 )
-		{
-			val_p = val / targ_s[i] ;
-		} else {
-			val_p = 0;
-		}
+
 		spider_gap_n.push(val_n);
-		spider_gap_p.push(val_p);
-		if(val_n>1) val_n=1; // >100% kompenserar inte för annat
-		if(val_p>1) val_p=1; // >100% kompenserar inte för annat
+
+		if (val_n>1) val_n=1; // >100% kompenserar inte för annat
+
 		accu_n += val_n;
-		accu_p += val_p;
+
 		++cnt;
 	}
 
 	spider_gap_tot_n =  ( accu_n / cnt );
-	spider_gap_tot_p =  ( accu_p / cnt );
+
 
 	spider_canvas.addEventListener( 'mousemove', spiderMouseMove, false );
 
@@ -90,7 +79,6 @@ function getMousePos(canvas, evt)
 		y: evt.clientY - rect.top
 	};
 }
-
 
 function genericDrawSpider()
 {
@@ -114,13 +102,13 @@ function genericDrawSpider()
 	{
 		sum += spider_gap_n[i];
 	}
-	txt += (2.8).toFixed(1);
+	txt += (sum).toFixed(1);
 
 	txt_w = ctx.measureText(txt).width;
-	ctx.fillText( txt, ww/2-txt_w/2, 28 );
+	ctx.fillText(txt, ww/2-txt_w/2, 28);
 
-	ctx.strokeStyle="#000";
-	ctx.lineWidth=1;
+	ctx.strokeStyle = "#000";
+	ctx.lineWidth = 1;
 	ctx.beginPath();
 	ctx.moveTo(0,40);
 	ctx.lineTo(ww,40);
@@ -128,9 +116,9 @@ function genericDrawSpider()
 	ctx.lineTo(ww,80);
 	ctx.stroke();
 
-	sz = Math.min( ww*0.45, (hh-80)*0.45 );
+	sz = Math.min(ww*0.45, (hh-80)*0.45);
 
-	buff = sz / 5;
+	buff = sz / 100;
 
 	dx = spider_mx - x1;
 	dy = spider_my - y1;
@@ -138,26 +126,25 @@ function genericDrawSpider()
 
 	ii = -1;
 
-	if( dist < 5*buff )
+	if (dist < 100*buff)
 	{
-		ang = Math.atan2( dy, dx );
+		ang = Math.atan2(dy, dx);
 		ang += 4*Math.PI;
-		ang += (2*Math.PI)/(2*spider_count);
+		ang += (2*Math.PI) / (2*spider_count);
 		ii = Math.floor(spider_count * ang / (2*Math.PI)) ;
 		ii = ii % spider_count;
-		ctx.font="16px Myriad-pro";
-		ctx.fillStyle="#000";
+		ctx.font = "16px Myriad-pro";
+		ctx.fillStyle = "#000";
 
-		txt = "anonym " +ii;
+		txt = (ii+1).toString() + " : " + spider_names[ii];
 		txt_w = ctx.measureText(txt).width;
-		ctx.fillText( txt, ww/2-txt_w/2, 28 + 40 );
-
+		ctx.fillText(txt, ww/2-txt_w/2, 28 + 40);
 	}
 
 	ctx.strokeStyle="#888";
 	ctx.lineWidth=1;
 
-	for( i=1; i<=5; ++i )
+	for (i=20; i<=100; i+=20)
 	{
 		ctx.beginPath();
 		ctx.arc(x1,y1,buff*i,0,2*Math.PI);
@@ -170,7 +157,7 @@ function genericDrawSpider()
 	pm = Math.PI / spider_count;
 	inc = 2*pm;
 
-	for( i=0; i< spider_count; ++i )
+	for (i=0; i<spider_count; ++i)
 	{
 
 		ctx.strokeStyle="#7f7";
@@ -179,14 +166,14 @@ function genericDrawSpider()
 		ctx.arc(x1,y1,buff*spider_targets[i],i*inc-pm,i*inc+pm);
 		ctx.stroke();
 
-		ctx.strokeStyle="#070";
-		
-		if( spider_targ_s[i] > 0 )
-		{
-			ctx.beginPath();
-			ctx.arc(x1,y1,buff*spider_targ_s[i],i*inc-pm,i*inc+pm);
-			ctx.stroke();
-		}
+		//ctx.strokeStyle="#070";
+		//
+		//if (spider_targ_s[i] > 0)
+		//{
+		//	ctx.beginPath();
+		//	ctx.arc(x1,y1,buff*spider_targ_s[i],i*inc-pm,i*inc+pm);
+		//	ctx.stroke();
+		//}
 	}
 
 	offs = 2 * Math.PI / 350;
@@ -194,10 +181,10 @@ function genericDrawSpider()
 	ctx.font="8px Myriad-pro";
 	ctx.fillStyle="#000";
 
-	for( i=0; i< spider_count; ++i )
+	for (i=0; i< spider_count; ++i)
 	{
-		x2 = x1 + buff * spider_val_e[i] * Math.cos ( ( i * inc ) - offs );
-		y2 = y1 + buff * spider_val_e[i] * Math.sin ( ( i * inc ) - offs );
+		x2 = x1 + buff * spider_val_e_min[i] * Math.cos ( ( i * inc ) - offs );
+		y2 = y1 + buff * spider_val_e_min[i] * Math.sin ( ( i * inc ) - offs );
 
 		ctx.strokeStyle="#ccc";
 		ctx.lineWidth=5;
@@ -206,11 +193,23 @@ function genericDrawSpider()
 		ctx.moveTo(x1,y1);
 		ctx.lineTo(x2,y2);
 		ctx.stroke();
+		
+		x2 = x1 + buff * spider_val_e_max[i] * Math.cos ( ( i * inc ) - 2*offs );
+		y2 = y1 + buff * spider_val_e_max[i] * Math.sin ( ( i * inc ) - 2*offs );
 
-		x2 = x1 + buff * 5.3 * Math.cos ( ( i * inc ) - offs );
-		y2 = y1 + buff * 5.3 * Math.sin ( ( i * inc ) - offs );
+		ctx.strokeStyle="#ccc";
+		ctx.lineWidth=5;
 
-		if( i == ii )
+		ctx.beginPath();
+		ctx.moveTo(x1,y1);
+		ctx.lineTo(x2,y2);
+		ctx.stroke();
+		
+
+		x2 = x1 + buff * 108 * Math.cos ( ( i * inc ) - offs );
+		y2 = y1 + buff * 108 * Math.sin ( ( i * inc ) - offs );
+
+		if (i == ii)
 		{
 			ctx.strokeStyle="#0f0";
 			ctx.lineWidth=1;
@@ -234,9 +233,9 @@ function genericDrawSpider()
 
 	was_missing = false;
 
-	for( i=0; i< spider_count; ++i )
+	for (i=0; i< spider_count; ++i)
 	{
-		if( ! spider_val_b[i] )
+		if (!spider_val_b[i])
 		{
 		}
 		else
@@ -272,7 +271,7 @@ function genericDrawSpider()
 	ctx.stroke();
 	ctx.fillText("Chefsskattning",32,hh-8-12*1+3);
 
-	if(was_missing)
+	if (was_missing)
 	{
 		ctx.strokeStyle="#f00";
 		ctx.beginPath();

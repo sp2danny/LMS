@@ -218,7 +218,9 @@ function index()
 
 	//echo "doDraw('cnv1');\n";
 
-	echo "DrawSpider('cnv1', 9, maxs, val_2, val_1, val_3, 'minor', 'spindel');\n";
+//function DrawSpider( canvas, count, targets, val_e_min, val_e_max, val_b, title, names )
+
+	echo "DrawSpider('cnv1', 9, maxs, val_1, val_2, val_3, 'spindel', names);\n";
 	
 	echo "</script>\n";
 
