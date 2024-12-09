@@ -21,13 +21,12 @@
 
 <?php
 
-	include('connect.php');
-	include('common.php');
-
-	include('main.js.php');
-	include('tagOut.php');
-	include('process_cmd.php');
-	include('stapel_disp.php');
+	include_once 'connect.php';
+	include_once 'common.php';
+	include_once 'main.js.php';
+	include_once 'tagOut.php';
+	include_once 'process_cmd.php';
+	include_once 'stapel_disp.php';
 
 	echo "</head><body>";
 
@@ -76,43 +75,31 @@
 		return false;
 	}
 
+	$survs = collect_stapel_all($pid);
+
 	echo "<table class='plain'>";
 	echo "<tr>";
 
+	$to = new tagOut;
+	
 	{
 		echo "<td class='plain'> \n";
-
-		$to = new tagOut;
-
-		$data = new Data;
-		$data->pnr = $pnr;
-		$data->pid = $pid;
 
 		$args = [];
 		$args[] = "Motivation";
-		$args[] = "1";
-		$args[] = "2";
 		$args[] = "motivation";
-		display_stapel($to, $data, $args, 7);
+		display_stapel_survs($to, $args, $survs, 7);
 		echo "<br> <center> " . $args[0] . " </center> ";
 		echo " </td> \n";
 	}
 
 	{
 		echo "<td class='plain'> \n";
-
-		$to = new tagOut;
-
-		$data = new Data;
-		$data->pnr = $pnr;
-		$data->pid = $pid;
 
 		$args = [];
 		$args[] = "Målsättning";
-		$args[] = "1";
-		$args[] = "2";
 		$args[] = "goal";
-		display_stapel($to, $data, $args, 8);
+		display_stapel_survs($to, $args, $survs, 8);
 		echo "<br> <center> " . $args[0] . " </center> ";
 		echo " </td> \n";
 	}
@@ -120,22 +107,13 @@
 	{
 		echo "<td class='plain'> \n";
 
-		$to = new tagOut;
-
-		$data = new Data;
-		$data->pnr = $pnr;
-		$data->pid = $pid;
-
 		$args = [];
 		$args[] = "Genomförande";
-		$args[] = "1";
-		$args[] = "2";
 		$args[] = "genomforande";
-		display_stapel($to, $data, $args, 9);
+		display_stapel_survs($to, $args, $survs, 9);
 		echo "<br> <center> " . $args[0] . " </center> ";
 		echo " </td> \n";
 	}
-
 
 	echo "</tr>\n";
 	echo "</table>\n";

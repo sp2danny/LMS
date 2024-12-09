@@ -3,7 +3,7 @@
 
 <html>
 <head>
-  <title> P&Auml;R </title>
+  <title> ATO </title>
   <style>
     table.plain, th.plain, td.plain {
       border: 3px solid black;
@@ -21,13 +21,12 @@
 
 <?php
 
-	include('connect.php');
-	include('common.php');
-
-	include('main.js.php');
-	include('tagOut.php');
-	include('process_cmd.php');
-	include('stapel_disp.php');
+	include_once 'connect.php';
+	include_once 'common.php';
+	include_once 'main.js.php';
+	include_once 'tagOut.php';
+	include_once 'process_cmd.php';
+	include_once 'stapel_disp.php';
 
 	echo "</head><body>";
 
@@ -57,62 +56,31 @@
 		}
 	}
 
-	function GetQ($pid, $a) {
-		global $emperator;
-		$obj = new stdClass();
-
-		$query = "SELECT * FROM data WHERE type=9 AND pers='" . $pid . "' AND value_a='" . $a . "'";
-
-		$res = mysqli_query( $emperator, $query );
-		if ($res) {
-			$row = mysqli_fetch_array($res);
-			if ($row) {
-				$data_id = $row['data_id'];
-				$obj->type = $row['value_b'];
-				$obj->source = $row['value_c'];
-				return $obj;
-			}
-		}
-		return false;
-	}
+	$survs = collect_stapel_all($pid);
 
 	echo "<table class='plain'>";
 	echo "<tr>";
 
+	$to = new tagOut;
+
 	{
 		echo "<td class='plain'> \n";
-
-		$to = new tagOut;
-
-		$data = new Data;
-		$data->pnr = $pnr;
-		$data->pid = $pid;
 
 		$args = [];
 		$args[] = "Ärlig";
-		$args[] = "1";
-		$args[] = "2";
-		$args[] = "akta";
-		display_stapel($to, $data, $args, 4);
+		$args[] = "arlig";
+		display_stapel_survs($to, $args, $survs, 4);
 		echo "<br> <center> " . $args[0] . " </center> ";
 		echo " </td> \n";
 	}
 
 	{
 		echo "<td class='plain'> \n";
-
-		$to = new tagOut;
-
-		$data = new Data;
-		$data->pnr = $pnr;
-		$data->pid = $pid;
 
 		$args = [];
 		$args[] = "Tillitsfull";
-		$args[] = "1";
-		$args[] = "2";
 		$args[] = "tillit";
-		display_stapel($to, $data, $args, 5);
+		display_stapel_survs($to, $args, $survs, 5);
 		echo "<br> <center> " . $args[0] . " </center> ";
 		echo " </td> \n";
 	}
@@ -120,22 +88,13 @@
 	{
 		echo "<td class='plain'> \n";
 
-		$to = new tagOut;
-
-		$data = new Data;
-		$data->pnr = $pnr;
-		$data->pid = $pid;
-
 		$args = [];
 		$args[] = "Omdömesfull";
-		$args[] = "1";
-		$args[] = "2";
 		$args[] = "omdome";
-		display_stapel($to, $data, $args, 6);
+		display_stapel_survs($to, $args, $survs, 6);
 		echo "<br> <center> " . $args[0] . " </center> ";
 		echo " </td> \n";
 	}
-
 
 	echo "</tr>\n";
 	echo "</table>\n";

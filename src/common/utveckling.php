@@ -190,7 +190,10 @@ function all()
 
 		echo '</td><td> ' . $eol;
 
-		echo "<h1> Steg Två </h1>" . $eol;
+		$tot = collect_sum_diff($survs, ["arlig", "tillit", "omdome"]);
+		echo "<h1> Steg Två +$tot </h1>" . $eol;
+
+		//echo "<h1> Steg Två </h1>" . $eol;
 		echo "<h3> " . $utv_ini['steg.2']['title'] . " </h3>" . $eol;
 		echo $utv_ini['steg.2']['text'] . $eol;
 
@@ -218,7 +221,10 @@ function all()
 
 		echo '</td><td> ' . $eol;
 
-		echo "<h1> Steg Tre </h1>" . $eol;
+		$tot = collect_sum_diff($survs, ["motivation", "goal", "genomforande"]);
+		echo "<h1> Steg Tre +$tot </h1>" . $eol;
+
+		//echo "<h1> Steg Tre </h1>" . $eol;
 		echo "<h3> " . $utv_ini['steg.3']['title'] . " </h3>" . $eol;
 		echo $utv_ini['steg.3']['text'] . $eol;
 

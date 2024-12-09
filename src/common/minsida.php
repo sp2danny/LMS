@@ -16,6 +16,7 @@ include_once 'tagOut.php';
 include_once 'connect.php';
 include_once 'roundup.php';
 include_once 'util.php';
+include_once 'stapel_disp.php';
 
 function ptbl($to, $prow, $mynt, $score=0)
 {
@@ -146,6 +147,34 @@ function survOut($to, $tn, $filt)
 		debug_log('embed link : ' . $lnk);
 		$to->scTag('embed', "type='text/html' src='$lnk' width='1200' height='1600' ");
 	}
+}
+
+function min_max($arr)
+{
+	$have = false;
+	$min = $max = 0;
+	foreach ($arr as $val)
+	{
+		if (!$have) {
+			$min = $max = $val;
+			$have = true;
+		} else {
+			if ($val < $min) $min = $val;
+			if ($val > $max) $max = $val;
+		}
+	}
+	return [$min, $max];
+}
+
+function collect_sum_diff($survs, $ids)
+{
+	$tot = 0;
+	foreach ($ids as $id)
+	{
+		$mm = min_max($survs[$id]);
+		$tot += ($mm[1] - $mm[0]);
+	}
+	return $tot;
 }
 
 function index($local, $common)
@@ -572,6 +601,9 @@ EOT;
 
 	$fmap = [];
 	$pros = [];
+	
+	$survs = collect_stapel_all($pid);
+	$tot = collect_sum_diff($survs, ["positivitet", "akta", "relevans", "arlig", "tillit", "omdome", "motivation", "goal", "genomforande"]);
 
 	for ($i=1; $i<=$n; ++$i)
 	{
@@ -580,6 +612,8 @@ EOT;
 
 		$key = $i . ".button";
 		$btn = $min_ini['survey'][$key];
+		
+		if ($i==2) $btn .= " +" . $tot;
 
 		$key = $i . ".pro";
 		$pro = rwd($min_ini, 'survey', $key, false);
