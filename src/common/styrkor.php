@@ -11,7 +11,7 @@
 
 include_once "getparam.php";
 include_once "connect.php";
-include_once "common.php";
+include_once "common_php.php";
 
 ?>
 
@@ -36,6 +36,10 @@ include_once "common.php";
 
 .ls {
 	width : 320px;
+}
+
+.cn {
+	text-align : center
 }
 
 </style>
@@ -65,6 +69,29 @@ function DoUpdateDivs()
 	const mo_sl = document.getElementById("mo_sl");
 	mo_div.innerHTML = " " + mo_sl.value.toString() + "%";
 }
+
+function andraSliders()
+{
+	const st_syn_div = document.getElementById("st_syn_div");
+	const st_syn_sl = document.getElementById("st_syn_sl");
+	st_syn_div.innerHTML = " " + st_syn_sl.value.toString() + "%";
+	
+}
+
+/*
+ <span id="st_syn_div" > </span>
+ <input class='ls' id='st_syn_sl' type='range' onChange='andraSliders()' />
+
+ <span id="pro_soc_div" > </span>
+ <input class='ls' id='pro_soc_sl' type='range' onChange='andraSliders()' />
+
+ <span id="st_sto_div" > </span>
+ <input class='ls' id='st_sto_sl' type='range' onChange='andraSliders()' />
+
+ <span id="pro_bes_div" > </span>
+ <input class='ls' id='pro_bes_sl' type='range' onChange='andraSliders()' />
+*/
+
 
 function OnChangeSlider()
 {
@@ -122,11 +149,41 @@ function SaveBtnPress(pid)
 
 <table> <tr>
 
-<td> <img src="styrkor.png" /> </td>
+<td> <img style="width: 682px; height: 511px" src="styrkor.png" /> </td>
 
-<td> <img src="proaktiv.jpg" /> </td>
+<td> <img style="width: 682px; height: 511px" src="proaktiv.jpg" /> </td>
 
-</tr> </table>
+</tr> <tr>
+
+<td class="cn" >
+<span> Så här bra är jag på att hitta synergier med andras styrkor: </span> <span id="st_syn_div" > </span>
+<br />
+&nbsp;&nbsp;&nbsp; <input class='ls' id='st_syn_sl' type='range' onChange='andraSliders()' />
+</td>
+
+<td class="cn" >
+<span> Så här bra är jag på att vara socialt proaktiv: </span> <span id="pro_soc_div" > </span>
+<br />
+&nbsp;&nbsp;&nbsp; <input class='ls' id='pro_soc_sl' type='range' onChange='andraSliders()' />
+</td>
+
+</tr> <tr>
+
+<td class="cn" >
+<span> Så här bra är jag på att stötta andras svagheter: </span> <span id="st_sto_div" > </span>
+<br />
+&nbsp;&nbsp;&nbsp; <input class='ls' id='st_sto_sl' type='range' onChange='andraSliders()' />
+</td>
+
+<td class="cn" >
+<span> Så här bra är jag på att fatta proaktiva beslut: </span> <span id="pro_bes_div" > </span>
+<br />
+&nbsp;&nbsp;&nbsp; <input class='ls' id='pro_bes_sl' type='range' onChange='andraSliders()' />
+</td>
+
+
+</tr>
+</table>
 
 <br /> <br />
 
