@@ -22,8 +22,20 @@ include_once "common.php";
 	font-size: 26px;
 }
 
+.sml {
+	font-size: 11px;
+}
+
 .twm {
 	padding-left : 35px;
+}
+
+.lf {
+	width : 280px;
+}
+
+.ls {
+	width : 320px;
 }
 
 </style>
@@ -36,10 +48,67 @@ function OnChangeHandler()
 	elem.disabled = false;
 }
 
-function SaveBtnPress()
+function DoUpdateDivs()
 {
-	const elem = document.getElementById("SaveBtn");
-	elem.disabled = true;
+	// styrkor
+	const st_div = document.getElementById("st_div");
+	const st_sl = document.getElementById("st_sl");
+	st_div.innerHTML = " " + st_sl.value.toString() + "%";
+
+	// svagheter
+	const sv_div = document.getElementById("sv_div");
+	const sv_sl = document.getElementById("sv_sl");
+	sv_div.innerHTML = " " + sv_sl.value.toString() + "%";
+
+	// motiv
+	const mo_div = document.getElementById("mo_div");
+	const mo_sl = document.getElementById("mo_sl");
+	mo_div.innerHTML = " " + mo_sl.value.toString() + "%";
+}
+
+function OnChangeSlider()
+{
+	DoUpdateDivs();
+	OnChangeHandler();
+}
+
+function SaveBtnPress(pid)
+{
+	
+	url = "styrkor_save.php?pid=" + pid;
+	
+	url += "&st_1=" + document.getElementById("st_1").value;
+	url += "&st_2=" + document.getElementById("st_2").value;
+	url += "&st_3=" + document.getElementById("st_3").value;
+	url += "&st_4=" + document.getElementById("st_4").value;
+	url += "&st_5=" + document.getElementById("st_5").value;
+
+	url += "&st_sl=" + document.getElementById("st_sl").value;
+
+
+	url += "&sv_1=" + document.getElementById("sv_1").value;
+	url += "&sv_2=" + document.getElementById("sv_2").value;
+	url += "&sv_3=" + document.getElementById("sv_3").value;
+	url += "&sv_4=" + document.getElementById("sv_4").value;
+	url += "&sv_5=" + document.getElementById("sv_5").value;
+
+	url += "&sv_sl=" + document.getElementById("sv_sl").value;
+
+
+	url += "&mo_1=" + document.getElementById("mo_1").value;
+	url += "&mo_2=" + document.getElementById("mo_2").value;
+	url += "&mo_3=" + document.getElementById("mo_3").value;
+	url += "&mo_4=" + document.getElementById("mo_4").value;
+	url += "&mo_5=" + document.getElementById("mo_5").value;
+
+	url += "&mo_sl=" + document.getElementById("mo_sl").value;
+
+
+	fetch(url);
+
+	document.getElementById("SaveBtn").disabled = true;
+	
+	//document.getElementById("replaceme").innerHTML = url;
 }
 
 
@@ -51,7 +120,13 @@ function SaveBtnPress()
 
 <div class='main'>
 
-<img src="styrkor.png" />
+<table> <tr>
+
+<td> <img src="styrkor.png" /> </td>
+
+<td> <img src="proaktiv.jpg" /> </td>
+
+</tr> </table>
 
 <br /> <br />
 
@@ -95,15 +170,16 @@ for ($i=1; $i<=5; ++$i)
 {
 	echo "\t<li> " . $i . " &nbsp;&nbsp;&nbsp;";
 	$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 301, $i], 'value_c', '');
-	echo "<input id='st_$i' onchange='OnChangeHandler()' type='text' value='$val' /> ";
+	echo "<input class='lf' id='st_$i' onchange='OnChangeHandler()' type='text' value='$val' /> ";
 	echo "</li>\n";
 }
 
 echo "</ul>\n<br />\n";
 
-echo "<label for='st_sl'> Så här bra är jag på att utnyttja min styrkor: </label>\n";
+echo "<span> Så här bra är jag på att utnyttja min styrkor: </span> <span id='st_div'> </span> \n";
 echo "<br /> &nbsp;&nbsp;&nbsp; ";
-echo "<input id='st_sl' onchange='OnChangeHandler()' type='range' value='0' /> \n";
+$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 301, 0], 'value_b', 0);
+echo "<input class='ls' id='st_sl' onchange='OnChangeSlider()' type='range' value='$val' /> \n";
 
 echo "</td>\n";
 
@@ -117,15 +193,16 @@ for ($i=1; $i<=5; ++$i)
 {
 	echo "\t<li> " . $i . " &nbsp;&nbsp;&nbsp;";
 	$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 302, $i], 'value_c', '');
-	echo "<input id='sv_$i' onchange='OnChangeHandler()' type='text' value='$val' /> ";
+	echo "<input class='lf' id='sv_$i' onchange='OnChangeHandler()' type='text' value='$val' /> ";
 	echo "</li>\n";
 }
 
 echo "</ul>\n<br />\n";
 
-echo "<label for='sv_sl'> Så här bra är jag på att be om hjälp: </label>\n";
+echo "<span> Så här bra är jag på att be om hjälp: </span> <span id='sv_div'> </span> \n";
 echo "<br /> &nbsp;&nbsp;&nbsp; ";
-echo "<input id='sv_sl' onchange='OnChangeHandler()' type='range' value='0' /> \n";
+$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 302, 0], 'value_b', 0);
+echo "<input class='ls' id='sv_sl' onchange='OnChangeSlider()' type='range' value='$val' /> \n";
 
 echo "</td>\n";
 
@@ -139,15 +216,16 @@ for ($i=1; $i<=5; ++$i)
 {
 	echo "\t<li> " . $i . " &nbsp;&nbsp;&nbsp;";
 	$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 303, $i], 'value_c', '');
-	echo "<input id='mo_$i' onchange='OnChangeHandler()' type='text' value='$val' /> ";
+	echo "<input class='lf' id='mo_$i' onchange='OnChangeHandler()' type='text' value='$val' /> ";
 	echo "</li>\n";
 }
 
 echo "</ul>\n<br />\n";
 
-echo "<label for='mo_sl'> Så här bra är jag på att hitta motivation: </label>\n";
+echo "<span> Så här bra är jag på att hitta motivation: </span> <span id='mo_div'> </span> \n";
 echo "<br /> &nbsp;&nbsp;&nbsp; ";
-echo "<input id='mo_sl' onchange='OnChangeHandler()' type='range' value='0' /> \n";
+$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 303, 0], 'value_b', 0);
+echo "<input class='ls' id='mo_sl' onchange='OnChangeSlider()' type='range' value='$val' /> \n";
 
 echo "</td>\n";
 
@@ -159,9 +237,15 @@ echo "</tr></table>\n";
 
 echo "<br /><hr /><br />\n";
 
-echo "<button disabled id='SaveBtn' onClick='SaveBtnPress()' > Save </button>\n"
+echo "<button disabled id='SaveBtn' onClick='SaveBtnPress($pid)' > Save </button>\n";
+
+echo "<script>\n";
+echo "DoUpdateDivs();\n";
+echo "</script>\n";
 
 ?>
+
+<div class='sml' id='replaceme'> </div>
 
 </div>
 

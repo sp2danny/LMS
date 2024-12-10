@@ -77,6 +77,8 @@
     <File Name="src/klarna/coach.html"/>
   </VirtualDirectory>
   <VirtualDirectory Name="common">
+    <File Name="src/common/common_php.php"/>
+    <File Name="src/common/styrkor_save.php"/>
     <File Name="src/common/styrkor.php"/>
     <File Name="src/common/spindel.js.php"/>
     <File Name="src/common/gs_listn.php"/>
