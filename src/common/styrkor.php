@@ -39,7 +39,8 @@ include_once "common_php.php";
 }
 
 .cn {
-	text-align : center
+	text-align : center;
+	font-size: 22px;
 }
 
 </style>
@@ -52,46 +53,27 @@ function OnChangeHandler()
 	elem.disabled = false;
 }
 
+function slu(pf)
+{
+	const div = document.getElementById(pf + "_div");
+	const sl = document.getElementById(pf + "_sl");
+	div.innerHTML = " " + sl.value.toString() + "%";
+}
+
 function DoUpdateDivs()
 {
-	// styrkor
-	const st_div = document.getElementById("st_div");
-	const st_sl = document.getElementById("st_sl");
-	st_div.innerHTML = " " + st_sl.value.toString() + "%";
-
-	// svagheter
-	const sv_div = document.getElementById("sv_div");
-	const sv_sl = document.getElementById("sv_sl");
-	sv_div.innerHTML = " " + sv_sl.value.toString() + "%";
-
-	// motiv
-	const mo_div = document.getElementById("mo_div");
-	const mo_sl = document.getElementById("mo_sl");
-	mo_div.innerHTML = " " + mo_sl.value.toString() + "%";
+	slu("st");
+	slu("sv");
+	slu("mo");
 }
 
 function andraSliders()
 {
-	const st_syn_div = document.getElementById("st_syn_div");
-	const st_syn_sl = document.getElementById("st_syn_sl");
-	st_syn_div.innerHTML = " " + st_syn_sl.value.toString() + "%";
-	
+	slu('st_syn');
+	slu('pro_soc');
+	slu('st_sto');
+	slu('pro_bes');
 }
-
-/*
- <span id="st_syn_div" > </span>
- <input class='ls' id='st_syn_sl' type='range' onChange='andraSliders()' />
-
- <span id="pro_soc_div" > </span>
- <input class='ls' id='pro_soc_sl' type='range' onChange='andraSliders()' />
-
- <span id="st_sto_div" > </span>
- <input class='ls' id='st_sto_sl' type='range' onChange='andraSliders()' />
-
- <span id="pro_bes_div" > </span>
- <input class='ls' id='pro_bes_sl' type='range' onChange='andraSliders()' />
-*/
-
 
 function OnChangeSlider()
 {
