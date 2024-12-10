@@ -107,3 +107,13 @@ typer
 
 	grupp-sk    209
 
+
+
+
+	namn        type         a            b            c            surv
+	==========  ===========  ===========  ===========  ===========  ===========
+
+	styrkor     301          num (1-5)                 styrka         
+	motivatorer 302          num (1-5)                 motivator         
+	svagheter   303          num (1-5)                 svaghet         
+

@@ -517,7 +517,22 @@ function COU( $db, $id_n, $id_v, $sup_n, $sup_v, $key ) // Create Or Update
 
 }
 
+function ROD( $db, $id_n, $id_v, $key, $def ) // Read Or Default
+{
+	global $emperator;
 
+	$query = "SELECT * FROM " . $db . " WHERE";
+
+	$n = count($id_n);
+	for ($i=0; $i<$n; ++$i) {
+		$query .= ($i==0) ? " " : " AND ";
+		$query .= $id_n[$i] . "=" . QIT($id_v[$i]);
+	}
+	if ($res = mysqli_query($emperator, $query))
+		if ($row = mysqli_fetch_array($res))
+			return $row[$key];
+	return $def;
+}
 
 function empgreen()
 {
