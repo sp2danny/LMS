@@ -41,6 +41,19 @@ $val = getparam('mo_sl');
 COU('data', ['pers', 'type', 'value_a'], [$pid, 303, 0], ['value_b'], [$val], 'data_id');
 
 
+// annat
+$val = getparam('st_syn_sl');
+COU('data', ['pers', 'type', 'value_a'], [$pid, 300, 1], ['value_b'], [$val], 'data_id');
+
+$val = getparam('pro_soc_sl');
+COU('data', ['pers', 'type', 'value_a'], [$pid, 300, 2], ['value_b'], [$val], 'data_id');
+
+$val = getparam('st_sto_sl');
+COU('data', ['pers', 'type', 'value_a'], [$pid, 300, 3], ['value_b'], [$val], 'data_id');
+
+$val = getparam('pro_bes_sl');
+COU('data', ['pers', 'type', 'value_a'], [$pid, 300, 4], ['value_b'], [$val], 'data_id');
+
 
 ?>
 

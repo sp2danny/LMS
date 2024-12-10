@@ -73,6 +73,7 @@ function andraSliders()
 	slu('pro_soc');
 	slu('st_sto');
 	slu('pro_bes');
+	OnChangeHandler();
 }
 
 function OnChangeSlider()
@@ -111,6 +112,12 @@ function SaveBtnPress(pid)
 	url += "&mo_5=" + document.getElementById("mo_5").value;
 
 	url += "&mo_sl=" + document.getElementById("mo_sl").value;
+	
+
+	url += "&st_syn_sl="  + document.getElementById("st_syn_sl").value;
+	url += "&pro_soc_sl=" + document.getElementById("pro_soc_sl").value;
+	url += "&st_sto_sl="  + document.getElementById("st_sto_sl").value;
+	url += "&pro_bes_sl=" + document.getElementById("pro_bes_sl").value;
 
 
 	fetch(url);
@@ -269,9 +276,6 @@ echo "<input class='ls' id='mo_sl' onchange='OnChangeSlider()' type='range' valu
 echo "</td>\n";
 
 
-
-
-
 echo "</tr></table>\n";
 
 echo "<br /><hr /><br />\n";
@@ -280,6 +284,20 @@ echo "<button disabled id='SaveBtn' onClick='SaveBtnPress($pid)' > Save </button
 
 echo "<script>\n";
 echo "DoUpdateDivs();\n";
+
+$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 300, 1], 'value_b', 0);
+echo "document.getElementById('st_syn_sl').value = $val;\n";
+
+$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 300, 2], 'value_b', 0);
+echo "document.getElementById('pro_soc_sl').value = $val;\n";
+
+$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 300, 3], 'value_b', 0);
+echo "document.getElementById('st_sto_sl').value = $val;\n";
+
+$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 300, 4], 'value_b', 0);
+echo "document.getElementById('pro_bes_sl').value = $val;\n";
+
+
 echo "</script>\n";
 
 ?>

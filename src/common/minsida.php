@@ -604,6 +604,17 @@ EOT;
 	
 	$survs = collect_stapel_all($pid);
 	$tot = collect_sum_diff($survs, ["positivitet", "akta", "relevans", "arlig", "tillit", "omdome", "motivation", "goal", "genomforande"]);
+	
+	
+	// function ROD( $db, $id_n, $id_v, $key, $def ) // Read Or Default
+	
+	$sty  = ROD('data', ['pers', 'type', 'value_a'], [$pid, 301, 0], 'value_b', 0);
+	$sty += ROD('data', ['pers', 'type', 'value_a'], [$pid, 302, 0], 'value_b', 0);
+	$sty += ROD('data', ['pers', 'type', 'value_a'], [$pid, 300, 1], 'value_b', 0);
+	$sty += ROD('data', ['pers', 'type', 'value_a'], [$pid, 300, 2], 'value_b', 0);
+	$sty += ROD('data', ['pers', 'type', 'value_a'], [$pid, 300, 3], 'value_b', 0);
+	$sty += ROD('data', ['pers', 'type', 'value_a'], [$pid, 300, 4], 'value_b', 0);
+
 
 	for ($i=1; $i<=$n; ++$i)
 	{
@@ -614,6 +625,8 @@ EOT;
 		$btn = $min_ini['survey'][$key];
 		
 		if ($i==2) $btn .= " +" . $tot;
+		
+		if ($i==6) $btn = "Styrkor " . sprintf("%.1f", ($sty/6.0)) . "%";
 
 		$key = $i . ".pro";
 		$pro = rwd($min_ini, 'survey', $key, false);
