@@ -44,6 +44,7 @@
     <None Include="src\common\cockpit.php" />
     <None Include="src\common\common-2.php" />
     <None Include="src\common\common.php" />
+    <None Include="src\common\common_php.php" />
     <None Include="src\common\connect.php" />
     <None Include="src\common\convert.php" />
     <None Include="src\common\cps_post.php" />
