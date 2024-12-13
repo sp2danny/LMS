@@ -623,10 +623,13 @@ EOT;
 
 		$key = $i . ".button";
 		$btn = $min_ini['survey'][$key];
+
+		$key = $i . ".special";
+		$spc = rwd($min_ini, 'survey', $key, '');
 		
-		if ($i==2) $btn .= " +" . $tot;
+		if ($spc=='utv') $btn .= " +" . $tot;
 		
-		if ($i==6) $btn = "Styrkor " . sprintf("%.1f", ($sty/6.0)) . "%";
+		if ($spc=='sty') $btn =. " " . sprintf("%.1f", ($sty/6.0)) . "%";
 
 		$key = $i . ".pro";
 		$pro = rwd($min_ini, 'survey', $key, false);
