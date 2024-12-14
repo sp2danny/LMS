@@ -57,6 +57,7 @@ count = 14
 5.result = 5.2
 5.level.lo = 1
 5.level.hi = 2
+5.embed = https://mind2excellence.se/site/common/egenskaper.php
 
 6.filter = 5
 6.namn = Mina Styrkor
