@@ -395,6 +395,12 @@ br.hs {
 	line-height: 9px;
 }
 
+.fse {
+	border: none;
+	width: 100%;
+	height: 5000px;
+}
+
 </style>
 
 EOT;
@@ -759,7 +765,9 @@ EOT;
 				if ($do_pid)
 					$lnk = addKV($lnk, 'pid', $data->pid);
 				debug_log('embed link : ' . $lnk);
-				$to->scTag('embed', 'type="text/html" width="100%" height="1500px" src="' . $lnk . '"');
+				//$to->scTag('embed', 'type="text/html" width="100%" height="1500px" src="' . $lnk . '"');
+				$to->startTag('iframe', "class='fse' src='$lnk'");
+				$to->endTag('iframe');
 			}
 			
 		}
