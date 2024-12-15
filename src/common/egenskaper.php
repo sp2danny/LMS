@@ -59,17 +59,7 @@ function index()
 		$pid = $prow['pers_id'];
 	}
 
-	$disc = false;
-
-	$query = "SELECT * FROM data WHERE pers='$pid' AND type='6';";
-	$res = mysqli_query($emperator, $query);
-	if ($res) {
-		if ($row = mysqli_fetch_array($res)) {
-			$disc = [];
-			$disc['LR'] = $row['value_a'];
-			$disc['UD'] = $row['value_b'];
-		}
-	}
+	$disc = get_disc($pid);
 
 	echo "<table><tr><td>\n";
 

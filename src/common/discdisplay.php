@@ -35,9 +35,9 @@ function disc_draw($LR, $UD)
 	$ret .=  '  ctx.fillStyle="#373"; ' . "\n";
 	$ret .=  '  ctx.strokeStyle="#000"; ' . "\n";
 	$ret .=  '  ctx.arc(' . "\n";
-	$ret .=  (850/2)+12*$LR ;
+	$ret .=  (850/2)+17*$LR ;
 	$ret .=  ',';
-	$ret .=  (850/2)+12*$UD ;
+	$ret .=  (850/2)+17*$UD ;
 	$ret .=  ',9,0,2*Math.PI); ' . "\n";
 	$ret .=  '  ctx.stroke(); ' . "\n";
 	$ret .=  '  ctx.fill(); ' . "\n";
@@ -46,16 +46,11 @@ function disc_draw($LR, $UD)
 
 	$ret .=  '<img onload="rita_disc()" src="../common/sq.png" /> <br />' . "\n" ;
 
-	//$ret .=  "<script> rita_disc(); </script> \n";
-
 	return $ret;
 }
 
-
-function discdisplay($pid)
+function get_disc($pid)
 {
-	//$pid = getparam("pid", "0");
-	
 	global $emperator;
 
 	$query1 = "SELECT * FROM data WHERE pers='";
@@ -81,15 +76,27 @@ function discdisplay($pid)
 			}
 		}
 	}
+	
+	if (!$have) return false;
+	
+	$res = [];
+	$res['LR'] = $LR;
+	$res['UD'] = $UD;
+	
+	return $res;
+}
 
-	if(!isset($LR))
+function discdisplay($pid)
+{
+	$have = get_disc($pid);
+
+	if ($have === false)
 	{
 		$LR = getparam("lr", "0");
-	}
-
-	if(!isset($UD))
-	{
 		$UD = getparam("ud", "0");
+	} else {
+		$LR = $have['LR'];
+		$UD = $have['UD'];
 	}
 
 	return disc_draw($LR, $UD);
