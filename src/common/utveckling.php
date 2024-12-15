@@ -105,8 +105,10 @@ function collect_sum_diff($survs, $ids)
 	$tot = 0;
 	foreach ($ids as $id)
 	{
-		$mm = min_max($survs[$id]);
-		$tot += ($mm[1] - $mm[0]);
+		if (array_key_exists($id, $survs)) {
+			$mm = min_max($survs[$id]);
+			$tot += ($mm[1] - $mm[0]);
+		}
 	}
 	return $tot;
 }

@@ -15,7 +15,7 @@ echo <<<EOL
 
 .main {
 	/*font-family: Arial; */
-	font-size: 26px;
+	font-size: 22px;
 }
 
 .sml {
@@ -23,20 +23,20 @@ echo <<<EOL
 }
 
 .twm {
-	padding-left : 35px;
+	padding-left : 25px;
 }
 
 .lf {
-	width : 280px;
+	width : 260px;
 }
 
 .ls {
-	width : 320px;
+	width : 300px;
 }
 
 .cn {
 	text-align : center;
-	font-size: 22px;
+	font-size: 20px;
 }
 
 </style>

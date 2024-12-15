@@ -66,7 +66,7 @@ count = 14
 6.level.hi = 2
 6.pts = 1
 6.embed = https://mind2excellence.se/site/common/styrkor.php
-2.special = sty
+6.special = sty
 
 7.filter = 6
 7.namn = De 4 frågorna som matchar dig rätt

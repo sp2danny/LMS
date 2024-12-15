@@ -178,6 +178,12 @@ function display_stapel_survs($to, $args, $survs, $num=1)
 {
 	$title  = $args[0];
 	$data   = $args[1];
+	
+	if (!array_key_exists($data, $survs))
+	{
+		$to->regLine("no data");
+		return 0;
+	}
 
 	$arr = $survs[$data];
 
