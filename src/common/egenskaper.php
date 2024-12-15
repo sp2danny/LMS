@@ -146,5 +146,18 @@ index();
 
 ?>
 
+<br><br>
+
+ <img width=100%  src=" allafargtext.png" /> <br />
+        <br /> <br /> 
+        Skriv ut ovanstående discanalys, stryk under de motivatorer som är de viktigaste för dig, och diskutera i gruppen om andra delar din uppfattning om din beteendeprofil. Sätt sedan in i din handlingsplan. Ta med detta dokument till examinationen på Nivå 1 i nästa steg.
+        <br /> <br /> 
+        <iframe width="85%" height="850px"   src=" ../common/Disc2014.pdf" /> </iframe> <br />
+        <br /> <br /> 
+        Skriv också ut och läs igenom ovanstående detaljerade tolkning av olika beteendestilar och behåll i din utbildningspärm. Du kommer att lära dig mer om olika beteendestilar längre fram i utbildningen.<br> (Skriv ut dokunentet genom att först ställa markören på dokumentet och högerklicka. Välj: Öppna med förhandsvisning. Sedan skriv ut.) Sätt in dokumentet i din utbildningspärm.
+        <br /> 
+
+
+
 </body>
 </html>
