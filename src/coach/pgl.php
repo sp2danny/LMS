@@ -80,7 +80,9 @@ if ($res) while ($prow = mysqli_fetch_array($res))
 	echo "<td> " . $n . " </td> \n";
 	echo "<td> " . $prow['email'] . " </td> \n";
 	echo "<td> " . $prow['pnr'] . " </td> \n";
-	echo "<td> " . $prow['grupp'] . " </td> \n";
+	$g = $prow["grupp"];
+	if (for_discard($g)) $g = "";
+	echo "<td> " . $g . " </td> \n";
 	echo "</tr>\n";
 }
 
