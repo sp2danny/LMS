@@ -39,6 +39,13 @@
     <File Name="src/survey/styr.txt"/>
   </VirtualDirectory>
   <VirtualDirectory Name="coach">
+    <File Name="src/coach/pgl.php"/>
+    <File Name="src/common/make_group.php"/>
+    <File Name="src/common/display_user.php"/>
+    <File Name="src/common/display_report.php"/>
+    <File Name="src/common/create_report_p1.php"/>
+    <File Name="src/common/create_group.php"/>
+    <File Name="src/common/create_report.php"/>
     <File Name="src/coach/chan_erch_process.php"/>
     <File Name="src/coach/chan_erch.php"/>
     <File Name="src/coach/chan_edit_process.php"/>
@@ -90,7 +97,6 @@
     <File Name="src/common/leader.php"/>
     <File Name="src/common/mingrupp.php"/>
     <File Name="src/common/mmg.php"/>
-    <File Name="src/common/display_user.php"/>
     <File Name="src/common/per.php"/>
     <File Name="src/common/at.php"/>
     <File Name="src/common/dologin.php"/>
@@ -120,10 +126,6 @@
     <File Name="src/common/show_details.php"/>
     <File Name="src/common/delete_user.php"/>
     <File Name="src/common/cleanup_db.php"/>
-    <File Name="src/common/create_group.php"/>
-    <File Name="src/common/make_group.php"/>
-    <File Name="src/common/display_report.php"/>
-    <File Name="src/common/create_report_p1.php"/>
     <File Name="src/common/cockpit-2.php"/>
     <File Name="src/common/stapel_disp.php"/>
     <File Name="src/common/meter_disp.php"/>
