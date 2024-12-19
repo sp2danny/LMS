@@ -8,6 +8,11 @@ echo <<<EOT
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
+body {
+  padding-bottom: 15px;
+  padding-top: 15px;
+  padding-left: 15px;
+}
 table tr td {
   padding-left:   5px;
   padding-right:  5px;
@@ -27,7 +32,7 @@ echo '<br />' . $eol;
 echo '<img width=50%  src="../site/common/logo.png" /> <br />';
 echo '<br /> <br />' . $eol;
 
-echo "<h1> Person Grupp Listning </h1> <br> <br>" . $eol;
+echo "<h1> Person Grupp Listning </h1> <br /> <br />" . $eol;
 
 $grp = [];
 
@@ -54,11 +59,14 @@ if ($res) while ($prow = mysqli_fetch_array($res))
 		$grp[] = $g;
 }
 
+echo "<table><tr>\n";
 foreach ($grp as $g)
 {
-	echo $g . " <br>\n";
+	echo "<td> ``" . $g . "´´ </td> ";
 }
+echo "\n</tr></table>\n";
 
+echo "<br /> <br /> \n";
 echo "<table>\n";
 
 echo "<tr>";
