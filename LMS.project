@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="LMS" Version="11000" InternalType="">
+  <VirtualDirectory Name="pup">
+    <File Name="src/common/pup/niv5.php"/>
+    <File Name="src/common/pup/niv4.php"/>
+    <File Name="src/common/binder.php"/>
+    <File Name="src/common/pup/niv3.php"/>
+    <File Name="src/common/pup/niv2.php"/>
+    <File Name="src/common/pup/niv1.php"/>
+  </VirtualDirectory>
   <VirtualDirectory Name="survey-XXX">
     <File Name="src/survey-XXX/04-tratten.php"/>
     <File Name="src/survey-XXX/05-result.php"/>
@@ -84,7 +92,6 @@
     <File Name="src/klarna/coach.html"/>
   </VirtualDirectory>
   <VirtualDirectory Name="common">
-    <File Name="src/common/binder.php"/>
     <File Name="src/common/egenskaper.php"/>
     <File Name="src/common/common_php.php"/>
     <File Name="src/common/styrkor_save.php"/>

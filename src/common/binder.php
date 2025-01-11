@@ -61,6 +61,14 @@ table tr td {
 	<button class='ilbbaicl' onclick='jump(3);' > Niv&aring; 3 </button>
 	</td>
 
+	<td> 
+	<button class='ilbbaicl' onclick='jump(4);' > Niv&aring; 4 </button>
+	</td>
+
+	<td> 
+	<button class='ilbbaicl' onclick='jump(5);' > Niv&aring; 5 </button>
+	</td>
+
 </tr> </table>
 
 <div id='torepl' >
