@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<!---meta http-equiv="refresh" content="0; url=niv1.php" /--->
+
+<script>
+
+function doit()
+{
+	var w = window.innerWidth;
+	var h = window.innerHeight;
+	w = Math.round(0.9 * w);
+	h = Math.round(0.9 * h);
+	
+	console.log(w);
+	console.log(h);
+	
+	var obj = document.getElementById('maindiv');
+	obj.innerHTML =
+		"<embed width='" + w.toString() + 
+		"' height='" + h.toString() + 
+		"' src='n1/intro-n1.pdf'>";
+
+}
+
+</script>
+
+</head>
+
+<body onload="doit()">
+
+<div id='maindiv'>
+</div>
+
+</body>
+
+</html>
