@@ -20,16 +20,22 @@ include_once 'stapel_disp.php';
 
 function ptbl($to, $prow, $mynt, $score=0)
 {
-	$arr = [];
-	$arr[] = "Du &auml;r fin";
-	$arr[] = "Jag &auml;r bra";
-	$arr[] = "Jag gillar mig sj&auml;lv som jag &auml;r";
-	$arr[] = "Jag vill utvecklas varje dag";
-	$arr[] = "Jag tror p&aring; mig sj&auml;lv";
-	$arr[] = "Jag &auml;r tacksam f&ouml;r varje dag";
-
-	$top = count($arr)-1;
-	$txt = $arr[rand(0,$top)];
+	$heartfile = fopen("heart.txt", "r");
+	$txt = "";
+	if ($heartfile) {
+		$arr = [];
+		while (true) {
+			$buffer = fgets($heartfile, 4096);
+			if (!$buffer) break;
+			$buffer = trim($buffer);
+			$len = strlen($buffer);
+			if ($len == 0) continue;
+			$arr[] = $buffer;
+		}
+		$top = count($arr)-1;
+		if ($top > 0)
+			$txt = $arr[rand(0,$top)];
+	}
 
 	$div = "<div> <img src='heart.png' style='vertical-align: middle;' width='100px' /> <span style='vertical-align: middle;'> $txt </span> ";
 
@@ -104,6 +110,18 @@ function getKurs($data) {
 	}
 	return $cp_site ;
 }
+
+function getGrp($data) {
+	$cp_site = 'https://www.mind2excellence.se/site/common/mingrupp.php';
+	if ($data->pid!=0) {
+		$cp_site = addKV($cp_site, 'pid', $data->pid);
+	}
+	if ($data->pnr!=0) {
+		$cp_site = addKV($cp_site, 'pnr', $data->pnr);
+	}
+	return $cp_site ;
+}
+
 
 function rwd($ini, $seg, $key, $def)
 {
@@ -500,6 +518,10 @@ EOT;
 		}
 
 		$eg = empgreen();
+		
+		$grp = getGrp($data);
+		$to->regLine("<a href='$grp'> <br class='hs'> <button id='BtnUtb' style='background-color:" . $eg . ";font-size:15px;' > &nbsp;Min Grupp; </button> </a>");
+
 
 		$to->regLine("<br class='hs'> <button id='BtnUtb' style='background-color:" . $eg . ";font-size:15px;' onClick='doChangeD()'> &nbsp;Min Utbildning&nbsp; </button>");
 		$to->regLine("<br class='hs'> <button id='BtnKrs' style='background-color:" . $eg . ";font-size:15px;' onClick='doChangeE()'> &nbsp;Våra Event och Kurser&nbsp; </button>");
