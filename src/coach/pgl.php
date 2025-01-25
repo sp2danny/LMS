@@ -43,6 +43,7 @@ function for_discard($str)
 	if ($str == 'test')  return true;
 	if ($str == '')      return true;
 	if ($str == 'null')  return true;
+	if ($str == null)    return true;
 	return false;
 }
 
@@ -53,7 +54,7 @@ if ($res) while ($prow = mysqli_fetch_array($res))
 	$n = $prow["name"];
 	if (for_discard($n)) continue;
 	$g = $prow["grupp"];
-	if (for_discard($n)) continue;
+	if (for_discard($g)) continue;
 	$f = array_search($g, $grp);
 	if ($f === false)
 		$grp[] = $g;
@@ -62,9 +63,12 @@ if ($res) while ($prow = mysqli_fetch_array($res))
 echo "<table><tr>\n";
 foreach ($grp as $g)
 {
+	echo "<tr>";
 	echo "<td> ``" . $g . "´´ </td> ";
+	echo "<td> <a href='../site/common/grplst.php?grp=" . $g . "' > Lista </a> </td> ";
+	echo "</tr>";
 }
-echo "\n</tr></table>\n";
+echo "\n</table>\n";
 
 echo "<br /> <br /> \n";
 echo "<table>\n";
