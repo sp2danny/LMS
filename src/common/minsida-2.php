@@ -431,6 +431,9 @@ EOT;
 
 	$to->startTag('script');
 	
+	$to->regLine('function persddonchange(obj) { ');
+	$to->regLine('}');
+	
 	$to->regLine('function db_update(tp, pid, a = "", b = "") { ');
 	$to->regLine('  var str = "db_upd.php?tp=" + tp + "&pid=" + pid;');
 	$to->regLine('  if (a!="") str += "&a=" + a;');
@@ -612,7 +615,14 @@ EOT;
 	$to->startTag('div');
 	$to->scTag('br');
 	$to->scTag('img', 'width=50% src="logo.png"');
-	$to->regLine(' <input type="button" value="Click Me" style="float: right;"> ');
+	$to->startTag('select', 'name="persdd" onchange="persddonchange(this);" style="float: right;" ');
+	$to->regLine('<option selected="selected" value="egen" > Min Egen Sida </option> ');
+	$to->regLine('<option disabled>---</option>');
+	$to->regLine('<option value="pers1" > pers1 </option> ');
+	$to->regLine('<option value="pers2" > pers2 </option> ');
+	$to->regLine('<option value="pers3" > pers3 </option> ');
+	$to->stopTag('select');
+	
 	$to->regLine(' <div style="clear: both;"></div> ');
 	$to->stopTag('div');
 	$to->scTag('br');

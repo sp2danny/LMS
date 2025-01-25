@@ -92,6 +92,7 @@
     <File Name="src/klarna/coach.html"/>
   </VirtualDirectory>
   <VirtualDirectory Name="common">
+    <File Name="src/common/minsida-2.php"/>
     <File Name="src/common/grplst.php"/>
     <File Name="src/common/heart.txt"/>
     <File Name="src/common/egenskaper.php"/>
