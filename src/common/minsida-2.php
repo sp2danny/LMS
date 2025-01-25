@@ -431,7 +431,9 @@ EOT;
 
 	$to->startTag('script');
 	
-	$to->regLine('function persddonchange(obj) { ');
+	$to->regLine('function persddonchange(selobj) { ');
+	$to->regLine('  var l = document.getElementById("lbl"); ');
+	$to->regLine('  l.innerHTML = selobj.value; ');
 	$to->regLine('}');
 	
 	$to->regLine('function db_update(tp, pid, a = "", b = "") { ');
@@ -611,6 +613,11 @@ EOT;
 	fclose($side);
 
 	$to->startTag('div', 'id="main" class="main"');
+	
+	$to->startTag('div', 'id="lbl"');
+	$to->stopTag('div');
+	$to->scTag('br');
+	
 
 	$to->startTag('div');
 	$to->scTag('br');
