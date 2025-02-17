@@ -433,7 +433,12 @@ EOT;
 	
 	$to->regLine('function persddonchange(selobj) { ');
 	$to->regLine('  var l = document.getElementById("lbl"); ');
-	$to->regLine('  l.innerHTML = selobj.value; ');
+	$to->regLine('  if (selobj.value == "egen") { ');
+	$to->regLine('    url = "minsida-2.php?pnr=' . $data->pnr . '";');
+	$to->regLine('  } else {');
+	$to->regLine('    url = "minsida-2.php?pnr=' . $data->pnr . '&grpsk=" + selobj.value;');
+	$to->regLine('  }');
+	$to->regLine('  window.location.href = url; ');
 	$to->regLine('}');
 	
 	$to->regLine('function db_update(tp, pid, a = "", b = "") { ');
@@ -623,11 +628,25 @@ EOT;
 	$to->scTag('br');
 	$to->scTag('img', 'width=50% src="logo.png"');
 	$to->startTag('select', 'name="persdd" onchange="persddonchange(this);" style="float: right;" ');
-	$to->regLine('<option selected="selected" value="egen" > Min Egen Sida </option> ');
+
+	$val = getparam("grpsk", "egen");
+
+	if ($val == "egen")
+		$to->regLine('<option selected="selected" value="egen" > Min Egen Sida </option> ');
+	else
+		$to->regLine('<option value="egen" > Min Egen Sida </option> ');
+
 	$to->regLine('<option disabled>---</option>');
-	$to->regLine('<option value="pers1" > pers1 </option> ');
-	$to->regLine('<option value="pers2" > pers2 </option> ');
-	$to->regLine('<option value="pers3" > pers3 </option> ');
+
+	$arr = ["pers1", "pers2", "pers3" ];
+
+	foreach ($arr as $p)
+	{
+		if ($val == $p)
+			$to->regLine('<option selected="selected" value="' . $p . '" > ' . $p . ' </option> ');
+		else
+			$to->regLine('<option value="' . $p . '" > ' . $p . ' </option> ');
+	}
 	$to->stopTag('select');
 	
 	$to->regLine(' <div style="clear: both;"></div> ');
