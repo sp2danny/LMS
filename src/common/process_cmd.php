@@ -33,6 +33,7 @@ class Data
 	public $title;
 	public $dagens = [];
 	public $returnto = false;
+	public $grp = '';
 }
 
 function repl($data, $txt)

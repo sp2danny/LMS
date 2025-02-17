@@ -237,6 +237,7 @@ function index($local, $common)
 	$data->pid = $pid;
 
 	$grp = $prow['grupp'];
+	$data->grp = $grp;
 	
 	$egen = true;
 	$annan = 0;
@@ -627,6 +628,10 @@ EOT;
 	$to->startTag('div');
 	$to->scTag('br');
 	$to->scTag('img', 'width=50% src="logo.png"');
+
+	$grp = $data->grp;
+	//$to->regLine($grp . " <br>");
+
 	$to->startTag('select', 'name="persdd" onchange="persddonchange(this);" style="float: right;" ');
 
 	$val = getparam("grpsk", "egen");
@@ -638,14 +643,27 @@ EOT;
 
 	$to->regLine('<option disabled>---</option>');
 
-	$arr = ["pers1", "pers2", "pers3" ];
+	$arr_n = [];
+	$arr_p = [];
+	$arr_i = 0;
 
-	foreach ($arr as $p)
+	$query = "SELECT * FROM pers WHERE grupp='$grp'";
+	$res = mysqli_query( $emperator, $query );
+	if ($res) while ($row = mysqli_fetch_array($res)) {
+		if ($row['pnr'] == $data->pnr) continue;
+		$arr_n[] = $row['name'];
+		$arr_p[] = $row['pnr'];
+		$arr_i++;
+	}
+
+	for($i=0; $i<$arr_i; ++$i)
 	{
+		$p = $arr_p[$i];
+		$n = $arr_n[$i];
 		if ($val == $p)
-			$to->regLine('<option selected="selected" value="' . $p . '" > ' . $p . ' </option> ');
+			$to->regLine('<option selected="selected" value="' . $p . '" > ' . $n . ' </option> ');
 		else
-			$to->regLine('<option value="' . $p . '" > ' . $p . ' </option> ');
+			$to->regLine('<option value="' . $p . '" > ' . $n . ' </option> ');
 	}
 	$to->stopTag('select');
 	
