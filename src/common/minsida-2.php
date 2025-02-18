@@ -812,7 +812,8 @@ EOT;
 
 			$key = $i . ".grp";
 			$dogrp = rwd($min_ini, 'survey', $key, false);
-
+			if ($grpsk=='egen')
+				$dogrp = false;
 
 			if ($ext) {
 				$key = $i . ".surv";
