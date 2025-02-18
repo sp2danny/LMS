@@ -28,6 +28,10 @@ function db_update(tp, pid, a = "", b = "") {
   fetch(str);
 }
 
+function grp_sk(fr, by, id, val)
+{
+}
+
 </script>
 
 </head>
@@ -179,8 +183,8 @@ if (!$have_grp)
 		echo "\n</td><td>\n";
 
 		echo " &nbsp; <button id='vg_btn' disabled ";
-		//echo " onClick='document.getElementById(\"vg_btn\").disabled = true; ";
-		//echo " db_update(201, $pid, document.getElementById(\"vg_slide\").value ); ' ";
+		echo " onClick='document.getElementById(\"vg_btn\").disabled = true; ";
+		echo " grp_sk($pid_for, $pid_by, 201, document.getElementById(\"vg_slide\").value ); ' ";
 		echo " > Save </button> <br> \n";
 
 		echo "\n</td></tr></table>\n";
