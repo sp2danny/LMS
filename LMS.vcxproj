@@ -53,6 +53,7 @@
     <None Include="src\common\create_note.php" />
     <None Include="src\common\create_report.php" />
     <None Include="src\common\create_report_p1.php" />
+    <None Include="src\common\debug.php" />
     <None Include="src\common\delete_user.php" />
     <None Include="src\common\discdisplay.php" />
     <None Include="src\common\discquery.php" />
@@ -70,6 +71,7 @@
     <None Include="src\common\index.php" />
     <None Include="src\common\justsurv.php" />
     <None Include="src\common\kurser.php" />
+    <None Include="src\common\leader.php" />
     <None Include="src\common\login.php" />
     <None Include="src\common\login2.php" />
     <None Include="src\common\main-v03.css" />
