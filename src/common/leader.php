@@ -81,42 +81,115 @@ Jag vill påminna om Michelle Obama som säger: When they go low. We go high! <b
 include_once 'connect.php';
 include_once 'getparam.php';
 
-$have_vg = false;
+$have_grp = getparam("grpsk", false);
 
-$pid = getparam('pid');
+if (!$have_grp)
+{
 
-$query = "SELECT * FROM data WHERE type='201' AND pers='$pid';";
-if ($row = data_last($query)) {
-	$have_vg = true;
-	$vg_val = $row['value_a'];
+	$have_vg = false;
+
+	$pid = getparam('pid');
+
+	$query = "SELECT * FROM data WHERE type='201' AND pers='$pid';";
+	if ($row = data_last($query)) {
+		$have_vg = true;
+		$vg_val = $row['value_a'];
+	}
+
+	echo "<hr><br><p>\n";
+
+	echo "<table><tr><td>\n";
+
+	echo "Lever jag med stolthet dessa värdegrunder: &nbsp; Svara här: &nbsp; &nbsp; &nbsp; ";
+
+	echo "\n</td><td>\n";
+
+	// <input type="range" min="0" max="100" step="25" list="steplist">
+
+	echo " <input type='range' id='vg_slide' name='vg' min='0' max='100' step='1' list='steplist' ";
+
+	if ($have_vg) {
+		echo " value='$vg_val' ";
+	}
+
+	echo " onChange='document.getElementById(\"vg_btn\").disabled = false;' /> \n";
+	echo " <datalist id='steplist'> <option value='0' label='0' > </option> <option value='100' label='100' > </option> </datalist> \n";
+
+	echo "\n</td><td>\n";
+
+	echo " &nbsp; <button id='vg_btn' disabled ";
+	echo " onClick='document.getElementById(\"vg_btn\").disabled = true; ";
+	echo " db_update(201, $pid, document.getElementById(\"vg_slide\").value ); ' > Save </button> <br> \n";
+
+	echo "\n</td></tr></table>\n";
+
+} else {
+
+	$pnr_for = $have_grp;
+
+	$query = "SELECT * FROM pers WHERE pnr='$pnr_for'";
+	$res = mysqli_query( $emperator, $query );
+	if ($res) if ($row = mysqli_fetch_array($res)) {
+		$pid_for = $row['pers_id'];
+		$name_for = $row['name'];
+	}
+
+	$pnr_by = getparam("pnr");
+	$query = "SELECT * FROM pers WHERE pnr='$pnr_by'";
+	$res = mysqli_query( $emperator, $query );
+	if ($res) if ($row = mysqli_fetch_array($res)) {
+		$pid_by = $row['pers_id'];
+		$name_by = $row['name'];
+	}
+
+	$have_vg = false;
+	$query = "SELECT * FROM data WHERE type='201' AND pers='$pid_for';";
+	if ($row = data_last($query)) {
+		$have_vg = true;
+		$vg_val = $row['value_a'];
+	}
+
+	echo "<hr><br><p>\n";
+
+	echo "<code>\n";
+	echo "  Gruppskattning för " . $name_for . " <br> \n";
+	echo "  Utförd av " . $name_by . " <br> \n";
+	echo "</code>\n";
+
+	if (!$have_vg)
+	{
+		echo "egenskattning ej utförd <br>";
+	} else {
+
+		echo "<table><tr><td>\n";
+
+		echo "Lever " . $name_for . " med stolthet dessa värdegrunder: &nbsp; Skatta här: &nbsp; &nbsp; &nbsp; ";
+
+		echo "\n</td><td>\n";
+
+		echo " <input type='range' id='vg_slide' name='vg' min='0' max='100' step='1' list='steplist' ";
+
+		if ($have_vg) {
+			echo " value='$vg_val' ";
+		}
+
+		echo " onChange='document.getElementById(\"vg_btn\").disabled = false;' /> \n";
+		echo " <datalist id='steplist'> <option value='0' label='0' > </option> <option value='100' label='100' > </option> </datalist> \n";
+
+		echo "\n</td><td>\n";
+
+		echo " &nbsp; <button id='vg_btn' disabled ";
+		//echo " onClick='document.getElementById(\"vg_btn\").disabled = true; ";
+		//echo " db_update(201, $pid, document.getElementById(\"vg_slide\").value ); ' ";
+		echo " > Save </button> <br> \n";
+
+		echo "\n</td></tr></table>\n";
+
+
+
+	}
+
 }
-
-echo "<hr><br><p>\n";
-
-echo "<table><tr><td>\n";
-
-echo "Lever jag med stolthet dessa värdegrunder: &nbsp; Svara här: &nbsp; &nbsp; &nbsp; ";
-
-echo "\n</td><td>\n";
-
-// <input type="range" min="0" max="100" step="25" list="steplist">
-
-echo " <input type='range' id='vg_slide' name='vg' min='0' max='100' step='1' list='steplist' ";
-
-if ($have_vg) {
-	echo " value='$vg_val' ";
-}
-
-echo " onChange='document.getElementById(\"vg_btn\").disabled = false;' /> \n";
-echo " <datalist id='steplist'> <option value='0' label='0' > </option> <option value='100' label='100' > </option> </datalist> \n";
-
-echo "\n</td><td>\n";
-
-echo " &nbsp; <button id='vg_btn' disabled ";
-echo " onClick='document.getElementById(\"vg_btn\").disabled = true; ";
-echo " db_update(201, $pid, document.getElementById(\"vg_slide\").value ); ' > Save </button> <br> \n";
-
-echo "\n</td></tr></table>\n";
 
 ?>
 

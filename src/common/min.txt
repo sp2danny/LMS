@@ -23,6 +23,7 @@ count = 14
 1.embed = https://mind2excellence.se/site/common/leader.php
 1.pid = true
 1.pro = 201
+1.grp = true
 
 2.filter = 1
 2.button = Utveckling

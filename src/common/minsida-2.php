@@ -634,9 +634,9 @@ EOT;
 
 	$to->startTag('select', 'name="persdd" onchange="persddonchange(this);" style="float: right;" ');
 
-	$val = getparam("grpsk", "egen");
+	$grpsk = getparam("grpsk", "egen");
 
-	if ($val == "egen")
+	if ($grpsk == "egen")
 		$to->regLine('<option selected="selected" value="egen" > Min Egen Sida </option> ');
 	else
 		$to->regLine('<option value="egen" > Min Egen Sida </option> ');
@@ -660,7 +660,7 @@ EOT;
 	{
 		$p = $arr_p[$i];
 		$n = $arr_n[$i];
-		if ($val == $p)
+		if ($grpsk == $p)
 			$to->regLine('<option selected="selected" value="' . $p . '" > ' . $n . ' </option> ');
 		else
 			$to->regLine('<option value="' . $p . '" > ' . $n . ' </option> ');
@@ -810,6 +810,10 @@ EOT;
 			$key = $i . ".ext";
 			$ext = rwd($min_ini, 'survey', $key, false);
 
+			$key = $i . ".grp";
+			$dogrp = rwd($min_ini, 'survey', $key, false);
+
+
 			if ($ext) {
 				$key = $i . ".surv";
 				$val = $min_ini['survey'][$key];
@@ -822,6 +826,8 @@ EOT;
 				$do_pid = rwd($min_ini, 'survey', $i.".pid" , false);
 				if ($do_pid)
 					$lnk = addKV($lnk, 'pid', $data->pid);
+				if ($dogrp)
+					$lnk = addKV($lnk, 'grpsk', $grpsk);
 				
 				debug_log('survey link : ' . $lnk);
 				
@@ -841,6 +847,9 @@ EOT;
 				$val = $min_ini['survey'][$key];
 				//echo "Res : " . $val . " - " . to_link($alldata, $val) . " <br>" . $eol;
 				$lnk = to_link($alldata, $val) . "&returnto=$RETURNTO";
+				if ($dogrp)
+					$lnk = addKV($lnk, 'grpsk', $grpsk);
+
 				debug_log('result link : ' . $lnk);
 				$to->regLine("<a href='$lnk'> <button> Se Resultat </button> </a> <br /> ");
 			}
@@ -853,6 +862,9 @@ EOT;
 				$do_pid = rwd($min_ini, 'survey', $i.".pid" , false);
 				if ($do_pid)
 					$lnk = addKV($lnk, 'pid', $data->pid);
+				if ($dogrp)
+					$lnk = addKV($lnk, 'grpsk', $grpsk);
+
 				debug_log('embed link : ' . $lnk);
 				//$to->scTag('embed', 'type="text/html" width="100%" height="1500px" src="' . $lnk . '"');
 				$to->startTag('iframe', "class='fse' src='$lnk'");
