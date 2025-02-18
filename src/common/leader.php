@@ -30,6 +30,12 @@ function db_update(tp, pid, a = "", b = "") {
 
 function grp_sk(fr, by, id, val)
 {
+  var str = "grp-sk-2.php"
+  str += "?fr=" + fr;
+  str += "&by=" + by;
+  str += "&id=" + id;
+  str += "&val=" + val;
+  fetch(str);
 }
 
 </script>
@@ -162,7 +168,7 @@ if (!$have_grp)
 
 	if (!$have_vg)
 	{
-		echo "egenskattning ej utförd <br>";
+		echo "<br> egenskattning ej utförd <br>";
 	} else {
 
 		echo "<table><tr><td>\n";
