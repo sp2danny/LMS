@@ -1,0 +1,152 @@
+
+
+# namn           | survey | filter
+# ==================================
+# Stress         | 101    | 2
+# Motivation     | 102    | 5
+# Kommunikation  | 103    | 7
+# Malsattning    | 104    | 8
+# Samarbete      | 105    | 6
+
+
+
+[survey]
+
+count = 14
+
+1.filter = 0
+1.button = Agera som en ledare
+1.namn = Agera som en ledare
+1.level.lo = 1
+1.level.hi = 2
+1.color = #D1AD60
+1.embed = https://mind2excellence.se/site/common/leader.php
+1.pid = true
+1.pro = 201
+1.grp = true
+
+2.filter = 1
+2.button = Utveckling
+2.namn = Utveckling av min karaktär mot femte nivåns självledarskap
+2.minor = Träna och bli bättre varje dag: #positiv #äkta #relevant #ärlig #tillitsfull #omdömesfull #livsbalans  #motivation #målsättning #genomförande
+2.embed = https://mind2excellence.se/site/common/utveckling.php
+2.level.lo = 1
+2.level.hi = 5
+2.special = utv
+
+3.filter = 2
+3.button = Min PuP
+3.namn = Personlig utvecklings plan
+3.embed = 
+3.ext = true
+3.surv = 
+3.pts = 
+3.level.lo = 1
+3.level.hi = 2
+
+4.filter = 3
+4.namn = Stress
+4.button = Stresspåverkan
+4.ext = true
+4.surv = https://mind2excellence.se/survey/php/04-tratten.php
+4.pts = https://mind2excellence.se/survey/
+4.level.lo = 1
+4.level.hi = 2
+4.pnr = true
+4.surveynumber = 101
+
+5.filter = 4
+5.namn = Disk Analys
+5.button = Discanalys
+5.minor = Testa Din Personlighet
+5.embed = https://mind2excellence.se/site/common/egenskaper.php
+
+6.filter = 5
+6.namn = Mina styrkor
+6.button = Mina styrkor
+6.level.lo = 1
+6.level.hi = 2
+6.pts = 1
+6.embed = https://mind2excellence.se/site/common/styrkor.php
+6.special = sty
+
+7.filter = 6
+7.namn = De 4 frågorna som matchar dig rätt
+7.button = Matcha Kompetenser
+7.level.lo = 1
+7.level.hi = 2
+7.embed = https://mind2excellence.se/site/common/matcha.php
+
+
+
+8.filter = 7
+8.namn = Nå världsklass
+8.button = Nå världsklass
+8.level.lo = 1
+8.level.hi = 2
+8.color = #D1AD60
+8.embed = https://mind2excellence.se/site/common/worldclass.php
+8.pid = pid
+8.pro = 202
+8.pts = 1
+8.grp = true
+
+
+9.filter = 8
+9.namn = Motivation
+9.button = Motivation
+9.ext = true
+9.surv = https://mind2excellence.se/survey-Motivation/php/04-tratten.php
+9.pts = https://mind2excellence.se/survey-Motivation/
+9.level.lo = 1
+9.level.hi = 2
+9.pnr = true
+9.surveynumber = 102
+
+10.filter = 9
+10.namn = Samarbete
+10.button = Samarbete
+10.ext = true
+10.surv = https://mind2excellence.se/survey-Samarbete/php/04-tratten.php
+10.pts = https://mind2excellence.se/survey-Samarbete/
+10.level.lo = 1
+10.level.hi = 2
+10.pnr = true
+10.surveynumber = 105
+
+11.filter = 10
+11.namn = Kommunikation
+11.button = Kommunikation
+11.ext = true
+11.surv = https://mind2excellence.se/survey-Kommunikation/php/04-tratten.php
+11.pts = https://mind2excellence.se/survey-Kommunikation/
+11.level.lo = 1
+11.level.hi = 2
+11.pnr = true
+11.surveynumber = 103
+
+12.filter = 11
+12.namn = Mina mål
+12.button = Mina mål
+12.ext = true
+12.surv = https://mind2excellence.se/survey-Malsattning/php/04-tratten.php
+12.pts = https://mind2excellence.se/survey-Malsattning/
+12.level.lo = 1
+12.level.hi = 2
+12.pnr = true
+12.surveynumber = 104
+
+13.filter = 12
+13.namn = Min Fysik
+13.button = Min Fysik
+13.level.lo = 1
+13.level.hi = 2
+
+14.filter = 13
+14.namn = Gaming
+14.button = Gaming
+14.level.lo = 1
+14.level.hi = 2
+14.embed = https://mind2excellence.se/site/common/gaming.php
+
+

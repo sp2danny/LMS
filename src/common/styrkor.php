@@ -82,6 +82,30 @@ function OnChangeSlider()
 	OnChangeHandler();
 }
 
+function SaveBtnPressSkatta(pid_by, pid_for)
+{
+	
+	url = "styrkor_skatta.php";
+	url += "?pid_by=" + pid_by;
+	url += "&pid_for=" + pid_for;
+
+	url += "&st_sl=" + document.getElementById("st_sl").value;
+
+	url += "&sv_sl=" + document.getElementById("sv_sl").value;
+
+	url += "&mo_sl=" + document.getElementById("mo_sl").value;
+
+	url += "&st_syn_sl="  + document.getElementById("st_syn_sl").value;
+	url += "&pro_soc_sl=" + document.getElementById("pro_soc_sl").value;
+	url += "&st_sto_sl="  + document.getElementById("st_sto_sl").value;
+	url += "&pro_bes_sl=" + document.getElementById("pro_bes_sl").value;
+
+	fetch(url);
+
+	document.getElementById("SaveBtn").disabled = true;
+
+}
+
 function SaveBtnPress(pid)
 {
 	
@@ -127,6 +151,15 @@ function SaveBtnPress(pid)
 	//document.getElementById("replaceme").innerHTML = url;
 }
 
+function grp_sk(fr, by, id, val)
+{
+  var str = "grp-sk-2.php"
+  str += "?fr=" + fr;
+  str += "&by=" + by;
+  str += "&id=" + id;
+  str += "&val=" + val;
+  fetch(str);
+}
 
 </script>
 
@@ -136,48 +169,11 @@ function SaveBtnPress(pid)
 
 <div class='main'>
 
-<table> <tr>
-
-<td> <img style="width: 682px; height: 511px" src="styrkor.png" /> </td>
-
-<td> <img style="width: 682px; height: 511px" src="proaktiv.jpg" /> </td>
-
-</tr> <tr>
-
-<td class="cn" >
-<span> Så här bra är jag på att hitta synergier med andras styrkor: </span> <span id="st_syn_div" > </span>
-<br />
-&nbsp;&nbsp;&nbsp; <input class='ls' id='st_syn_sl' type='range' onChange='andraSliders()' />
-</td>
-
-<td class="cn" >
-<span> Så här bra är jag på att vara socialt proaktiv: </span> <span id="pro_soc_div" > </span>
-<br />
-&nbsp;&nbsp;&nbsp; <input class='ls' id='pro_soc_sl' type='range' onChange='andraSliders()' />
-</td>
-
-</tr> <tr>
-
-<td class="cn" >
-<span> Så här bra är jag på att stötta andras svagheter: </span> <span id="st_sto_div" > </span>
-<br />
-&nbsp;&nbsp;&nbsp; <input class='ls' id='st_sto_sl' type='range' onChange='andraSliders()' />
-</td>
-
-<td class="cn" >
-<span> Så här bra är jag på att fatta proaktiva beslut: </span> <span id="pro_bes_div" > </span>
-<br />
-&nbsp;&nbsp;&nbsp; <input class='ls' id='pro_bes_sl' type='range' onChange='andraSliders()' />
-</td>
-
-
-</tr>
-</table>
-
 <br /> <br />
 
 <?php
 
+$have_grp = getparam("grpsk", false);
 
 $pnr = getparam("pnr", "0");
 $pid = getparam("pid", "0");
@@ -204,101 +200,308 @@ if (!$res)
 	}
 }
 
-echo "<table><tr>\n";
-
-
-// STYRKOR
-
-echo "<td class='twm' >\n";
-echo "Detta är mina styrkor:\n<ul>\n";
-
-for ($i=1; $i<=5; ++$i)
+if ($have_grp === false)
 {
-	echo "\t<li> " . $i . " &nbsp;&nbsp;&nbsp;";
-	$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 301, $i], 'value_c', '');
-	echo "<input class='lf' id='st_$i' onchange='OnChangeHandler()' type='text' value='$val' /> ";
-	echo "</li>\n";
+
+	echo <<<EOT
+	<table> <tr>
+
+	<td> <img style="width: 682px; height: 511px" src="styrkor.png" /> </td>
+
+	<td> <img style="width: 682px; height: 511px" src="proaktiv.jpg" /> </td>
+
+	</tr> <tr>
+
+	<td class="cn" >
+	<span> Så här bra är jag på att hitta synergier med andras styrkor: </span> <span id="st_syn_div" > </span>
+	<br />
+	&nbsp;&nbsp;&nbsp; <input class='ls' id='st_syn_sl' type='range' onChange='andraSliders()' />
+	</td>
+
+	<td class="cn" >
+	<span> Så här bra är jag på att vara socialt proaktiv: </span> <span id="pro_soc_div" > </span>
+	<br />
+	&nbsp;&nbsp;&nbsp; <input class='ls' id='pro_soc_sl' type='range' onChange='andraSliders()' />
+	</td>
+
+	</tr> <tr>
+
+	<td class="cn" >
+	<span> Så här bra är jag på att stötta andras svagheter: </span> <span id="st_sto_div" > </span>
+	<br />
+	&nbsp;&nbsp;&nbsp; <input class='ls' id='st_sto_sl' type='range' onChange='andraSliders()' />
+	</td>
+
+	<td class="cn" >
+	<span> Så här bra är jag på att fatta proaktiva beslut: </span> <span id="pro_bes_div" > </span>
+	<br />
+	&nbsp;&nbsp;&nbsp; <input class='ls' id='pro_bes_sl' type='range' onChange='andraSliders()' />
+	</td>
+
+	</tr>
+	</table>
+EOT;
+
+
+
+
+	echo "<table><tr>\n";
+
+
+	// STYRKOR
+
+	echo "<td class='twm' >\n";
+	echo "Detta är mina styrkor:\n<ul>\n";
+
+	for ($i=1; $i<=5; ++$i)
+	{
+		echo "\t<li> " . $i . " &nbsp;&nbsp;&nbsp;";
+		$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 301, $i], 'value_c', '');
+		echo "<input class='lf' id='st_$i' onchange='OnChangeHandler()' type='text' value='$val' /> ";
+		echo "</li>\n";
+	}
+
+	echo "</ul>\n<br />\n";
+
+	echo "<span> Så här bra är jag på att utnyttja min styrkor: </span> <span id='st_div'> </span> \n";
+	echo "<br /> &nbsp;&nbsp;&nbsp; ";
+	$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 301, 0], 'value_b', 0);
+	echo "<input class='ls' id='st_sl' onchange='OnChangeSlider()' type='range' value='$val' /> \n";
+
+	echo "</td>\n";
+
+
+	// SVAGHETER
+
+	echo "<td class='twm' >\n";
+	echo "Detta är mina svagheter:\n<ul>\n";
+
+	for ($i=1; $i<=5; ++$i)
+	{
+		echo "\t<li> " . $i . " &nbsp;&nbsp;&nbsp;";
+		$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 302, $i], 'value_c', '');
+		echo "<input class='lf' id='sv_$i' onchange='OnChangeHandler()' type='text' value='$val' /> ";
+		echo "</li>\n";
+	}
+
+	echo "</ul>\n<br />\n";
+
+	echo "<span> Så här bra är jag på att be om hjälp: </span> <span id='sv_div'> </span> \n";
+	echo "<br /> &nbsp;&nbsp;&nbsp; ";
+	$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 302, 0], 'value_b', 0);
+	echo "<input class='ls' id='sv_sl' onchange='OnChangeSlider()' type='range' value='$val' /> \n";
+
+	echo "</td>\n";
+
+
+	// MOTIVATORER
+
+	echo "<td class='twm' >\n";
+	echo "Detta är mina motivatorer:\n<ul>\n";
+
+	for ($i=1; $i<=5; ++$i)
+	{
+		echo "\t<li> " . $i . " &nbsp;&nbsp;&nbsp;";
+		$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 303, $i], 'value_c', '');
+		echo "<input class='lf' id='mo_$i' onchange='OnChangeHandler()' type='text' value='$val' /> ";
+		echo "</li>\n";
+	}
+
+	echo "</ul>\n<br />\n";
+
+	echo "<span> Så här bra är jag på att hitta motivation: </span> <span id='mo_div'> </span> \n";
+	echo "<br /> &nbsp;&nbsp;&nbsp; ";
+	$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 303, 0], 'value_b', 0);
+	echo "<input class='ls' id='mo_sl' onchange='OnChangeSlider()' type='range' value='$val' /> \n";
+
+	echo "</td>\n";
+
+
+	echo "</tr></table>\n";
+
+	echo "<br /><hr /><br />\n";
+
+	echo "<button disabled id='SaveBtn' onClick='SaveBtnPress($pid)' > Save </button>\n";
+
+	echo "<script>\n";
+	echo "DoUpdateDivs();\n";
+
+	$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 300, 1], 'value_b', 0);
+	echo "document.getElementById('st_syn_sl').value = $val;\n";
+
+	$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 300, 2], 'value_b', 0);
+	echo "document.getElementById('pro_soc_sl').value = $val;\n";
+
+	$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 300, 3], 'value_b', 0);
+	echo "document.getElementById('st_sto_sl').value = $val;\n";
+
+	$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 300, 4], 'value_b', 0);
+	echo "document.getElementById('pro_bes_sl').value = $val;\n";
+
+
+	echo "</script>\n";
+
+} else { // -----------------------------------------------------------------------------------------------------------
+
+
+	$pnr_for = $have_grp;
+
+	$query = "SELECT * FROM pers WHERE pnr='$pnr_for'";
+	$res = mysqli_query( $emperator, $query );
+	if ($res) if ($row = mysqli_fetch_array($res)) {
+		$pid_for = $row['pers_id'];
+		$name_for = $row['name'];
+	}
+
+	$pnr_by = getparam("pnr");
+	$query = "SELECT * FROM pers WHERE pnr='$pnr_by'";
+	$res = mysqli_query( $emperator, $query );
+	if ($res) if ($row = mysqli_fetch_array($res)) {
+		$pid_by = $row['pers_id'];
+		$name_by = $row['name'];
+	}
+
+
+
+	echo <<<EOT
+	<table> <tr>
+
+	<td> <img style="width: 682px; height: 511px" src="styrkor.png" /> </td>
+
+	<td> <img style="width: 682px; height: 511px" src="proaktiv.jpg" /> </td>
+
+	</tr> <tr>
+EOT;
+
+
+	echo "<td class='cn' >\n";
+	echo "<span> Så här bra är $name_for på att hitta synergier med andras styrkor: </span> <span id='st_syn_div' > </span>\n";
+	echo "<br />\n";
+	echo "&nbsp;&nbsp;&nbsp; <input class='ls' id='st_syn_sl' type='range' onChange='andraSliders()' />\n";
+	echo "</td>\n";
+
+	echo "<td class='cn' >\n";
+	echo "<span> Så här bra är $name_for på att vara socialt proaktiv: </span> <span id='pro_soc_div' > </span>\n";
+	echo "<br />\n";
+	echo "&nbsp;&nbsp;&nbsp; <input class='ls' id='pro_soc_sl' type='range' onChange='andraSliders()' />\n";
+	echo "</td>\n";
+
+	echo "</tr> <tr>\n";
+
+	echo "<td class='cn' >\n";
+	echo "<span> Så här bra är $name_for på att stötta andras svagheter: </span> <span id='st_sto_div' > </span>\n";
+	echo "<br />\n";
+	echo "&nbsp;&nbsp;&nbsp; <input class='ls' id='st_sto_sl' type='range' onChange='andraSliders()' />\n";
+	echo "</td>\n";
+
+	echo "<td class='cn' >\n";
+	echo "<span> Så här bra är $name_for på att fatta proaktiva beslut: </span> <span id='pro_bes_div' > </span>\n";
+	echo "<br />\n";
+	echo "&nbsp;&nbsp;&nbsp; <input class='ls' id='pro_bes_sl' type='range' onChange='andraSliders()' />\n";
+	echo "</td>\n";
+
+	echo "</tr>\n";
+	echo "</table>\n";
+
+	echo "<table><tr>\n";
+
+
+	// STYRKOR
+
+	echo "<td class='twm' >\n";
+	echo "Detta är $name_for's styrkor:\n<ul>\n";
+
+	for ($i=1; $i<=5; ++$i)
+	{
+		echo "\t<li> " . $i . " &nbsp;&nbsp;&nbsp;";
+		$val = ROD('data', ['pers', 'type', 'value_a'], [$pid_for, 301, $i], 'value_c', '');
+		echo "<input readonly class='lf' id='st_$i' onchange='OnChangeHandler()' type='text' value='$val' /> ";
+		echo "</li>\n";
+	}
+
+	echo "</ul>\n<br />\n";
+
+	echo "<span> Så här bra är $name_for på att utnyttja sina styrkor: </span> <span id='st_div'> </span> \n";
+	echo "<br /> &nbsp;&nbsp;&nbsp; ";
+	$val = ROD('data', ['pers', 'type', 'value_a'], [$pid_for, 301, 0], 'value_b', 0);
+	echo "<input class='ls' id='st_sl' onchange='OnChangeSlider()' type='range' value='$val' /> \n";
+
+	echo "</td>\n";
+
+
+	// SVAGHETER
+
+	echo "<td class='twm' >\n";
+	echo "Detta är $name_for's svagheter:\n<ul>\n";
+
+	for ($i=1; $i<=5; ++$i)
+	{
+		echo "\t<li> " . $i . " &nbsp;&nbsp;&nbsp;";
+		$val = ROD('data', ['pers', 'type', 'value_a'], [$pid_for, 302, $i], 'value_c', '');
+		echo "<input readonly class='lf' id='sv_$i' onchange='OnChangeHandler()' type='text' value='$val' /> ";
+		echo "</li>\n";
+	}
+
+	echo "</ul>\n<br />\n";
+
+	echo "<span> Så här bra är $name_for på att be om hjälp: </span> <span id='sv_div'> </span> \n";
+	echo "<br /> &nbsp;&nbsp;&nbsp; ";
+	$val = ROD('data', ['pers', 'type', 'value_a'], [$pid_for, 302, 0], 'value_b', 0);
+	echo "<input class='ls' id='sv_sl' onchange='OnChangeSlider()' type='range' value='$val' /> \n";
+
+	echo "</td>\n";
+
+
+	// MOTIVATORER
+
+	echo "<td class='twm' >\n";
+	echo "Detta är $name_for's motivatorer:\n<ul>\n";
+
+	for ($i=1; $i<=5; ++$i)
+	{
+		echo "\t<li> " . $i . " &nbsp;&nbsp;&nbsp;";
+		$val = ROD('data', ['pers', 'type', 'value_a'], [$pid_for, 303, $i], 'value_c', '');
+		echo "<input readonly class='lf' id='mo_$i' onchange='OnChangeHandler()' type='text' value='$val' /> ";
+		echo "</li>\n";
+	}
+
+	echo "</ul>\n<br />\n";
+
+	echo "<span> Så här bra är $name_for på att hitta motivation: </span> <span id='mo_div'> </span> \n";
+	echo "<br /> &nbsp;&nbsp;&nbsp; ";
+	$val = ROD('data', ['pers', 'type', 'value_a'], [$pid_for, 303, 0], 'value_b', 0);
+	echo "<input class='ls' id='mo_sl' onchange='OnChangeSlider()' type='range' value='$val' /> \n";
+
+	echo "</td>\n";
+
+
+	echo "</tr></table>\n";
+
+	echo "<br /><hr /><br />\n";
+
+	echo "<button disabled id='SaveBtn' onClick='SaveBtnPressSkatta($pid_by, $pid_for)' > Save </button>\n";
+
+	echo "<script>\n";
+	echo "DoUpdateDivs();\n";
+
+	$val = ROD('data', ['pers', 'type', 'value_a'], [$pid_for, 300, 1], 'value_b', 0);
+	echo "document.getElementById('st_syn_sl').value = $val;\n";
+
+	$val = ROD('data', ['pers', 'type', 'value_a'], [$pid_for, 300, 2], 'value_b', 0);
+	echo "document.getElementById('pro_soc_sl').value = $val;\n";
+
+	$val = ROD('data', ['pers', 'type', 'value_a'], [$pid_for, 300, 3], 'value_b', 0);
+	echo "document.getElementById('st_sto_sl').value = $val;\n";
+
+	$val = ROD('data', ['pers', 'type', 'value_a'], [$pid_for, 300, 4], 'value_b', 0);
+	echo "document.getElementById('pro_bes_sl').value = $val;\n";
+
+
+	echo "</script>\n";
+
+
 }
 
-echo "</ul>\n<br />\n";
-
-echo "<span> Så här bra är jag på att utnyttja min styrkor: </span> <span id='st_div'> </span> \n";
-echo "<br /> &nbsp;&nbsp;&nbsp; ";
-$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 301, 0], 'value_b', 0);
-echo "<input class='ls' id='st_sl' onchange='OnChangeSlider()' type='range' value='$val' /> \n";
-
-echo "</td>\n";
-
-
-// SVAGHETER
-
-echo "<td class='twm' >\n";
-echo "Detta är mina svagheter:\n<ul>\n";
-
-for ($i=1; $i<=5; ++$i)
-{
-	echo "\t<li> " . $i . " &nbsp;&nbsp;&nbsp;";
-	$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 302, $i], 'value_c', '');
-	echo "<input class='lf' id='sv_$i' onchange='OnChangeHandler()' type='text' value='$val' /> ";
-	echo "</li>\n";
-}
-
-echo "</ul>\n<br />\n";
-
-echo "<span> Så här bra är jag på att be om hjälp: </span> <span id='sv_div'> </span> \n";
-echo "<br /> &nbsp;&nbsp;&nbsp; ";
-$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 302, 0], 'value_b', 0);
-echo "<input class='ls' id='sv_sl' onchange='OnChangeSlider()' type='range' value='$val' /> \n";
-
-echo "</td>\n";
-
-
-// MOTIVATORER
-
-echo "<td class='twm' >\n";
-echo "Detta är mina motivatorer:\n<ul>\n";
-
-for ($i=1; $i<=5; ++$i)
-{
-	echo "\t<li> " . $i . " &nbsp;&nbsp;&nbsp;";
-	$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 303, $i], 'value_c', '');
-	echo "<input class='lf' id='mo_$i' onchange='OnChangeHandler()' type='text' value='$val' /> ";
-	echo "</li>\n";
-}
-
-echo "</ul>\n<br />\n";
-
-echo "<span> Så här bra är jag på att hitta motivation: </span> <span id='mo_div'> </span> \n";
-echo "<br /> &nbsp;&nbsp;&nbsp; ";
-$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 303, 0], 'value_b', 0);
-echo "<input class='ls' id='mo_sl' onchange='OnChangeSlider()' type='range' value='$val' /> \n";
-
-echo "</td>\n";
-
-
-echo "</tr></table>\n";
-
-echo "<br /><hr /><br />\n";
-
-echo "<button disabled id='SaveBtn' onClick='SaveBtnPress($pid)' > Save </button>\n";
-
-echo "<script>\n";
-echo "DoUpdateDivs();\n";
-
-$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 300, 1], 'value_b', 0);
-echo "document.getElementById('st_syn_sl').value = $val;\n";
-
-$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 300, 2], 'value_b', 0);
-echo "document.getElementById('pro_soc_sl').value = $val;\n";
-
-$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 300, 3], 'value_b', 0);
-echo "document.getElementById('st_sto_sl').value = $val;\n";
-
-$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 300, 4], 'value_b', 0);
-echo "document.getElementById('pro_bes_sl').value = $val;\n";
-
-
-echo "</script>\n";
 
 ?>
 

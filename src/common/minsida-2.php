@@ -432,12 +432,12 @@ EOT;
 
 	$to->startTag('script');
 	
-	$to->regLine('function persddonchange(selobj) { ');
+	$to->regLine('function persddonchange(selobj, at) { ');
 	$to->regLine('  var l = document.getElementById("lbl"); ');
 	$to->regLine('  if (selobj.value == "egen") { ');
-	$to->regLine('    url = "minsida-2.php?pnr=' . $data->pnr . '";');
+	$to->regLine('    url = "minsida-2.php?pnr=' . $data->pnr . '&at=" + at;');
 	$to->regLine('  } else {');
-	$to->regLine('    url = "minsida-2.php?pnr=' . $data->pnr . '&grpsk=" + selobj.value;');
+	$to->regLine('    url = "minsida-2.php?pnr=' . $data->pnr . '&grpsk=" + selobj.value + "&at=" + at;');
 	$to->regLine('  }');
 	$to->regLine('  window.location.href = url; ');
 	$to->regLine('}');
@@ -632,7 +632,9 @@ EOT;
 	$grp = $data->grp;
 	//$to->regLine($grp . " <br>");
 
-	$to->startTag('select', 'name="persdd" onchange="persddonchange(this);" style="float: right;" ');
+	$at = getparam("at", '0');
+
+	$to->startTag('select', 'name="persdd" onchange="persddonchange(this, ' . $at . ');" style="float: right;" ');
 
 	$grpsk = getparam("grpsk", "egen");
 
@@ -683,7 +685,6 @@ EOT;
 
 	$n = count($tit);
 
-	$at = getparam("at", '0');
 
 	$to->scTag("hr");
 
