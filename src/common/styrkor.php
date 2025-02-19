@@ -362,17 +362,25 @@ EOT;
 	}
 
 
+	echo "<br><code>\n";
+	echo "  Gruppskattning för " . $name_for . " <br> \n";
+	echo "  Utförd av " . $name_by . " <br> \n";
+	echo "</code><br>\n";
+
 
 	echo <<<EOT
+
 	<table> <tr>
 
 	<td> <img style="width: 682px; height: 511px" src="styrkor.png" /> </td>
 
 	<td> <img style="width: 682px; height: 511px" src="proaktiv.jpg" /> </td>
 
-	</tr> <tr>
+	</tr> 
 EOT;
 
+
+	echo "<tr>\n";
 
 	echo "<td class='cn' >\n";
 	echo "<span> Så här bra är $name_for på att hitta synergier med andras styrkor: </span> <span id='st_syn_div' > </span>\n";
@@ -476,6 +484,13 @@ EOT;
 
 
 	echo "</tr></table>\n";
+
+	echo "<br /><hr /><br />\n";
+
+	echo "<code>\n";
+	echo "  Gruppskattning för " . $name_for . " <br> \n";
+	echo "  Utförd av " . $name_by . " <br> \n";
+	echo "</code>\n";
 
 	echo "<br /><hr /><br />\n";
 

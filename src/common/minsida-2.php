@@ -505,6 +505,8 @@ EOT;
 	if ($noside)
 		$href = addKV($href, 'noside', 'true');
 	$href = addKV($href, 'pid', $pid);
+	$ggg = getparam('grpsk', false);
+	if ($ggg!==false) $href = addKV($href, 'grpsk', $ggg);
 	$to->regLine("	window.location.href = '$href&at=' + i.toString(); ");
 	$to->regLine("}");
 
