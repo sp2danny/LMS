@@ -34,6 +34,8 @@
     <None Include="src\coach\list_prod.php" />
     <None Include="src\coach\make_prod.php" />
     <None Include="src\coach\make_prod_save.php" />
+    <None Include="src\coach\surv_a.php" />
+    <None Include="src\coach\surv_b.php" />
     <None Include="src\common\actually_delete.php" />
     <None Include="src\common\allsurv.php" />
     <None Include="src\common\at.php" />
@@ -67,6 +69,7 @@
     <None Include="src\common\gap.php" />
     <None Include="src\common\gap_post.php" />
     <None Include="src\common\getparam.php" />
+    <None Include="src\common\grp-sk-2.php" />
     <None Include="src\common\head.php" />
     <None Include="src\common\index.php" />
     <None Include="src\common\justsurv.php" />

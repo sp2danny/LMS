@@ -363,6 +363,15 @@
     <None Include="src\common\styrkor_skatta.php">
       <Filter>Source Files\common</Filter>
     </None>
+    <None Include="src\coach\surv_a.php">
+      <Filter>Source Files\coach</Filter>
+    </None>
+    <None Include="src\coach\surv_b.php">
+      <Filter>Source Files\coach</Filter>
+    </None>
+    <None Include="src\common\grp-sk-2.php">
+      <Filter>Source Files\common</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\common\dologin.php">

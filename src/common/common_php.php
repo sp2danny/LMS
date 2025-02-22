@@ -3,6 +3,7 @@
 
 include_once 'getparam.php';
 include_once 'convert.php';
+include_once "debug.php";
 
 function redirect($link)
 {
@@ -70,7 +71,7 @@ function COR( $db, $id_n, $id_v, $sup_n, $sup_v, $res_n ) // Create Or Read
 	}
 }
 
-function COU( $db, $id_n, $id_v, $sup_n, $sup_v, $key ) // Create Or Update
+function COU( $db, $id_n, $id_v, $sup_n, $sup_v, $key , $dbg = false ) // Create Or Update
 {
 	global $emperator;
 
@@ -84,6 +85,9 @@ function COU( $db, $id_n, $id_v, $sup_n, $sup_v, $key ) // Create Or Update
 			$query .= " AND ";
 		$query .= $id_n[$i] . "=" . QIT($id_v[$i]);
 	}
+
+	if ($dbg) debug_log($query);
+
 	$res = mysqli_query($emperator, $query);
 	if ($res) {
 		$row = mysqli_fetch_array($res);
@@ -101,7 +105,9 @@ function COU( $db, $id_n, $id_v, $sup_n, $sup_v, $key ) // Create Or Update
 			}
 			
 			$query .= " WHERE " . $key . "=" . $kval;
-			
+
+			if ($dbg) debug_log($query);
+
 			$res = mysqli_query($emperator, $query);
 			
 			return $res;
@@ -128,6 +134,8 @@ function COU( $db, $id_n, $id_v, $sup_n, $sup_v, $key ) // Create Or Update
 	
 	$query = "INSERT INTO " . $db . $nn . " VALUES " . $vv;
 	
+	if ($dbg) debug_log($query);
+
 	$res = mysqli_query($emperator, $query);
 
 	return $res;
