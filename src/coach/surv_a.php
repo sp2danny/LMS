@@ -63,6 +63,13 @@ function printgroups($tbs)
 				rd.innerHTML = txt;
 			}
 
+			function replaceDiv2() {
+				dd = document.getElementById('PersSel');
+				rd = document.getElementById('replacerDiv2');
+				rd.innerHTML = dd.value;
+			}
+
+
 		</script>
 
 		<style>

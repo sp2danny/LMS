@@ -111,3 +111,23 @@ if (count($dps)) {
 
 ?>
 
+<br /> <hr />
+<div class="ra">
+	<label for="PersSel"> V&auml;lj person: &nbsp; </label>
+	<select name="PersSel" id="PersSel">
+		<option disabled selected value> -- v&auml;lj person -- </option>
+		<?php
+			foreach ($pers as $p) {
+				for ($t=1; $t<=3; ++$t) echo "\t";
+				echo "<option value='" . $p["pid"] . "'> " . $p['name'] . " </option>\n";
+			}
+		?>
+	</select>
+	&nbsp; &nbsp; &nbsp; <button onclick="replaceDiv2( )"> Visa </button> 
+</div>
+
+<hr>
+
+<div id="replacerDiv2">
+</div>
+
