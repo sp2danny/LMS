@@ -435,9 +435,9 @@ EOT;
 	$to->regLine('function persddonchange(selobj, at) { ');
 	$to->regLine('  var l = document.getElementById("lbl"); ');
 	$to->regLine('  if (selobj.value == "egen") { ');
-	$to->regLine('    url = "minsida-2.php?pnr=' . $data->pnr . '&at=" + at;');
+	$to->regLine('    url = "minsida.php?pnr=' . $data->pnr . '&at=" + at;');
 	$to->regLine('  } else {');
-	$to->regLine('    url = "minsida-2.php?pnr=' . $data->pnr . '&grpsk=" + selobj.value + "&at=" + at;');
+	$to->regLine('    url = "minsida.php?pnr=' . $data->pnr . '&grpsk=" + selobj.value + "&at=" + at;');
 	$to->regLine('  }');
 	$to->regLine('  window.location.href = url; ');
 	$to->regLine('}');
@@ -538,7 +538,7 @@ EOT;
 		$eg = empgreen();
 		
 		$grp = getGrp($data);
-		$to->regLine("<a href='$grp'> <br class='hs'> <button id='BtnUtb' style='background-color:" . $eg . ";font-size:15px;' > &nbsp;Min Grupp; </button> </a>");
+		//$to->regLine("<a href='$grp'> <br class='hs'> <button id='BtnUtb' style='background-color:" . $eg . ";font-size:15px;' > &nbsp;Min Grupp; </button> </a>");
 
 
 		$to->regLine("<br class='hs'> <button id='BtnUtb' style='background-color:" . $eg . ";font-size:15px;' onClick='doChangeD()'> &nbsp;Min Utbildning&nbsp; </button>");

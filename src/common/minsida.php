@@ -237,6 +237,7 @@ function index($local, $common)
 	$data->pid = $pid;
 
 	$grp = $prow['grupp'];
+	$data->grp = $grp;
 	
 	$egen = true;
 	$annan = 0;
@@ -431,6 +432,16 @@ EOT;
 
 	$to->startTag('script');
 	
+	$to->regLine('function persddonchange(selobj, at) { ');
+	$to->regLine('  var l = document.getElementById("lbl"); ');
+	$to->regLine('  if (selobj.value == "egen") { ');
+	$to->regLine('    url = "minsida.php?pnr=' . $data->pnr . '&at=" + at;');
+	$to->regLine('  } else {');
+	$to->regLine('    url = "minsida.php?pnr=' . $data->pnr . '&grpsk=" + selobj.value + "&at=" + at;');
+	$to->regLine('  }');
+	$to->regLine('  window.location.href = url; ');
+	$to->regLine('}');
+	
 	$to->regLine('function db_update(tp, pid, a = "", b = "") { ');
 	$to->regLine('  var str = "db_upd.php?tp=" + tp + "&pid=" + pid;');
 	$to->regLine('  if (a!="") str += "&a=" + a;');
@@ -494,6 +505,8 @@ EOT;
 	if ($noside)
 		$href = addKV($href, 'noside', 'true');
 	$href = addKV($href, 'pid', $pid);
+	$ggg = getparam('grpsk', false);
+	if ($ggg!==false) $href = addKV($href, 'grpsk', $ggg);
 	$to->regLine("	window.location.href = '$href&at=' + i.toString(); ");
 	$to->regLine("}");
 
@@ -517,15 +530,15 @@ EOT;
 		$to->regLine("<button id='BtnSett' onClick='doChangeC()'> Settings </button>");
 		
 		if (getparam("sticp", "0") == "1") {
-			$to->regLine("<button id='BtnCP'  onClick='doChangeB()'> Min Sida </button>");
+			$to->regLine("<button id='BtnCP' disabled'> Min Sida </button>");
 		} else {
-			$to->regLine("<button id='BtnCP' onClick='doChangeB()'> Min Sida </button>");
+			$to->regLine("<button id='BtnCP' disabled'> Min Sida </button>");
 		}
 
 		$eg = empgreen();
 		
 		$grp = getGrp($data);
-		$to->regLine("<a href='$grp'> <br class='hs'> <button id='BtnUtb' style='background-color:" . $eg . ";font-size:15px;' > &nbsp;Min Grupp; </button> </a>");
+		//$to->regLine("<a href='$grp'> <br class='hs'> <button id='BtnUtb' style='background-color:" . $eg . ";font-size:15px;' > &nbsp;Min Grupp; </button> </a>");
 
 
 		$to->regLine("<br class='hs'> <button id='BtnUtb' style='background-color:" . $eg . ";font-size:15px;' onClick='doChangeD()'> &nbsp;Min Utbildning&nbsp; </button>");
@@ -608,11 +621,56 @@ EOT;
 	fclose($side);
 
 	$to->startTag('div', 'id="main" class="main"');
+	
+	$to->startTag('div', 'id="lbl"');
+	$to->stopTag('div');
+	$to->scTag('br');
+	
 
 	$to->startTag('div');
 	$to->scTag('br');
 	$to->scTag('img', 'width=50% src="logo.png"');
-	$to->regLine(' <input type="button" value="Click Me" style="float: right;"> ');
+
+	$grp = $data->grp;
+	//$to->regLine($grp . " <br>");
+
+	$at = getparam("at", '0');
+
+	$to->startTag('select', 'name="persdd" onchange="persddonchange(this, ' . $at . ');" style="float: right;" ');
+
+	$grpsk = getparam("grpsk", "egen");
+
+	if ($grpsk == "egen")
+		$to->regLine('<option selected="selected" value="egen" > Min Egen Sida </option> ');
+	else
+		$to->regLine('<option value="egen" > Min Egen Sida </option> ');
+
+	$to->regLine('<option disabled>---</option>');
+
+	$arr_n = [];
+	$arr_p = [];
+	$arr_i = 0;
+
+	$query = "SELECT * FROM pers WHERE grupp='$grp'";
+	$res = mysqli_query( $emperator, $query );
+	if ($res) while ($row = mysqli_fetch_array($res)) {
+		if ($row['pnr'] == $data->pnr) continue;
+		$arr_n[] = $row['name'];
+		$arr_p[] = $row['pnr'];
+		$arr_i++;
+	}
+
+	for($i=0; $i<$arr_i; ++$i)
+	{
+		$p = $arr_p[$i];
+		$n = $arr_n[$i];
+		if ($grpsk == $p)
+			$to->regLine('<option selected="selected" value="' . $p . '" > ' . $n . ' </option> ');
+		else
+			$to->regLine('<option value="' . $p . '" > ' . $n . ' </option> ');
+	}
+	$to->stopTag('select');
+	
 	$to->regLine(' <div style="clear: both;"></div> ');
 	$to->stopTag('div');
 	$to->scTag('br');
@@ -629,7 +687,6 @@ EOT;
 
 	$n = count($tit);
 
-	$at = getparam("at", '0');
 
 	$to->scTag("hr");
 
@@ -756,6 +813,11 @@ EOT;
 			$key = $i . ".ext";
 			$ext = rwd($min_ini, 'survey', $key, false);
 
+			$key = $i . ".grp";
+			$dogrp = rwd($min_ini, 'survey', $key, false);
+			if ($grpsk=='egen')
+				$dogrp = false;
+
 			if ($ext) {
 				$key = $i . ".surv";
 				$val = $min_ini['survey'][$key];
@@ -768,6 +830,8 @@ EOT;
 				$do_pid = rwd($min_ini, 'survey', $i.".pid" , false);
 				if ($do_pid)
 					$lnk = addKV($lnk, 'pid', $data->pid);
+				if ($dogrp)
+					$lnk = addKV($lnk, 'grpsk', $grpsk);
 				
 				debug_log('survey link : ' . $lnk);
 				
@@ -787,6 +851,9 @@ EOT;
 				$val = $min_ini['survey'][$key];
 				//echo "Res : " . $val . " - " . to_link($alldata, $val) . " <br>" . $eol;
 				$lnk = to_link($alldata, $val) . "&returnto=$RETURNTO";
+				if ($dogrp)
+					$lnk = addKV($lnk, 'grpsk', $grpsk);
+
 				debug_log('result link : ' . $lnk);
 				$to->regLine("<a href='$lnk'> <button> Se Resultat </button> </a> <br /> ");
 			}
@@ -799,6 +866,9 @@ EOT;
 				$do_pid = rwd($min_ini, 'survey', $i.".pid" , false);
 				if ($do_pid)
 					$lnk = addKV($lnk, 'pid', $data->pid);
+				if ($dogrp)
+					$lnk = addKV($lnk, 'grpsk', $grpsk);
+
 				debug_log('embed link : ' . $lnk);
 				//$to->scTag('embed', 'type="text/html" width="100%" height="1500px" src="' . $lnk . '"');
 				$to->startTag('iframe', "class='fse' src='$lnk'");
