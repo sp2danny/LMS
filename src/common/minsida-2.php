@@ -238,6 +238,9 @@ function index($local, $common)
 
 	$grp = $prow['grupp'];
 	$data->grp = $grp;
+
+	$grpsk = getparam("grpsk", "egen");
+	$data->$grpsk = $grpsk;
 	
 	$egen = true;
 	$annan = 0;
