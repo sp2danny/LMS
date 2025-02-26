@@ -3,7 +3,7 @@
 
 <?php
 
-$RETURNTO = 'minsida';
+$RETURNTO = 'minsida-2';
 
 include_once 'process_cmd.php';
 include_once 'cmdparse.php';
@@ -66,7 +66,8 @@ function to_link($alldata, $str)
 }
 
 function getCP($data) {
-	$cp_site = 'https://www.mind2excellence.se/site/common/minsida.php?noside=true';
+	global $RETURNTO;
+	$cp_site = 'https://www.mind2excellence.se/site/common/' . $RETURNTO . '.php?noside=true';
 	if ($data->pid != 0) {
 		$cp_site = addKV($cp_site, 'pid', $data->pid);
 	}
@@ -240,7 +241,9 @@ function index($local, $common)
 	$data->grp = $grp;
 
 	$grpsk = getparam("grpsk", "egen");
+	if ($grpsk == "egen") $grpsk = false;
 	$data->$grpsk = $grpsk;
+	debug_log("$grpsk: " . $grpsk);
 	
 	$egen = true;
 	$annan = 0;
@@ -438,9 +441,9 @@ EOT;
 	$to->regLine('function persddonchange(selobj, at) { ');
 	$to->regLine('  var l = document.getElementById("lbl"); ');
 	$to->regLine('  if (selobj.value == "egen") { ');
-	$to->regLine('    url = "minsida.php?pnr=' . $data->pnr . '&at=" + at;');
+	$to->regLine('    url = "' . $RETURNTO . '.php?pnr=' . $data->pnr . '&at=" + at;');
 	$to->regLine('  } else {');
-	$to->regLine('    url = "minsida.php?pnr=' . $data->pnr . '&grpsk=" + selobj.value + "&at=" + at;');
+	$to->regLine('    url = "' . $RETURNTO . '.php?pnr=' . $data->pnr . '&grpsk=" + selobj.value + "&at=" + at;');
 	$to->regLine('  }');
 	$to->regLine('  window.location.href = url; ');
 	$to->regLine('}');
@@ -641,9 +644,8 @@ EOT;
 
 	$to->startTag('select', 'name="persdd" onchange="persddonchange(this, ' . $at . ');" style="float: right;" ');
 
-	$grpsk = getparam("grpsk", "egen");
 
-	if ($grpsk == "egen")
+	if ($grpsk === false)
 		$to->regLine('<option selected="selected" value="egen" > Min Egen Sida </option> ');
 	else
 		$to->regLine('<option value="egen" > Min Egen Sida </option> ');
@@ -705,19 +707,39 @@ EOT;
 	$fmap = [];
 	$pros = [];
 	
-	$survs = collect_stapel_all($pid);
+	$effective_pid = $data->pid;
+
+	debug_log( "grpsk: " . $grpsk );
+	
+	if ($grpsk !== false)
+	{
+		
+		$query = "SELECT * FROM pers WHERE pnr='" . $data->grpsk . "'";
+		debug_log( $query );
+		$res = mysqli_query($emperator, $query);
+		if ($res) if ($prow = mysqli_fetch_array($res))
+		{
+			$data->gs_pnr  = $prow['pnr'];
+			$data->gs_pid  = $prow['pers_id'];
+			$data->gs_name = $prow['name'];
+			//$data->gs_mynt = $prow['name'];
+			$effective_pid = $data->gs_pid;
+		}
+	}
+
+	debug_log( "effective: " . $effective_pid );
+	
+	$survs = collect_stapel_all($effective_pid);
 	$tot = collect_sum_diff($survs, ["positivitet", "akta", "relevans", "arlig", "tillit", "omdome", "motivation", "goal", "genomforande"]);
-	
-	
+
 	// function ROD( $db, $id_n, $id_v, $key, $def ) // Read Or Default
 	
-	$sty  = ROD('data', ['pers', 'type', 'value_a'], [$pid, 301, 0], 'value_b', 0);
-	$sty += ROD('data', ['pers', 'type', 'value_a'], [$pid, 302, 0], 'value_b', 0);
-	$sty += ROD('data', ['pers', 'type', 'value_a'], [$pid, 300, 1], 'value_b', 0);
-	$sty += ROD('data', ['pers', 'type', 'value_a'], [$pid, 300, 2], 'value_b', 0);
-	$sty += ROD('data', ['pers', 'type', 'value_a'], [$pid, 300, 3], 'value_b', 0);
-	$sty += ROD('data', ['pers', 'type', 'value_a'], [$pid, 300, 4], 'value_b', 0);
-
+	$sty  = ROD('data', ['pers', 'type', 'value_a'], [$effective_pid, 301, 0], 'value_b', 0);
+	$sty += ROD('data', ['pers', 'type', 'value_a'], [$effective_pid, 302, 0], 'value_b', 0);
+	$sty += ROD('data', ['pers', 'type', 'value_a'], [$effective_pid, 300, 1], 'value_b', 0);
+	$sty += ROD('data', ['pers', 'type', 'value_a'], [$effective_pid, 300, 2], 'value_b', 0);
+	$sty += ROD('data', ['pers', 'type', 'value_a'], [$effective_pid, 300, 3], 'value_b', 0);
+	$sty += ROD('data', ['pers', 'type', 'value_a'], [$effective_pid, 300, 4], 'value_b', 0);
 
 	for ($i=1; $i<=$n; ++$i)
 	{
@@ -766,7 +788,7 @@ EOT;
 		$fbn = $nb2 .  $tit[$i] . $nb2;
 		$pro = $pros[$i];
 		if ($pro !== false) {
-			$row = data_last("SELECT * FROM data WHERE pers=$pid AND type=$pro");
+			$row = data_last("SELECT * FROM data WHERE pers=$effective_pid AND type=$pro");
 			if ($row !== false)
 				$fbn .= ' ' . $row['value_a'] . '&nbsp;%';
 		}
@@ -787,9 +809,16 @@ EOT;
 
 	$to->scTag("hr");
 
-	ptbl($to, $prow, $mynt);
+	//if ($grpsk === false)
+		ptbl($to, $prow, $mynt);
+	//else
+	
+	$alldata = false;
 
-	$alldata = roundup($data->pnr, $data->pid, $data->name, true);
+	if ($grpsk === false)
+		$alldata = roundup($data->pnr, $data->pid, $data->name, true);
+	else
+		$alldata = roundup($data->gs_pnr, $data->gs_pid, $data->gs_name, true);
 
 	if ($at != '')
 	{

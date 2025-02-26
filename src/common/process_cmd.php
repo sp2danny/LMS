@@ -35,6 +35,11 @@ class Data
 	public $returnto = false;
 	public $grp = '';
 	public $grpsk = false;
+	public $gs_pnr = '';
+	public $gs_pid = '';
+	public $gs_name = '';
+	public $gs_mynt = '';
+
 }
 
 function repl($data, $txt)
