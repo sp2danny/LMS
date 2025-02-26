@@ -65,6 +65,7 @@ function DoUpdateDivs()
 	slu("st");
 	slu("sv");
 	slu("mo");
+	//OnChangeHandler();
 }
 
 function andraSliders()
@@ -385,13 +386,15 @@ EOT;
 	echo "<td class='cn' >\n";
 	echo "<span> Så här bra är $name_for på att hitta synergier med andras styrkor: </span> <span id='st_syn_div' > </span>\n";
 	echo "<br />\n";
-	echo "&nbsp;&nbsp;&nbsp; <input class='ls' id='st_syn_sl' type='range' onChange='andraSliders()' />\n";
+	echo "Egenskattning: <input class='ls' id='st_syn_sl_e' type='range' readonly disabled=true /> <br>\n";
+	echo "Din Skattning: <input class='ls' id='st_syn_sl' type='range' onChange='andraSliders()' />\n";
 	echo "</td>\n";
 
 	echo "<td class='cn' >\n";
 	echo "<span> Så här bra är $name_for på att vara socialt proaktiv: </span> <span id='pro_soc_div' > </span>\n";
 	echo "<br />\n";
-	echo "&nbsp;&nbsp;&nbsp; <input class='ls' id='pro_soc_sl' type='range' onChange='andraSliders()' />\n";
+	echo "Egenskattning: <input class='ls' id='pro_soc_sl_e' type='range' readonly disabled=true /> <br>\n";
+	echo "Din Skattning: <input class='ls' id='pro_soc_sl' type='range' onChange='andraSliders()' />\n";
 	echo "</td>\n";
 
 	echo "</tr> <tr>\n";
@@ -399,13 +402,15 @@ EOT;
 	echo "<td class='cn' >\n";
 	echo "<span> Så här bra är $name_for på att stötta andras svagheter: </span> <span id='st_sto_div' > </span>\n";
 	echo "<br />\n";
-	echo "&nbsp;&nbsp;&nbsp; <input class='ls' id='st_sto_sl' type='range' onChange='andraSliders()' />\n";
+	echo "Egenskattning: <input class='ls' id='st_sto_sl_e' type='range' readonly disabled=true /> <br>\n";
+	echo "Din Skattning: <input class='ls' id='st_sto_sl' type='range' onChange='andraSliders()' />\n";
 	echo "</td>\n";
 
 	echo "<td class='cn' >\n";
 	echo "<span> Så här bra är $name_for på att fatta proaktiva beslut: </span> <span id='pro_bes_div' > </span>\n";
 	echo "<br />\n";
-	echo "&nbsp;&nbsp;&nbsp; <input class='ls' id='pro_bes_sl' type='range' onChange='andraSliders()' />\n";
+	echo "Egenskattning: <input class='ls' id='pro_bes_sl_e' type='range' readonly disabled=true /> <br>\n";
+	echo "Din Skattning: <input class='ls' id='pro_bes_sl' type='range' onChange='andraSliders()' />\n";
 	echo "</td>\n";
 
 	echo "</tr>\n";
@@ -432,7 +437,8 @@ EOT;
 	echo "<span> Så här bra är $name_for på att utnyttja sina styrkor: </span> <span id='st_div'> </span> \n";
 	echo "<br /> &nbsp;&nbsp;&nbsp; ";
 	$val = ROD('data', ['pers', 'type', 'value_a'], [$pid_for, 301, 0], 'value_b', 0);
-	echo "<input class='ls' id='st_sl' onchange='OnChangeSlider()' type='range' value='$val' /> \n";
+	echo "Egenskattning: <input class='ls' id='st_sl_e' type='range' readonly disabled=true value='$val' /> <br>\n";
+	echo "Din Skattning: <input class='ls' id='st_sl' type='range' onChange='DoUpdateDivs(); OnChangeHandler();' value='$val' />\n";
 
 	echo "</td>\n";
 
@@ -455,7 +461,8 @@ EOT;
 	echo "<span> Så här bra är $name_for på att be om hjälp: </span> <span id='sv_div'> </span> \n";
 	echo "<br /> &nbsp;&nbsp;&nbsp; ";
 	$val = ROD('data', ['pers', 'type', 'value_a'], [$pid_for, 302, 0], 'value_b', 0);
-	echo "<input class='ls' id='sv_sl' onchange='OnChangeSlider()' type='range' value='$val' /> \n";
+	echo "Egenskattning: <input class='ls' id='sv_sl_e' type='range' readonly disabled=true value='$val' /> <br>\n";
+	echo "Din Skattning: <input class='ls' id='sv_sl' type='range' onChange='DoUpdateDivs(); OnChangeHandler();' value='$val' />\n";
 
 	echo "</td>\n";
 
@@ -478,10 +485,10 @@ EOT;
 	echo "<span> Så här bra är $name_for på att hitta motivation: </span> <span id='mo_div'> </span> \n";
 	echo "<br /> &nbsp;&nbsp;&nbsp; ";
 	$val = ROD('data', ['pers', 'type', 'value_a'], [$pid_for, 303, 0], 'value_b', 0);
-	echo "<input class='ls' id='mo_sl' onchange='OnChangeSlider()' type='range' value='$val' /> \n";
+	echo "Egenskattning: <input class='ls' id='mo_sl_e' type='range' readonly disabled=true value='$val' /> <br>\n";
+	echo "Din Skattning: <input class='ls' id='mo_sl' type='range' onChange='DoUpdateDivs(); OnChangeHandler();' value='$val' />\n";
 
 	echo "</td>\n";
-
 
 	echo "</tr></table>\n";
 
@@ -501,22 +508,23 @@ EOT;
 
 	$val = ROD('data', ['pers', 'type', 'value_a'], [$pid_for, 300, 1], 'value_b', 0);
 	echo "document.getElementById('st_syn_sl').value = $val;\n";
+	echo "document.getElementById('st_syn_sl_e').value = $val;\n";
 
 	$val = ROD('data', ['pers', 'type', 'value_a'], [$pid_for, 300, 2], 'value_b', 0);
 	echo "document.getElementById('pro_soc_sl').value = $val;\n";
+	echo "document.getElementById('pro_soc_sl_e').value = $val;\n";
 
 	$val = ROD('data', ['pers', 'type', 'value_a'], [$pid_for, 300, 3], 'value_b', 0);
 	echo "document.getElementById('st_sto_sl').value = $val;\n";
+	echo "document.getElementById('st_sto_sl_e').value = $val;\n";
 
 	$val = ROD('data', ['pers', 'type', 'value_a'], [$pid_for, 300, 4], 'value_b', 0);
 	echo "document.getElementById('pro_bes_sl').value = $val;\n";
-
+	echo "document.getElementById('pro_bes_sl_e').value = $val;\n";
 
 	echo "</script>\n";
 
-
 }
-
 
 ?>
 

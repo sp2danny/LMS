@@ -1,5 +1,5 @@
 
-<!-- inlude minsida.php -->
+<!-- inlude minsida-2.php -->
 
 <?php
 
