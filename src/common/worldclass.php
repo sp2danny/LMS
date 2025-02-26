@@ -5,7 +5,7 @@
 <head>
 <style>
 
-p {
+p, body, td {
 	font-size: 26px;
 }
 
@@ -157,21 +157,49 @@ if ($have_grp === false)
 		$ms_val = $row['value_a'];
 	}
 
-	echo "<hr><br><p>\n";
+	echo "<hr><p>\n";
 
 	echo "<code>\n";
 	echo "  Gruppskattning för " . $name_for . " <br> \n";
 	echo "  Utförd av " . $name_by . " <br> \n";
 	echo "</code>\n";
 
+	echo "<hr>\n";
+
 	if (!$have_ms)
 	{
 		echo "<br> egenskattning ej utförd <br>";
 	} else {
 
-		echo "<table><tr><td>\n";
+		
+		echo "<br> <table><tr><td colspan=2><p>\n";
 
-		echo "Lever " . $name_for . " med stolthet detta Missionstatement: &nbsp; Skatta här: &nbsp; &nbsp; &nbsp; ";
+		echo "Lever " . $name_for . " med stolthet detta Missionstatement: &nbsp; &nbsp; ";
+
+		echo "\n</td></tr><tr><td colspan=2>\n";
+
+		echo " &nbsp; \n";
+		
+		echo "\n</td></tr><tr><td>\n";
+		
+
+		echo "Egenskattning av " . $name_for . " &nbsp; &nbsp; ";
+
+		echo "\n</td><td>\n";
+
+		echo " <input disabled=true type='range' min='0' max='100' step='1' list='steplist' ";
+
+		if ($have_ms) {
+			echo " value='$ms_val' ";
+		}
+
+		echo " readonly /> \n";
+		echo " <datalist id='steplist'> <option value='0' label='0' > </option> <option value='100' label='100' > </option> </datalist> \n";
+
+		echo "\n</td></tr><tr><td>\n";
+
+
+		echo "Din skattning här: &nbsp; &nbsp; &nbsp; ";
 
 		echo "\n</td><td>\n";
 
@@ -184,7 +212,7 @@ if ($have_grp === false)
 		echo " onChange='document.getElementById(\"ms_btn\").disabled = false;' /> \n";
 		echo " <datalist id='steplist'> <option value='0' label='0' > </option> <option value='100' label='100' > </option> </datalist> \n";
 
-		echo "\n</td><td>\n";
+		echo "\n</p></td><td>\n";
 
 		echo " &nbsp; <button id='ms_btn' disabled ";
 		echo " onClick='document.getElementById(\"ms_btn\").disabled = true; ";
@@ -192,6 +220,7 @@ if ($have_grp === false)
 		echo " > Save </button> <br> \n";
 
 		echo "\n</td></tr></table>\n";
+
 
 	}
 

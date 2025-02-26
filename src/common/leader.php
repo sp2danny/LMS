@@ -5,7 +5,9 @@
 <head>
 <style>
 
-p {
+
+
+body, td, p {
 	font-size: 26px;
 }
 
@@ -108,7 +110,7 @@ if (!$have_grp)
 
 	echo "<hr><br><p>\n";
 
-	echo "<table><tr><td>\n";
+	echo "<table><tr><td><p>\n";
 
 	echo "Lever jag med stolthet dessa värdegrunder: &nbsp; Svara här: &nbsp; &nbsp; &nbsp; ";
 
@@ -125,7 +127,7 @@ if (!$have_grp)
 	echo " onChange='document.getElementById(\"vg_btn\").disabled = false;' /> \n";
 	echo " <datalist id='steplist'> <option value='0' label='0' > </option> <option value='100' label='100' > </option> </datalist> \n";
 
-	echo "\n</td><td>\n";
+	echo "\n</p></td><td>\n";
 
 	echo " &nbsp; <button id='vg_btn' disabled ";
 	echo " onClick='document.getElementById(\"vg_btn\").disabled = true; ";
@@ -159,21 +161,48 @@ if (!$have_grp)
 		$vg_val = $row['value_a'];
 	}
 
-	echo "<hr><br><p>\n";
+	echo "<hr><p>\n";
 
 	echo "<code>\n";
 	echo "  Gruppskattning för " . $name_for . " <br> \n";
 	echo "  Utförd av " . $name_by . " <br> \n";
 	echo "</code>\n";
 
+	echo "<hr>\n";
+
 	if (!$have_vg)
 	{
 		echo "<br> egenskattning ej utförd <br>";
 	} else {
 
-		echo "<table><tr><td>\n";
+		echo "<br> <table><tr><td colspan=2><p>\n";
 
-		echo "Lever " . $name_for . " med stolthet dessa värdegrunder: &nbsp; Skatta här: &nbsp; &nbsp; &nbsp; ";
+		echo "Lever " . $name_for . " med stolthet dessa värdegrunder: &nbsp; &nbsp; ";
+
+		echo "\n</td></tr><tr><td colspan=2>\n";
+
+		echo " &nbsp; \n";
+		
+		echo "\n</td></tr><tr><td>\n";
+		
+
+		echo "Egenskattning av " . $name_for . " &nbsp; &nbsp; ";
+
+		echo "\n</td><td>\n";
+
+		echo " <input disabled=true type='range' min='0' max='100' step='1' list='steplist' ";
+
+		if ($have_vg) {
+			echo " value='$vg_val' ";
+		}
+
+		echo " readonly /> \n";
+		echo " <datalist id='steplist'> <option value='0' label='0' > </option> <option value='100' label='100' > </option> </datalist> \n";
+
+		echo "\n</td></tr><tr><td>\n";
+
+
+		echo "Din skattning här: &nbsp; &nbsp; &nbsp; ";
 
 		echo "\n</td><td>\n";
 
@@ -186,7 +215,7 @@ if (!$have_grp)
 		echo " onChange='document.getElementById(\"vg_btn\").disabled = false;' /> \n";
 		echo " <datalist id='steplist'> <option value='0' label='0' > </option> <option value='100' label='100' > </option> </datalist> \n";
 
-		echo "\n</td><td>\n";
+		echo "\n</p></td><td>\n";
 
 		echo " &nbsp; <button id='vg_btn' disabled ";
 		echo " onClick='document.getElementById(\"vg_btn\").disabled = true; ";

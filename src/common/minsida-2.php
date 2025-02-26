@@ -242,8 +242,8 @@ function index($local, $common)
 
 	$grpsk = getparam("grpsk", "egen");
 	if ($grpsk == "egen") $grpsk = false;
-	$data->$grpsk = $grpsk;
-	debug_log("$grpsk: " . $grpsk);
+	$data->grpsk = $grpsk;
+	debug_log("grpsk: " . $grpsk);
 	
 	$egen = true;
 	$annan = 0;
@@ -710,11 +710,12 @@ EOT;
 	$effective_pid = $data->pid;
 
 	debug_log( "grpsk: " . $grpsk );
+	debug_log( "data->grpsk: " . $data->grpsk );
 	
 	if ($grpsk !== false)
 	{
 		
-		$query = "SELECT * FROM pers WHERE pnr='" . $data->grpsk . "'";
+		$query = "SELECT * FROM pers WHERE pnr='" . $grpsk . "'";
 		debug_log( $query );
 		$res = mysqli_query($emperator, $query);
 		if ($res) if ($prow = mysqli_fetch_array($res))
@@ -848,6 +849,8 @@ EOT;
 			$key = $i . ".grp";
 			$dogrp = rwd($min_ini, 'survey', $key, false);
 			if ($grpsk=='egen')
+				$dogrp = false;
+			if ($grpsk==false)
 				$dogrp = false;
 
 			if ($ext) {
