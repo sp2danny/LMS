@@ -36,6 +36,7 @@
     <None Include="src\coach\make_prod_save.php" />
     <None Include="src\coach\surv_a.php" />
     <None Include="src\coach\surv_b.php" />
+    <None Include="src\coach\surv_c.php" />
     <None Include="src\common\actually_delete.php" />
     <None Include="src\common\allsurv.php" />
     <None Include="src\common\at.php" />
@@ -82,6 +83,7 @@
     <None Include="src\common\main.js.php" />
     <None Include="src\common\make_group.php" />
     <None Include="src\common\meter_disp.php" />
+    <None Include="src\common\mingrupp.php" />
     <None Include="src\common\minsida-2.php" />
     <None Include="src\common\minsida.php" />
     <None Include="src\common\next.php" />

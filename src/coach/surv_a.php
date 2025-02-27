@@ -63,10 +63,15 @@ function printgroups($tbs)
 				rd.innerHTML = txt;
 			}
 
-			function replaceDiv2() {
+			async function replaceDiv2() {
 				dd = document.getElementById('PersSel');
 				rd = document.getElementById('replacerDiv2');
-				rd.innerHTML = dd.value;
+
+				doc = "surv_c.php?pid=" + dd.value;
+
+				let waitobject = await fetch(doc);
+				let txt = await waitobject.text();
+				rd.innerHTML = txt;
 			}
 
 
