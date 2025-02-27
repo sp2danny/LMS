@@ -123,7 +123,7 @@ if (count($dps)) {
 			}
 		?>
 	</select>
-	&nbsp; &nbsp; &nbsp; <button onclick="replaceDiv2( )"> Visa </button> 
+	&nbsp; &nbsp; &nbsp; <button onclick="replaceDivX('PersSel', 'replacerDiv2', 'surv_c.php?pid=')"> Visa </button> 
 </div>
 
 <hr>

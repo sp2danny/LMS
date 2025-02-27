@@ -52,27 +52,17 @@ function printgroups($tbs)
 
 		<script>
 
-			async function replaceDiv() {
-				dd = document.getElementById('grp');
-				rd = document.getElementById('replacerDiv');
+			async function replaceDivX(ddname, divname, filename) {
+				dd = document.getElementById(ddname);
+				rd = document.getElementById(divname);
 
-				doc = "surv_b.php?grp=" + dd.value;
-
-				let waitobject = await fetch(doc);
-				let txt = await waitobject.text();
-				rd.innerHTML = txt;
-			}
-
-			async function replaceDiv2() {
-				dd = document.getElementById('PersSel');
-				rd = document.getElementById('replacerDiv2');
-
-				doc = "surv_c.php?pid=" + dd.value;
+				doc = filename + dd.value;
 
 				let waitobject = await fetch(doc);
 				let txt = await waitobject.text();
 				rd.innerHTML = txt;
 			}
+
 
 
 		</script>
@@ -109,7 +99,7 @@ function printgroups($tbs)
 						<option disabled selected value> -- v&auml;lj grupp -- </option>
 						<?php printgroups(6); ?>
 					</select>
-					&nbsp; &nbsp; &nbsp; <button onclick="replaceDiv()"> Visa </button> 
+					&nbsp; &nbsp; &nbsp; <button onclick="replaceDivX('grp', 'replacerDiv', 'surv_b.php?grp=')"> Visa </button> 
 				</div>
 
 			</div>
