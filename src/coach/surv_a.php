@@ -63,8 +63,6 @@ function printgroups($tbs)
 				rd.innerHTML = txt;
 			}
 
-
-
 		</script>
 
 		<style>
