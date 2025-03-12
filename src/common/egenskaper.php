@@ -68,11 +68,16 @@ function index()
 		if ($res)
 			$prow = mysqli_fetch_array($res);
 		$pid = $prow['pers_id'];
-		
+		$nn = $prow['name'];
 	}
 
 
 	$disc = get_disc($pid);
+
+	if ($grpsk)
+		echo "<h5 class='normal' > Skatta $nn's personlighet </h5> \n";
+	else
+		echo "<h5 class='normal' > Testa Din Personlighet </h5> \n";
 
 	echo "<table><tr><td>\n";
 
@@ -84,49 +89,54 @@ function index()
 	echo "</td><td> \n";
 	
 	echo "<table><tr><td>";
-	
-echo "<td class='twm' >\n";
-echo "Detta är mina styrkor:\n<ul>\n";
 
-for ($i=1; $i<=5; ++$i)
-{
-	echo "\t<li> " . $i . " &nbsp;&nbsp;&nbsp;";
-	$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 301, $i], 'value_c', '');
-	echo "<input class='lf' id='st_$i' readonly type='text' value='$val' /> ";
-	echo "</li>\n";
-}
-echo "</ul>\n<br />\n";
+	if ($grpsk)
+		$mina = $nn . 's';
+	else
+		$mina = "mina";
 
-	echo "</td><td>";
+	echo "<td class='twm' >\n";
+	echo "Detta är $mina styrkor:\n<ul>\n";
 
-echo "<td class='twm' >\n";
-echo "Detta är mina svagheter:\n<ul>\n";
+	for ($i=1; $i<=5; ++$i)
+	{
+		echo "\t<li> " . $i . " &nbsp;&nbsp;&nbsp;";
+		$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 301, $i], 'value_c', '');
+		echo "<input class='lf' id='st_$i' readonly type='text' value='$val' /> ";
+		echo "</li>\n";
+	}
+	echo "</ul>\n<br />\n";
 
-for ($i=1; $i<=5; ++$i)
-{
-	echo "\t<li> " . $i . " &nbsp;&nbsp;&nbsp;";
-	$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 302, $i], 'value_c', '');
-	echo "<input class='lf' id='sv_$i' readonly type='text' value='$val' /> ";
-	echo "</li>\n";
-}
+		echo "</td><td>";
 
-echo "</ul>\n<br />\n";
+	echo "<td class='twm' >\n";
+	echo "Detta är $mina svagheter:\n<ul>\n";
+
+	for ($i=1; $i<=5; ++$i)
+	{
+		echo "\t<li> " . $i . " &nbsp;&nbsp;&nbsp;";
+		$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 302, $i], 'value_c', '');
+		echo "<input class='lf' id='sv_$i' readonly type='text' value='$val' /> ";
+		echo "</li>\n";
+	}
+
+	echo "</ul>\n<br />\n";
 
 
 	echo "</td></tr><tr><td>";
 
-echo "<td class='twm' >\n";
-echo "Detta är mina motivatorer:\n<ul>\n";
+	echo "<td class='twm' >\n";
+	echo "Detta är $mina motivatorer:\n<ul>\n";
 
-for ($i=1; $i<=5; ++$i)
-{
-	echo "\t<li> " . $i . " &nbsp;&nbsp;&nbsp;";
-	$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 303, $i], 'value_c', '');
-	echo "<input class='lf' id='mo_$i' readonly type='text' value='$val' /> ";
-	echo "</li>\n";
-}
+	for ($i=1; $i<=5; ++$i)
+	{
+		echo "\t<li> " . $i . " &nbsp;&nbsp;&nbsp;";
+		$val = ROD('data', ['pers', 'type', 'value_a'], [$pid, 303, $i], 'value_c', '');
+		echo "<input class='lf' id='mo_$i' readonly type='text' value='$val' /> ";
+		echo "</li>\n";
+	}
 
-echo "</ul>\n<br />\n";
+	echo "</ul>\n<br />\n";
 
 
 	echo "</td><td>";

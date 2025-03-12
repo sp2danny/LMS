@@ -53,7 +53,7 @@ count = 14
 5.filter = 4
 5.namn = Disk Analys
 5.button = Discanalys
-5.minor = Testa Din Personlighet
+5.minor = 
 5.embed = https://mind2excellence.se/site/common/egenskaper.php
 5.grp = true
 
