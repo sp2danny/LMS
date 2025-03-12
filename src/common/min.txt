@@ -55,6 +55,8 @@ count = 14
 5.button = Discanalys
 5.minor = Testa Din Personlighet
 5.embed = https://mind2excellence.se/site/common/egenskaper.php
+5.grp = true
+
 
 6.filter = 5
 6.namn = Styrkor

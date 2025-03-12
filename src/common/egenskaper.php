@@ -59,6 +59,19 @@ function index()
 		$pid = $prow['pers_id'];
 	}
 
+	$grpsk = getparam("grpsk", false);
+
+	if ($grpsk !== false)
+	{
+		$query = "SELECT * FROM pers WHERE pnr='$grpsk';";
+		$res = mysqli_query($emperator, $query);
+		if ($res)
+			$prow = mysqli_fetch_array($res);
+		$pid = $prow['pers_id'];
+		
+	}
+
+
 	$disc = get_disc($pid);
 
 	echo "<table><tr><td>\n";

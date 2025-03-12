@@ -378,6 +378,9 @@
     <None Include="src\coach\surv_c.php">
       <Filter>Source Files\coach</Filter>
     </None>
+    <None Include="src\common\egenskaper.php">
+      <Filter>Source Files\common</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\common\dologin.php">
