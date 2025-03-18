@@ -7,14 +7,17 @@ include_once 'connect.php';
 include_once 'getparam.php';
 
 
-function disc_draw($LR, $UD)
+function disc_draw($LR, $UD, $onclick = false)
 {
 	$ret = "<img id='Disc2' src='../common/Disc3-3.png' hidden=true /> \n";
 
 	$ret .= " <table><tr> <td> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td> <td>\n";
 
-	$ret .= '<canvas id="discCanvas" width="850" height="850" style="border:1px solid #000000;">' ;
-	$ret .= ' Din browser st&ouml;der inte canvas </canvas> ' . "\n";
+	$ret .= '<canvas id="discCanvas" width="850" height="850" style="border:1px solid #000000;" ';
+	if ($onclick !== false)
+		$ret .= "onclick='$onclick'";
+	
+	$ret .= ' >  Din browser st&ouml;der inte canvas </canvas> ' . "\n";
 
 	$ret .= "</td>";
 	$ret .= "</tr></table> \n";
@@ -86,7 +89,7 @@ function get_disc($pid)
 	return $res;
 }
 
-function discdisplay($pid)
+function discdisplay($pid, $onclick = false)
 {
 	$have = get_disc($pid);
 
@@ -99,7 +102,7 @@ function discdisplay($pid)
 		$UD = $have['UD'];
 	}
 
-	return disc_draw($LR, $UD);
+	return disc_draw($LR, $UD, $onclick);
 }
 
 ?>

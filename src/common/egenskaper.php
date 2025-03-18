@@ -40,6 +40,29 @@ echo <<<EOL
 }
 
 </style>
+
+<script>
+
+function clampi(num, min, max) {
+  return num <= min 
+    ? min 
+    : num >= max 
+      ? max 
+      : Math.round(num);
+}
+
+function on_disc_click(event)
+{
+	elem = document.getElementById("disc_replace");
+	UD = (event.offsetY - 50) / 18.75;
+	LR = (event.offsetX - 50) / 18.75;
+	UD = clampi(UD-20, -20, +20);
+	LR = clampi(LR-20, -20, +20);
+	elem.innerHTML = " hello " + UD.toString() + "," + LR.toString();
+}
+</script>
+
+
 EOL;
 
 function index()
@@ -83,7 +106,11 @@ function index()
 
 	if ($disc)
 	{
-		echo disc_draw($disc['LR'], $disc['UD']);
+		if ($grpsk)
+			$oc = 'on_disc_click(event)';
+		else
+			$oc = false;
+		echo disc_draw($disc['LR'], $disc['UD'], $oc);
 	}
 	
 	echo "</td><td> \n";
@@ -141,36 +168,30 @@ function index()
 
 	echo "</td><td>";
 
-
-
 	echo "</td></tr></table>";
 
-	
 	echo " </td></tr></table>\n";
 
+	echo "\t<br><br>\n";
 
+	if (!$grpsk) {
+
+		echo "\t <img width=100% src='allafargtext.png' /> <br /> <br /> <br /> \n";
+		echo "\t Skriv ut ovanstående discanalys, stryk under de motivatorer som är de viktigaste för dig, och diskutera i gruppen om andra delar din uppfattning om din beteendeprofil. Sätt sedan in i din handlingsplan. Ta med detta dokument till examinationen på Nivå 1 i nästa steg. <br /> <br /> \n";
+		echo "\t <iframe width='85%' height='850px' src=' ../common/Disc2014.pdf' /> </iframe> <br /> <br /> <br /> \n";
+		echo "\t Skriv också ut och läs igenom ovanstående detaljerade tolkning av olika beteendestilar och behåll i din utbildningspärm. Du kommer att lära dig mer om olika beteendestilar längre fram i utbildningen.<br> (Skriv ut dokunentet genom att först ställa markören på dokumentet och högerklicka. Välj: Öppna med förhandsvisning. Sedan skriv ut.) Sätt in dokumentet i din utbildningspärm. <br /> \n";
+
+	} else {
+
+		echo "\n<br>\n<div id='disc_replace'> </div>\n";
+
+	}
 
 }
-
-
-
 
 index();
 
 ?>
-
-<br><br>
-
- <img width=100%  src=" allafargtext.png" /> <br />
-        <br /> <br /> 
-        Skriv ut ovanstående discanalys, stryk under de motivatorer som är de viktigaste för dig, och diskutera i gruppen om andra delar din uppfattning om din beteendeprofil. Sätt sedan in i din handlingsplan. Ta med detta dokument till examinationen på Nivå 1 i nästa steg.
-        <br /> <br /> 
-        <iframe width="85%" height="850px"   src=" ../common/Disc2014.pdf" /> </iframe> <br />
-        <br /> <br /> 
-        Skriv också ut och läs igenom ovanstående detaljerade tolkning av olika beteendestilar och behåll i din utbildningspärm. Du kommer att lära dig mer om olika beteendestilar längre fram i utbildningen.<br> (Skriv ut dokunentet genom att först ställa markören på dokumentet och högerklicka. Välj: Öppna med förhandsvisning. Sedan skriv ut.) Sätt in dokumentet i din utbildningspärm.
-        <br /> 
-
-
 
 </body>
 </html>
