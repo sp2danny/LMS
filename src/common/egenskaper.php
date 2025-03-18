@@ -53,13 +53,29 @@ function clampi(num, min, max) {
 
 function on_disc_click(event)
 {
+	on_disc_click.counter = (on_disc_click.counter || 0) + 1;
+
+	if (on_disc_click.counter > 1) return;
+
 	elem = document.getElementById("disc_replace");
-	UD = (event.offsetY - 50) / 18.75;
-	LR = (event.offsetX - 50) / 18.75;
-	UD = clampi(UD-20, -20, +20);
-	LR = clampi(LR-20, -20, +20);
+	UD = (event.offsetY - 425) / 17.0;
+	LR = (event.offsetX - 425) / 17.0;
+	UD = clampi(UD, -20, +20);
+	LR = clampi(LR, -20, +20);
 	elem.innerHTML = " hello " + UD.toString() + "," + LR.toString();
+
+	var c = document.getElementById("discCanvas");
+	var ctx = c.getContext("2d");
+
+	ctx.beginPath();
+	ctx.fillStyle = "#337";
+	ctx.strokeStyle = "#000";
+	ctx.arc( 425+17*LR, 425+17*UD, 8, 0,2*Math.PI);
+	ctx.stroke();
+	ctx.fill();
+
 }
+
 </script>
 
 
