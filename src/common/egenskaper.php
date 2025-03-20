@@ -62,6 +62,9 @@ function on_disc_click(event)
 	LR = (event.offsetX - 425) / 17.0;
 	UD = clampi(UD, -20, +20);
 	LR = clampi(LR, -20, +20);
+
+	str = "<a href='" + dsname(UD, LR) + "'> ";
+	str += "<button> Spara </button> </a> ";
 	elem.innerHTML = " hello " + UD.toString() + "," + LR.toString();
 
 	var c = document.getElementById("discCanvas");
@@ -76,19 +79,17 @@ function on_disc_click(event)
 
 }
 
-</script>
-
-
 EOL;
 
 function index()
 {
-	echo "</head><body class='main'>\n";
-	
 	global $emperator;
 	
 	$pnr = getparam("pnr", "0");
 	$pid = getparam("pid", "0");
+
+	echo "\nfunction dsname(UD, LR) {\n";
+	echo "	return 'disk_spara.php?UD=' + UD + '&LR=' + LR";
 
 	if ($pnr != 0) {
 		$query = "SELECT * FROM pers WHERE pnr='$pnr';";
@@ -96,6 +97,7 @@ function index()
 		if ($res)
 			$prow = mysqli_fetch_array($res);
 		$pid = $prow['pers_id'];
+		echo " + '&by=" . $pid . "'";
 	}
 
 	$grpsk = getparam("grpsk", false);
@@ -108,8 +110,12 @@ function index()
 			$prow = mysqli_fetch_array($res);
 		$pid = $prow['pers_id'];
 		$nn = $prow['name'];
+		echo " + '&for=" . $pid . "'";
 	}
 
+	echo ";\n}\n\n</script>\n\n";
+
+	echo "</head><body class='main'>\n";
 
 	$disc = get_disc($pid);
 
@@ -188,7 +194,7 @@ function index()
 
 	echo " </td></tr></table>\n";
 
-	echo "\t<br><br>\n";
+	echo "\t<br>\n";
 
 	if (!$grpsk) {
 
@@ -199,7 +205,7 @@ function index()
 
 	} else {
 
-		echo "\n<br>\n<div id='disc_replace'> </div>\n";
+		echo "\n\n<div id='disc_replace'> </div>\n";
 
 	}
 
