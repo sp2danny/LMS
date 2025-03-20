@@ -117,3 +117,5 @@ typer
 	motivatorer 302          num (1-5)                 motivator         
 	svagheter   303          num (1-5)                 svaghet         
 
+	gr-disc-lr  311          value        by
+	gr-disc-ud  312          value        by
