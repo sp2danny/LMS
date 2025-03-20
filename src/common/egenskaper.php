@@ -51,6 +51,14 @@ function clampi(num, min, max) {
       : Math.round(num);
 }
 
+function on_save_click(str)
+{
+	sb = document.getElementById("ocb");
+	sb.disabled = true;
+	sb.innerHTML = "Sparad";
+	fetch(str);
+}
+
 function on_disc_click(event)
 {
 	on_disc_click.counter = (on_disc_click.counter || 0) + 1;
@@ -63,9 +71,9 @@ function on_disc_click(event)
 	UD = clampi(UD, -20, +20);
 	LR = clampi(LR, -20, +20);
 
-	str = "<a href='" + dsname(UD, LR) + "'> ";
-	str += "<button> Spara </button> </a> ";
-	elem.innerHTML = " hello " + UD.toString() + "," + LR.toString();
+	oc = 'on_save_click("' + dsname(UD, LR) + '")';
+	str = "<button id='ocb' onclick='" + oc + "' > Spara </button> </a> ";
+	elem.innerHTML = str;
 
 	var c = document.getElementById("discCanvas");
 	var ctx = c.getContext("2d");
