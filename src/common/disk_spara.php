@@ -16,9 +16,9 @@ function grp_sk(fr, by, id, val)
 
 $param = array_merge($_GET, $_POST);
 
-$str = str_replace("\n", " ", var_export($param, true));
+//$str = str_replace("\n", " ", var_export($param, true));
 
-debug_log($str);
+//debug_log($str);
 
 grp_sk($param['for'], $param['by'], 311, $param['LR']);
 

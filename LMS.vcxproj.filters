@@ -37,6 +37,9 @@
     <Text Include="src\common\min.txt">
       <Filter>Source Files\common</Filter>
     </Text>
+    <Text Include="todo-4.txt">
+      <Filter>Source Files\stuff</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\coach\list_prod.php">
@@ -379,6 +382,9 @@
       <Filter>Source Files\coach</Filter>
     </None>
     <None Include="src\common\egenskaper.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\disk_spara.php">
       <Filter>Source Files\common</Filter>
     </None>
   </ItemGroup>
