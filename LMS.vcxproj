@@ -23,6 +23,7 @@
     <Text Include="Kludd.txt" />
     <Text Include="src\common\min.txt" />
     <Text Include="src\survey\styr.txt" />
+    <Text Include="todo-4.txt" />
     <Text Include="TODO.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +61,7 @@
     <None Include="src\common\delete_user.php" />
     <None Include="src\common\discdisplay.php" />
     <None Include="src\common\discquery.php" />
+    <None Include="src\common\disk_spara.php" />
     <None Include="src\common\display_report.php" />
     <None Include="src\common\dorate.php" />
     <None Include="src\common\do_eula.php" />
