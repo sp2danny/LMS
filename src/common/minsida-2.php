@@ -642,7 +642,9 @@ EOT;
 
 	$at = getparam("at", '0');
 
-	$to->startTag('select', 'name="persdd" onchange="persddonchange(this, ' . $at . ');" style="float: right;" ');
+	$to->startTag('div', 'style="float: right;"');
+
+	$to->startTag('select', 'name="persdd" onchange="persddonchange(this, ' . $at . ');"  style="float: left; font-size:18px " ');
 
 
 	if ($grpsk === false)
@@ -675,6 +677,11 @@ EOT;
 			$to->regLine('<option value="' . $p . '" > ' . $n . ' </option> ');
 	}
 	$to->stopTag('select');
+
+	$to->regLine('<img src="cogs.png" style="float: right;" />');
+
+	$to->stopTag('div');
+
 	
 	$to->regLine(' <div style="clear: both;"></div> ');
 	$to->stopTag('div');
