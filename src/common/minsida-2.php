@@ -43,7 +43,7 @@ function ptbl($to, $prow, $mynt, $score=0)
 	$to->startTag('table', "class=$wtelf");
 	$to->regLine("<tr> <td class=$wtelf > Kundnummer    </td> <td class=$wtelf > " . $prow[ 'pers_id' ] . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td> <td class=$wtelf > Guldmynt     </td> <td class=$wtelf > $mynt   </td> </tr>");
 	$to->regLine("<tr> <td class=$wtelf > Namn          </td> <td class=$wtelf > " . $prow[ 'name'    ] . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td> <td class=$wtelf > Po&auml;ng   </td> <td class=$wtelf > $score  </td> </tr>");
-	$to->regLine("<tr> <td class=$wtelf > Personnummer  </td> <td class=$wtelf > " . $prow[ 'pnr'     ] . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td> <td colspan=2 rowspan=2 class=$wtelf > $div </td>  </tr>");
+	$to->regLine("<tr> <td class=$wtelf >               </td> <td class=$wtelf > " . ""                 . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td> <td colspan=2 rowspan=2 class=$wtelf > $div </td>  </tr>");
 	$to->regLine("<tr> <td class=$wtelf > Medlem sedan  </td> <td class=$wtelf > " . $prow[ 'date'    ] . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td>  </tr>");
 	$to->stopTag('table');
 }
@@ -435,14 +435,17 @@ br.hs {
 .tooltip {
   position: relative;
   display: inline-block;
-  /*border-bottom: 1px dotted black;*/
+}
+
+.tooltiptext {
+  border: 1px dotted black;
 }
 
 .tooltip .tooltiptext {
   visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
+  /*width: 350px;*/
+  background-color: #eee;
+  color: #000;
   text-align: center;
   border-radius: 6px;
   padding: 5px 0;
@@ -711,7 +714,13 @@ EOT;
 
 	$to->startTag('span', 'class="tooltiptext"');
 
-	$to->regLine("Tooltip text");
+	$to->startTag("table");
+	$to->regLine("<tr> <td> <img src='corr.png'  />  </td><td>  Värdegrund        </td> </tr> ");
+	$to->regLine("<tr> <td> <img src='corr.png'  />  </td><td>  Missionstatement  </td> </tr> ");
+	$to->regLine("<tr> <td> <img src='here.png'  />  </td><td>  Utveckling        </td> </tr> ");
+	$to->regLine("<tr> <td> <img src='blank.png' />  </td><td>  Disk Analys       </td> </tr> ");
+	$to->stopTag("table");
+
 
 	$to->stopTag('span');
 	$to->stopTag('div');

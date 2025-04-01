@@ -43,7 +43,7 @@ function ptbl($to, $prow, $mynt, $score=0)
 	$to->startTag('table', "class=$wtelf");
 	$to->regLine("<tr> <td class=$wtelf > Kundnummer    </td> <td class=$wtelf > " . $prow[ 'pers_id' ] . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td> <td class=$wtelf > Guldmynt     </td> <td class=$wtelf > $mynt   </td> </tr>");
 	$to->regLine("<tr> <td class=$wtelf > Namn          </td> <td class=$wtelf > " . $prow[ 'name'    ] . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td> <td class=$wtelf > Po&auml;ng   </td> <td class=$wtelf > $score  </td> </tr>");
-	$to->regLine("<tr> <td class=$wtelf > Personnummer  </td> <td class=$wtelf > " . $prow[ 'pnr'     ] . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td> <td colspan=2 rowspan=2 class=$wtelf > $div </td>  </tr>");
+	$to->regLine("<tr> <td class=$wtelf >               </td> <td class=$wtelf > " . ""                 . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td> <td colspan=2 rowspan=2 class=$wtelf > $div </td>  </tr>");
 	$to->regLine("<tr> <td class=$wtelf > Medlem sedan  </td> <td class=$wtelf > " . $prow[ 'date'    ] . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td>  </tr>");
 	$to->stopTag('table');
 }
@@ -431,6 +431,38 @@ br.hs {
 	height: 5000px;
 }
 
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltiptext {
+  border: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  /*width: 350px;*/
+  background-color: #eee;
+  color: #000;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 50%;
+  margin-left: -140px;
+  margin-top:  5px;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
 </style>
 
 EOT;
@@ -642,7 +674,9 @@ EOT;
 
 	$at = getparam("at", '0');
 
-	$to->startTag('select', 'name="persdd" onchange="persddonchange(this, ' . $at . ');" style="float: right;" ');
+	$to->startTag('div', 'style="float: right;"');
+
+	$to->startTag('select', 'name="persdd" onchange="persddonchange(this, ' . $at . ');"  style="float: left; font-size:18px " ');
 
 
 	if ($grpsk === false)
@@ -675,6 +709,25 @@ EOT;
 			$to->regLine('<option value="' . $p . '" > ' . $n . ' </option> ');
 	}
 	$to->stopTag('select');
+
+	$to->startTag('div', 'class="tooltip"');
+	$to->regLine('<img src="cogs.png" style="margin-left: 7px; float: right;" />');
+
+	$to->startTag('span', 'class="tooltiptext"');
+
+	$to->startTag("table");
+	$to->regLine("<tr> <td> <img src='corr.png'  />  </td><td>  Värdegrund        </td> </tr> ");
+	$to->regLine("<tr> <td> <img src='corr.png'  />  </td><td>  Missionstatement  </td> </tr> ");
+	$to->regLine("<tr> <td> <img src='heret.png' />  </td><td>  Utveckling        </td> </tr> ");
+	$to->regLine("<tr> <td> <img src='blank.png' />  </td><td>  Disk Analys       </td> </tr> ");
+	$to->stopTag("table");
+
+
+	$to->stopTag('span');
+	$to->stopTag('div');
+
+	$to->stopTag('div');
+
 	
 	$to->regLine(' <div style="clear: both;"></div> ');
 	$to->stopTag('div');
