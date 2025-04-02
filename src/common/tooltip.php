@@ -3,13 +3,22 @@
 
 function tooltip($to, $data)
 {
-	
+
+	$txt = ["Värdegrund", "Missionstatement", "Utveckling", "Disk Analys"];
+	$fn = 2;
+	$n = 4;
 
 	$to->startTag("table");
-	$to->regLine("<tr> <td> <img src='corr.png'  />  </td><td>  Värdegrund        </td> </tr> ");
-	$to->regLine("<tr> <td> <img src='corr.png'  />  </td><td>  Missionstatement  </td> </tr> ");
-	$to->regLine("<tr> <td> <img src='heret.png' />  </td><td>  Utveckling        </td> </tr> ");
-	$to->regLine("<tr> <td> <img src='blank.png' />  </td><td>  Disk Analys       </td> </tr> ");
+	for ($i=0; $i<$n; ++$i) {
+		$line = "<tr> <td> <img src=";
+		if ($i <  $fn)  $line .= "'corr.png'";
+		if ($i == $fn)  $line .= "'heret.png'";
+		if ($i >  $fn)  $line .= "'blank.png'";
+		$line .= " />  </td><td> ";
+		$line .= $txt[$i];
+		$line .= " </td> </tr> ";
+		$to->regLine($line);
+	}
 	$to->stopTag("table");
 }
 
