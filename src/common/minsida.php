@@ -716,7 +716,7 @@ EOT;
 
 	$to->startTag('span', 'class="tooltiptext"');
 
-	tooltip($to);
+	tooltip($to, $data);
 
 	$to->stopTag('span');
 	$to->stopTag('div');

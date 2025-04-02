@@ -1,8 +1,10 @@
 
 <?php
 
-function tooltip($to)
+function tooltip($to, $data)
 {
+	
+
 	$to->startTag("table");
 	$to->regLine("<tr> <td> <img src='corr.png'  />  </td><td>  Värdegrund        </td> </tr> ");
 	$to->regLine("<tr> <td> <img src='corr.png'  />  </td><td>  Missionstatement  </td> </tr> ");
