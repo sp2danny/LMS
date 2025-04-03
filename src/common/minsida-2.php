@@ -17,6 +17,7 @@ include_once 'connect.php';
 include_once 'roundup.php';
 include_once 'util.php';
 include_once 'stapel_disp.php';
+include_once 'tooltip.php';
 
 function ptbl($to, $prow, $mynt, $score=0)
 {
@@ -455,7 +456,8 @@ br.hs {
   z-index: 1;
   top: 100%;
   left: 50%;
-  margin-left: -60px;
+  margin-left: -140px;
+  margin-top:  5px;
 }
 
 .tooltip:hover .tooltiptext {
@@ -714,13 +716,7 @@ EOT;
 
 	$to->startTag('span', 'class="tooltiptext"');
 
-	$to->startTag("table");
-	$to->regLine("<tr> <td> <img src='corr.png'  />  </td><td>  Värdegrund        </td> </tr> ");
-	$to->regLine("<tr> <td> <img src='corr.png'  />  </td><td>  Missionstatement  </td> </tr> ");
-	$to->regLine("<tr> <td> <img src='here.png'  />  </td><td>  Utveckling        </td> </tr> ");
-	$to->regLine("<tr> <td> <img src='blank.png' />  </td><td>  Disk Analys       </td> </tr> ");
-	$to->stopTag("table");
-
+	tooltip($to, $data);
 
 	$to->stopTag('span');
 	$to->stopTag('div');
