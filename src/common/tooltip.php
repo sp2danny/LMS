@@ -1,6 +1,33 @@
 
 <?php
 
+include_once 'debug.php';
+
+function collect_it($data)
+{
+	if ($data->grpsk === false)
+	{
+		$str = "Egenskattning av " . $data->pnr;
+	} else {
+		$str = "Gruppskattning av " . $data->pnr . " för " . $data->grpsk;
+	}
+	return $str;
+}
+
+function collect_it_2($data)
+{
+	$ret = [];
+	$ret["by"] = $data->pnr;
+	$ret["for"] = $data->grpsk;
+
+
+	return $ret;
+}
+
+//	värdegrund  201          val
+//	miss-stat   202          val
+
+
 function tooltip($to, $data)
 {
 
@@ -20,6 +47,11 @@ function tooltip($to, $data)
 		$to->regLine($line);
 	}
 	$to->stopTag("table");
+	$to->scTag("br");
+	$to->startTag("div", "style='font-size:12px' ");
+	$to->regLine(collect_it($data));
+	$to->stopTag("div");
+
 }
 
 ?>
