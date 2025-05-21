@@ -9,7 +9,7 @@ debug_log("save_utv " . allparam());
 $pid = getparam('for');
 $byid = getparam('by');
 
-$ddd = true;
+$ddd = false;
 
 // PER
 COU('data', ['pers', 'type', 'value_b'],  [$pid, 321, $byid], ['value_a'], [getparam('per_1')] , "data_id", $ddd );
