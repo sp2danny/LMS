@@ -113,11 +113,45 @@ function collect_sum_diff($survs, $ids)
 	return $tot;
 }
 
+function opts_f($val = 0)
+{
+	$opts  = '<option value=" 0" disabled ' . (($val== 0)?"selected":"")  . ' > Välj             </option> ';
+	$opts .= '<option value="+2"          ' . (($val==+2)?"selected":"")  . ' > Instämmer helt   </option> ';
+	$opts .= '<option value="+1"          ' . (($val==+1)?"selected":"")  . ' > Instämmer delvis </option> ';
+	$opts .= '<option value="-1"          ' . (($val==-1)?"selected":"")  . ' > Invänder delvis  </option> ';
+	$opts .= '<option value="-2"          ' . (($val==-2)?"selected":"")  . ' > Invänder helt    </option> ';
+	return $opts;
+}
+
 function all()
 {
 	global $emperator, $eol;
 
+	debug_log("utveckling " . allparam());
+
 	$pnr = getparam('pnr');
+
+	$gs = getparam("grpsk", false);
+
+	$dogs = false;
+
+	$byid = 0;
+	$byn = "";
+
+	if ($gs !== false)
+	{
+		$by = $pnr;
+		$pnr = $gs;
+		$dogs = true;
+
+		$query = "SELECT * FROM pers WHERE pnr='" . $by . "'";
+
+		$res = mysqli_query($emperator, $query);
+		if ($prow = mysqli_fetch_array($res)) {
+			$byid = $prow['pers_id'];
+			$byn = $prow['name'];
+		}
+	}
 
 	$query = "SELECT * FROM pers WHERE pnr='" . $pnr . "'";
 
@@ -146,8 +180,13 @@ function all()
 	$utv_ini = readini($utv_file);
 
 	echo "<table>" . $eol;
-	
+
 	$survs = collect_stapel_all($pid);
+
+	$nb = "";
+	for ($i=0; $i<3; ++$i)
+		$nb .= " &nbsp; ";
+
 
 	if (true) // per
 	{
@@ -160,7 +199,7 @@ function all()
 		$cp_site = addKV($cp_site, "pid", $pid);
 		$cp_site = addKV($cp_site, "pnr", $pnr);
 
-		echo ' <embed type="text/html" src="' . $cp_site . '" width="462px" height="296px" > ' . $eol;
+		echo ' <embed type="text/html" src="' . $cp_site . '" width="500px" height="370px" > ' . $eol;
 		echo "</div> " . $eol;
 
 		echo '</td><td> ' . $eol;
@@ -171,12 +210,37 @@ function all()
 
 		echo '</td></tr> ' . $eol;
 
-		//echo '<tr> <td colspan=3> <center> text med länk </center> </td></tr> ' . $eol;
+		if ($dogs)
+		{
+
+			$per_1_v = ROD('data', ['pers', 'type', 'value_b'], [$pid, 321, $byid], 'value_a', 0);
+
+			echo '<tr> <td> &nbsp; </td> ' . $eol;
+			echo '<td> <select name="per_1" id="per_1" > ' . $eol;
+			echo opts_f($per_1_v) . '</select> ' . $nb . $eol;
+			
+
+			$per_2_v = ROD('data', ['pers', 'type', 'value_b'], [$pid, 322, $byid], 'value_a', 0);
+
+			echo ' <select name="per_2" id="per_2"> ' . $eol;
+			echo opts_f($per_2_v)  . '</select> ' . $nb . $eol;
+
+
+			$per_3_v = ROD('data', ['pers', 'type', 'value_b'], [$pid, 323, $byid], 'value_a', 0);
+
+			echo ' <select name="per_3" id="per_3"> ' . $eol;
+			echo opts_f($per_3_v) . '</select> ' . $eol;
+
+			echo ' <td> &nbsp; </td> </tr>' . $eol;
+			
+		}
 
 		echo '<tr> <td colspan=3> &nbsp; </td> </tr>' . $eol;
+		echo '<tr> <td colspan=3> &nbsp; </td> </tr>' . $eol;
+
 	}
 
-	if (true) // at
+	if (true) // ato
 	{
 		echo "<tr><td>" . $eol;
 		echo "<img src='gen.png' /> </td> <td style='width:462px;' > " . $eol;
@@ -187,7 +251,7 @@ function all()
 		$cp_site = addKV($cp_site, "pid", $pid);
 		$cp_site = addKV($cp_site, "pnr", $pnr);
 
-		echo ' <embed type="text/html" src="' . $cp_site . '" width="462px" height="296px" > ' . $eol;
+		echo ' <embed type="text/html" src="' . $cp_site . '" width="500px" height="370px" > ' . $eol;
 		echo "</div> " . $eol;
 
 		echo '</td><td> ' . $eol;
@@ -201,13 +265,37 @@ function all()
 
 		echo '</td></tr>' . $eol;
 
-		//echo '<tr> <td colspan=3> <center> text med länk </center> </td></tr> ' . $eol;
+		if ($dogs)
+		{
 
+			$ato_1_v = ROD('data', ['pers', 'type', 'value_b'], [$pid, 324, $byid], 'value_a', 0);
+
+			echo '<tr> <td> &nbsp; </td> ' . $eol;
+			echo '<td> <select name="ato_1" id="ato_1"> ' . $eol;
+			echo opts_f($ato_1_v) . '</select> ' . $nb . $eol;
+
+
+			$ato_2_v = ROD('data', ['pers', 'type', 'value_b'], [$pid, 325, $byid], 'value_a', 0);
+			
+			echo ' <select name="ato_2" id="ato_2"> ' . $eol;
+			echo opts_f($ato_2_v) . '</select> ' . $nb . $eol;
+
+
+			$ato_3_v = ROD('data', ['pers', 'type', 'value_b'], [$pid, 326, $byid], 'value_a', 0);
+
+			echo ' <select name="ato_3" id="ato_3"> ' . $eol;
+			echo opts_f($ato_3_v) . '</select> ' . $eol;
+
+			echo ' <td> &nbsp; </td> </tr>' . $eol;
+			
+		}
+
+		echo '<tr> <td colspan=3> &nbsp; </td> </tr>' . $eol;
 		echo '<tr> <td colspan=3> &nbsp; </td> </tr>' . $eol;
 
 	}
 
-	if (true) // win
+	if (true) // mmg
 	{
 		echo "<tr><td>" . $eol;
 		echo "<img src='win.png' /> </td> <td style='width:462px;' > " . $eol;
@@ -218,7 +306,7 @@ function all()
 		$cp_site = addKV($cp_site, "pid", $pid);
 		$cp_site = addKV($cp_site, "pnr", $pnr);
 
-		echo ' <embed type="text/html" src="' . $cp_site . '" width="462px" height="296px" > ' . $eol;
+		echo ' <embed type="text/html" src="' . $cp_site . '" width="500px" height="370px" > ' . $eol;
 		echo "</div> " . $eol;
 
 		echo '</td><td> ' . $eol;
@@ -232,15 +320,43 @@ function all()
 
 		echo '</td></tr>' . $eol;
 
-		//echo '<tr> <td colspan=3> <center> text med länk </center> </td></tr> ' . $eol;
+		if ($dogs)
+		{
+
+			$mmg_1_v = ROD('data', ['pers', 'type', 'value_b'], [$pid, 327, $byid], 'value_a', 0);
+
+			echo '<tr> <td> &nbsp; </td> ' . $eol;
+			echo '<td> <select name="mmg_1" id="mmg_1"> ' . $eol;
+			echo opts_f($mmg_1_v) . '</select> ' . $nb . $eol;
+			
+
+			$mmg_2_v = ROD('data', ['pers', 'type', 'value_b'], [$pid, 328, $byid], 'value_a', 0);
+
+			echo ' <select name="mmg_2" id="mmg_2"> ' . $eol;
+			echo opts_f($mmg_2_v) . '</select> ' . $nb . $eol;
+
+			$mmg_3_v = ROD('data', ['pers', 'type', 'value_b'], [$pid, 329, $byid], 'value_a', 0);
+
+			echo ' <select name="mmg_3" id="mmg_3"> ' . $eol;
+			echo opts_f($mmg_3_v) . '</select> ' . $eol;
+
+			echo ' <td> &nbsp; </td> </tr>' . $eol;
+			
+		}
 
 		echo '<tr> <td colspan=3> &nbsp; </td> </tr>' . $eol;
-		
-		
+		echo '<tr> <td colspan=3> &nbsp; </td> </tr>' . $eol;
 
 	}
 
 	echo ' </table> ' . $eol;
+
+	if ($dogs) {
+
+		echo $nb . "Gruppskattning för " . $name . " <br> \n";
+		echo $nb . "Utförd av " . $byn . " <br> \n";
+		echo $nb . " <button> Spara </button> <br> \n";
+	}
 
 	echo '<hr />' . $eol;
 

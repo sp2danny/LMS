@@ -33,6 +33,7 @@ count = 14
 2.level.lo = 1
 2.level.hi = 5
 2.special = utv
+2.grp = true
 
 3.filter = 2
 3.button = Min Pärm

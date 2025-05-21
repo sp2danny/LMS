@@ -30,4 +30,10 @@ function getparam($key, $def = "")
 	}
 }
 
+function allparam()
+{
+	$p = array_merge($_GET, $_POST);
+	return json_encode($p);
+}
+
 ?> 

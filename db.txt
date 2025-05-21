@@ -119,3 +119,18 @@ typer
 
 	gr-disc-lr  311          value        by
 	gr-disc-ud  312          value        by
+
+	gr-per-1    321          value        by
+	gr-per-2    322          value        by
+	gr-per-3    323          value        by
+
+	gr-ato-1    324          value        by
+	gr-ato-2    325          value        by
+	gr-ato-3    326          value        by
+
+	gr-mmg-1    327          value        by
+	gr-mmg-2    328          value        by
+	gr-mmg-3    329          value        by
+
+
+
