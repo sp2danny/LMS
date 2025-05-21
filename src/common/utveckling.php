@@ -62,6 +62,35 @@ td.visitab {
   background-color: white;
 }
 </style>
+
+<script>
+
+async function utv_dosave(for_pid, by_pid)
+{
+	url = "save_utv.php";
+	url += "?for=" + for_pid;
+	url += "&by=" + by_pid;
+
+	url += "&per_1=" + document.getElementById('per_1').value;
+	url += "&per_2=" + document.getElementById('per_2').value;
+	url += "&per_3=" + document.getElementById('per_3').value;
+
+	url += "&ato_1=" + document.getElementById('ato_1').value;
+	url += "&ato_2=" + document.getElementById('ato_2').value;
+	url += "&ato_3=" + document.getElementById('ato_3').value;
+
+	url += "&mmg_1=" + document.getElementById('mmg_1').value;
+	url += "&mmg_2=" + document.getElementById('mmg_2').value;
+	url += "&mmg_3=" + document.getElementById('mmg_3').value;
+
+	fetch(url);
+
+	// window.location.href = url;
+
+}
+
+</script>
+
 EOT;
 
 $eol = "\n";
@@ -355,7 +384,7 @@ function all()
 
 		echo $nb . "Gruppskattning för " . $name . " <br> \n";
 		echo $nb . "Utförd av " . $byn . " <br> \n";
-		echo $nb . " <button> Spara </button> <br> \n";
+		echo $nb . " <button onclick='utv_dosave(" . $pid . "," . $byid . ")' > Spara </button> <br> \n";
 	}
 
 	echo '<hr />' . $eol;
