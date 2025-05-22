@@ -105,6 +105,7 @@ function index()
 		if ($res)
 			$prow = mysqli_fetch_array($res);
 		$pid = $prow['pers_id'];
+		$nn = $prow['name'];
 		echo " + '&by=" . $pid . "'";
 	}
 
@@ -127,10 +128,21 @@ function index()
 
 	$disc = get_disc($pid);
 
-	if ($grpsk)
+	if ($grpsk) {
 		echo "<h5 class='normal' > Skatta $nn's personlighet </h5> \n";
-	else
+	} else {
 		echo "<h5 class='normal' > Testa Din Personlighet </h5> \n";
+		$hr = "https://www.mind2excellence.se/site/batt-1.4%20-%20Pulsm%C3%A4tning%202%20-%20DISCpersonlighet,%20GAP%20analys,%20motivation,%20v%C3%A4rdegrunder%20och%20utveckling%20av%20ditt%20personliga%20ledarskap/index.php?seg=1";
+		$hr .= '&pid=' . $pid;
+		$hr .= '&pnr=' . $pnr;
+		$hr .= '&name=' . $nn;
+		//$hr .= '&noside=' . 'true';
+
+		//echo " <a href='$hr'> ";
+		echo " <button onclick='window.top.location.replace(\"$hr\");' > Gör Testet </button> ";
+		//echo " </a> ";
+		echo " <br><br> \n";
+	}
 
 	echo "<table><tr><td>\n";
 

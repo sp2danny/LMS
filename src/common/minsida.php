@@ -704,7 +704,8 @@ EOT;
 	{
 		$p = $arr_p[$i];
 		$n = $arr_n[$i];
-		if ($grpsk == $p)
+
+		if ( ($grpsk !== false) && ($grpsk == $p) )
 			$to->regLine('<option selected="selected" value="' . $p . '" > ' . $n . ' </option> ');
 		else
 			$to->regLine('<option value="' . $p . '" > ' . $n . ' </option> ');
