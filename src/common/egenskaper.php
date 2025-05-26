@@ -176,7 +176,7 @@ function index()
 	}
 	echo "</ul>\n<br />\n";
 
-		echo "</td><td>";
+	echo "</td><td>";
 
 	echo "<td class='twm' >\n";
 	echo "Detta är $mina svagheter:\n<ul>\n";
