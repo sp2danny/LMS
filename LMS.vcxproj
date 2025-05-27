@@ -28,13 +28,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="debug.php" />
+    <None Include="src\coach\add_group.php" />
     <None Include="src\coach\buttons.php" />
     <None Include="src\coach\edit_prod.php" />
     <None Include="src\coach\edit_prod_save.php" />
+    <None Include="src\coach\gp_add.php" />
+    <None Include="src\coach\gp_rem.php" />
     <None Include="src\coach\index.html" />
     <None Include="src\coach\list_prod.php" />
     <None Include="src\coach\make_prod.php" />
     <None Include="src\coach\make_prod_save.php" />
+    <None Include="src\coach\pgl.php" />
+    <None Include="src\coach\pgl2.php" />
     <None Include="src\coach\surv_a.php" />
     <None Include="src\coach\surv_b.php" />
     <None Include="src\coach\surv_c.php" />

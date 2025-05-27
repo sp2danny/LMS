@@ -199,6 +199,33 @@ function collect_sum_diff($survs, $ids)
 	return $tot;
 }
 
+function for_discard($str)
+{
+	if (!$str) return true;
+	if ($str == 'debug') return true;
+	if ($str == 'test')  return true;
+	if ($str == '')      return true;
+	if ($str == 'null')  return true;
+	if ($str == null)    return true;
+	return false;
+}
+
+function arr_overlap($a1, $a2)
+{
+	if (for_discard($a1)) return false;
+	if (for_discard($a2)) return false;
+	$aa1 = explode(",", $a1);
+	$aa2 = explode(",", $a2);
+	foreach ($aa1 as $b1) {
+		if (for_discard($b1)) continue;
+		foreach ($aa2 as $b2) {
+			if (for_discard($b2)) continue;
+			if ($b1==$b2) return true;
+		}
+	}
+	return false;
+}
+
 function index($local, $common)
 {
 	global $RETURNTO;
@@ -691,10 +718,14 @@ EOT;
 	$arr_p = [];
 	$arr_i = 0;
 
-	$query = "SELECT * FROM pers WHERE grupp='$grp'";
+	$query = "SELECT * FROM pers";
 	$res = mysqli_query( $emperator, $query );
 	if ($res) while ($row = mysqli_fetch_array($res)) {
 		if ($row['pnr'] == $data->pnr) continue;
+
+		if (!arr_overlap($grp, $row['grupp'])) continue;
+
+
 		$arr_n[] = $row['name'];
 		$arr_p[] = $row['pnr'];
 		$arr_i++;

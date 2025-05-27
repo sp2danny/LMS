@@ -107,7 +107,7 @@ typer
 
 	grupp-sk    209
 
-
+	grupp       901                                    namn
 
 
 	namn        type         a            b            c            surv

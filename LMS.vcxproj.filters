@@ -393,6 +393,21 @@
     <None Include="src\common\save_utv.php">
       <Filter>Source Files\common</Filter>
     </None>
+    <None Include="src\coach\pgl.php">
+      <Filter>Source Files\coach</Filter>
+    </None>
+    <None Include="src\coach\pgl2.php">
+      <Filter>Source Files\coach</Filter>
+    </None>
+    <None Include="src\coach\add_group.php">
+      <Filter>Source Files\coach</Filter>
+    </None>
+    <None Include="src\coach\gp_add.php">
+      <Filter>Source Files\coach</Filter>
+    </None>
+    <None Include="src\coach\gp_rem.php">
+      <Filter>Source Files\coach</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\common\dologin.php">
