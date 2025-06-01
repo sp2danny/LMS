@@ -79,6 +79,7 @@
     <None Include="src\common\gap_post.php" />
     <None Include="src\common\getparam.php" />
     <None Include="src\common\grp-sk-2.php" />
+    <None Include="src\common\grplst.php" />
     <None Include="src\common\head.php" />
     <None Include="src\common\index.php" />
     <None Include="src\common\justsurv.php" />

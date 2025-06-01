@@ -13,6 +13,33 @@ include_once 'connect.php';
 include_once 'getparam.php';
 include_once 'stapel_disp.php';
 
+function for_discard($str)
+{
+	if (!$str) return true;
+	if ($str == 'debug') return true;
+	if ($str == 'test')  return true;
+	if ($str == '')      return true;
+	if ($str == 'null')  return true;
+	if ($str == null)    return true;
+	return false;
+}
+
+function arr_overlap($a1, $a2)
+{
+	if (for_discard($a1)) return false;
+	if (for_discard($a2)) return false;
+	$aa1 = explode(",", $a1);
+	$aa2 = explode(",", $a2);
+	foreach ($aa1 as $b1) {
+		if (for_discard($b1)) continue;
+		foreach ($aa2 as $b2) {
+			if (for_discard($b2)) continue;
+			if ($b1==$b2) return true;
+		}
+	}
+	return false;
+}
+
 function discdisplay($pid)
 {	
 	if ($row = data_last("SELECT * FROM data WHERE pers='$pid' AND type='6'")) {
@@ -150,10 +177,13 @@ echo "\t\t</tr>\n";
 
 $grp = getparam('grp');
 
-$query = "SELECT * FROM pers WHERE grupp='$grp'";
+$query = "SELECT * FROM pers";
 $res = mysqli_query($emperator, $query);
 if ($res) while ($row = mysqli_fetch_array($res))
 {
+	$gg = $row["grupp"];
+	if (!arr_overlap($grp, $gg)) continue;
+
 	echo "\t\t<tr>\n";
 
 	$for = $row["pers_id"];
