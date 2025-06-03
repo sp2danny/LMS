@@ -1,26 +1,57 @@
-
-<!DOCTYPE html>
-
-<html>
-<head>
-	<title> Grupp </title>
-</head>
-<body>
-
 <?php
 
 include_once 'connect.php';
 include_once 'getparam.php';
 include_once 'stapel_disp.php';
+include_once 'roundup.php';
+
+$grp = getparam('grp');
+
+?>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title> Grupp <?php echo $grp; ?> </title>
+
+	<style>
+		table tr:nth-child(odd) td {
+			background-color: #eee;
+		}
+		table tr:nth-child(even) td {
+			background-color: #ddd;
+		}
+		th, td {
+			padding: 4px;
+		}
+		th {
+			font-weight:bold;
+		}
+	</style>
+
+</head>
+<body>
+
+
+<?php
 
 function for_discard($str)
 {
-	if (!$str) return true;
+	//if (!$str) return true;
 	if ($str == 'debug') return true;
 	if ($str == 'test')  return true;
 	if ($str == '')      return true;
 	if ($str == 'null')  return true;
 	if ($str == null)    return true;
+	return false;
+}
+
+function is_in($lst, $item)
+{
+	foreach ($lst as $i)
+		if ($item == $i)
+			return true;
 	return false;
 }
 
@@ -83,17 +114,17 @@ function arr2str($arr)
 
 function dps2str($dps)
 {
-	$str = '{';
+	$str = '';
 	$first = true;
 	foreach ($dps as $dp)
 	{
-		if (!$first) $str .= ", ";
+		if (!$first) $str .= " <br> ";
 		$first = false;
 		$str .= $dp->name;
 		$str .= ":";
 		$str .= arr2str($dp->vals);
 	}
-	$str .= '}';
+	//$str .= '}';
 	return $str;
 }
 
@@ -144,6 +175,58 @@ function mmg($pid)
 	return dps2str($dps);
 }
 
+function nojd($pid)
+{
+	global $emperator;
+
+	$num = 0;
+	$sum = 0;
+	$query = "SELECT * FROM data WHERE type=16 AND pers=$pid";
+	$res = mysqli_query($emperator, $query);
+	if ($res) while ($row = mysqli_fetch_array($res))
+	{
+		$sum += $row['surv'] * 20.0;
+		$num += 1;
+	}
+
+	if ($num >= 1)
+		return number_format($sum / $num, 1) . " %";
+	else
+		return "n/a";
+}
+
+function add1($pid, $tp)
+{
+	global $emperator;
+
+	$ret = [];
+
+	$query = "SELECT * FROM data WHERE type=$tp AND pers=$pid";
+	$res = mysqli_query($emperator, $query);
+	if ($res) while($row = mysqli_fetch_array($res)) {
+		$val = $row['value_c'];
+		if (for_discard($val)) continue;
+		if (is_in($ret, $val)) continue;
+		$ret[] = $val;
+	}
+	return $ret;
+}
+
+function ssm($pid)
+{
+	$ret = [];
+
+	$ret['sty'] = add1($pid, 301);
+	$ret['mot'] = add1($pid, 302);
+	$ret['sva'] = add1($pid, 303);
+
+	return $ret;
+}
+
+//	styrkor     301          num (1-5)                 styrka         
+//	motivatorer 302          num (1-5)                 motivator         
+//	svagheter   303          num (1-5)                 svaghet         
+
 function ant($pid)
 {
 	global $emperator;
@@ -166,8 +249,8 @@ echo "\t<table>\n";
 
 echo "\t\t<tr>\n";
 
-echo "\t\t\t<th> PNR </th> <th> Name </th> <th> disc </th> <th> V.G. </th> <th> M.S. </th> ";
-echo " <th> PÄR </th> <th> ÄTO </th> <th> MMG </th> <th> Ant </th> <td> Lst </td> \n";
+echo "\t\t\t<th> Namn </th> <th> Nästa </th> <th> Nöjd </th> <th> Disc </th> <th> Värdegrund </th> <th> Missionstatement </th> ";
+echo " <th> PÄR </th> <th> ÄTO </th> <th> MMG </th> <th> SSM </td> \n";
 
 //      positiv     äkta        relevant
 //      ärlig       tillitsfull omdömesfull
@@ -211,18 +294,53 @@ if ($res) while ($row = mysqli_fetch_array($res))
 	if ($ant < 2)
 		$lst = false;
 
-	echo "\t\t\t<td> $pnr </td> <td> $nam </td> <td> $dsc </td> <td> $vg </td> <td> $ms </td> ";
+	$lnk = "plst.php?pid=" . $for;
+	$nt = "<a href='$lnk'>";
+	$nt .= " " . $nam . " ";
+	$nt .= " </a> ";
+
+	$alldata = roundup($pnr, $for, $nam);
+	$atnum = 0;
+	$block_name = "";
+	$line_name = "";
+	
+	foreach ($alldata as $block) {
+		if (!$block->someDone) continue;
+		$atnum = $block->atnum;
+		$block_name = $block->name;
+		foreach ($block->lines as $line) {
+			if($line->hasDone)
+				continue;
+			$line_name = $line->name;
+			break;
+		}
+	}
+
+	$srp = strrpos($block_name, "-");
+	if ($srp === false) {
+		$pers_at = $block_name . " <br> " . $line_name;
+	} else {
+		$pers_at  = substr( $block_name, 0, $srp) . " <br> ";
+		$pers_at .= substr( $block_name, $srp+1) . " <br> ";
+		$pers_at .= $line_name;
+	}
+
+	$my_ssm = ssm($for);
+
+	$ssm_str  = "Styrkor : " . count($my_ssm['sty']) . " <br> ";
+	$ssm_str .= "Svagheter : " . count($my_ssm['sva']) . " <br> ";
+	$ssm_str .= "Motivatorer : " . count($my_ssm['mot']) . " <br> ";
+
+	echo "\t\t\t<td> $nt </td> \n";
+	echo "\t\t\t<td> $pers_at </td> \n";
+	
+	echo "\t\t\t<td> " . nojd($for) . " </td> \n";
+	
+	echo "  <td> $dsc </td> <td> $vg </td> <td> $ms </td> ";
 	echo " <td> $par </td> <td> $ato </td> <td> $mmg </td> \n";
 
-	echo "\t\t\t<td> $ant </td> \n";
+	echo "\t\t\t<td> $ssm_str </td> \n";
 	
-	if ($lst) {
-		echo "\t\t\t<td> <a href='";
-		echo "gs_listn.php?pid=$for";
-		echo "'> listning </a> </td> \n";
-	} else {
-		echo "\t\t\t<td> &nbsp; </td> \n";
-	}
 
 	echo "\t\t</tr>\n";
 

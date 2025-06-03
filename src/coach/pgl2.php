@@ -76,6 +76,27 @@ function for_discard($str)
 	return false;
 }
 
+function merge($lst, $sep = ",")
+{
+	$frst = true;
+	$ret = "";
+	foreach ($lst as $s)
+	{
+		if (!$frst) $ret .= $sep;
+		$ret .= $s;
+		$frst = false;
+	}
+	return $ret;
+}
+
+function is_in($lst, $item)
+{
+	foreach ($lst as $i)
+		if ($item == $i)
+			return true;
+	return false;
+}
+
 $query = 'SELECT * FROM pers';
 $res = mysqli_query($emperator, $query);
 if ($res) while ($prow = mysqli_fetch_array($res))
@@ -86,8 +107,7 @@ if ($res) while ($prow = mysqli_fetch_array($res))
 	$eg = explode(",", $g);
 	foreach ($eg as $g) {
 		if (for_discard($g)) continue;
-		$f = array_search($g, $grp);
-		if ($f === false)
+		if (!is_in($grp, $g))
 			$grp[] = $g;
 	}
 }
@@ -98,8 +118,7 @@ if ($res) while ($prow = mysqli_fetch_array($res))
 {
 	$g = $prow["value_c"];
 	if (for_discard($g)) continue;
-	$f = array_search($g, $grp);
-	if ($f === false)
+	if (!is_in($grp, $g))
 		$grp[] = $g;
 }
 
@@ -154,14 +173,17 @@ if ($res) while ($prow = mysqli_fetch_array($res))
 
 	$g = $prow["grupp"];
 	if (for_discard($g)) $g = "";
-	echo "\t\t<td> " . $g . " </td> \n";
 
 	$gr = [];
 	$grt = explode(",", $g);
 	foreach ($grt as $gg) {
-		if (!for_discard($gg))
-			$gr[] = $gg;
+		if (for_discard($gg)) continue;
+		if (is_in($gr, $gg)) continue;
+		$gr[] = $gg;
 	}
+
+	echo "\t\t<td> " . merge($gr) . " </td> \n";
+
 
 	$ga = [];
 	foreach ($grp as $gg) {
@@ -193,7 +215,7 @@ if ($res) while ($prow = mysqli_fetch_array($res))
 			echo "\t\t\t\t<option value='$gg'> $gg </option>\n";
 		}
 		echo "\t\t\t</select>\n";
-		echo "\t\t\t<button  onclick='grp_rem($pid, $ii);'> - </button> \n";
+		echo "\t\t\t<button onclick='grp_rem($pid, $ii);'> - </button> \n";
 	}
 	echo "\t\t</td> \n";
 

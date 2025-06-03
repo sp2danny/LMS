@@ -26,3 +26,6 @@ echo "<meta http-equiv='refresh' content='0; url=" . '"' . $lnk . '"' . "' />\n"
 echo "</head><body>";
 echo "<a href='" . $lnk . "' > next </a>";
 echo " </body> </html> ";
+
+?>
+
