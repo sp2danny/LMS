@@ -103,14 +103,6 @@ function getSett($data) {
 	return ' <iframe src="' . $cp_site . '" style="min-height:100vh;width:100%" frameborder="0" > ';
 }
 
-function rwd($ini, $seg, $key, $def)
-{
-	if (!array_key_exists($seg, $ini))
-		return $def;
-	if (!array_key_exists($key, $ini[$seg]))
-		return $def;
-	return $ini[$seg][$key];
-}
 
 function survOut($to, $tn, $filt)
 {

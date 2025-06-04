@@ -417,6 +417,9 @@
     <None Include="src\common\mentor.php">
       <Filter>Source Files\common</Filter>
     </None>
+    <None Include="src\common\getem.php">
+      <Filter>Source Files\common</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\common\dologin.php">

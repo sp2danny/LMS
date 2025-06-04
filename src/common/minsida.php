@@ -135,16 +135,6 @@ function getMentor($data) {
 	return $cp_site ;
 }
 
-
-function rwd($ini, $seg, $key, $def)
-{
-	if (!array_key_exists($seg, $ini))
-		return $def;
-	if (!array_key_exists($key, $ini[$seg]))
-		return $def;
-	return $ini[$seg][$key];
-}
-
 function survOut($to, $tn, $filt)
 {
 	global $emperator;

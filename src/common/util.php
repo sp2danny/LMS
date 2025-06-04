@@ -1,4 +1,6 @@
 
+<!-- inlude util.php -->
+
 <?php
 
 function readini($ini)
@@ -99,6 +101,15 @@ function arr_overlap($a1, $a2)
 		}
 	}
 	return false;
+}
+
+function rwd($ini, $seg, $key, $def)
+{
+	if (!array_key_exists($seg, $ini))
+		return $def;
+	if (!array_key_exists($key, $ini[$seg]))
+		return $def;
+	return $ini[$seg][$key];
 }
 
 
