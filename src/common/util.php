@@ -66,4 +66,40 @@ function ndq($str)
 	return $out;
 }
 
+function for_discard($str)
+{
+	//if (!$str) return true;
+	if ($str == 'debug') return true;
+	if ($str == 'test')  return true;
+	if ($str == '')      return true;
+	if ($str == 'null')  return true;
+	if ($str == null)    return true;
+	return false;
+}
+
+function is_in($lst, $item)
+{
+	foreach ($lst as $i)
+		if ($item == $i)
+			return true;
+	return false;
+}
+
+function arr_overlap($a1, $a2)
+{
+	if (for_discard($a1)) return false;
+	if (for_discard($a2)) return false;
+	$aa1 = explode(",", $a1);
+	$aa2 = explode(",", $a2);
+	foreach ($aa1 as $b1) {
+		if (for_discard($b1)) continue;
+		foreach ($aa2 as $b2) {
+			if (for_discard($b2)) continue;
+			if ($b1==$b2) return true;
+		}
+	}
+	return false;
+}
+
+
 ?>

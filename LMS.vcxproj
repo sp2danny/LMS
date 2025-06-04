@@ -91,6 +91,7 @@
     <None Include="src\common\main.css.php" />
     <None Include="src\common\main.js.php" />
     <None Include="src\common\make_group.php" />
+    <None Include="src\common\mentor.php" />
     <None Include="src\common\meter_disp.php" />
     <None Include="src\common\mingrupp.php" />
     <None Include="src\common\minsida-2.php" />

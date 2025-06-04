@@ -39,7 +39,7 @@ class Data
 	public $gs_pid = '';
 	public $gs_name = '';
 	public $gs_mynt = '';
-
+	public $tag = [];
 }
 
 function repl($data, $txt)

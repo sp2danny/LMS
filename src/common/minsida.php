@@ -124,6 +124,17 @@ function getGrp($data) {
 	return $cp_site ;
 }
 
+function getMentor($data) {
+	$cp_site = 'https://www.mind2excellence.se/site/common/mentor.php';
+	if ($data->pid!=0) {
+		$cp_site = addKV($cp_site, 'pid', $data->pid);
+	}
+	if ($data->pnr!=0) {
+		$cp_site = addKV($cp_site, 'pnr', $data->pnr);
+	}
+	return $cp_site ;
+}
+
 
 function rwd($ini, $seg, $key, $def)
 {
@@ -199,32 +210,6 @@ function collect_sum_diff($survs, $ids)
 	return $tot;
 }
 
-function for_discard($str)
-{
-	if (!$str) return true;
-	if ($str == 'debug') return true;
-	if ($str == 'test')  return true;
-	if ($str == '')      return true;
-	if ($str == 'null')  return true;
-	if ($str == null)    return true;
-	return false;
-}
-
-function arr_overlap($a1, $a2)
-{
-	if (for_discard($a1)) return false;
-	if (for_discard($a2)) return false;
-	$aa1 = explode(",", $a1);
-	$aa2 = explode(",", $a2);
-	foreach ($aa1 as $b1) {
-		if (for_discard($b1)) continue;
-		foreach ($aa2 as $b2) {
-			if (for_discard($b2)) continue;
-			if ($b1==$b2) return true;
-		}
-	}
-	return false;
-}
 
 function index($local, $common)
 {
@@ -264,6 +249,7 @@ function index($local, $common)
 	$pid = $prow['pers_id'];
 	$data->pnr = $prow['pnr'];
 	$data->pid = $pid;
+	$data->tag = explode(",", $prow['tag']);
 
 	$grp = $prow['grupp'];
 	$data->grp = $grp;
@@ -562,6 +548,9 @@ EOT;
 	$to->regLine("  window.location.href = '" . getKurs($data) . "'; ");
 	$to->regLine('}');
 
+	$to->regLine('function doChangeMnt() { ');
+	$to->regLine("  window.location.href = '" . getMentor($data) . "'; ");
+	$to->regLine('}');
 
 	$scrn = $_SERVER["SCRIPT_NAME"];
 	$curPageName = substr($scrn, strrpos($scrn,"/")+1);  
@@ -609,6 +598,9 @@ EOT;
 
 		$to->regLine("<br class='hs'> <button id='BtnUtb' style='background-color:" . $eg . ";font-size:15px;' onClick='doChangeD()'> &nbsp;Min Utbildning&nbsp; </button>");
 		$to->regLine("<br class='hs'> <button id='BtnKrs' style='background-color:" . $eg . ";font-size:15px;' onClick='doChangeE()'> &nbsp;Våra Event och Kurser&nbsp; </button>");
+
+		if (is_in($data->tag,"mentor"))
+			$to->regLine("<br class='hs'> <button id='BtnMnt' style='background-color:" . $eg . ";font-size:15px;' onClick='doChangeMnt()'> &nbsp;Mentor&nbsp; </button>");
 
 		$to->regline  ('<hr>');
 		$to->stopTag  ('div');
