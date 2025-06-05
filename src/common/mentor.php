@@ -333,17 +333,19 @@ EOT;
 	$btn_lnk = [];
 
 	$ggg = explode(',', $data->grp);
-	$tl = explode(',', $data->tag);
+	$tl = $data->tag;
 
 	foreach ($ggg as $gg)
 	{
+		if (for_discard($gg)) continue;
+		//if ($gg=='Admin') continue;
 		$btn_txt[] = "Mina Kunder - " . $gg;
 		$btn_lnk[] = "grplst.php?grp=" . $gg;
 	}
 
 	if (is_in($tl, 'admin'))
 	{
-		$btn_txt[] = "Grupp Hantering" . $gg;
+		$btn_txt[] = "Grupp Hantering";
 		$btn_lnk[] = "https://www.mind2excellence.se/coach/pgl2.php";
 
 		$btn_txt[] = "Ta Bort Person";
@@ -357,7 +359,7 @@ EOT;
 
 	for ($i=0; $i<$n; ++$i) {
 		
-		if ($n>8) {
+		if ($n>=5) {
 			$half = (int) (($n+1) / 2);
 			if ($i == $half) {
 				$to->stopTag("tr");
