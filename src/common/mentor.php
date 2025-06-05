@@ -255,8 +255,42 @@ EOT;
 	$to->regline  ('<hr>');
 	$to->stopTag  ('div');
 
-	$to->stopTag('div');
-	$to->stopTag('div');
+	echo <<<EOT
+				<h3> Coach interface </h3>
+				<hr />
+				<h5> Fr&aring;gor </h5>
+				<a href='Coachfragor/avsnitt-1.1.docx'> Avs 1.1 </a> <br />
+				<a href='Coachfragor/avsnitt-1.2.docx'> Avs 1.2 </a> <br />
+				<a href='Coachfragor/avsnitt-1.3.docx'> Avs 1.3 </a> <br />
+				<a href='Coachfragor/avsnitt-1.4.docx'> Avs 1.4 </a> <br />
+				<a href='Coachfragor/avsnitt-1.5.docx'> Avs 1.5 </a>
+
+				<hr style="height:2px; visibility:hidden;" />
+
+				<a href='Coachfragor/avsnitt-2.1.docx'> Avs 2.1 </a> <br />
+				<a href='Coachfragor/avsnitt-2.2.docx'> Avs 2.2 </a> <br />
+				<a href='Coachfragor/avsnitt-2.3.docx'> Avs 2.3 </a> <br />
+				<a href='Coachfragor/avsnitt-2.4.docx'> Avs 2.4 </a> <br />
+
+				<hr style="height:2px; visibility:hidden;" />
+
+				<a href='Coachfragor/avsnitt-3.1.docx'> Avs 3.1 </a> <br />
+				<a href='Coachfragor/avsnitt-3.2.docx'> Avs 3.2 </a> <br />
+
+				<hr />
+				<h5> Process </h5>
+				<a href='Coachprocessen/Coachprocessen-2023.docx'> 2023 </a> <br />
+				<hr />
+				<h5> PUP </h5>
+				<a href='MinHandlingsplan/handlingsplan.docx'> 2023 </a> <br />
+				<hr />
+
+				<hr style="height:2px; visibility:hidden;" />
+
+EOT;
+
+	$to->stopTag('div'); // indent
+	$to->stopTag('div'); // sidenav
 
 	$to->startTag('div', 'id="main" class="main"');
 	
@@ -291,6 +325,73 @@ EOT;
 	$n = count($tit);
 
 	$to->scTag("hr");
+
+	$to->startTag("table");
+	$to->startTag("tr");
+
+	$btn_txt = [];
+	$btn_lnk = [];
+
+	$ggg = explode(',', $data->grp);
+	$tl = explode(',', $data->tag);
+
+	foreach ($ggg as $gg)
+	{
+		$btn_txt[] = "Mina Kunder - " . $gg;
+		$btn_lnk[] = "grplst.php?grp=" . $gg;
+	}
+
+	if (is_in($tl, 'admin'))
+	{
+		$btn_txt[] = "Grupp Hantering" . $gg;
+		$btn_lnk[] = "https://www.mind2excellence.se/coach/pgl2.php";
+
+		$btn_txt[] = "Ta Bort Person";
+		$btn_lnk[] = "cleanup_db.php";
+
+	}
+
+	$nb2 = "&nbsp;&nbsp;";
+
+	$n = count($btn_txt);
+
+	for ($i=0; $i<$n; ++$i) {
+		
+		if ($n>8) {
+			$half = (int) (($n+1) / 2);
+			if ($i == $half) {
+				$to->stopTag("tr");
+				$to->startTag("tr");
+			}
+		}
+
+		$to->startTag("td");
+
+		$base  = "<a href='" . $btn_lnk[$i] . "'>";
+		$base .= "<button class='ilbbaicl' ";
+		$base .= "style=' border-radius: 9px; ";
+
+		$fbn = $nb2 .  $btn_txt[$i] . $nb2;
+		//if ($at == $i) {
+		//	$base .= "border-style:inset;'";
+		//	$to->regLine($base . " > " . $fbn . " </button>");
+		//} else {
+			$base .= "'";
+			$to->regLine($base . "  > " . $fbn . " </button> </a>");
+		//}
+
+		$to->stopTag("td");
+	}
+
+	$to->stopTag("tr");
+
+	$to->stopTag("table");
+
+
+
+
+
+
 
 	$to->scTag("hr");
 
