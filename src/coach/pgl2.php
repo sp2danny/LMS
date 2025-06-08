@@ -67,7 +67,7 @@ $grp = [];
 
 function for_discard($str)
 {
-	if (!$str) return true;
+	//if (!$str) return true;
 	if ($str == 'debug') return true;
 	if ($str == 'test')  return true;
 	if ($str == '')      return true;
@@ -97,6 +97,16 @@ function is_in($lst, $item)
 	return false;
 }
 
+$gcnt = [];
+
+function add_gc($name, $num = 1)
+{
+	global $gcnt;
+	if (!array_key_exists($name, $gcnt))
+		$gcnt[$name] = 0;
+	$gcnt[$name] += $num;
+}
+
 $query = 'SELECT * FROM pers';
 $res = mysqli_query($emperator, $query);
 if ($res) while ($prow = mysqli_fetch_array($res))
@@ -107,8 +117,10 @@ if ($res) while ($prow = mysqli_fetch_array($res))
 	$eg = explode(",", $g);
 	foreach ($eg as $g) {
 		if (for_discard($g)) continue;
-		if (!is_in($grp, $g))
+		add_gc($g);
+		if (!is_in($grp, $g)) {
 			$grp[] = $g;
+		}
 	}
 }
 
@@ -118,6 +130,7 @@ if ($res) while ($prow = mysqli_fetch_array($res))
 {
 	$g = $prow["value_c"];
 	if (for_discard($g)) continue;
+	add_gc($g, 0);
 	if (!is_in($grp, $g))
 		$grp[] = $g;
 }
@@ -126,10 +139,15 @@ if ($res) while ($prow = mysqli_fetch_array($res))
 echo "<table><tr>\n";
 foreach ($grp as $g)
 {
-	echo "<tr>";
-	echo "<td> ``" . $g . "´´ </td> ";
-	echo "<td> <a href='../site/common/grplst.php?grp=" . $g . "' > Lista </a> </td> ";
-	echo "</tr>";
+	echo "<tr>\n";
+	echo "<td> ``" . $g . "´´ </td>\n";
+	$gc = $gcnt[$g];
+	if ($gc > 0)
+		echo "<td> <a href='../site/common/grplst.php?grp=" . $g . "' > Lista </a> </td>\n";
+	else
+		echo "<td> <a href='../site/common/delgrp.php?grp=" . $g . "' > Ta Bort </a> </td>\n";
+	echo "<td> " . $gc . " </td>\n";
+	echo "</tr>\n";
 }
 echo "\n</table>\n";
 
