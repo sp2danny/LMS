@@ -112,22 +112,17 @@ function arr2str($arr)
 	return $str;
 }
 
-function dps2str($dps, $is = false)
+function dps2str($dps)
 {
 	$str = '';
 	$first = true;
-	$i = 0;
 	foreach ($dps as $dp)
 	{
 		if (!$first) $str .= " <br> ";
 		$first = false;
-		if ($is===false)
-			$str .= ucfirst(substr($dp->name, 0, 1));
-		else
-			$str .= $is[$i];
-		$str .= " : ";
+		$str .= $dp->name;
+		$str .= ":";
 		$str .= arr2str($dp->vals);
-		++$i;
 	}
 	//$str .= '}';
 	return $str;
@@ -142,10 +137,12 @@ function par($pid)
 
 	$args[] = "positivitet";
 	$args[] = "akta";
+	//echo " <td> &nbsp; </td> \n";
+
 	$args[] = "relevans";
 
 	$dps = collect_stapel($pid, $args);
-	return dps2str($dps, ["P", "Ä", "R"]);
+	return dps2str($dps);
 }
 
 function ato($pid)
@@ -160,7 +157,7 @@ function ato($pid)
 	$args[] = "omdome";
 
 	$dps = collect_stapel($pid, $args);
-	return dps2str($dps, ["Ä", "T", "O"]);
+	return dps2str($dps);
 }
 
 function mmg($pid)
@@ -175,7 +172,7 @@ function mmg($pid)
 	$args[] = "genomforande";
 
 	$dps = collect_stapel($pid, $args);
-	return dps2str($dps, ["M", "M", "G"]);
+	return dps2str($dps);
 }
 
 function nojd($pid)
@@ -193,7 +190,7 @@ function nojd($pid)
 	}
 
 	if ($num >= 1)
-		return number_format($sum / $num, 1) . "&nbsp;%";
+		return number_format($sum / $num, 1) . " %";
 	else
 		return "n/a";
 }
@@ -252,8 +249,8 @@ echo "\t<table>\n";
 
 echo "\t\t<tr>\n";
 
-echo "\t\t\t<th> Namn </th> <th> Nästa </th> <th> Nöjd </th> <th> Disc </th> <th> Värde<br>grund </th> <th> Mission<br>statement </th> ";
-echo " <th> Positiv<br>Äkta<br>Relevant </th> <th> Ärlig<br>Tillitsfull<br>Omdömmesfull </th> <th> Motivation<br>Målsättning<br>Genomförande </th> <th> Styrkor<br>Svagheter<br>Motivatorer </td> \n";
+echo "\t\t\t<th> Namn </th> <th> Nästa </th> <th> Nöjd </th> <th> Disc </th> <th> Värdegrund </th> <th> Missionstatement </th> ";
+echo " <th> PÄR </th> <th> ÄTO </th> <th> MMG </th> <th> SSM </td> \n";
 
 //      positiv     äkta        relevant
 //      ärlig       tillitsfull omdömesfull
@@ -330,9 +327,9 @@ if ($res) while ($row = mysqli_fetch_array($res))
 
 	$my_ssm = ssm($for);
 
-	$ssm_str  = "Sty : " . count($my_ssm['sty']) . " <br> ";
-	$ssm_str .= "Sva : " . count($my_ssm['sva']) . " <br> ";
-	$ssm_str .= "Mot : " . count($my_ssm['mot']) . " <br> ";
+	$ssm_str  = "Styrkor : " . count($my_ssm['sty']) . " <br> ";
+	$ssm_str .= "Svagheter : " . count($my_ssm['sva']) . " <br> ";
+	$ssm_str .= "Motivatorer : " . count($my_ssm['mot']) . " <br> ";
 
 	echo "\t\t\t<td> $nt </td> \n";
 	echo "\t\t\t<td> $pers_at </td> \n";

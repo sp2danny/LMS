@@ -24,6 +24,33 @@ option, select {
 	width: 120px;
 }
 
+
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
 </style>
 
 <script>
@@ -61,7 +88,7 @@ echo '<br />' . $eol;
 echo '<img width=50%  src="../site/common/logo.png" /> <br />';
 echo '<br /> <br />' . $eol;
 
-echo "<h1> Person Grupp Listning </h1> <br /> <br />" . $eol;
+echo "<h1> Hantera Grupper </h1> <br /> <br />" . $eol;
 
 $grp = [];
 
@@ -220,7 +247,12 @@ if ($res) while ($prow = mysqli_fetch_array($res))
 			echo "\t\t\t\t<option value='$gg'> $gg </option>\n";
 		}
 		echo "\t\t\t</select>\n";
-		echo "\t\t\t<button onclick='grp_add($pid, $ii);' > + </button> \n";
+
+		echo "\t\t\t<div class='tooltip'>\n";
+		echo "\t\t\t\t<button onclick='grp_add($pid, $ii);' > + </button> \n";
+		echo "\t\t\t\t<span class='tooltiptext'>Lägg till personen i gruppen</span>\n";
+		echo "\t\t\t</div> \n";
+
 	}
 	echo "\t\t</td> \n";
 
@@ -233,7 +265,12 @@ if ($res) while ($prow = mysqli_fetch_array($res))
 			echo "\t\t\t\t<option value='$gg'> $gg </option>\n";
 		}
 		echo "\t\t\t</select>\n";
+
+		echo "\t\t\t<div class='tooltip'>\n";
 		echo "\t\t\t<button onclick='grp_rem($pid, $ii);'> - </button> \n";
+		echo "\t\t\t\t<span class='tooltiptext'>Ta bort personen ur gruppen</span>\n";
+		echo "\t\t\t</div> \n";
+
 	}
 	echo "\t\t</td> \n";
 
