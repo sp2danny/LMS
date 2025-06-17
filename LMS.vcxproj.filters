@@ -420,6 +420,9 @@
     <None Include="src\common\getem.php">
       <Filter>Source Files\common</Filter>
     </None>
+    <None Include="src\coach\grplst2.php">
+      <Filter>Source Files\coach</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\common\dologin.php">

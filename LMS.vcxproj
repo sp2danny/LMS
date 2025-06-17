@@ -34,6 +34,7 @@
     <None Include="src\coach\edit_prod_save.php" />
     <None Include="src\coach\gp_add.php" />
     <None Include="src\coach\gp_rem.php" />
+    <None Include="src\coach\grplst2.php" />
     <None Include="src\coach\index.html" />
     <None Include="src\coach\list_prod.php" />
     <None Include="src\coach\make_prod.php" />
