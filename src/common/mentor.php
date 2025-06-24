@@ -14,6 +14,36 @@ include_once 'connect.php';
 include_once 'util.php';
 include_once 'getem.php';
 
+function ptbl($to, $prow, $mynt, $score=0)
+{
+	$heartfile = fopen("heart.txt", "r");
+	$txt = "";
+	if ($heartfile) {
+		$arr = [];
+		while (true) {
+			$buffer = fgets($heartfile, 4096);
+			if (!$buffer) break;
+			$buffer = trim($buffer);
+			$len = strlen($buffer);
+			if ($len == 0) continue;
+			$arr[] = $buffer;
+		}
+		$top = count($arr)-1;
+		if ($top > 0)
+			$txt = $arr[rand(0,$top)];
+	}
+
+	$div = "<div> <img src='heart.png' style='vertical-align: middle;' width='100px' /> <span style='vertical-align: middle;'> $txt </span> ";
+
+	$wtelf = '""';
+	$to->startTag('table', "class=$wtelf");
+	$to->regLine("<tr> <td class=$wtelf > Kundnummer    </td> <td class=$wtelf > " . $prow[ 'pers_id' ] . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td> <td class=$wtelf > Guldmynt     </td> <td class=$wtelf > $mynt   </td> </tr>");
+	$to->regLine("<tr> <td class=$wtelf > Namn          </td> <td class=$wtelf > " . $prow[ 'name'    ] . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td> <td class=$wtelf > Po&auml;ng   </td> <td class=$wtelf > $score  </td> </tr>");
+	$to->regLine("<tr> <td class=$wtelf >               </td> <td class=$wtelf > " . ""                 . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td> <td colspan=2 rowspan=2 class=$wtelf > $div </td>  </tr>");
+	$to->regLine("<tr> <td class=$wtelf > Medlem sedan  </td> <td class=$wtelf > " . $prow[ 'date'    ] . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td>  </tr>");
+	$to->stopTag('table');
+}
+
 
 function index($local, $common)
 {
@@ -394,6 +424,13 @@ EOT;
 
 
 
+
+	$to->scTag("hr");
+
+
+		//if ($grpsk === false)
+		ptbl($to, $prow, $mynt);
+	//else
 
 	$to->scTag("hr");
 
