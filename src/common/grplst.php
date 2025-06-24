@@ -328,6 +328,36 @@ if ($res) while ($row = mysqli_fetch_array($res))
 		$pers_at .= $line_name;
 	}
 
+// ------
+
+	//$atnum_ll = 0;
+	//$block_name_ll = "";
+	//$line_name_ll = "";
+	//
+	//foreach ($alldata as $block) {
+	//	// if (!$block->someDone) continue;
+	//	$atnum_ll = $block->atnum;
+	//	$block_name = $block->name;
+	//	foreach ($block->lines as $line) {
+	//		if($line->hasDone)
+	//			continue;
+	//		$line_name = $line->name;
+	//		break;
+	//	}
+	//}
+	//
+	//$srp = strrpos($block_name, "-");
+	//if ($srp === false) {
+	//	$pers_at = $block_name . " <br> " . $line_name;
+	//} else {
+	//	$pers_at  = substr( $block_name, 0, $srp) . " <br> ";
+	//	$pers_at .= substr( $block_name, $srp+1) . " <br> ";
+	//	$pers_at .= $line_name;
+	//}
+	//
+
+// ------
+
 	$my_ssm = ssm($for);
 
 	$ssm_str  = "Sty : " . count($my_ssm['sty']) . " <br> ";
@@ -336,17 +366,15 @@ if ($res) while ($row = mysqli_fetch_array($res))
 
 	echo "\t\t\t<td> $nt </td> \n";
 	echo "\t\t\t<td> $pers_at </td> \n";
-	
+
 	echo "\t\t\t<td> " . nojd($for) . " </td> \n";
-	
+
 	echo "  <td> $dsc </td> <td> $vg </td> <td> $ms </td> ";
 	echo " <td> $par </td> <td> $ato </td> <td> $mmg </td> \n";
 
 	echo "\t\t\t<td> $ssm_str </td> \n";
-	
 
 	echo "\t\t</tr>\n";
-
 
 }
 

@@ -420,17 +420,9 @@ EOT;
 	$to->stopTag("table");
 
 
-
-
-
-
-
 	$to->scTag("hr");
 
-
-		//if ($grpsk === false)
-		ptbl($to, $prow, $mynt);
-	//else
+	ptbl($to, $prow, $mynt);
 
 	$to->scTag("hr");
 
