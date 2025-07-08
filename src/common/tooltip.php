@@ -31,6 +31,10 @@ function collect_it_2($data)
 function tooltip($to, $data)
 {
 
+	$to->regLine("&lt; db error &gt;");
+	return;
+
+	/*
 	$txt = ["Värdegrund", "Missionstatement", "Utveckling", "Disk Analys"];
 	$fn = 2;
 	$n = 4;
@@ -51,7 +55,7 @@ function tooltip($to, $data)
 	$to->startTag("div", "style='font-size:12px' ");
 	$to->regLine(collect_it($data));
 	$to->stopTag("div");
-
+*/
 }
 
 ?>
