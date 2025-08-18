@@ -1,4 +1,9 @@
 
+
+* {
+    font-family: "Times New Roman";
+}
+
 table, th, td {
   border: 0px;
   margin-top: 2px;

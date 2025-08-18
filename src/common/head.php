@@ -5,8 +5,17 @@
 <html>
 <head>  
 
+<style>
+
 <?php
 
+include "../common/main-v03.css";
+
+if (glob('local.css')) {
+	include "local.css";
+}
+
+/*
 if (glob('index.html')) {
 	echo '<link rel="stylesheet" href="common/main-v03.css">' . "\n";
 	echo '<link rel="icon" href="common/favicon.ico">' . "\n";
@@ -17,6 +26,10 @@ if (glob('index.html')) {
 	}
 	echo '<link rel="icon" href="../common/favicon.ico">' . "\n";
 }
+*/
 
 ?>
+
+</style>
+
 
