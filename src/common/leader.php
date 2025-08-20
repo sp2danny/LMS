@@ -92,6 +92,8 @@ Jag vill påminna om Michelle Obama som säger: When they go low. We go high! <b
 
 include_once 'connect.php';
 include_once 'getparam.php';
+include_once "debug.php";
+include_once "get_gr_val.php";
 
 $have_grp = getparam("grpsk", false);
 
@@ -208,9 +210,17 @@ if (!$have_grp)
 
 		echo " <input type='range' id='vg_slide' name='vg' min='0' max='100' step='1' list='steplist' ";
 
+		$new_vg_val = 1;
 		if ($have_vg) {
-			echo " value='$vg_val' ";
+			$new_vg_val = $vg_val;
 		}
+
+		$g = get_gr_val($pid_by, $pid_for, 209);
+		debug_log($g?$g:"false");
+		if ($g)
+			$new_vg_val = $g;
+
+		echo " value='$new_vg_val' ";
 
 		echo " onChange='document.getElementById(\"vg_btn\").disabled = false;' /> \n";
 		echo " <datalist id='steplist'> <option value='0' label='0' > </option> <option value='100' label='100' > </option> </datalist> \n";

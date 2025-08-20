@@ -80,6 +80,7 @@
     <None Include="src\common\gap_post.php" />
     <None Include="src\common\getem.php" />
     <None Include="src\common\getparam.php" />
+    <None Include="src\common\get_gr_val.php" />
     <None Include="src\common\grp-sk-2.php" />
     <None Include="src\common\grplst.php" />
     <None Include="src\common\head.php" />
