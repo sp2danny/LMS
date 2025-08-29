@@ -686,6 +686,10 @@ EOT;
 
 	$to->startTag('div', 'style="float: right;"');
 
+	$vd = file_get_contents("https://www.mind2excellence.se/site/common/validate.php?pid=" . $data->pid);
+
+	if ($vd) $to->regLine($vd);
+
 	$to->startTag('select', 'name="persdd" onchange="persddonchange(this, ' . $at . ');"  style="float: left; font-size:18px " ');
 
 
@@ -706,7 +710,6 @@ EOT;
 		if ($row['pnr'] == $data->pnr) continue;
 
 		if (!arr_overlap($grp, $row['grupp'])) continue;
-
 
 		$arr_n[] = $row['name'];
 		$arr_p[] = $row['pnr'];
@@ -737,12 +740,10 @@ EOT;
 
 	$to->stopTag('div');
 
-	
 	$to->regLine(' <div style="clear: both;"></div> ');
 	$to->stopTag('div');
 	$to->scTag('br');
 	$to->scTag('br');
-
 
 	$n = count($dagens);
 	if ($n > 0) {
@@ -776,7 +777,6 @@ EOT;
 	
 	if ($grpsk !== false)
 	{
-		
 		$query = "SELECT * FROM pers WHERE pnr='" . $grpsk . "'";
 		debug_log( $query );
 		$res = mysqli_query($emperator, $query);

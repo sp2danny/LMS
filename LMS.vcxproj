@@ -133,6 +133,7 @@
     <None Include="src\common\utbsel.php" />
     <None Include="src\common\util.php" />
     <None Include="src\common\utveckling.php" />
+    <None Include="src\common\validate.php" />
     <None Include="src\common\worldclass.php" />
     <None Include="src\klarna\php\buy.php" />
     <None Include="src\klarna\php\checkout.php" />

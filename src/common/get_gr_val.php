@@ -3,7 +3,6 @@
 include_once 'connect.php';
 include_once 'getparam.php';
 include_once "debug.php";
-include_once "get_gr_val.php";
 
 function get_gr_val($by, $for, $num)
 {

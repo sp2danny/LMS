@@ -603,6 +603,25 @@ EOT;
 	$to->stopTag('tr');
 	$to->stopTag('table');
 
+	/*
+	$to->scTag("hr");
+
+	$to->startTag("a", "href='next.php'");
+
+	$to->startTag("div", "style='display:flex; justify-content: center'");
+
+	$to->regLine(" <table> <tr> <td align='center' > "); 
+	$to->regLine(" N&auml;sta steg ");
+	$to->regLine(" </td> </tr> <tr> <td> "); 
+
+	$to->scTag("img", "src='next.png'");
+
+	$to->regLine(" </td> </tr> </table> "); 
+
+	$to->stopTag('div');
+	$to->stopTag('a');
+	*/
+
 	$to->scTag("hr");
 
 	$tit = array();
