@@ -9,7 +9,6 @@ include_once 'common.php';
 include_once 'get_gr_val.php';
 include_once 'process_cmd.php';
 
-
 function collect_it($data)
 {
 	if ($data->grpsk === false)
@@ -89,7 +88,6 @@ function collect_grupp($data)
 	return $ret;
 }
 
-
 function collect_it_2($data)
 {
 	if ($data->grpsk === false)
@@ -138,7 +136,6 @@ function tooltip($to, $data)
 			break;
 		}
 	}
-
 
 	$to->startTag("table");
 	for ($i=0; $i<$n; ++$i) {
@@ -191,7 +188,9 @@ function make_data()
 	$data->pid    = $prow['pers_id'];
 	$data->pnr    = $prow['pnr'];
 	$data->name   = $prow['name'];
-	$data->grp    = $prow['grupp'];
+
+	$grp = $prow['grupp'];
+	$data->grp = explode(",", $grp];
 
 	$tag = $prow['tag'];
 	$data->tag = explode(",", $tag);
