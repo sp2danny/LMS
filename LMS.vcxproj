@@ -119,6 +119,7 @@
     <None Include="src\common\save_utv.php" />
     <None Include="src\common\score.php" />
     <None Include="src\common\show_details.php" />
+    <None Include="src\common\spcoll.php" />
     <None Include="src\common\spdr_disp.php" />
     <None Include="src\common\spindel.php" />
     <None Include="src\common\stapel_disp.php" />

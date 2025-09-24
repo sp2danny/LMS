@@ -23,15 +23,15 @@ function collect_it($data)
 
 function collect_it_egen($data)
 {
-	global $emperator;
+	// global $emperator;
 
-	$pid = ROD('pers', ['pnr'], [$data->pnr], 'pers_id', false);
+	$pid = $data->pid;
 
 	$res = [];
 
-	$res['vg'] = ROD('data', ['pers', 'type'], [$pid, 201], 'value_a', false);
+	$res['vg']  = ROD('data', ['pers', 'type'], [$pid, 201], 'value_a', false);
 
-	$res['ms'] = ROD('data', ['pers', 'type'], [$pid, 202], 'value_a', false);
+	$res['ms']  = ROD('data', ['pers', 'type'], [$pid, 202], 'value_a', false);
 
 	$res['mot'] = ROD('data', ['pers', 'type'], [$pid, 302], 'value_a', false);
 
@@ -41,7 +41,7 @@ function collect_it_egen($data)
 
 	$res['kom'] = ROD('data', ['pers', 'type'], [$pid, 103], 'value_b', false);
 
-	$res['dsk'] = ROD('data', ['pers', 'type'], [$pid, 6], 'value_a', false);
+	$res['dsk'] = ROD('data', ['pers', 'type'], [$pid,   6], 'value_a', false);
 
 	$res['mal'] = ROD('data', ['pers', 'type'], [$pid, 104], 'value_a', false);
 
@@ -50,12 +50,9 @@ function collect_it_egen($data)
 	return $res;
 }
 
-function collect_it_grp($data)
+function collect_it_grp($for, $by)
 {
-	//debug_log( var_export($data, true) );
 	$res = [];
-	$for = ROD('pers', ['pnr'], [$data->grpsk], 'pers_id', false);
-	$by = ROD('pers', ['pnr'], [$data->pnr], 'pers_id', false);
 
 	$res['vg'] = get_gr_val($by, $for, 209);
 
@@ -70,6 +67,28 @@ function collect_it_grp($data)
 
 	return $res;
 }
+
+function collect_grupp($data)
+{
+	$ret = [];
+
+	global $emperator;
+
+	$grp = $data->grp;
+	$pid = $data->pid;
+
+	$query = "SELECT * FROM pers WHERE grupp='" . $grp . "'";
+	$res = mysqli_query($emperator, $query);
+	if ($res) while ($prow = mysqli_fetch_array($res))
+	{
+		$p = $prow['pers_id'];
+		if ($pid == $p) continue;
+		$ret[] = $p;
+	}
+
+	return $ret;
+}
+
 
 function collect_it_2($data)
 {
@@ -172,15 +191,59 @@ function make_data()
 	$data->pid    = $prow['pers_id'];
 	$data->pnr    = $prow['pnr'];
 	$data->name   = $prow['name'];
+	$data->grp    = $prow['grupp'];
 
-
+	$tag = $prow['tag'];
+	$data->tag = explode(",", $tag);
 
 	return $data;
 }
 
 function index()
 {
+	echo "<html> <head> <title> spider collect </title> </head> \n";
+	echo "<body> \n";
+
+	echo "<pre> \n";
+	$data = make_data();
+	$s = json_encode($data);
+	echo $s . "\n";
+	echo "</pre>  \n";
+
+	echo "<hr> \n";
+
+	echo "<pre> \n";
+	$es = collect_it_egen($data);
+	$s = json_encode($es);
+	echo $s . "\n";
+	echo "</pre>  \n";
+
+	echo "<hr> \n";
+
+	echo "<pre> \n";
+	$gg = collect_grupp($data);
+	$s = json_encode($gg);
+	echo $s . "\n";
+	echo "</pre>  \n";
+
+	echo "<hr> \n";
+
+	echo "<pre> \n";
+	foreach ($gg as $gp)
+	{
+		echo "\t" . $gp . "\n";
+
+		$gsb = collect_it_grp($data->pid, $gp);
+		echo "\t\t" . json_encode($gsb) . "\n";
+	}
+	echo "</pre>  \n";
+
+	echo "</body> </html> \n";
 }
+
+
+
+index();
 
 ?>
 
