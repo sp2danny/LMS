@@ -22,6 +22,7 @@
     <Text Include="db.txt" />
     <Text Include="Kludd.txt" />
     <Text Include="src\common\min.txt" />
+    <Text Include="src\land\styr.txt" />
     <Text Include="src\survey\styr.txt" />
     <Text Include="todo-4.txt" />
     <Text Include="TODO.txt" />
@@ -148,6 +149,11 @@
     <None Include="src\klarna\php\terms.php" />
     <None Include="src\klarna\php\test.php" />
     <None Include="src\klarna\php\validation.php" />
+    <None Include="src\land\index.html" />
+    <None Include="src\land\php\00-common.php" />
+    <None Include="src\land\php\00-connect.php" />
+    <None Include="src\land\php\02-reg.php" />
+    <None Include="src\land\php\04-land.php" />
     <None Include="src\survey\php\00-common.php" />
     <None Include="src\survey\php\00-connect.php" />
     <None Include="src\survey\php\01-b-register.php" />

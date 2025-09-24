@@ -2,10 +2,10 @@
 
 <?php
 
-include "php/00-common.php";
-include "php/00-connect.php";
+include "00-common.php";
+include "00-connect.php";
 
-$styr = LoadIni("styr.txt");
+$styr = LoadIni("../styr.txt");
 
 $lid      = getparam('lid');
 $variant  = 0;
