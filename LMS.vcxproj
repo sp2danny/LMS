@@ -154,6 +154,7 @@
     <None Include="src\land\php\00-connect.php" />
     <None Include="src\land\php\02-reg.php" />
     <None Include="src\land\php\04-land.php" />
+    <None Include="src\land\php\05-result.php" />
     <None Include="src\survey\php\00-common.php" />
     <None Include="src\survey\php\00-connect.php" />
     <None Include="src\survey\php\01-b-register.php" />
