@@ -76,7 +76,7 @@ function collect_grupp($data)
 	$grp = $data->grp;
 	$pid = $data->pid;
 
-	$query = "SELECT * FROM pers WHERE grupp='" . $grp . "'";
+	$query = "SELECT * FROM pers WHERE grupp='" . $grp[0] . "'";
 	$res = mysqli_query($emperator, $query);
 	if ($res) while ($prow = mysqli_fetch_array($res))
 	{
@@ -190,7 +190,7 @@ function make_data()
 	$data->name   = $prow['name'];
 
 	$grp = $prow['grupp'];
-	$data->grp = explode(",", $grp];
+	$data->grp = explode(",", $grp);
 
 	$tag = $prow['tag'];
 	$data->tag = explode(",", $tag);
@@ -205,7 +205,7 @@ function index()
 
 	echo "<pre> \n";
 	$data = make_data();
-	$s = json_encode($data);
+	$s = json_encode($data, JSON_PRETTY_PRINT);
 	echo $s . "\n";
 	echo "</pre>  \n";
 
@@ -233,7 +233,7 @@ function index()
 		echo "\t" . $gp . "\n";
 
 		$gsb = collect_it_grp($data->pid, $gp);
-		echo "\t\t" . json_encode($gsb) . "\n";
+		echo "\t\t" . json_encode($gsb) . " </pre> \n";
 	}
 	echo "</pre>  \n";
 
