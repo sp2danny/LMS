@@ -12,6 +12,7 @@
 include_once "getparam.php";
 include_once "connect.php";
 include_once "common_php.php";
+include_once "util.php";
 
 ?>
 
@@ -174,6 +175,22 @@ function grp_sk(fr, by, id, val)
 
 <?php
 
+function mk_butt($ini, $nam)
+{
+	if ($ini['pdf'][$nam . ".enabled"])
+	{
+		$trg = ($ini['pdf'][$nam . ".popup"]) ? "'_blank'" : "'_top'";
+		$ret  = "<a href='";
+		$ret .= $ini['pdf'][$nam . ".link"];
+		$ret .= "' target=$trg > <button> ";
+		$ret .= $ini['pdf'][$nam . ".label"];
+		$ret .= " </button> </a> ";
+		return $ret;
+	} else {
+		return " &nbsp; ";
+	}
+}
+
 $have_grp = getparam("grpsk", false);
 
 $pnr = getparam("pnr", "0");
@@ -200,6 +217,13 @@ if (!$res)
 		$name = $prow['name'];
 	}
 }
+
+$minf = fopen('min.txt', "r");
+$min = readini($minf);
+
+$sty = mk_butt($min, 'sty');
+$sva = mk_butt($min, 'sva');
+$mot = mk_butt($min, 'mot');
 
 if ($have_grp === false)
 {
@@ -252,7 +276,7 @@ EOT;
 	// STYRKOR
 
 	echo "<td class='twm' >\n";
-	echo "Detta är mina styrkor:\n<ul>\n";
+	echo "Detta är mina styrkor:\n $sty <ul>\n";
 
 	for ($i=1; $i<=5; ++$i)
 	{
@@ -275,7 +299,7 @@ EOT;
 	// SVAGHETER
 
 	echo "<td class='twm' >\n";
-	echo "Detta är mina svagheter:\n<ul>\n";
+	echo "Detta är mina svagheter:\n $sva <ul>\n";
 
 	for ($i=1; $i<=5; ++$i)
 	{
@@ -298,7 +322,7 @@ EOT;
 	// MOTIVATORER
 
 	echo "<td class='twm' >\n";
-	echo "Detta är mina motivatorer:\n<ul>\n";
+	echo "Detta är mina motivatorer:\n $mot <ul>\n";
 
 	for ($i=1; $i<=5; ++$i)
 	{
@@ -422,7 +446,7 @@ EOT;
 	// STYRKOR
 
 	echo "<td class='twm' >\n";
-	echo "Detta är $name_for's styrkor:\n<ul>\n";
+	echo "Detta är $name_for's styrkor:\n $sty <ul>\n";
 
 	for ($i=1; $i<=5; ++$i)
 	{
@@ -446,7 +470,7 @@ EOT;
 	// SVAGHETER
 
 	echo "<td class='twm' >\n";
-	echo "Detta är $name_for's svagheter:\n<ul>\n";
+	echo "Detta är $name_for's svagheter: $sva \n<ul>\n";
 
 	for ($i=1; $i<=5; ++$i)
 	{
@@ -470,7 +494,7 @@ EOT;
 	// MOTIVATORER
 
 	echo "<td class='twm' >\n";
-	echo "Detta är $name_for's motivatorer:\n<ul>\n";
+	echo "Detta är $name_for's motivatorer: $mot \n<ul>\n";
 
 	for ($i=1; $i<=5; ++$i)
 	{

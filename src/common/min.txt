@@ -8,7 +8,21 @@
 # Malsattning    | 104    | 8
 # Samarbete      | 105    | 6
 
+[pdf]
+sty.enabled = true
+sty.label = Exempel på Styrkor
+sty.link = Styrkor.pdf
+sty.popup = true
 
+sva.enabled = true
+sva.label = Exempel på Svagheter
+sva.link = Svagheter.pdf
+sva.popup = true
+
+mot.enabled = true
+mot.label = Exempel på Motivatorer
+mot.link = Motivatorer.pdf
+mot.popup = true
 
 [survey]
 

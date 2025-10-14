@@ -59,9 +59,9 @@ $tt = '<img style="float:left;" height="90px" ';
 
 if ( ($pid==16) || ($pid==15) )
 {
-	$tt .= 'src="guld.jpg" ';
+	$tt .= 'src="guld.png" ';
 } else {
-	$tt .= 'src="silver.jpg" ';
+	$tt .= 'src="silver.png" ';
 }
 
 $tt .= "title='$val_cnt valideringar' ";
