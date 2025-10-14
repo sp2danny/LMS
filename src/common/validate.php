@@ -5,7 +5,6 @@ include_once 'common.php';
 
 $pid = getparam("pid",0);
 
-
 flush();
 
 include_once 'connect.php';
@@ -25,7 +24,6 @@ $query = "SELECT * FROM pers";
 $res = mysqli_query( $emperator, $query );
 if ($res) while ($row = mysqli_fetch_array($res))
 {
-
 	if (!arr_overlap($grp, $row['grupp'])) continue;
 
 	$pp = $row['pers_id'];
@@ -33,14 +31,12 @@ if ($res) while ($row = mysqli_fetch_array($res))
 	if ($pp == $pid) continue;
 
 	$pidlst[] = $pp;
-
 }
 
 $val_cnt = 0;
 
 foreach ($pidlst as $pp)
 {
-
 	$for = $pid;
 	$by = $pp;
 
@@ -69,6 +65,5 @@ $tt .= "title='$val_cnt valideringar' ";
 $tt .= " /> ";
 
 echo $tt;
-
 
 ?>
