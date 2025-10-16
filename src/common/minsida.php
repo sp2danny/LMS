@@ -66,6 +66,20 @@ function to_link($alldata, $str)
 	return "";
 }
 
+function getNxt($data) {
+	$nxt_site = 'https://www.mind2excellence.se/site/common/forward.php';
+	if ($data->pnr!=0) {
+		$nxt_site = addKV($nxt_site, 'pnr', $data->pnr);
+	}
+	if ($data->bnum!=0) {
+		$nxt_site = addKV($nxt_site, 'ob', $data->bnum);
+	}
+	if ($data->snum!=0) {
+		$nxt_site = addKV($nxt_site, 'os', $data->snum);
+	}
+	return $nxt_site;
+}
+
 function getCP($data) {
 	global $RETURNTO;
 	$cp_site = 'https://www.mind2excellence.se/site/common/' . $RETURNTO . '.php?noside=true';
@@ -490,8 +504,11 @@ EOT;
 	$to->regLine('  if (b!="") str += "&b=" + b;');
 	$to->regLine('  fetch(str);');
 	$to->regLine('}');
-	
 
+	$to->regLine('function doGoNext() { ');
+	$to->regLine("  window.location.href = '" . getNxt($data) . "'; ");
+	$to->regLine('}');
+	
 	$to->regLine('function doChangeB() { ');
 	$to->regLine('  var obj = document.getElementById("alt"); ');
 	$to->regLine('  var main = document.getElementById("main"); ');
@@ -585,6 +602,11 @@ EOT;
 		$grp = getGrp($data);
 		//$to->regLine("<a href='$grp'> <br class='hs'> <button id='BtnUtb' style='background-color:" . $eg . ";font-size:15px;' > &nbsp;Min Grupp; </button> </a>");
 
+		//if (getparam("test", 0) == 1)
+		{
+			$to->regLine("<br class='hs'> <button id='BtnNxt' style='background-color:" . $eg . ";font-size:15px;' onClick='doGoNext()'> &nbsp;N&auml;sta&nbsp; </button>");
+
+		}
 
 		$to->regLine("<br class='hs'> <button id='BtnUtb' style='background-color:" . $eg . ";font-size:15px;' onClick='doChangeD()'> &nbsp;Min Utbildning&nbsp; </button>");
 		$to->regLine("<br class='hs'> <button id='BtnKrs' style='background-color:" . $eg . ";font-size:15px;' onClick='doChangeE()'> &nbsp;Våra Event och Kurser&nbsp; </button>");

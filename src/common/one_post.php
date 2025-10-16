@@ -38,6 +38,20 @@ function addKV($lnk, $k, $v)
 		return $lnk . '&' . $k . '=' . $v;
 }
 
+function getNxt($data) {
+	$nxt_site = 'https://www.mind2excellence.se/site/common/forward.php';
+	if ($data->pnr!=0) {
+		$nxt_site = addKV($nxt_site, 'pnr', $data->pnr);
+	}
+	if ($data->bnum!=0) {
+		$nxt_site = addKV($nxt_site, 'ob', $data->bnum);
+	}
+	if ($data->snum!=0) {
+		$nxt_site = addKV($nxt_site, 'os', $data->snum);
+	}
+	return $nxt_site;
+}
+
 function getCP($data) {
 	$cp_site = 'https://www.mind2excellence.se/site/common/minsida.php?noside=true';
 	$cp_have = false;
@@ -261,6 +275,12 @@ function index($styr, $local, $common)
 
 	$to->regLine('  div.innerHTML = s;');
 	$to->regLine('}');
+
+
+	$to->regLine('function doGoNext() { ');
+	$to->regLine("  window.location.href = '" . getNxt($data) . "'; ");
+	$to->regLine('}');
+
 	
 	$to->regLine('function doChangeB() { ');
 	$to->regLine('  var obj = document.getElementById("alt"); ');
@@ -469,6 +489,14 @@ function index($styr, $local, $common)
 		$to->startTag ('div', 'class="indent"');
 
 		$to->startTag ('div');
+
+
+		//if (getparam("test", 0) == 1)
+		{
+			$to->regLine("<br class='hs'> <button id='BtnNxt' style='background-color:5E5;font-size:15px;' onClick='doGoNext()'> &nbsp;N&auml;sta&nbsp; </button> <br> ");
+
+		}
+
 		
 		$to->regLine("<button id='BtnSett' onClick='doChangeC()'> Settings </button>");
 		
