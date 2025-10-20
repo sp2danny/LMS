@@ -58,6 +58,20 @@ function to_link($alldata, $str)
 	return "";
 }
 
+function getNxt($data) {
+	$nxt_site = 'https://www.mind2excellence.se/site/common/forward.php';
+	if ($data->pnr!=0) {
+		$nxt_site = addKV($nxt_site, 'pnr', $data->pnr);
+	}
+	if ($data->bnum!=0) {
+		$nxt_site = addKV($nxt_site, 'ob', $data->bnum);
+	}
+	if ($data->snum!=0) {
+		$nxt_site = addKV($nxt_site, 'os', $data->snum);
+	}
+	return $nxt_site;
+}
+
 function getCP($data) {
 	$cp_site = 'https://www.mind2excellence.se/site/common/minsida.php';
 	if ($data->pid != 0) {
@@ -156,7 +170,9 @@ function index($local, $common)
 	global $emperator;
 
 	$to = new tagOut;
-	
+
+	$to->bump(2);
+
 	$data = new Data;
 
 	$name = getparam("name");
@@ -224,7 +240,7 @@ function index($local, $common)
 	}
 	$data->dagens = $dagens;
 
-	$title = 'Utbildningen';
+	$title = 'Utbildningsportalen';
 
 	$data->name = $name;
 	$data->mynt = $mynt;
@@ -385,6 +401,10 @@ EOT;
 
 	$to->startTag('script');
 
+	$to->regLine('function doGoNext() { ');
+	$to->regLine("  window.location.href = '" . getNxt($data) . "'; ");
+	$to->regLine('}');
+
 	$to->regLine('function doChangeB() { ');
 	$to->regLine("  window.location.href = '" . getCP($data) . "'; ");
 	$to->regLine('}');
@@ -461,8 +481,9 @@ EOT;
 
 	$to->stopTag('script');
 
-	echo '<title>' . $curPageName . " - " . $title . '</title>' . $eol;
-	echo '</head>' . $eol;
+	$to->regLine('<title>' . $title . '</title>');
+
+	$to->stopTag('head');
 
 	$to->startTag('body');
 
@@ -476,18 +497,20 @@ EOT;
 
 		$to->startTag ('div');
 		
-		$to->regLine("<button id='BtnSett' onClick='doChangeC()'> Settings </button>");
+		//$to->regLine("<button id='BtnSett' onClick='doChangeC()'> Settings </button>");
 		
-		if (getparam("sticp", "0") == "1") {
-			$to->regLine("<button id='BtnCP'  onClick='doChangeB()'> Min Sida </button>");
-		} else {
-			$to->regLine("<button id='BtnCP' onClick='doChangeB()'> Min Sida </button>");
+		$to->regLine("<button class='big3' id='BtnCP'  onClick='doChangeB()'> <span class='manicon'> </span> Min Egen Sida </button> <br>");
+
+		$to->regLine("<button class='big3' id='BtnUtb' onClick='doChangeD()'> <span class='husicon'> </span> Utbildningsportalen </button> <br>");
+	
+		$to->regLine("<button class='big3' id='BtnNxt' onClick='doGoNext()'>  <span class='nxticon'> </span>  Forts&auml;tt utbildningen </button> <br>");
+
+		if (is_in($data->tag,"mentor"))
+		{
+			$to->regline  ('<hr>');
+			$to->regLine("<button class='big3' id='BtnKrs' onClick='doChangeE()'> &nbsp;Våra Event och Kurser&nbsp; </button> <br>");
+			$to->regLine("<button class='big3' id='BtnMnt' onClick='doChangeMnt()'> &nbsp;Mentor&nbsp; </button> <br>");
 		}
-
-		$eg = empgreen();
-
-		//$to->regLine("<br class='hs'> <button id='BtnUtb' style='background-color:" . $eg . ";font-size:15px;' onClick='doChangeD()'> &nbsp;Min Utbildning&nbsp; </button>");
-		$to->regLine("<br class='hs'> <button id='BtnKrs' style='background-color:" . $eg . "; font-size:15px;' onClick='doChangeE()'> &nbsp;Våra Event och Kurser&nbsp; </button>");
 
 		$to->regline  ('<hr>');
 		$to->stopTag  ('div');

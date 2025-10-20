@@ -589,30 +589,23 @@ EOT;
 
 		$to->startTag ('div');
 		
-		$to->regLine("<button id='BtnSett' onClick='doChangeC()'> Settings </button>");
+		//$to->regLine("<button id='BtnSett' onClick='doChangeC()'> Settings </button>");
 		
-		if (getparam("sticp", "0") == "1") {
-			$to->regLine("<button id='BtnCP'  onClick='doChangeB()'> Min Sida </button>");
-		} else {
-			$to->regLine("<button id='BtnCP' onClick='doChangeB()'> Min Sida </button>");
-		}
+		$to->regLine("<button class='big3' id='BtnCP'  onClick='doChangeB()'> <span class='manicon'> </span> Min Egen Sida </button> <br>");
 
-		$eg = empgreen();
-		
+		$to->regLine("<button class='big3' id='BtnUtb' onClick='doChangeD()'> <span class='husicon'> </span> Utbildningsportalen </button> <br>");
+	
+		$to->regLine("<button class='big3' id='BtnNxt' onClick='doGoNext()'>  <span class='nxticon'> </span>  Forts&auml;tt utbildningen </button> <br>");
+
+		$eg = empgreen();		
 		$grp = getGrp($data);
-		//$to->regLine("<a href='$grp'> <br class='hs'> <button id='BtnUtb' style='background-color:" . $eg . ";font-size:15px;' > &nbsp;Min Grupp; </button> </a>");
-
-		//if (getparam("test", 0) == 1)
-		{
-			$to->regLine("<br class='hs'> <button id='BtnNxt' style='background-color:" . $eg . ";font-size:15px;' onClick='doGoNext()'> &nbsp;N&auml;sta&nbsp; </button>");
-
-		}
-
-		$to->regLine("<br class='hs'> <button id='BtnUtb' style='background-color:" . $eg . ";font-size:15px;' onClick='doChangeD()'> &nbsp;Min Utbildning&nbsp; </button>");
-		$to->regLine("<br class='hs'> <button id='BtnKrs' style='background-color:" . $eg . ";font-size:15px;' onClick='doChangeE()'> &nbsp;Våra Event och Kurser&nbsp; </button>");
 
 		if (is_in($data->tag,"mentor"))
-			$to->regLine("<br class='hs'> <button id='BtnMnt' style='background-color:" . $eg . ";font-size:15px;' onClick='doChangeMnt()'> &nbsp;Mentor&nbsp; </button>");
+		{
+			$to->regline  ('<hr>');
+			$to->regLine("<button class='big3' id='BtnKrs' onClick='doChangeE()'> &nbsp;Våra Event och Kurser&nbsp; </button> <br>");
+			$to->regLine("<button class='big3' id='BtnMnt' onClick='doChangeMnt()'> &nbsp;Mentor&nbsp; </button> <br>");
+		}
 
 		$to->regline  ('<hr>');
 		$to->stopTag  ('div');

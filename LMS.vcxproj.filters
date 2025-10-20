@@ -459,6 +459,9 @@
     <None Include="src\land\php\05-result.php">
       <Filter>Source Files\land\php</Filter>
     </None>
+    <None Include="src\common\test.php">
+      <Filter>Source Files\common</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\common\dologin.php">

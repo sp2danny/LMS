@@ -127,6 +127,7 @@
     <None Include="src\common\styrkor.php" />
     <None Include="src\common\styrkor_skatta.php" />
     <None Include="src\common\tagOut.php" />
+    <None Include="src\common\test.php" />
     <None Include="src\common\token.php" />
     <None Include="src\common\tooltip.php" />
     <None Include="src\common\tq.php" />

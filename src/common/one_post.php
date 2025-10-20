@@ -7,36 +7,7 @@ include_once 'process_cmd.php';
 include_once 'cmdparse.php';
 include_once 'progress.php';
 include_once 'debug.php';
-
-function ndq($str)
-{
-	$in = false;
-	$out = "";
-	$n = strlen($str);
-	$i = 0;
-	while ($i<$n) {
-		$c = $str[$i];
-		++$i;
-		if ( ($c == '"') || ($c == "'") ) {
-			$in = ! $in;
-			if ($in)
-				$out .= "``";
-			else
-				$out .= "´´";
-		} else {
-			$out .= $c;
-		}
-	}
-	return $out;
-}
-
-function addKV($lnk, $k, $v)
-{
-	if (strpos($lnk, '?')===false)
-		return $lnk . '?' . $k . '=' . $v;
-	else
-		return $lnk . '&' . $k . '=' . $v;
-}
+include_once 'util.php';
 
 function getNxt($data) {
 	$nxt_site = 'https://www.mind2excellence.se/site/common/forward.php';
@@ -491,22 +462,19 @@ function index($styr, $local, $common)
 		$to->startTag ('div');
 
 
-		//if (getparam("test", 0) == 1)
+		$to->regLine("<button class='big3' id='BtnCP'  onClick='doChangeB()'> <span class='manicon'> </span> Min Egen Sida </button> <br>");
+
+		$to->regLine("<button class='big3' id='BtnUtb' onClick='doChangeD()'> <span class='husicon'> </span> Utbildningsportalen </button> <br>");
+	
+		$to->regLine("<button class='big3' id='BtnNxt' onClick='doGoNext()'>  <span class='nxticon'> </span>  Forts&auml;tt utbildningen </button> <br>");
+
+		if (is_in($data->tag,"mentor"))
 		{
-			$to->regLine("<br class='hs'> <button id='BtnNxt' style='background-color:5E5;font-size:15px;' onClick='doGoNext()'> &nbsp;N&auml;sta&nbsp; </button> <br> ");
-
+			$to->regline  ('<hr>');
+			$to->regLine("<button class='big3' id='BtnKrs' onClick='doChangeE()'> &nbsp;Våra Event och Kurser&nbsp; </button> <br>");
+			$to->regLine("<button class='big3' id='BtnMnt' onClick='doChangeMnt()'> &nbsp;Mentor&nbsp; </button> <br>");
 		}
 
-		
-		$to->regLine("<button id='BtnSett' onClick='doChangeC()'> Settings </button>");
-		
-		if (getparam("sticp", "0") == "1") {
-			$to->regLine("<button id='BtnCP'  onClick='doChangeB()'> Min Sida </button>");
-		} else {
-			$to->regLine("<button id='BtnCP' onClick='doChangeB()'> Min Sida </button>");
-		}
-
-		$to->regLine("<br class='hs'> <button id='BtnUtb' style='background-color:#5E5;font-size:15px;' onClick='doChangeD()'> &nbsp;Till utbildningen&nbsp; </button>");
 
 		$to->regline  ('<hr>');
 		$to->stopTag  ('div');
