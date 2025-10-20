@@ -204,6 +204,10 @@ function index($local, $common)
 	}
 	
 	$data->pid = $pid;
+
+	$data->tag = explode(",", $prow['tag']);
+	$data->grp = $prow['grupp'];
+
 	
 	for ($qi=11; $qi<20; ++$qi) {
 		$query = "SELECT value_c FROM data WHERE pers=" . $pid . " AND type=" . $qi;
@@ -405,7 +409,7 @@ EOT;
 	$to->regLine("  window.location.href = '" . getNxt($data) . "'; ");
 	$to->regLine('}');
 
-	$to->regLine('function doChangeB() { ');
+	$to->regLine('function doGoMypage() { ');
 	$to->regLine("  window.location.href = '" . getCP($data) . "'; ");
 	$to->regLine('}');
 
@@ -428,7 +432,7 @@ EOT;
 	$to->regLine('  }');
 	$to->regLine('}');
 
-	$to->regLine('function doChangeD() { ');
+	$to->regLine('function doGoPortal() { ');
 	$to->regLine("  window.location.href = '" . getUtb($data) . "'; ");
 	$to->regLine('}');
 
@@ -499,9 +503,9 @@ EOT;
 		
 		//$to->regLine("<button id='BtnSett' onClick='doChangeC()'> Settings </button>");
 		
-		$to->regLine("<button class='big3' id='BtnCP'  onClick='doChangeB()'> <span class='manicon'> </span> Min Egen Sida </button> <br>");
+		$to->regLine("<button class='big3' id='BtnCP'  onClick='doGoMypage()'> <span class='manicon'> </span> Min Egen Sida </button> <br>");
 
-		$to->regLine("<button class='big3' id='BtnUtb' onClick='doChangeD()'> <span class='husicon'> </span> Utbildningsportalen </button> <br>");
+		$to->regLine("<button class='big3' id='BtnUtb' onClick='doGoPortal()'> <span class='husicon'> </span> Utbildningsportalen </button> <br>");
 	
 		$to->regLine("<button class='big3' id='BtnNxt' onClick='doGoNext()'>  <span class='nxticon'> </span>  Forts&auml;tt utbildningen </button> <br>");
 

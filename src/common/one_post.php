@@ -24,7 +24,7 @@ function getNxt($data) {
 }
 
 function getCP($data) {
-	$cp_site = 'https://www.mind2excellence.se/site/common/minsida.php?noside=true';
+	$cp_site = 'https://www.mind2excellence.se/site/common/minsida.php';
 	$cp_have = false;
 	if ($data->pid != 0) {
 		$cp_site = addKV($cp_site, 'pid', $data->pid);
@@ -32,8 +32,9 @@ function getCP($data) {
 	if ($data->pnr != 0) {
 		$cp_site = addKV($cp_site, 'pnr', $data->pnr);
 	}
+	return $cp_site;
 	// <iframe src="some.pdf" style="min-height:100vh;width:100%" frameborder="0"></iframe>
-	return ' <iframe src="' . $cp_site . '" style="min-height:100vh;width:100%" frameborder="0" > ';
+	//return ' <iframe src="' . $cp_site . '" style="min-height:100vh;width:100%" frameborder="0" > ';
 }
 
 function getSett($data) {
@@ -249,7 +250,12 @@ function index($styr, $local, $common)
 
 
 	$to->regLine('function doGoNext() { ');
-	$to->regLine("  window.location.href = '" . getNxt($data) . "'; ");
+	$to->regLine('  obj = document.getElementById("OneBtn");');
+	$to->regLine('  if (obj.style.visibility != "hidden") doOne();');
+	$to->regLine('}');
+
+	$to->regLine('function doGoMypage() { ');
+	$to->regLine("  window.location.href = '" . getCP($data) . "'; ");
 	$to->regLine('}');
 
 	
@@ -291,7 +297,7 @@ function index($styr, $local, $common)
     $to->regLine('  }');
     $to->regLine('}');
 
-	$to->regLine('function doChangeD() { ');
+	$to->regLine('function doGoPortal() { ');
 	$to->regLine("  window.location.href = '" . getUtb($data) . "'; ");
 	$to->regLine('}');
 
@@ -462,9 +468,9 @@ function index($styr, $local, $common)
 		$to->startTag ('div');
 
 
-		$to->regLine("<button class='big3' id='BtnCP'  onClick='doChangeB()'> <span class='manicon'> </span> Min Egen Sida </button> <br>");
+		$to->regLine("<button class='big3' id='BtnCP'  onClick='doGoMypage()'> <span class='manicon'> </span> Min Egen Sida </button> <br>");
 
-		$to->regLine("<button class='big3' id='BtnUtb' onClick='doChangeD()'> <span class='husicon'> </span> Utbildningsportalen </button> <br>");
+		$to->regLine("<button class='big3' id='BtnUtb' onClick='doGoPortal()'> <span class='husicon'> </span> Utbildningsportalen </button> <br>");
 	
 		$to->regLine("<button class='big3' id='BtnNxt' onClick='doGoNext()'>  <span class='nxticon'> </span>  Forts&auml;tt utbildningen </button> <br>");
 
