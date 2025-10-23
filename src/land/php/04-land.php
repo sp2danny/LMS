@@ -14,6 +14,8 @@ function t($n)
 include "00-common.php";
 include "00-connect.php";
 
+include_once "../../site/common/debug.php";
+
 $styr = LoadIni("../styr.txt");
 
 $lid      = getparam('lid');
@@ -55,7 +57,8 @@ if ($res) if ($row = mysqli_fetch_array($res)) {
 	$startd = $row['date'];
 }
 
-$query = "SELECT * FROM data WHERE type=70 AND pers=0 AND data_id=$cid";
+//$query = "SELECT * FROM data WHERE type=70 AND pers=0 AND data_id=$cid";
+$query = "SELECT * FROM data WHERE type=70 AND pers=0";
 $res = mysqli_query( $emperator, $query );
 if ($res) if ($row = mysqli_fetch_array($res)) {
 	$pkv = $row['value_a'];
@@ -310,6 +313,9 @@ $eol = "\n";
 					$pr_price = 0;
 					$pr_img = '';
 					$query = "SELECT * FROM prod WHERE prod_id=" . $pid;
+
+					debug_log("got data for prod $pid");
+
 					$res = mysqli_query( $emperator, $query );
 					if ($res) if ($row = mysqli_fetch_array($res)) {
 						$pr_title = $row['name'];

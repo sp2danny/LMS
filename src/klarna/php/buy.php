@@ -4,6 +4,8 @@
 include "getparam.php";
 include "db.php";
 
+include_once "../../site/common/debug.php";
+
 $id = getparam("id");
 $pid = getparam("prod");
 
@@ -69,10 +71,13 @@ curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
 
 $result = curl_exec($ch);
 
+debug_log("klarna json result : " . $result );
+
 $res = json_decode($result);
 
 if (isset($res->error_code)) {
 	echo $res->error_code;
+    debug_log("klarna error code " . $res->error_code);
 }
 else if(isset($res->html_snippet)) {
 	echo $res->html_snippet;
