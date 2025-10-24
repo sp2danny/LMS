@@ -9,6 +9,7 @@ class tagNul
 	public function stopTag  ($tag)             {}
 	public function scTag    ($tag, $attr = '') {}
 	public function regLine  ($line)            {}
+	public function bump     ($amnt)            {}
 }
 
 // --- class tagOut : immidietly displays output -------------------------------
@@ -23,6 +24,8 @@ class tagOut
 		for ($i=0; $i < $this->ind; ++$i)
 			echo '  ';
 	}
+
+	public function bump($amnt) { $this->ind += $amnt; }
 
 	public function startTag($tag, $attr = '') {
 		$this->doInd();
@@ -67,6 +70,8 @@ class tagDefer
 			$s .= '  ';
 		return $s;
 	}
+
+	public function bump($amnt) { $this->ind += $amnt; }
 
 	public function startTag($tag, $attr = '') {
 		$s = $this->doInd();
@@ -121,6 +126,8 @@ class tagDefer
 
 // --- class tagAdv : whole page handler ----------------------------------
 
+/*
+
 class tagAdv
 {
 	private int $ind = 2;
@@ -141,6 +148,8 @@ class tagAdv
 	}
 
 	private function doInd() { return $this->doI($this->ind); }
+
+	public function bump($amnt) { $this->ind += $amnt; }
 
 	public function startTag($tag, $attr = '') {
 		$s = $this->doInd();
@@ -175,7 +184,7 @@ class tagAdv
 	
 	public function Output()
 	{
-		function prnt($l) { echo $l . . $this->eol; }
+		function prnt($l) { echo $l . $this->eol; }
 		Callback(prnt);
 		return $this;
 	}
@@ -195,6 +204,8 @@ class tagAdv
 			$callback($l);
 		return $this;
 	}
+
+*/
 
 
 

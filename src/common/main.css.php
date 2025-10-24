@@ -1,17 +1,35 @@
 
 
-.visitab {
+* {
+    font-family: "Times New Roman";
+}
+
+table, th, td {
+  border: 0px;
+  margin-top: 2px;
+}
+
+table.visitab {
   border: 1px solid black;
   margin-top: 2px;
   border-collapse: collapse;
 }
 
-th.visitab, td.visitab {
+th.visitab {
   border: 1px solid black;
 }
 
+td.visitab {
+    border: 1px solid black;
+}
 
-.hide { display: none; }
+tr.visitab {
+    border: 1px solid black;
+}
+
+.hide {
+    display: none;
+}
 
 .show { display: block; }
 
@@ -58,15 +76,6 @@ th.visitab, td.visitab {
 .range > input {
   width: 450px;
   margin: 0 -6px; /* Critical adjustment */
-}		
-
-
-
-
-
-table, th, td {
-    border: 0px;
-    margin-top: 2px;
 }
 
 .sidenav {
@@ -81,9 +90,41 @@ table, th, td {
     padding-top: 20px;
     color: black;
     font-size: 22px;
-    background-image: url("side.png");
+    background-image: url("https://www.mind2excellence.se/site/common/side.png");
     background-repeat: repeat-y;
 }
+
+button.big3 {
+	font-size: 14px;
+	font-weight: regular;
+	width: 155px;
+	height: 24px;
+	border-radius: 7px;
+	background-color: #96BF0D;
+	color: black;
+}
+
+span.manicon {
+    background: url(/site/common/gubbe16.png) no-repeat;
+    float: left;
+    width: 16px;
+    height: 16px;
+}
+
+span.husicon {
+    background: url(/site/common/hus16.png) no-repeat;
+    float: left;
+    width: 16px;
+    height: 16px;
+}
+
+span.nxticon {
+    background: url(/site/common/nxt16.png) no-repeat;
+    float: left;
+    width: 16px;
+    height: 16px;
+}
+
 
 .indent {
     margin-left: 60px;

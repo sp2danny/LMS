@@ -59,6 +59,27 @@ if ($res) if ($row = mysqli_fetch_array($res)) {
 	$email = $row['value_c'];
 }
 
+$em_res = 'hittade ingen email adress';
+
+if ($email != "")
+{
+    $em_to   = $email;
+    $em_subj = 'Orderbekraftelse fran min2excellence.se';
+    $em_msg  = 'Valkommen som kund' . "\r\n";
+    $em_msg .= 'har ar din lank' . "\r\n";
+    $em_hdr  = [];
+    $em_hdr['From']     = 'kundtjanst@mind2excellence.se';
+    $em_hdr['Reply-To'] = 'kundtjanst@mind2excellence.se';
+    $em_hdr['X-Mailer'] = 'PHP/' . phpversion();
+
+    $ok = mail($em_to, $em_subj, $em_msg, $em_hdr);
+
+    if ($ok)
+        $em_res = "epost skickades till " . $em_to;
+    else
+        $em_res = "epost kunde inte skickas till " . $em_to;
+
+
 $kid = "";
 $query = "SELECT * FROM data WHERE type=55 AND value_a=" . $id;
 $res = mysqli_query( $emperator, $query );
@@ -84,6 +105,17 @@ echo <<<END
 <body>
 <div>
 <h3> Köp genomfört</h3>
+<br>
+
+END;
+
+echo $em_res;
+
+echo <<<END
+
+<br>
+
+
 skapa konto:<br>
 <form action="../../site/common/regpers2.php">
 

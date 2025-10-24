@@ -127,6 +127,7 @@
     <None Include="src\common\styrkor.php" />
     <None Include="src\common\styrkor_skatta.php" />
     <None Include="src\common\tagOut.php" />
+    <None Include="src\common\test.php" />
     <None Include="src\common\token.php" />
     <None Include="src\common\tooltip.php" />
     <None Include="src\common\tq.php" />
@@ -164,6 +165,7 @@
     <None Include="src\survey\php\03-intro.php" />
     <None Include="src\survey\php\04-tratten.php" />
     <None Include="src\survey\php\05-result.php" />
+    <None Include="src\test.php" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\common\dologin.php" />

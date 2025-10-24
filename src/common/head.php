@@ -9,7 +9,7 @@
 
 <?php
 
-include "../common/main-v03.css";
+include "../common/main.css.php";
 
 if (glob('local.css')) {
 	include "local.css";

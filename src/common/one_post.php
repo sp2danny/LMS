@@ -7,39 +7,24 @@ include_once 'process_cmd.php';
 include_once 'cmdparse.php';
 include_once 'progress.php';
 include_once 'debug.php';
+include_once 'util.php';
 
-function ndq($str)
-{
-	$in = false;
-	$out = "";
-	$n = strlen($str);
-	$i = 0;
-	while ($i<$n) {
-		$c = $str[$i];
-		++$i;
-		if ( ($c == '"') || ($c == "'") ) {
-			$in = ! $in;
-			if ($in)
-				$out .= "``";
-			else
-				$out .= "´´";
-		} else {
-			$out .= $c;
-		}
+function getNxt($data) {
+	$nxt_site = 'https://www.mind2excellence.se/site/common/forward.php';
+	if ($data->pnr!=0) {
+		$nxt_site = addKV($nxt_site, 'pnr', $data->pnr);
 	}
-	return $out;
-}
-
-function addKV($lnk, $k, $v)
-{
-	if (strpos($lnk, '?')===false)
-		return $lnk . '?' . $k . '=' . $v;
-	else
-		return $lnk . '&' . $k . '=' . $v;
+	if ($data->bnum!=0) {
+		$nxt_site = addKV($nxt_site, 'ob', $data->bnum);
+	}
+	if ($data->snum!=0) {
+		$nxt_site = addKV($nxt_site, 'os', $data->snum);
+	}
+	return $nxt_site;
 }
 
 function getCP($data) {
-	$cp_site = 'https://www.mind2excellence.se/site/common/minsida.php?noside=true';
+	$cp_site = 'https://www.mind2excellence.se/site/common/minsida.php';
 	$cp_have = false;
 	if ($data->pid != 0) {
 		$cp_site = addKV($cp_site, 'pid', $data->pid);
@@ -47,8 +32,9 @@ function getCP($data) {
 	if ($data->pnr != 0) {
 		$cp_site = addKV($cp_site, 'pnr', $data->pnr);
 	}
+	return $cp_site;
 	// <iframe src="some.pdf" style="min-height:100vh;width:100%" frameborder="0"></iframe>
-	return ' <iframe src="' . $cp_site . '" style="min-height:100vh;width:100%" frameborder="0" > ';
+	//return ' <iframe src="' . $cp_site . '" style="min-height:100vh;width:100%" frameborder="0" > ';
 }
 
 function getSett($data) {
@@ -261,6 +247,17 @@ function index($styr, $local, $common)
 
 	$to->regLine('  div.innerHTML = s;');
 	$to->regLine('}');
+
+
+	$to->regLine('function doGoNext() { ');
+	$to->regLine('  obj = document.getElementById("OneBtn");');
+	$to->regLine('  if (obj.style.visibility != "hidden") doOne();');
+	$to->regLine('}');
+
+	$to->regLine('function doGoMypage() { ');
+	$to->regLine("  window.location.href = '" . getCP($data) . "'; ");
+	$to->regLine('}');
+
 	
 	$to->regLine('function doChangeB() { ');
 	$to->regLine('  var obj = document.getElementById("alt"); ');
@@ -300,7 +297,7 @@ function index($styr, $local, $common)
     $to->regLine('  }');
     $to->regLine('}');
 
-	$to->regLine('function doChangeD() { ');
+	$to->regLine('function doGoPortal() { ');
 	$to->regLine("  window.location.href = '" . getUtb($data) . "'; ");
 	$to->regLine('}');
 
@@ -469,16 +466,21 @@ function index($styr, $local, $common)
 		$to->startTag ('div', 'class="indent"');
 
 		$to->startTag ('div');
-		
-		$to->regLine("<button id='BtnSett' onClick='doChangeC()'> Settings </button>");
-		
-		if (getparam("sticp", "0") == "1") {
-			$to->regLine("<button id='BtnCP'  onClick='doChangeB()'> Min Sida </button>");
-		} else {
-			$to->regLine("<button id='BtnCP' onClick='doChangeB()'> Min Sida </button>");
+
+
+		$to->regLine("<button class='big3' id='BtnCP'  onClick='doGoMypage()'> <span class='manicon'> </span> Min Egen Sida </button> <br>");
+
+		$to->regLine("<button class='big3' id='BtnUtb' onClick='doGoPortal()'> <span class='husicon'> </span> Utbildningsportalen </button> <br>");
+	
+		$to->regLine("<button class='big3' id='BtnNxt' onClick='doGoNext()'>  <span class='nxticon'> </span>  Forts&auml;tt utbildningen </button> <br>");
+
+		if (is_in($data->tag,"mentor"))
+		{
+			$to->regline  ('<hr>');
+			$to->regLine("<button class='big3' id='BtnKrs' onClick='doChangeE()'> &nbsp;Våra Event och Kurser&nbsp; </button> <br>");
+			$to->regLine("<button class='big3' id='BtnMnt' onClick='doChangeMnt()'> &nbsp;Mentor&nbsp; </button> <br>");
 		}
 
-		$to->regLine("<br class='hs'> <button id='BtnUtb' style='background-color:#5E5;font-size:15px;' onClick='doChangeD()'> &nbsp;Till utbildningen&nbsp; </button>");
 
 		$to->regline  ('<hr>');
 		$to->stopTag  ('div');
