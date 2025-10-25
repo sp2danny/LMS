@@ -79,5 +79,14 @@ function get_styr($styr, $segment, $key, $variant = 0, $default = "")
 	return $res;
 }
 
+function t($n)
+{
+	$str = "";
+	for ($i=0; $i<$n; ++$i)
+		$str = $str . "\t";
+	return $str;
+}
+
+
 ?>
 

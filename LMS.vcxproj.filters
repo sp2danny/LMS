@@ -465,6 +465,12 @@
     <None Include="src\test.php">
       <Filter>Source Files\stuff</Filter>
     </None>
+    <None Include="src\land\php\04b-many.php">
+      <Filter>Source Files\land\php</Filter>
+    </None>
+    <None Include="src\land\php\00-style.php">
+      <Filter>Source Files\land\php</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\common\dologin.php">

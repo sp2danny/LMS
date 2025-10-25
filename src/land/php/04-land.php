@@ -1,14 +1,6 @@
 
 <?php
 
-function t($n)
-{
-	$str = "";
-	for ($i=0; $i<$n; ++$i)
-		$str = $str . "\t";
-	return $str;
-}
-
 include "00-common.php";
 include "00-connect.php";
 

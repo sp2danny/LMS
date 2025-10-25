@@ -69,14 +69,6 @@ function add_surv($type, $pid, $name = false)
 	
 }
 
-function t($n)
-{
-	$str = "";
-	for ($i=0; $i<$n; ++$i)
-		$str = $str . "\t";
-	return $str;
-}
-
 $lid    = getparam('lid');
 $max    = 0; // getparam('val');
 
