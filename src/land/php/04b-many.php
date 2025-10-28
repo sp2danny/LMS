@@ -49,11 +49,11 @@ if ($res) if ($row = mysqli_fetch_array($res)) {
 	$pr_mr    = $row['MR'];
 }
 
-debug_log($pr_mr);
+//debug_log($pr_mr);
 
 $rebate = json_decode($pr_mr);
 
-debug_log(print_r($rebate,true));
+//debug_log(print_r($rebate,true));
 
 $rebatestr = "{";
 foreach ($rebate as $k=>$v)
@@ -87,6 +87,13 @@ for ($i=0; $i<$n; ++$i) {
 }
 
 $pak_reb = $pak_sub_tot - $pr_price;
+
+$lnk_t = get_styr($styr, 'prod', "link.text", $variant);
+$lnk_u = get_styr($styr, 'prod', "link.url", $variant);
+$lnk_u = addKV($lnk_u, "id", $lid);
+$lnk_u = addKV($lnk_u, "prod", $pid);
+
+
 
 ?>
 
@@ -153,6 +160,8 @@ $pak_reb = $pak_sub_tot - $pr_price;
 		pkp = <?php echo $pr_price; ?> ;
 		pkr = <?php echo $pak_reb; ?> ;
 
+		base = <?php echo "'" . $lnk_u . "'"; ?> ;
+
 		var qt = document.getElementById("quantity").value;
 
 		var sb = document.getElementById("changeblub");
@@ -185,6 +194,16 @@ $pak_reb = $pak_sub_tot - $pr_price;
 		ss += "du sparar totalt " + nice_price(maxp-sper) + " <br> \n";
 
 		sb.innerHTML = ss;
+
+		var blnk = document.getElementById("blnk");
+		blnk.href = base + "&qtt=" + qt;
+
+
+		ss = qt.toString() + " styck f&ouml;r totalt " + nice_price(sper) + " <br> \n";
+		ss += "Du sparar totalt " + nice_price(maxp-sper);
+
+		var btn = document.getElementById("btn");
+		btn.innerHTML = ss;
 
 	}
 
@@ -240,15 +259,7 @@ $pak_reb = $pak_sub_tot - $pr_price;
 
 			echo " </tr> </table> <br> \n";
 
-			$lnk_t = get_styr($styr, 'prod', "link.text", $variant);
-			$lnk_u = get_styr($styr, 'prod', "link.url", $variant);
-			if (strpos($lnk_u, '?'))
-				$lnk_u .= "&id=" . $lid;
-			else
-				$lnk_u .= "?id=" . $lid;
-			$lnk_u .= "&prod=" . $pid;
-
-			echo " <a href='$lnk_u'> <button class='shake_green' > $lnk_t </button> </a> ";
+			echo " <a id='blnk' href='$lnk_u'> <button id='btn' class='shake_green' > $lnk_t </button> </a> ";
 			echo " </td> </tr> </table> ";
 
 		?>

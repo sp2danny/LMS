@@ -8,6 +8,7 @@ include_once "../../site/common/debug.php";
 
 $id = getparam("id");
 $pid = getparam("prod");
+$qtt = getparam("qtt", 1);
 
 $pr_title = 'fel';
 $pr_price = 200;
@@ -17,20 +18,40 @@ $res = mysqli_query($emperator, $query);
 if ($res) if ($row = mysqli_fetch_array($res)) {
 	$pr_title = $row['name'];
 	$pr_price = $row['price'];
+	$pr_mr    = $row['MR'];
 } else {
 	echo "DB error, '" . $query . "' <br> \n";
 }
+
+debug_log("prod MR : " . $pr_mr );
+
+$rebate = json_decode($pr_mr);
+
+$reb = 0;
+
+if ($rebate) foreach ($rebate as $k=>$v)
+{
+    if ($qtt >= $k)
+        if ($v > $reb)
+            $reb = $v;
+}
+
+debug_log("reb : " . $reb );
+
+$pr_price = floor( $pr_price * (100-$reb)/100 );
+
+debug_log("pr : " . $pr_price );
 
 $url = 'https://api.klarna.com/checkout/v3/orders';
 
 $ol = [];
 $ol[] = [
     "name" => $pr_title,
-    "quantity" => 1,
+    "quantity" => $qtt,
     "unit_price" => 100 * $pr_price,
     "tax_rate" => 2500,
-    "total_amount" => 100 * $pr_price,
-    "total_tax_amount" => 20 * $pr_price,
+    "total_amount" => 100 * $pr_price * $qtt,
+    "total_tax_amount" => 20 * $pr_price * $qtt,
 ];
 
 $mu = [
@@ -46,8 +67,8 @@ $data = [
     'purchase_country' => 'SE',
     "purchase_currency" => "SEK",
     "locale" => "sv-SE",
-    "order_amount" => 100 * $pr_price,
-    "order_tax_amount" => 20 * $pr_price,
+    "order_amount" => 100 * $pr_price * $qtt,
+    "order_tax_amount" => 20 * $pr_price * $qtt,
     "order_lines" => $ol, // json_encode($ol),
     'merchant_urls' => $mu,
 ];

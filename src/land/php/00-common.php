@@ -87,6 +87,14 @@ function t($n)
 	return $str;
 }
 
+function addKV($lnk, $k, $v)
+{
+	if (strpos($lnk, '?')===false)
+		return $lnk . '?' . $k . '=' . $v;
+	else
+		return $lnk . '&' . $k . '=' . $v;
+}
+
 
 ?>
 
