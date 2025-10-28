@@ -391,6 +391,9 @@ $eol = "\n";
 				$lnk_u .= "?id=" . $lid;
 			$lnk_u .= "&prod=" . $pid;
 
+			$many = "04b-many.php?lid=" . $lid;
+			echo " <a href='$many'> Best&auml;ll flera </a> <br> <br> \n";
+
 			echo " <a href='$lnk_u'> <button class='shake_green' > $lnk_t </button> </a> ";
 			echo " </td> </tr> </table> ";
 
