@@ -22,6 +22,9 @@ echo <<<EOT
 			background-color: #fff;
 		}
 
+		blurb {
+		}
+
 		.shake_green {
 			animation: shake 1.82s cubic-bezier(.36, .07, .19, .97) both infinite;
 			transform: rotate(0);
