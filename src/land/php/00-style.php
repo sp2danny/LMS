@@ -41,12 +41,37 @@ echo <<<EOT
 			width: 850px;
 		}
 
+		.shake_green_sml {
+			animation: shake 1.82s cubic-bezier(.36, .07, .19, .97) both infinite;
+			transform: rotate(0);
+			backface-visibility: hidden;
+			perspective: 250px;
+		
+			background-color: #66d40e;
+
+			color: white;
+			text-shadow: 0 4px 4px #000;
+			border-radius: 12px;
+			padding: 15px 32px;
+			text-align: center;
+			font-size: 22px;
+			margin: 22px 12px;
+			float: center;
+			width: 222px;
+		}
+
+
 		.shake_green:hover {
 			animation: none;
 			border-style: outset;
 			text-shadow: 0 4px 4px #333;
 		}
 
+		.shake_green_sml:hover {
+			animation: none;
+			border-style: outset;
+			text-shadow: 0 4px 4px #333;
+		}
 
 		@keyframes shake {
 			10%,

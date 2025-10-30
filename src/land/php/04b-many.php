@@ -218,9 +218,9 @@ $lnk_u = addKV($lnk_u, "prod", $pid);
 		<br /> <br />
 		
 		<hr />
-		<h3> Antal </h3> <br />
+		<h3> Best&auml;ll flera, f&aring; rabatt </h3> <br />
 		<label for="quantity"> Antal: </label>
-		<input onchange="upd_cnt()" type="number" id="quantity" name="quantity" min="1" > 
+		<input onchange="upd_cnt()" value="5" type="number" id="quantity" name="quantity" min="1" > 
 		<hr />
 		<div id="changeblub"> </div>
 		<hr />
