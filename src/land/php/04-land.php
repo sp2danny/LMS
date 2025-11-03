@@ -271,7 +271,8 @@ $eol = "\n";
 			echo " <table> <tr> ";
 			for ($i=0; $i<$n; ++$i) {
 				echo " <td> <h3> ";
-				echo ($i+1) . ". " . $pr_title_arr[$i];
+				//echo ($i+1) . ". " . $pr_title_arr[$i];
+				echo " " . $pr_title_arr[$i];
 				echo " </h3> </td> ";
 			}
 			echo " </tr> <tr> ";

@@ -210,6 +210,8 @@ $eol = "\n";
 
 			$pid = get_styr($styr, 'prod', 'prod.num', $variant);
 
+			$select = get_styr($styr, 'prod', 'prod.select', $variant);
+
 			$pr_title = '';
 			$pr_desc = '';
 			$pr_price = 0;
@@ -248,7 +250,7 @@ $eol = "\n";
 			echo t(4) . " <a href='$many'> <button class='shake_green_sml' > Kompisrabatt </button> </a> ";
 
 
-			$subs = explode(",", $pr_unl);
+			$subs = explode(",", $select);
 
 			$pr_title_arr = [];
 			$pr_desc_arr = [];
