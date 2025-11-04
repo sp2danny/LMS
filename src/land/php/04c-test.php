@@ -113,6 +113,21 @@ $eol = "\n";
 			ctx.fillText(txt3, xx3, 110);
 		}
 
+		let sel = [false, false, false];
+
+		function doclick(i)
+		{
+			// var div = document.getElementById("dbg");
+			// div.innerHTML = "Clicked " + i.toString() + " <br>\n";
+
+			sel[i] = !sel[i];
+			for (let i = 0; i < 3; i++) {
+				var cb = document.getElementById("cb_" + i.toString());
+				cb.checked = sel[i];
+			}
+
+		}
+
 		function on_update_2()
 		{
 			var canvas = document.getElementById("circCanv");
@@ -183,6 +198,9 @@ $eol = "\n";
 </head>
 
 <body>
+	<div id='dbg'>
+	<br>
+	</div>
 	<div>
 		<br /> 
 		<img width=50% src="../../site/common/logo.png" /> <br />
@@ -247,7 +265,6 @@ $eol = "\n";
 			$many = "04b-many.php?lid=" . $lid;
 			// echo " <a href='$many'> Best&auml;ll flera </a> <br> <br> \n";
 
-			echo t(4) . " <a href='$many'> <button class='shake_green_sml' > Kompisrabatt </button> </a> ";
 
 
 			$subs = explode(",", $select);
@@ -272,33 +289,39 @@ $eol = "\n";
 			echo " <br> \n";
 			echo " <table> <tr> ";
 			for ($i=0; $i<$n; ++$i) {
-				echo " <td> <h3> ";
-				echo ($i+1) . ". " . $pr_title_arr[$i];
+				echo " <td onClick='doclick($i)' > <h3> ";
+				echo $pr_title_arr[$i];
 				echo " </h3> </td> ";
 			}
 			echo " </tr> <tr> ";
 			for ($i=0; $i<$n; ++$i) {
-				echo " <td style='padding-right:12px' > <img width='300px' src='/article/";
+				echo " <td  onClick='doclick($i)' style='padding-right:12px' > <img width='300px' src='/article/";
 				echo $pr_img_arr[$i];
 				echo "' > </td> ";
 			}
 			echo " </tr> <tr> ";
 			for ($i=0; $i<$n; ++$i) {
-				echo " <td style='padding-right:12px' > ";
+				echo " <td  onClick='doclick($i)' style='padding-right:12px' > ";
 				echo str_replace("\r\n", " <br> ", $pr_desc_arr[$i]);
 				echo " <br> <br> </td> ";
 			}
 
 			echo " </tr> <tr> ";
+
 			for ($i=0; $i<$n; ++$i) {
-				echo " <td> Ord pris <br> ";
+				echo " <td> <table> <tr> <td> <input id='cb_$i' type='checkbox' onclick='doclick($i)' > </td> <td> Ord pris <br> ";
 				echo " <div style='color:red' > ";
 				echo $pr_price_arr[$i];
 				echo " </div> ";
-				echo " </td> ";
+				echo " </td> </table> </td> ";
 			}
 
 			echo " </tr> <tr> ";
+
+			echo " <td colspan=3 > ";
+			echo t(4) . " <a href='$many'> <button class='shake_green_sml' > Kompisrabatt </button> </a> ";
+			echo " </td> </tr> <tr> ";
+
 			echo " <td colspan=3 > ";
 
 			echo "<table> ";
@@ -324,7 +347,7 @@ $eol = "\n";
 			$lnk_u .= "&prod=" . $pid;
 
 			$many = "04b-many.php?lid=" . $lid;
-			echo " <a href='$many'> Best&auml;ll flera </a> <br> <br> \n";
+			//echo " <a href='$many'> Best&auml;ll flera </a> <br> <br> \n";
 
 			echo " <a href='$lnk_u'> <button class='shake_green' > $lnk_t </button> </a> ";
 			echo " </td> </tr> </table> ";
