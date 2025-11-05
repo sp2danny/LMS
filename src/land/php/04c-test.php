@@ -196,6 +196,30 @@ $eol = "\n";
 			on_update_3(pr);
 		}
 
+		function buynow(lnk)
+		{
+			var sel_id = [
+			<?php
+				$select = get_styr($styr, 'prod', 'prod.select', $variant);
+				echo $select;
+			?>
+			];
+
+			if (numsel == 0)
+				return false;
+			let first = true;
+			for (let i = 0; i < 3; i++) {
+				if (sel[i]) {
+					if (first)
+						lnk += "&prod=" + sel_id[i].toString();
+					else
+						lnk += "," + sel_id[i].toString();
+					first = false;
+				}
+			}
+			window.location.href = lnk;
+		}
+
 		function on_update_2()
 		{
 			var canvas = document.getElementById("circCanv");
@@ -426,12 +450,12 @@ $eol = "\n";
 				$lnk_u .= "&id=" . $lid;
 			else
 				$lnk_u .= "?id=" . $lid;
-			$lnk_u .= "&prod=" . $pid;
+			//$lnk_u .= "&prod=" . $pid;
 
 			$many = "04b-many.php?lid=" . $lid;
 			//echo " <a href='$many'> Best&auml;ll flera </a> <br> <br> \n";
 
-			echo " <a href='$lnk_u'> <button id='bnb' class='shake_green' > $lnk_t </button> </a> ";
+			echo " <button onClick='buynow(\"$lnk_u\")' disabled='true' id='bnb' class='shake_green' > Best&auml;ll nu! </button> </a> ";
 			echo " </td> </tr> </table> ";
 
 		?>
