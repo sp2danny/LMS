@@ -76,7 +76,57 @@ $eol = "\n";
  
 	<?php include "00-style.php"; ?>
 
+	<?php
+		$pr_mr = '{"0":0}';
+		$pmain = get_styr($styr, 'prod', 'prod.main', $variant);
+		$query = "SELECT * FROM prod WHERE prod_id=" . $pmain;
+		$res = mysqli_query( $emperator, $query );
+		if ($res) if ($row = mysqli_fetch_array($res)) {
+			$pr_mr = $row['MR'];
+			$pr_price = $row['price'];
+		}
+		$rebate = json_decode($pr_mr);
+
+		function reb($i)
+		{
+			global $rebate;
+			$p = 0;
+			foreach ($rebate as $k=>$v)
+			{
+				if ($k <= $i)
+					if ($v > $p)
+						$p = $v;
+			}
+			return $p;
+		}
+	?>
+
 	<script>
+
+		function mkpr(i) {
+			switch (i) {
+				<?php
+					echo "\n";
+					$n = get_styr($styr, "prod", "prod.num", $variant);
+					for ($i=0; $i<=$n; ++$i)
+					{
+						$pr = reb($i);
+						echo t(4) . "case " . $i . ": return " . $pr . ";\n";
+					}
+				?>
+			}
+		}
+
+		var numsel = 0;
+
+		function nicep(txt)
+		{
+			var ll = txt.length;
+			if (ll>3) {
+				txt = txt.slice(0, ll-3) + " " + txt.slice(ll-3);
+			}
+			return txt;
+		}
 
 		function on_update_3(ppp)
 		{
@@ -85,11 +135,11 @@ $eol = "\n";
 			var img = document.getElementById("priceImg");
 			ctx.drawImage(img, 0, 0, 140, 140);
 			ctx.font = "32px roboto";
-			var txt1 = ppp.toString();
-			var ll = txt1.length;
-			if (ll>3) {
-				txt1 = txt1.slice(0, ll-3) + " " + txt1.slice(ll-3);
-			}
+			pr = mkpr(numsel);
+			newppp = Math.floor ( ppp * (100-pr) / 100 ) ;
+			sav = numsel * (ppp-newppp);
+			ppp = newppp;
+			var txt1 = nicep(ppp.toString());
 			txt1 += ":-";
 			var xx1 = (140 - ctx.measureText(txt1).width)/2;
 			ctx.fillText(txt1, xx1, 90);
@@ -111,6 +161,20 @@ $eol = "\n";
 			ctx.fillText(txt2, xx2, 50);
 			ctx.font = "12px roboto";
 			ctx.fillText(txt3, xx3, 110);
+
+
+			var bnb = document.getElementById("bnb");
+			if (numsel == 0)
+			{
+				bnb.disabled = true;
+			} else {
+				bnb.disabled = false;
+				var txt = "Totalt " + nicep((numsel * ppp).toString()) + ":- <br> ";
+				if (sav > 0)
+					txt += " Du sparar " + nicep(sav.toString()) + ":- <br> ";
+				txt += " Best&auml;ll h&auml;r redan nu! ";
+				bnb.innerHTML = txt; 
+			}
 		}
 
 		let sel = [false, false, false];
@@ -121,11 +185,15 @@ $eol = "\n";
 			// div.innerHTML = "Clicked " + i.toString() + " <br>\n";
 
 			sel[i] = !sel[i];
+			numsel = 0;
 			for (let i = 0; i < 3; i++) {
 				var cb = document.getElementById("cb_" + i.toString());
 				cb.checked = sel[i];
+				if (sel[i]) ++numsel;
 			}
 
+			pr = <?php echo $pr_price; ?> ;
+			on_update_3(pr);
 		}
 
 		function on_update_2()
@@ -309,11 +377,25 @@ $eol = "\n";
 			echo " </tr> <tr> ";
 
 			for ($i=0; $i<$n; ++$i) {
-				echo " <td> <table> <tr> <td> <input id='cb_$i' type='checkbox' onclick='doclick($i)' > </td> <td> Ord pris <br> ";
-				echo " <div style='color:red' > ";
-				echo $pr_price_arr[$i];
-				echo " </div> ";
-				echo " </td> </table> </td> ";
+				echo "	<td> \n";
+				echo "		<table> \n";
+				echo "			<tr> \n";
+				echo "				<td> \n";
+				echo "					Ord pris <br> \n";
+				echo "					<div style='color:red' > \n";
+				echo "					" . $pr_price_arr[$i] . " \n";
+				echo "					</div> \n";
+				echo "				</td> \n";
+				echo "				<td> \n";
+				echo "					&nbsp;&nbsp;&nbsp; \n";
+				echo "				</td> \n";
+				echo "				<td> \n";
+				echo "					<input id='cb_$i' type='checkbox' onclick='doclick($i)' > \n";
+				echo "					V&auml;lj h&auml;r \n";
+				echo "				</td> \n";
+				echo "			</tr> \n";
+				echo "		</table> \n";
+				echo "	</td> \n";
 			}
 
 			echo " </tr> <tr> ";
@@ -349,7 +431,7 @@ $eol = "\n";
 			$many = "04b-many.php?lid=" . $lid;
 			//echo " <a href='$many'> Best&auml;ll flera </a> <br> <br> \n";
 
-			echo " <a href='$lnk_u'> <button class='shake_green' > $lnk_t </button> </a> ";
+			echo " <a href='$lnk_u'> <button id='bnb' class='shake_green' > $lnk_t </button> </a> ";
 			echo " </td> </tr> </table> ";
 
 		?>
