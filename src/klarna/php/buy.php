@@ -33,7 +33,7 @@ foreach ($pids as $val)
 	    echo "DB error, '" . $query . "' <br> \n";
     }
 
-    $reb_pr = ceil( $pr_price * (100-$reb) / 100 );
+    $reb_pr = floor( $pr_price * (100-$reb) / 100 );
 
     $tot_pr += $reb_pr;
 
@@ -89,7 +89,8 @@ $data = [
 
 $ch = curl_init($url);
 
-$auth = 'K6587255_beba134cc2d5:m1cZyIZvZacAiDFU';
+// $auth = 'K6587255_beba134cc2d5:m1cZyIZvZacAiDFU';
+$auth = 'kco_live_api_JKMl8I1UnI5c0IV56JxvJLnED1K8nshz';
 
 curl_setopt(
     $ch, 

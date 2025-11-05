@@ -113,11 +113,34 @@ $eol = "\n";
 						$pr = reb($i);
 						echo t(4) . "case " . $i . ": return " . $pr . ";\n";
 					}
+					echo t(4) . "default: return " . reb($n) . ";\n";
 				?>
 			}
 		}
 
 		var numsel = 0;
+
+		var antal = 1;
+
+		function kmps_btn()
+		{
+			var div = document.getElementById("kmps");
+			div.innerHTML = 
+				" <h3> Best&auml;ll flera, f&aring; rabatt </h3> <br /> \n" +
+				" <label for='qtt'> Antal: </label> \n" +
+				" <input onChange='upd_cnt()' value='1' type='number' id='qtt' name='qtt' min='1' > \n" ;
+
+		}
+
+		function upd_cnt()
+		{
+			antal = parseInt(document.getElementById("qtt").value);
+			if (antal<1) antal=1;
+
+			pr = <?php echo $pr_price; ?> ;
+			on_update_3(pr);
+			on_update_2();
+		}
 
 		function nicep(txt)
 		{
@@ -135,10 +158,18 @@ $eol = "\n";
 			var img = document.getElementById("priceImg");
 			ctx.drawImage(img, 0, 0, 140, 140);
 			ctx.font = "32px roboto";
-			pr = mkpr(numsel);
-			newppp = Math.floor ( ppp * (100-pr) / 100 ) ;
-			sav = numsel * (ppp-newppp);
-			ppp = newppp;
+
+			old_ppp = ppp;
+
+			let sumreb = (100-mkpr(numsel)) / 100;
+			sumreb *= (100-mkpr(antal)) / 100;
+			sumreb *= 100;
+			sumreb = Math.floor(100-sumreb);
+
+			ppp = Math.floor ( ppp * (100-sumreb) / 100 ) ;
+
+			sav = antal * numsel * (old_ppp-ppp);
+
 			var txt1 = nicep(ppp.toString());
 			txt1 += ":-";
 			var xx1 = (140 - ctx.measureText(txt1).width)/2;
@@ -162,14 +193,13 @@ $eol = "\n";
 			ctx.font = "12px roboto";
 			ctx.fillText(txt3, xx3, 110);
 
-
 			var bnb = document.getElementById("bnb");
 			if (numsel == 0)
 			{
 				bnb.disabled = true;
 			} else {
 				bnb.disabled = false;
-				var txt = "Totalt " + nicep((numsel * ppp).toString()) + ":- <br> ";
+				var txt = "Totalt " + nicep((antal * numsel * ppp).toString()) + ":- <br> ";
 				if (sav > 0)
 					txt += " Du sparar " + nicep(sav.toString()) + ":- <br> ";
 				txt += " Best&auml;ll h&auml;r redan nu! ";
@@ -214,7 +244,11 @@ $eol = "\n";
 					first = false;
 				}
 			}
-			lnk += "&reb=" + mkpr(numsel);
+			let sumreb = (100-mkpr(numsel)) / 100;
+			sumreb *= (100-mkpr(antal)) / 100;
+			sumreb *= 100;
+			lnk += "&reb=" + Math.floor(100-sumreb).toString();
+			lnk += "&qtt=" + antal.toString();
 			window.location.href = lnk;
 		}
 
@@ -231,9 +265,12 @@ $eol = "\n";
 			ctx.font = "42px roboto";
 
 			<?php 
-				echo t(4) . "var txt = " . "'" . $pkv . " platser';\n";
+				echo t(4) . "var pkv = $pkv; \n";
+				//echo t(4) . "var txt = " . "'" . $pkv . " platser';\n";
 				echo t(4) . "var dt = new Date('" . $ttt . "').getTime();\n";
 			?>
+
+			var txt = (pkv-antal).toString() + ' platser';
 
 			var xx = (384 - ctx.measureText(txt).width)/2;
 			ctx.fillText(txt, xx, 175);
@@ -423,7 +460,16 @@ $eol = "\n";
 			echo " </tr> <tr> ";
 
 			echo " <td colspan=3 > ";
-			echo t(4) . " <a href='$many'> <button class='shake_green_sml' > Kompisrabatt </button> </a> ";
+
+			echo " <h3> Best&auml;ll flera, f&aring; rabatt </h3> <br /> \n" .
+				" <label for='qtt'> Antal: </label> \n" .
+				" <input onChange='upd_cnt()' value='1' type='number' id='qtt' name='qtt' min='1' > \n" ;
+
+
+			//echo t(4) . " <div id='kmps' > ";
+			//echo t(4) . " <button onClick='kmps_btn()' class='shake_green_sml' > Kompisrabatt </button> ";
+			//echo t(4) . " </div> ";
+
 			echo " </td> </tr> <tr> ";
 
 			echo " <td colspan=3 > ";
