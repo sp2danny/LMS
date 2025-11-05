@@ -181,9 +181,6 @@ $eol = "\n";
 
 		function doclick(i)
 		{
-			// var div = document.getElementById("dbg");
-			// div.innerHTML = "Clicked " + i.toString() + " <br>\n";
-
 			sel[i] = !sel[i];
 			numsel = 0;
 			for (let i = 0; i < 3; i++) {
@@ -217,6 +214,7 @@ $eol = "\n";
 					first = false;
 				}
 			}
+			lnk += "&reb=" + mkpr(numsel);
 			window.location.href = lnk;
 		}
 
