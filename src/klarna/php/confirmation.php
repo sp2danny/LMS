@@ -78,7 +78,7 @@ if ($email != "")
         $em_res = "epost skickades till " . $em_to;
     else
         $em_res = "epost kunde inte skickas till " . $em_to;
-
+}
 
 $kid = "";
 $query = "SELECT * FROM data WHERE type=55 AND value_a=" . $id;
