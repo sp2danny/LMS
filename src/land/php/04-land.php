@@ -413,7 +413,7 @@ $eol = "\n";
 			}
 
 			$i = 0; $n = count($subs);
-			echo " <br> \n";
+			//echo " <br> \n";
 			echo " <table> <tr> ";
 			for ($i=0; $i<$n; ++$i) {
 				echo " <td onClick='doclick($i)' > <h3> ";
@@ -450,7 +450,10 @@ $eol = "\n";
 				echo "				</td> \n";
 				echo "				<td> \n";
 				echo "					<input id='cb_$i' type='checkbox' onclick='doclick($i)' > \n";
-				echo "					V&auml;lj h&auml;r \n";
+				echo "					V&auml;lj h&auml;r \n ";
+				if ($i==0) echo "<br> 20 nov kl 10 \n";
+				if ($i==1) echo "<br> 4 dec kl 10 \n";
+				if ($i==2) echo "<br> 11 dec kl 10 \n";
 				echo "				</td> \n";
 				echo "			</tr> \n";
 				echo "		</table> \n";
@@ -461,7 +464,8 @@ $eol = "\n";
 
 			echo " <td colspan=3 > ";
 
-			echo " <h3> Best&auml;ll flera, f&aring; rabatt </h3> <br /> \n" .
+			echo " <h3> Best&auml;ll flera, f&aring; rabatt </h3>  \n" .
+
 				" <label for='qtt'> Antal: </label> \n" .
 				" <input onChange='upd_cnt()' value='1' type='number' id='qtt' name='qtt' min='1' > \n" ;
 
@@ -498,6 +502,7 @@ $eol = "\n";
 
 			$many = "04b-many.php?lid=" . $lid;
 			//echo " <a href='$many'> Best&auml;ll flera </a> <br> <br> \n";
+
 
 			echo " <button onClick='buynow(\"$lnk_u\")' disabled='true' id='bnb' class='shake_green' > Best&auml;ll nu! </button> </a> ";
 			echo " </td> </tr> </table> ";

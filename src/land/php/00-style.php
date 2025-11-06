@@ -5,6 +5,12 @@ echo <<<EOT
 
 	<style>
 
+		.centered-div {
+			width: 50%; /* Or any specific width */
+			margin-left: auto;
+			margin-right: auto;
+		}
+
 		div {
 			font-family:    roboto;
 		}
