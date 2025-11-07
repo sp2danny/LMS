@@ -5,6 +5,12 @@ echo <<<EOT
 
 	<style>
 
+		input[type="checkbox"]{
+			width: 18px;
+			height: 18px;
+			box-shadow: 0 0 0 1pt black;
+		}
+
 		.centered-div {
 			width: 50%; /* Or any specific width */
 			margin-left: auto;

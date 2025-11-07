@@ -204,7 +204,7 @@ $eol = "\n";
 				var txt = "Totalt " + nicep((antal * numsel * ppp).toString()) + ":- <br> ";
 				if (sav > 0)
 					txt += " Du sparar " + nicep(sav.toString()) + ":- <br> ";
-				txt += " Best&auml;ll h&auml;r redan nu! ";
+				txt += " Boka h&auml;r redan nu! ";
 				bnb.innerHTML = txt; 
 			}
 		}
