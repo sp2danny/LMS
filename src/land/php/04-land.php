@@ -197,6 +197,8 @@ $eol = "\n";
 			if (numsel == 0)
 			{
 				bnb.disabled = true;
+				txt = " V&auml;j produkt ovan ";
+				bnb.innerHTML = txt; 
 			} else {
 				bnb.disabled = false;
 				var txt = "Totalt " + nicep((antal * numsel * ppp).toString()) + ":- <br> ";
@@ -446,14 +448,14 @@ $eol = "\n";
 				echo "					</div> \n";
 				echo "				</td> \n";
 				echo "				<td> \n";
-				echo "					&nbsp;&nbsp;&nbsp; \n";
+				echo "					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \n";
 				echo "				</td> \n";
 				echo "				<td> \n";
 				echo "					<input id='cb_$i' type='checkbox' onclick='doclick($i)' > \n";
 				echo "					V&auml;lj h&auml;r \n ";
-				if ($i==0) echo "<br> 20 nov kl 10 \n";
-				if ($i==1) echo "<br> 4 dec kl 10 \n";
-				if ($i==2) echo "<br> 11 dec kl 10 \n";
+				if ($i==0) echo "<br> &nbsp;&nbsp;&nbsp;27 nov kl 10 \n";
+				if ($i==1) echo "<br> &nbsp;&nbsp;&nbsp;4 dec kl 10 \n";
+				if ($i==2) echo "<br> &nbsp;&nbsp;&nbsp;11 dec kl 10 \n";
 				echo "				</td> \n";
 				echo "			</tr> \n";
 				echo "		</table> \n";
@@ -504,7 +506,7 @@ $eol = "\n";
 			//echo " <a href='$many'> Best&auml;ll flera </a> <br> <br> \n";
 
 
-			echo " <button onClick='buynow(\"$lnk_u\")' disabled='true' id='bnb' class='shake_green' > Best&auml;ll nu! </button> </a> ";
+			echo " <button onClick='buynow(\"$lnk_u\")' disabled='true' id='bnb' class='shake_green' > V&auml;j produkt ovan </button> </a> ";
 			echo " </td> </tr> </table> ";
 
 		?>
