@@ -26,6 +26,9 @@
     <Filter Include="Source Files\land\php">
       <UniqueIdentifier>{9f4c88d7-efb0-4fde-8c0f-6e50e5f97b2c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\land\mob">
+      <UniqueIdentifier>{8a4a9556-f575-43cc-91e5-76cf053cb96e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="db.txt">
@@ -473,6 +476,12 @@
     </None>
     <None Include="src\land\php\04c-test.php">
       <Filter>Source Files\land\php</Filter>
+    </None>
+    <None Include="src\land\php\m.04-land.php">
+      <Filter>Source Files\land\mob</Filter>
+    </None>
+    <None Include="src\land\php\m.00-style.php">
+      <Filter>Source Files\land\mob</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

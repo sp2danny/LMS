@@ -71,10 +71,9 @@ $eol = "\n";
 
 	<title> <?php echo get_styr($styr,"common","title",$variant); ?> </title>
 
-	<link rel="stylesheet" href="../main-v03.css" />
 	<link rel="icon" href="../../site/common/favicon.ico" />
  
-	<?php include "00-style.php"; ?>
+	<?php include "m.00-style.php"; ?>
 
 	<?php
 		$pr_mr = '{"0":0}';

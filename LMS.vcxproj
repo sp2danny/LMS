@@ -159,6 +159,8 @@
     <None Include="src\land\php\04b-many.php" />
     <None Include="src\land\php\04c-test.php" />
     <None Include="src\land\php\05-result.php" />
+    <None Include="src\land\php\m.00-style.php" />
+    <None Include="src\land\php\m.04-land.php" />
     <None Include="src\survey\php\00-common.php" />
     <None Include="src\survey\php\00-connect.php" />
     <None Include="src\survey\php\01-b-register.php" />
