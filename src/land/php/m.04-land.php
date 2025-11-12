@@ -148,6 +148,20 @@ $eol = "\n";
 			on_update_2();
 		}
 
+		function ant_ch(ch)
+		{
+			antal += ch;
+			if (antal<1) antal=1;
+
+			var qtt = document.getElementById("qtt");
+			qtt.innerHTML = "&nbsp;" + antal.toString() + "&nbsp;";
+
+			pr = <?php echo $pr_price; ?> ;
+			on_update_3(pr);
+			on_update_2();
+		}
+
+
 		function nicep(txt)
 		{
 			var ll = txt.length;
@@ -449,18 +463,18 @@ $eol = "\n";
 				echo "	<td> \n";
 				echo "		<table> \n";
 				echo "			<tr> \n";
-				echo "				<td style='font-size:32px' > \n";
+				echo "				<td style='font-size:30px' > \n";
 				echo "					Ord pris <br> \n";
 				echo "					<div style='color:red' > \n";
 				echo "					" . $pr_price_arr[$i] . " \n";
 				echo "					</div> \n";
 				echo "				</td> \n";
 				echo "				<td> \n";
-				echo "					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \n";
+				echo "					&nbsp;&nbsp;&nbsp;&nbsp; \n";
 				echo "				</td> \n";
-				echo "				<td style='font-size:32px' > \n";
-				echo "					&nbsp;&nbsp;<input id='cb_$i' type='checkbox' onclick='doclick($i)' > \n";
-				echo "					V&auml;lj h&auml;r \n ";
+				echo "				<td onclick='doclick($i)' style='font-size:30px' > \n";
+				echo "					&nbsp;&nbsp;<input id='cb_$i' type='checkbox' onclick='' > \n";
+				echo "					<b> V&auml;lj h&auml;r </b> \n ";
 				if ($i==0) echo "<br> &nbsp;27 nov kl 10 \n";
 				if ($i==1) echo "<br> &nbsp;4 dec kl 10 \n";
 				if ($i==2) echo "<br> &nbsp;11 dec kl 10 \n";
@@ -474,10 +488,16 @@ $eol = "\n";
 
 			echo " <td colspan=3 > ";
 
-			echo " <h3> Best&auml;ll flera, f&aring; rabatt </h3>  \n" .
 
-				" <label for='qtt'> Antal: </label> \n" .
-				" <input onChange='upd_cnt()' value='1' type='number' id='qtt' name='qtt' min='1' > \n" ;
+			echo " <div style='margin-left: 20px;' >";
+
+			echo " <h3> Best&auml;ll flera, f&aring; rabatt </h3>  \n";
+
+			echo " <button class='bbb' onClick='ant_ch(-1)' > - </button> ";
+			echo " <div id='qtt' class='bbb'> &nbsp;1&nbsp; </div> ";
+			echo " <button class='bbb' onClick='ant_ch(+1)' > + </button> <br> ";
+			echo " </div>";
+
 
 
 			//echo t(4) . " <div id='kmps' > ";

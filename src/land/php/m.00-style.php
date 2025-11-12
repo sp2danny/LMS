@@ -5,10 +5,16 @@ echo <<<EOT
 
 	<style>
 
+		.bbb {
+			font-family:    courier;
+			font-size:    44px;
+			float : left;
+		}
+
 		input[type="checkbox"]{
 			width: 22px;
 			height: 22px;
-			box-shadow: 0 0 0 2pt black;
+			box-shadow: 0 0 0 3pt black;
 		}
 
 		.centered-div {
