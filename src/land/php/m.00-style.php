@@ -6,9 +6,9 @@ echo <<<EOT
 	<style>
 
 		input[type="checkbox"]{
-			width: 18px;
-			height: 18px;
-			box-shadow: 0 0 0 1pt black;
+			width: 22px;
+			height: 22px;
+			box-shadow: 0 0 0 2pt black;
 		}
 
 		.centered-div {
@@ -179,6 +179,13 @@ echo <<<EOT
 		  margin: 0 -6px; /* Critical adjustment */
 		}
 
+		img {
+			background-color: white;
+		}
+
+		:root {
+		  color-scheme: only light;
+		}
 
 		body {
 			background-color: #ffffff;

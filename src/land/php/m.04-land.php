@@ -69,6 +69,9 @@ $eol = "\n";
 
 <head>
 
+	<meta name="theme-color" content="white" />
+
+
 	<title> <?php echo get_styr($styr,"common","title",$variant); ?> </title>
 
 	<link rel="icon" href="../../site/common/favicon.ico" />
@@ -337,7 +340,7 @@ $eol = "\n";
 	</div>
 	<div>
 		<br /> 
-		<img width=50% src="../../site/common/logo.png" /> <br />
+		<img width=50% src="../logo.png" /> <br />
 		<br /> <br /> 
 
 		<?php
@@ -446,7 +449,7 @@ $eol = "\n";
 				echo "	<td> \n";
 				echo "		<table> \n";
 				echo "			<tr> \n";
-				echo "				<td> \n";
+				echo "				<td style='font-size:32px' > \n";
 				echo "					Ord pris <br> \n";
 				echo "					<div style='color:red' > \n";
 				echo "					" . $pr_price_arr[$i] . " \n";
@@ -455,12 +458,12 @@ $eol = "\n";
 				echo "				<td> \n";
 				echo "					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \n";
 				echo "				</td> \n";
-				echo "				<td> \n";
-				echo "					<input id='cb_$i' type='checkbox' onclick='doclick($i)' > \n";
+				echo "				<td style='font-size:32px' > \n";
+				echo "					&nbsp;&nbsp;<input id='cb_$i' type='checkbox' onclick='doclick($i)' > \n";
 				echo "					V&auml;lj h&auml;r \n ";
-				if ($i==0) echo "<br> &nbsp;&nbsp;&nbsp;27 nov kl 10 \n";
-				if ($i==1) echo "<br> &nbsp;&nbsp;&nbsp;4 dec kl 10 \n";
-				if ($i==2) echo "<br> &nbsp;&nbsp;&nbsp;11 dec kl 10 \n";
+				if ($i==0) echo "<br> &nbsp;27 nov kl 10 \n";
+				if ($i==1) echo "<br> &nbsp;4 dec kl 10 \n";
+				if ($i==2) echo "<br> &nbsp;11 dec kl 10 \n";
 				echo "				</td> \n";
 				echo "			</tr> \n";
 				echo "		</table> \n";
@@ -521,7 +524,7 @@ $eol = "\n";
 	</div>
 
 	<div style="display:none" >
-		<img id='circImg' src='../m.red-circle.png' onload='on_update_2()' /> 
+		<img id='circImg' src='../m.red-circle-2.png' onload='on_update_2()' /> 
 	</div>
 	<div style="display:none" >
 		<?php echo "<img id='priceImg' src='../pris.jpg' onload='on_update_3(" . $pr_price . ")' /> \n" ?>
