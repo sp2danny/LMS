@@ -51,9 +51,19 @@ $noskip = boolval($flags & 1);
 <html>
 	<head>
 		<?php
-		echo '<meta http-equiv = "refresh" content = ';
-		echo '"' . "0; URL='$url'" . '"' . " />" . "\n";
+		//echo '<meta http-equiv = "refresh" content = ';
+		//echo '"' . "0; URL='$url'" . '"' . " />" . "\n";
 		?>
+
+		<script>
+			url = <?php echo "'" . $url . "'"; ?> ;
+
+			if (screen.width <= 699) {
+				document.location = "m." + url;
+			} else {
+				document.location = url;
+			}
+		</script>
 	</head>
 
 	<body>

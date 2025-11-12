@@ -259,6 +259,8 @@ $eol = "\n";
 
 		function on_update_2()
 		{
+			const WW = 288;
+
 			var canvas = document.getElementById("circCanv");
 			var ctx = canvas.getContext("2d");
 			var img = document.getElementById("circImg");
@@ -277,11 +279,11 @@ $eol = "\n";
 
 			var txt = (pkv-antal).toString() + ' platser';
 
-			var xx = (384 - ctx.measureText(txt).width)/2;
-			ctx.fillText(txt, xx, 175);
+			var xx = (WW - ctx.measureText(txt).width)/2;
+			ctx.fillText(txt, xx, 145);
 			txt = "kvar";
-			xx = (384 - ctx.measureText(txt).width)/2;
-			ctx.fillText(txt, xx, 255);
+			xx = (WW - ctx.measureText(txt).width)/2;
+			ctx.fillText(txt, xx, 185);
 
 			canvas = document.getElementById("timeCanv");
 			ctx = canvas.getContext("2d");
@@ -299,27 +301,27 @@ $eol = "\n";
 			var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 			var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 				
-			var start = 145;
+			var start = 95;
 			var offs = 28;
 
 			txt = days.toString() + " dagar"
-			xx = (384 - ctx.measureText(txt).width)/2;
+			xx = (WW - ctx.measureText(txt).width)/2;
 			ctx.fillText(txt, xx, start + 0*offs);
 				
 			txt = hours.toString() + " timmar"
-			xx = (384 - ctx.measureText(txt).width)/2;
+			xx = (WW - ctx.measureText(txt).width)/2;
 			ctx.fillText(txt, xx, start + 1*offs);
 
 			txt = minutes.toString() + " minuter"
-			xx = (384 - ctx.measureText(txt).width)/2;
+			xx = (WW - ctx.measureText(txt).width)/2;
 			ctx.fillText(txt, xx, start + 2*offs);
 				
 			txt = seconds.toString() + " sekunder"
-			xx = (384 - ctx.measureText(txt).width)/2;
+			xx = (WW - ctx.measureText(txt).width)/2;
 			ctx.fillText(txt, xx, start + 3*offs);
 
 			txt = "kvar";
-			xx = (384 - ctx.measureText(txt).width)/2;
+			xx = (WW - ctx.measureText(txt).width)/2;
 			ctx.fillText(txt, xx, start + 4*offs);
 				
 			setTimeout(on_update_2, 333);
@@ -481,14 +483,14 @@ $eol = "\n";
 
 			echo " </td> </tr> <tr> ";
 
-			echo " <td colspan=3 > ";
+			echo " <td colspan=2 > ";
 
 			echo "<table> ";
 			echo " <tr> ";
 			echo " <td> &nbsp;&nbsp; </td> ";
-			echo " <td> <canvas id='circCanv' width='384' height='384' > </canvas> </td> ";
+			echo " <td> <canvas id='circCanv' width='288' height='288' > </canvas> </td> ";
 			echo " <td> &nbsp;&nbsp; </td> ";
-			echo " <td> <canvas id='timeCanv' width='384' height='384' > </canvas> </td> ";
+			echo " <td> <canvas id='timeCanv' width='288' height='288' > </canvas> </td> ";
 			echo " <td> &nbsp;&nbsp; </td> ";
 			echo " </tr> </table> ";
 
@@ -519,7 +521,7 @@ $eol = "\n";
 	</div>
 
 	<div style="display:none" >
-		<img id='circImg' src='../red-circle.png' onload='on_update_2()' /> 
+		<img id='circImg' src='../m.red-circle.png' onload='on_update_2()' /> 
 	</div>
 	<div style="display:none" >
 		<?php echo "<img id='priceImg' src='../pris.jpg' onload='on_update_3(" . $pr_price . ")' /> \n" ?>

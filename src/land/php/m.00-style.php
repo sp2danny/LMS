@@ -50,7 +50,7 @@ echo <<<EOT
 			border-radius: 12px;
 			padding: 15px 32px;
 			text-align: center;
-			font-size: 22px;
+			font-size: 45px;
 			margin: 22px 12px;
 			float: center;
 			width: 850px;
