@@ -274,6 +274,7 @@ $eol = "\n";
 			numsel = 0;
 			for (let i = 0; i < 3; i++) {
 				var cb = document.getElementById("cb_" + i.toString());
+				if (cb == null) continue;
 				cb.checked = sel[i];
 				if (sel[i]) ++numsel;
 			}
