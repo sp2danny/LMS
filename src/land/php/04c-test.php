@@ -85,7 +85,59 @@ $eol = "\n";
 			$pr_mr = $row['MR'];
 			$pr_price = $row['price'];
 		}
+		$allsame = true;
 		$rebate = json_decode($pr_mr);
+
+		$pid = get_styr($styr, 'prod', 'prod.num', $variant);
+
+		$select = get_styr($styr, 'prod', 'prod.select', $variant);
+
+		$pr_title = '';
+		$pr_desc = '';
+		$pr_price = 0;
+		$pr_lowest = 0;
+		$pr_img = '';
+		$query = "SELECT * FROM prod WHERE prod_id=" . $pid;
+
+		$res = mysqli_query( $emperator, $query );
+		if ($res) if ($row = mysqli_fetch_array($res)) {
+			$pr_title = $row['name'];
+			$pr_desc  = $row['pdesc'];
+			$pr_price = $row['price'];
+			$pr_img   = $row['image'];
+			$pr_unl   = $row['unlocks'];
+		}
+
+		$subs = explode(",", $select);
+
+		$pr_title_arr = [];
+		$pr_desc_arr = [];
+		$pr_price_arr = [];
+		$pr_img_arr = [];
+
+		foreach ($subs as $k=>$v) {
+			$query = "SELECT * FROM prod WHERE prod_id=" . $v;
+			$res = mysqli_query( $emperator, $query );
+			if ($res) if ($row = mysqli_fetch_array($res)) {
+				$pr_title_arr[] = $row['name'];
+				$pr_desc_arr[]  = $row['pdesc'];
+				$pr             = $row['price'];
+				$pr_price_arr[] = $pr;
+				$pr_img_arr[]   = $row['image'];
+
+				if ($pr_lowest == 0)
+				{
+					$pr_lowest = $pr;
+				}
+				if ($pr != $pr_lowest)
+					$allsame = false;
+				if ($pr < $pr_lowest)
+					$pr_lowest = $pr;
+
+			}
+		}
+
+
 
 		function reb($i)
 		{
@@ -104,15 +156,20 @@ $eol = "\n";
 	<script>
 
 		function mkpr(i) {
-			switch (i) {
+			switch (true) {
 				<?php
 					echo "\n";
-					$n = get_styr($styr, "prod", "prod.num", $variant);
-					for ($i=0; $i<=$n; ++$i)
+					$same = true;
+					$last = 0;
+					for ($i=0; $i<=100; ++$i)
 					{
 						$pr = reb($i);
-						echo t(4) . "case " . $i . ": return " . $pr . ";\n";
+						if ($pr == $last)
+							continue;
+						echo t(4) . "case (i<$i) : return $last;\n";
+						$last = $pr;
 					}
+					echo t(4) . "default: return $last;\n";
 				?>
 			}
 		}
@@ -136,8 +193,9 @@ $eol = "\n";
 			antal = parseInt(document.getElementById("qtt").value);
 			if (antal<1) antal=1;
 
-			pr = <?php echo $pr_price; ?> ;
+			pr = <?php echo $pr_lowest; ?> ;
 			on_update_3(pr);
+			on_update_2();
 		}
 
 		function nicep(txt)
@@ -173,10 +231,11 @@ $eol = "\n";
 			var xx1 = (140 - ctx.measureText(txt1).width)/2;
 			ctx.fillText(txt1, xx1, 90);
 
-			var txt2 = "Nu!";
+			
+			var txt2 = <?php echo $allsame ? '"Nu!"' : '"Från"'; ?> ;
 			var xx2 = (140 - ctx.measureText(txt2).width)/2;
 			ctx.fillText(txt2, xx2, 50);
-
+			
 			var txt3 = "Betala via klarna";
 			ctx.font = "12px roboto";
 			var xx3 = (140 - ctx.measureText(txt3).width)/2;
@@ -195,12 +254,14 @@ $eol = "\n";
 			if (numsel == 0)
 			{
 				bnb.disabled = true;
+				txt = " V&auml;j produkt ovan ";
+				bnb.innerHTML = txt; 
 			} else {
 				bnb.disabled = false;
 				var txt = "Totalt " + nicep((antal * numsel * ppp).toString()) + ":- <br> ";
 				if (sav > 0)
 					txt += " Du sparar " + nicep(sav.toString()) + ":- <br> ";
-				txt += " Best&auml;ll h&auml;r redan nu! ";
+				txt += " Boka h&auml;r redan nu! ";
 				bnb.innerHTML = txt; 
 			}
 		}
@@ -217,7 +278,7 @@ $eol = "\n";
 				if (sel[i]) ++numsel;
 			}
 
-			pr = <?php echo $pr_price; ?> ;
+			pr = <?php echo $pr_lowest; ?> ;
 			on_update_3(pr);
 		}
 
@@ -263,9 +324,12 @@ $eol = "\n";
 			ctx.font = "42px roboto";
 
 			<?php 
-				echo t(4) . "var txt = " . "'" . $pkv . " platser';\n";
+				echo t(4) . "var pkv = $pkv; \n";
+				//echo t(4) . "var txt = " . "'" . $pkv . " platser';\n";
 				echo t(4) . "var dt = new Date('" . $ttt . "').getTime();\n";
 			?>
+
+			var txt = (pkv-antal).toString() + ' platser';
 
 			var xx = (384 - ctx.measureText(txt).width)/2;
 			ctx.fillText(txt, xx, 175);
@@ -346,30 +410,6 @@ $eol = "\n";
 
 			echo get_styr($styr, 'prod', 'prod.text', $variant);
 
-			$text = "";
-
-			$pid = get_styr($styr, 'prod', 'prod.num', $variant);
-
-			$select = get_styr($styr, 'prod', 'prod.select', $variant);
-
-			$pr_title = '';
-			$pr_desc = '';
-			$pr_price = 0;
-			$pr_img = '';
-			$query = "SELECT * FROM prod WHERE prod_id=" . $pid;
-
-			debug_log("got data for prod $pid");
-
-			$res = mysqli_query( $emperator, $query );
-			if ($res) if ($row = mysqli_fetch_array($res)) {
-				$pr_title = $row['name'];
-				$pr_desc  = $row['pdesc'];
-				$pr_price = $row['price'];
-				$pr_img   = $row['image'];
-				$pr_unl   = $row['unlocks'];
-			}
-
-			echo t(4) . $text . "\n";
 			echo t(4) . "<br> </p> \n";
 
 			echo t(4) . " </td> <td> ";
@@ -380,35 +420,12 @@ $eol = "\n";
 			echo " </td> </tr> </table> \n";
 
 			$pitch = get_styr($styr, 'result', 'pitch.text', $variant);
-			$pitch = str_replace("%price%", $pr_price, $pitch);
+			$pitch = str_replace("%price%", $pr_lowest, $pitch);
 					
 			echo t(4) . "<div class='pitch'> " . $pitch . " </div>\n";
 
-			$many = "04b-many.php?lid=" . $lid;
-			// echo " <a href='$many'> Best&auml;ll flera </a> <br> <br> \n";
-
-
-
-			$subs = explode(",", $select);
-
-			$pr_title_arr = [];
-			$pr_desc_arr = [];
-			$pr_price_arr = [];
-			$pr_img_arr = [];
-
-			foreach ($subs as $k=>$v) {
-				$query = "SELECT * FROM prod WHERE prod_id=" . $v;
-				$res = mysqli_query( $emperator, $query );
-				if ($res) if ($row = mysqli_fetch_array($res)) {
-					$pr_title_arr[] = $row['name'];
-					$pr_desc_arr[]  = $row['pdesc'];
-					$pr_price_arr[] = $row['price'];
-					$pr_img_arr[]   = $row['image'];
-				}
-			}
-
 			$i = 0; $n = count($subs);
-			echo " <br> \n";
+			//echo " <br> \n";
 			echo " <table> <tr> ";
 			for ($i=0; $i<$n; ++$i) {
 				echo " <td onClick='doclick($i)' > <h3> ";
@@ -441,11 +458,14 @@ $eol = "\n";
 				echo "					</div> \n";
 				echo "				</td> \n";
 				echo "				<td> \n";
-				echo "					&nbsp;&nbsp;&nbsp; \n";
+				echo "					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \n";
 				echo "				</td> \n";
 				echo "				<td> \n";
 				echo "					<input id='cb_$i' type='checkbox' onclick='doclick($i)' > \n";
-				echo "					V&auml;lj h&auml;r \n";
+				echo "					V&auml;lj h&auml;r \n ";
+				if ($i==0) echo "<br> &nbsp;&nbsp;&nbsp;27 nov kl 10 \n";
+				if ($i==1) echo "<br> &nbsp;&nbsp;&nbsp;4 dec kl 10 \n";
+				if ($i==2) echo "<br> &nbsp;&nbsp;&nbsp;11 dec kl 10 \n";
 				echo "				</td> \n";
 				echo "			</tr> \n";
 				echo "		</table> \n";
@@ -455,9 +475,17 @@ $eol = "\n";
 			echo " </tr> <tr> ";
 
 			echo " <td colspan=3 > ";
-			echo t(4) . " <div id='kmps' > ";
-			echo t(4) . " <button onClick='kmps_btn()' class='shake_green_sml' > Kompisrabatt </button> ";
-			echo t(4) . " </div> ";
+
+			echo " <h3> Best&auml;ll flera, f&aring; rabatt </h3>  \n" .
+
+				" <label for='qtt'> Antal: </label> \n" .
+				" <input onChange='upd_cnt()' value='1' type='number' id='qtt' name='qtt' min='1' > \n" ;
+
+
+			//echo t(4) . " <div id='kmps' > ";
+			//echo t(4) . " <button onClick='kmps_btn()' class='shake_green_sml' > Kompisrabatt </button> ";
+			//echo t(4) . " </div> ";
+
 			echo " </td> </tr> <tr> ";
 
 			echo " <td colspan=3 > ";
@@ -487,7 +515,8 @@ $eol = "\n";
 			$many = "04b-many.php?lid=" . $lid;
 			//echo " <a href='$many'> Best&auml;ll flera </a> <br> <br> \n";
 
-			echo " <button onClick='buynow(\"$lnk_u\")' disabled='true' id='bnb' class='shake_green' > Best&auml;ll nu! </button> </a> ";
+
+			echo " <button onClick='buynow(\"$lnk_u\")' disabled='true' id='bnb' class='shake_green' > V&auml;j produkt ovan </button> </a> ";
 			echo " </td> </tr> </table> ";
 
 		?>
@@ -500,7 +529,7 @@ $eol = "\n";
 		<img id='circImg' src='../red-circle.png' onload='on_update_2()' /> 
 	</div>
 	<div style="display:none" >
-		<?php echo "<img id='priceImg' src='../pris.jpg' onload='on_update_3(" . $pr_price . ")' /> \n" ?>
+		<?php echo "<img id='priceImg' src='../pris.jpg' onload='on_update_3(" . $pr_lowest . ")' /> \n" ?>
 	</div>
 
 </body>
