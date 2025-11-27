@@ -30,8 +30,6 @@ if ($res) if ($row = mysqli_fetch_array($res))
 	$variant = $row['value_b'];
 }
 
-$bid = $variant;
-
 $query = "SELECT * FROM data WHERE type=71 AND pers=0 AND value_a=$variant";
 $res = mysqli_query( $emperator, $query );
 if ($res) if ($row = mysqli_fetch_array($res)) {
@@ -460,6 +458,9 @@ $eol = "\n";
 			echo " </tr> <tr> ";
 
 			for ($i=0; $i<$n; ++$i) {
+
+				$dd = get_styr($styr, "prod", "prod." . ($i+1) . ".date", $variant);
+
 				echo "	<td> \n";
 				echo "		<table> \n";
 				echo "			<tr> \n";
@@ -475,9 +476,7 @@ $eol = "\n";
 				echo "				<td onclick='doclick($i)' style='font-size:30px' > \n";
 				echo "					&nbsp;&nbsp;<input id='cb_$i' type='checkbox' onclick='' > \n";
 				echo "					<b> V&auml;lj h&auml;r </b> \n ";
-				if ($i==0) echo "<br> &nbsp;27 nov kl 10 \n";
-				if ($i==1) echo "<br> &nbsp;4 dec kl 10 \n";
-				if ($i==2) echo "<br> &nbsp;11 dec kl 10 \n";
+				echo "                  <br> &nbsp;&nbsp;&nbsp;" . $dd . " \n";
 				echo "				</td> \n";
 				echo "			</tr> \n";
 				echo "		</table> \n";

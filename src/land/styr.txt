@@ -2,13 +2,43 @@
 [common]
 title = Anmäl dig NU. Nå din maximala potential 
 
+font.family = robota
+font.size = 22
 
 [land]
 
 num = 2
 
-text.1 = <b>Nå din maximala potential.</b><br><br> I första steget skapar du en egen insikt i hur du och din hjärna är hårdkodade sedan 300 000 år. Du får förståelse för hur omgivningen runt dig, din hjärnas belöningssystem och stressen begränsar dig. Du lär dig sedan förstå dina dolda drivkrafter och hur du kan använda dessa till att skapa en långsiktigt hållbar motivation för dig själv. <br><br> "Kan du leda dig själv, kan du leda andra."<br><br> I nästa steg formar du ditt bästa jag och gör dig själv till en vinnare. Du skapar nya vanor som maximerar din egen personliga potential och når balans och långsiktig hållbarhet i förändringen.<br><br> I tredje steget lär du dig att grunderna för att maximalt verka i ett vinnande TEAM. Med utbildningen får du sedan verktygen att skapa egna elitteam. Under hela utbildningen mäts dina framsteg med vår Pulsgenerator. "Det som mäts blir gjort."<br><br> Efter detta når du insikten och får kunskapen att utvecklas till att nå din mentala toppform och dina sanna mål.<br><br><b> Genomför NU din egen personliga mätning: Hur påverkad är du av negativ stress? </b> <br><br> <img width="70%" src='../bild.png'> 
+text.1 = <h1> <b>Nå din Maximala Potential med Mind2Excellence </b></h1> <h2> <b>Webinar: Välkommen att "Kickstarta"</b> din digitala utbildning! </h2> </b><br> <img width="100%" src='../bild.png'> 
+text.2 =<h1> <b>Anmäl dig redan idag</b> </h1> 
 
-text.2 = <b>Anmäl dig nu.</b><br><br> 
+[prod]
+prod.text = <b>Styr dina egna val! </b>Välj att utvecklas varje dag och forma ditt bästa jag. Välj nya lärdomar och ge dig tillgång till ditt fulla intellekt. <br> </b> Nedanstående Webinarier är speciellt anpassade för dig som vill forma ditt bästa jag. <br> <br> <b> Erbjudande: </b>  Köp två steg i utbildningen anpassade för dig. Det ger dig mängdrabatt och du kan enkelt utveckla dig vidare med våra utbildningar och Livscoacher.<br><br><i> Dina betalningar kan du enkelt betala med kort, faktura eller dela upp månadsvis med Klarna.</i> <br><br> <b>Vi lyssnar på våra kunder och mäter kundnöjdhet.</b><br> "Wow – vilken ögonöppnare!<br> 97,8% kundnöjdhet – Jag förstår varför.<br>Mind2Excellence levererar verktyg som gör skillnad på riktigt! 🙌<br>Tacksam att jag vågade. 💫 säger Sofie Svensson" <br><br><br> Beställ flera utbildningar, ta med kollegor och vänner <b>få Mängdrabatt!</b> 
 
-knapp = Anmäl nu
+
+
+link.text = <br> Du sparar 2 690:- &nbsp;&nbsp; Beställ&nbsp;HÄR&nbsp;redan&nbsp;NU! <br><br>
+
+link.url = https://mind2excellence.se/klarna/php/buy.php
+
+prod.num = 3
+prod.select = 1000,1001,7
+prod.main = 3
+
+prod.1.cdate = 20251204
+prod.1.date = 4 dec kl 10
+prod.1.link = https://www.google.com/maps/search/?api=1&query=https%3A%2F%2Fus06web.zoom.us%2Fj%2F81972357559%3Fpwd%3DfMkfisDiU2eQJOIgTwbABxkGWSHuAC.1
+prod.1.spot = 100
+
+prod.2.cdate = 20251211
+prod.2.date = 11 dec kl 10
+prod.2.link = https://www.google.com/maps/search/?api=1&query=https%3A%2F%2Fus06web.zoom.us%2Fj%2F81972357559%3Fpwd%3DfMkfisDiU2eQJOIgTwbABxkGWSHuAC.1
+prod.2.spot = 100
+
+prod.3.cdate = 20251218
+prod.3.date = 18 dec kl 10
+prod.3.link = https://www.google.com/maps/search/?api=1&query=https%3A%2F%2Fus06web.zoom.us%2Fj%2F81972357559%3Fpwd%3DfMkfisDiU2eQJOIgTwbABxkGWSHuAC.1
+prod.3.spot = 100
+
+
+

@@ -30,8 +30,6 @@ if ($res) if ($row = mysqli_fetch_array($res))
 	$variant = $row['value_b'];
 }
 
-$bid = $variant;
-
 $query = "SELECT * FROM data WHERE type=71 AND pers=0 AND value_a=$variant";
 $res = mysqli_query( $emperator, $query );
 if ($res) if ($row = mysqli_fetch_array($res)) {
@@ -60,6 +58,41 @@ date_add($dt, date_interval_create_from_date_string($dagar . " days"));
 $ttt = date_format($dt, "Y-m-d H:i:s");
 
 $eol = "\n";
+
+$dts = [];
+
+$n = get_styr($styr, "prod", "prod.num", $variant);
+for ($i = 1; $i<=$n; ++$i)
+{
+	$ss = get_styr($styr, "prod", "prod." . $i . ".cdate", $variant);
+	if ($ss)
+		$dts[] = $ss;
+}
+
+$found = false;
+
+foreach ($dts as $val)
+{
+	$dt_tmp = date_create_from_format("Ymd", $val);
+	if (!$found)
+	{
+		$found = true;
+		$dt = $dt_tmp;
+	}
+	else if ($dt_tmp < $dt) {
+		$dt = $dt_tmp;
+	}
+}
+
+if ($found)
+{
+	$ttt = date_format($dt, "Y-m-d H:i:s");
+	debug_log("found " . $ttt);
+}
+else {
+	$ttt = date_format($dt, "Y-m-d H:i:s");
+	debug_log("not found " . $ttt);
+}
 
 ?>
 
@@ -442,6 +475,9 @@ $eol = "\n";
 			echo " </tr> <tr> ";
 
 			for ($i=0; $i<$n; ++$i) {
+
+				$dd = get_styr($styr, "prod", "prod." . ($i+1) . ".date", $variant);
+
 				echo "	<td> \n";
 				echo "		<table> \n";
 				echo "			<tr> \n";
@@ -457,9 +493,10 @@ $eol = "\n";
 				echo "				<td> \n";
 				echo "					<input id='cb_$i' type='checkbox' onclick='doclick($i)' > \n";
 				echo "					V&auml;lj h&auml;r \n ";
-				if ($i==0) echo "<br> &nbsp;&nbsp;&nbsp;27 nov kl 10 \n";
-				if ($i==1) echo "<br> &nbsp;&nbsp;&nbsp;4 dec kl 10 \n";
-				if ($i==2) echo "<br> &nbsp;&nbsp;&nbsp;11 dec kl 10 \n";
+				//if ($i==0) echo "<br> &nbsp;&nbsp;&nbsp;4 dec kl 10 \n";
+				//if ($i==1) echo "<br> &nbsp;&nbsp;&nbsp;11 dec kl 10 \n";
+				//if ($i==2) echo "<br> &nbsp;&nbsp;&nbsp;18 dec kl 10 \n";
+				echo "                  <br> &nbsp;&nbsp;&nbsp;" . $dd . " \n";
 				echo "				</td> \n";
 				echo "			</tr> \n";
 				echo "		</table> \n";

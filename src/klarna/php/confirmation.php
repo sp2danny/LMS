@@ -64,10 +64,12 @@ $em_res = 'hittade ingen email adress';
 if ($email != "")
 {
     $em_to   = $email;
-    $em_subj = 'Orderbekräftelse fran min2excellence.se';
+    $em_subj = 'Orderbekräftelse från min2excellence.se';
     $em_msg  = 'Välkommen som kund' . "\r\n";
-    $em_msg .= 'Här är din länk' . "\r\n";
+    $em_msg .= 'Här är din inloggningslänk' . "\r\n";
     $em_msg .= 'https://www.mind2excellence.se/site/common/login.php' . "\r\n";
+    $em_msg .= 'Här är din zoomlänk' . "\r\n";
+    $em_msg .= 'https://www.google.com/maps/search/?api=1&query=https%3A%2F%2Fus06web.zoom.us%2Fj%2F81972357559%3Fpwd%3DfMkfisDiU2eQJOIgTwbABxkGWSHuAC.1' . "\r\n";
     $em_hdr  = [];
     $em_hdr['From']     = 'kundtjanst@mind2excellence.se';
     $em_hdr['Reply-To'] = 'kundtjanst@mind2excellence.se';
