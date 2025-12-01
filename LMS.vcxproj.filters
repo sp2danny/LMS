@@ -486,6 +486,9 @@
     <None Include="src\land\test.php">
       <Filter>Source Files\land</Filter>
     </None>
+    <None Include="src\common\sendlink.php">
+      <Filter>Source Files\common</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\common\dologin.php">

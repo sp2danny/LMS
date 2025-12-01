@@ -69,7 +69,7 @@ if ($email != "")
     $em_msg .= 'Här är din inloggningslänk' . "\r\n";
     $em_msg .= 'https://www.mind2excellence.se/site/common/login.php' . "\r\n";
     $em_msg .= 'Här är din zoomlänk' . "\r\n";
-    $em_msg .= 'https://www.google.com/maps/search/?api=1&query=https%3A%2F%2Fus06web.zoom.us%2Fj%2F81972357559%3Fpwd%3DfMkfisDiU2eQJOIgTwbABxkGWSHuAC.1' . "\r\n";
+    $em_msg .= 'https://www.mind2excellence.se/site/common/sendlink.php?pid=' . $id . "\r\n";
     $em_hdr  = [];
     $em_hdr['From']     = 'kundtjanst@mind2excellence.se';
     $em_hdr['Reply-To'] = 'kundtjanst@mind2excellence.se';
