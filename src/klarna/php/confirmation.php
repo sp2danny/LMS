@@ -4,45 +4,7 @@
 include "getparam.php";
 include "db.php";
 
-//$query = "INSERT INTO data (type, pers, value_a, value_c) VALUES (52, 0, " . getparam("id") . ", 'confirmation')";
-//
-//$res = mysqli_query( $emperator, $query );
-//
-//if (!$res) echo "error";
-//
-//$str = "confirmation.post.keys:";
-//$first = true;
-//
-//$fgc = file_get_contents('php://input');
-//
-//$query = "INSERT INTO data (type, pers, value_a, value_c) VALUES (52, 0, 0, '" . 'fgc:'.convert_uuencode($fgc) . "')";
-//$res = mysqli_query( $emperator, $query );
-//
-//$_POST = json_decode($fgc, true);
-//
-//if (is_array($_POST)) foreach ($_POST as $key => $val) {
-//	if (!$first)
-//		$str .= ",";
-//	$str .= $key;
-//	$first = false;
-//}
-//
-//$query = "INSERT INTO data (type, pers, value_a, value_c) VALUES (52, 0, 0, '" . $str . "')";
-//$res = mysqli_query( $emperator, $query );
-//
-//$email = "";
-//if (isset($_POST['billing_address']))
-//	if (isset($_POST['billing_address']['email']))
-//		$email = $_POST['billing_address']['email'];
-//if (isset($_POST['shipping_address']))
-//	if (isset($_POST['shipping_address']['email']))
-//		$email = $_POST['shipping_address']['email'];
-//
-//$id = getparam('id',0);
-//$query = "INSERT INTO data (type, pers, value_a, value_c) VALUES (53, 0, " . $id . ", '" . $email . "')";
-//if (($id!=0) && ($email!=""))
-//	$res = mysqli_query( $emperator, $query );
-//
+include_once "../../site/common/debug.php";
 
 
 $id = getparam('id', 0);
