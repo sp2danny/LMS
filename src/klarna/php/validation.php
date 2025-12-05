@@ -35,9 +35,13 @@ foreach ($_POST['customer'] as $key => $val) {
 	$first = false;
 }
 
-$query = "INSERT INTO data (type, pers, value_a, value_c) VALUES (52, 0, 0, '" . $str . "')";
+$query = "INSERT INTO data (type, pers, value_a, value_c) VALUES (52, 0, $id, '$str')";
 $res = mysqli_query( $emperator, $query );
 
+$str = "order_lines:" . print_r($_POST['order_lines'], true);
+
+$query = "INSERT INTO data (type, pers, value_a, value_c) VALUES (52, 0, $id, '$str')";
+$res = mysqli_query( $emperator, $query );
 
 $email = "";
 if (isset($_POST['billing_address']))
@@ -47,7 +51,6 @@ if (isset($_POST['shipping_address']))
 	if (isset($_POST['shipping_address']['email']))
 		$email = $_POST['shipping_address']['email'];
 
-$id = getparam('id',0);
 $query = "INSERT INTO data (type, pers, value_a, value_c) VALUES (53, 0, " . $id . ", '" . $email . "')";
 if (($id!=0) && ($email!=""))
 	$res = mysqli_query( $emperator, $query );

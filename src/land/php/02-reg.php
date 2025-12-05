@@ -4,8 +4,10 @@
 include "00-common.php";
 include "00-connect.php";
 
-$name    = "special";
-$email   = "special";
+$variant = getparam('variant', 0);
+
+$name    = dirname($_SERVER['PHP_SELF']);
+$email   = "variant-" . $variant;
 $phone   = "special";
 
 $query  = "INSERT INTO lead (name, email, phone) ";
@@ -15,7 +17,6 @@ $result = mysqli_query($emperator, $query);
 
 $last_id = mysqli_insert_id($emperator);
 
-$variant = getparam('variant', 0);
 
 $query  = "INSERT INTO data (type, pers, value_a, value_b) ";
 $query .= "VALUES ('17', '0', '$last_id', '$variant')";

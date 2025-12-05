@@ -44,6 +44,7 @@ foreach ($pids as $val)
         "tax_rate" => 2500,
         "total_amount" => 100 * $reb_pr * $qtt,
         "total_tax_amount" => 20 * $reb_pr * $qtt,
+        "merchant_data" => $val,
     ];
 }
 
