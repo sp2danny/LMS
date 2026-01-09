@@ -51,7 +51,11 @@ foreach ($pidlst as $pp)
 
 // <img src="source of image" alt="alternative text" title="this will be displayed as a tooltip"/>
 
-$tt = '<img style="float:left;" height="90px" ';
+$lnk = 'collect.php?pid=' . $pid;
+
+$tt = '<a href="' . $lnk . '" >';
+
+$tt .= '<img style="float:left;" height="90px" ';
 
 if ( ($pid==16) || ($pid==15) )
 {
@@ -63,6 +67,8 @@ if ( ($pid==16) || ($pid==15) )
 $tt .= "title='$val_cnt valideringar' ";
 
 $tt .= " /> ";
+
+$tt .= "</a> ";
 
 echo $tt;
 

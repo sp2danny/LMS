@@ -66,6 +66,20 @@ function to_link($alldata, $str)
 	return "";
 }
 
+function getNxt($data) {
+	$nxt_site = 'https://www.mind2excellence.se/site/common/forward.php';
+	if ($data->pnr!=0) {
+		$nxt_site = addKV($nxt_site, 'pnr', $data->pnr);
+	}
+	if ($data->bnum!=0) {
+		$nxt_site = addKV($nxt_site, 'ob', $data->bnum);
+	}
+	if ($data->snum!=0) {
+		$nxt_site = addKV($nxt_site, 'os', $data->snum);
+	}
+	return $nxt_site;
+}
+
 function getCP($data) {
 	global $RETURNTO;
 	$cp_site = 'https://www.mind2excellence.se/site/common/' . $RETURNTO . '.php?noside=true';
@@ -124,14 +138,15 @@ function getGrp($data) {
 	return $cp_site ;
 }
 
-
-function rwd($ini, $seg, $key, $def)
-{
-	if (!array_key_exists($seg, $ini))
-		return $def;
-	if (!array_key_exists($key, $ini[$seg]))
-		return $def;
-	return $ini[$seg][$key];
+function getMentor($data) {
+	$cp_site = 'https://www.mind2excellence.se/site/common/mentor.php';
+	if ($data->pid!=0) {
+		$cp_site = addKV($cp_site, 'pid', $data->pid);
+	}
+	if ($data->pnr!=0) {
+		$cp_site = addKV($cp_site, 'pnr', $data->pnr);
+	}
+	return $cp_site ;
 }
 
 function survOut($to, $tn, $filt)
@@ -199,6 +214,7 @@ function collect_sum_diff($survs, $ids)
 	return $tot;
 }
 
+
 function index($local, $common)
 {
 	global $RETURNTO;
@@ -237,6 +253,7 @@ function index($local, $common)
 	$pid = $prow['pers_id'];
 	$data->pnr = $prow['pnr'];
 	$data->pid = $pid;
+	$data->tag = explode(",", $prow['tag']);
 
 	$grp = $prow['grupp'];
 	$data->grp = $grp;
@@ -449,7 +466,7 @@ br.hs {
   color: #000;
   text-align: center;
   border-radius: 6px;
-  padding: 5px 0;
+  padding: 2px 0;
   
   /* Position the tooltip */
   position: absolute;
@@ -487,8 +504,11 @@ EOT;
 	$to->regLine('  if (b!="") str += "&b=" + b;');
 	$to->regLine('  fetch(str);');
 	$to->regLine('}');
-	
 
+	$to->regLine('function doGoNext() { ');
+	$to->regLine("  window.location.href = '" . getNxt($data) . "'; ");
+	$to->regLine('}');
+	
 	$to->regLine('function doChangeB() { ');
 	$to->regLine('  var obj = document.getElementById("alt"); ');
 	$to->regLine('  var main = document.getElementById("main"); ');
@@ -535,6 +555,9 @@ EOT;
 	$to->regLine("  window.location.href = '" . getKurs($data) . "'; ");
 	$to->regLine('}');
 
+	$to->regLine('function doChangeMnt() { ');
+	$to->regLine("  window.location.href = '" . getMentor($data) . "'; ");
+	$to->regLine('}');
 
 	$scrn = $_SERVER["SCRIPT_NAME"];
 	$curPageName = substr($scrn, strrpos($scrn,"/")+1);  
@@ -566,22 +589,23 @@ EOT;
 
 		$to->startTag ('div');
 		
-		$to->regLine("<button id='BtnSett' onClick='doChangeC()'> Settings </button>");
+		//$to->regLine("<button id='BtnSett' onClick='doChangeC()'> Settings </button>");
 		
-		if (getparam("sticp", "0") == "1") {
-			$to->regLine("<button id='BtnCP'  onClick='doChangeB()'> Min Sida </button>");
-		} else {
-			$to->regLine("<button id='BtnCP' onClick='doChangeB()'> Min Sida </button>");
-		}
+		$to->regLine("<button class='big3' id='BtnCP'  onClick='doChangeB()'> <span class='manicon'> </span> Min Egen Sida </button> <br>");
 
-		$eg = empgreen();
-		
+		$to->regLine("<button class='big3' id='BtnUtb' onClick='doChangeD()'> <span class='husicon'> </span> Utbildningsportalen </button> <br>");
+	
+		$to->regLine("<button class='big3' id='BtnNxt' onClick='doGoNext()'>  <span class='nxticon'> </span>  Forts&auml;tt utbildningen </button> <br>");
+
+		$eg = empgreen();		
 		$grp = getGrp($data);
-		//$to->regLine("<a href='$grp'> <br class='hs'> <button id='BtnUtb' style='background-color:" . $eg . ";font-size:15px;' > &nbsp;Min Grupp; </button> </a>");
 
-
-		$to->regLine("<br class='hs'> <button id='BtnUtb' style='background-color:" . $eg . ";font-size:15px;' onClick='doChangeD()'> &nbsp;Min Utbildning&nbsp; </button>");
-		$to->regLine("<br class='hs'> <button id='BtnKrs' style='background-color:" . $eg . ";font-size:15px;' onClick='doChangeE()'> &nbsp;Våra Event och Kurser&nbsp; </button>");
+		if (is_in($data->tag,"mentor"))
+		{
+			$to->regline  ('<hr>');
+			$to->regLine("<button class='big3' id='BtnKrs' onClick='doChangeE()'> &nbsp;Våra Event och Kurser&nbsp; </button> <br>");
+			$to->regLine("<button class='big3' id='BtnMnt' onClick='doChangeMnt()'> &nbsp;Mentor&nbsp; </button> <br>");
+		}
 
 		$to->regline  ('<hr>');
 		$to->stopTag  ('div');
@@ -677,6 +701,10 @@ EOT;
 
 	$to->startTag('div', 'style="float: right;"');
 
+	$vd = file_get_contents("https://www.mind2excellence.se/site/common/validate.php?pid=" . $data->pid);
+
+	if ($vd) $to->regLine($vd);
+
 	$to->startTag('select', 'name="persdd" onchange="persddonchange(this, ' . $at . ');"  style="float: left; font-size:18px " ');
 
 
@@ -691,10 +719,13 @@ EOT;
 	$arr_p = [];
 	$arr_i = 0;
 
-	$query = "SELECT * FROM pers WHERE grupp='$grp'";
+	$query = "SELECT * FROM pers";
 	$res = mysqli_query( $emperator, $query );
 	if ($res) while ($row = mysqli_fetch_array($res)) {
 		if ($row['pnr'] == $data->pnr) continue;
+
+		if (!arr_overlap($grp, $row['grupp'])) continue;
+
 		$arr_n[] = $row['name'];
 		$arr_p[] = $row['pnr'];
 		$arr_i++;
@@ -704,7 +735,8 @@ EOT;
 	{
 		$p = $arr_p[$i];
 		$n = $arr_n[$i];
-		if ($grpsk == $p)
+
+		if ( ($grpsk !== false) && ($grpsk == $p) )
 			$to->regLine('<option selected="selected" value="' . $p . '" > ' . $n . ' </option> ');
 		else
 			$to->regLine('<option value="' . $p . '" > ' . $n . ' </option> ');
@@ -723,12 +755,10 @@ EOT;
 
 	$to->stopTag('div');
 
-	
 	$to->regLine(' <div style="clear: both;"></div> ');
 	$to->stopTag('div');
 	$to->scTag('br');
 	$to->scTag('br');
-
 
 	$n = count($dagens);
 	if ($n > 0) {
@@ -762,7 +792,6 @@ EOT;
 	
 	if ($grpsk !== false)
 	{
-		
 		$query = "SELECT * FROM pers WHERE pnr='" . $grpsk . "'";
 		debug_log( $query );
 		$res = mysqli_query($emperator, $query);
