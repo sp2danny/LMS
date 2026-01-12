@@ -56,11 +56,12 @@ $query = "SELECT * FROM lead";
 $result = mysqli_query($emperator, $query);
 $arr = [];
 $num = 0;
+$ymin = getparam('ymin', 2025);
 if ($result) while ($row = mysqli_fetch_array($result))
 {
 	$dd = $row['date'];
 	$arr = date_parse($dd);
-	if ($arr['year'] < 2025) continue;
+	if ($arr['year'] < $ymin) continue;
 	$nn = $row['name'];
 	if (strpos($nn, "test") === false)
 	{
