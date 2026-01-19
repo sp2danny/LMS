@@ -5,6 +5,8 @@ include_once 'common.php';
 
 $pid = getparam("pid",0);
 
+$dolink = getparam("dolink", false);
+
 flush();
 
 include_once 'connect.php';
@@ -53,7 +55,10 @@ foreach ($pidlst as $pp)
 
 $lnk = 'collect.php?pid=' . $pid;
 
-$tt = '<a href="' . $lnk . '" >';
+$tt = "";
+
+if ($dolink)
+	$tt .= '<a href="' . $lnk . '" > ';
 
 $tt .= '<img style="float:left;" height="90px" ';
 
@@ -68,7 +73,8 @@ $tt .= "title='$val_cnt valideringar' ";
 
 $tt .= " /> ";
 
-$tt .= "</a> ";
+if ($dolink)
+	$tt .= " </a> ";
 
 echo $tt;
 

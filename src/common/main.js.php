@@ -537,13 +537,13 @@ function genericDrawSpider()
 	ctx.fillStyle="#000";
 
 	txt = spider_title ;
-	txt += ", medel ";
+	//txt += ", medel ";
 	sum=0;
 	for( i=0; i< spider_count; ++i )
 	{
 		sum += spider_gap_n[i];
 	}
-	txt += (2.8).toFixed(1);
+	//txt += (2.8).toFixed(1);
 
 	txt_w = ctx.measureText(txt).width;
 	ctx.fillText( txt, ww/2-txt_w/2, 28 );
@@ -605,7 +605,7 @@ function genericDrawSpider()
 		ctx.strokeStyle="#7f7";
 
 		ctx.beginPath();
-		ctx.arc(x1,y1,buff*spider_targets[i],i*inc-pm,i*inc+pm);
+		ctx.arc(x1,y1,buff*spider_targets[i]/20,i*inc-pm,i*inc+pm);
 		ctx.stroke();
 
 		ctx.strokeStyle="#070";
@@ -613,7 +613,7 @@ function genericDrawSpider()
 		if( spider_targ_s[i] > 0 )
 		{
 			ctx.beginPath();
-			ctx.arc(x1,y1,buff*spider_targ_s[i],i*inc-pm,i*inc+pm);
+			ctx.arc(x1,y1,buff*spider_targ_s[i]/20,i*inc-pm,i*inc+pm);
 			ctx.stroke();
 		}
 	}
@@ -625,8 +625,8 @@ function genericDrawSpider()
 
 	for( i=0; i< spider_count; ++i )
 	{
-		x2 = x1 + buff * spider_val_e[i] * Math.cos ( ( i * inc ) - offs );
-		y2 = y1 + buff * spider_val_e[i] * Math.sin ( ( i * inc ) - offs );
+		x2 = x1 + buff * spider_val_e[i]/20 * Math.cos ( ( i * inc ) - offs );
+		y2 = y1 + buff * spider_val_e[i]/20 * Math.sin ( ( i * inc ) - offs );
 
 		ctx.strokeStyle="#ccc";
 		ctx.lineWidth=5;
@@ -670,8 +670,8 @@ function genericDrawSpider()
 		}
 		else
 		{
-			x2 = x1 + buff * spider_val_b[i] * Math.cos ( ( i * inc ) + offs );
-			y2 = y1 + buff * spider_val_b[i] * Math.sin ( ( i * inc ) + offs );
+			x2 = x1 + buff * spider_val_b[i]/20 * Math.cos ( ( i * inc ) + offs );
+			y2 = y1 + buff * spider_val_b[i]/20 * Math.sin ( ( i * inc ) + offs );
 
 			ctx.beginPath();
 			ctx.moveTo(x1,y1);
@@ -699,7 +699,7 @@ function genericDrawSpider()
 	ctx.moveTo(8,hh-8-12*1);
 	ctx.lineTo(28,hh-8-12*1);
 	ctx.stroke();
-	ctx.fillText("Chefsskattning",32,hh-8-12*1+3);
+	ctx.fillText("Gruppskattning",32,hh-8-12*1+3);
 
 	if(was_missing)
 	{

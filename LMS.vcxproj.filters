@@ -29,6 +29,9 @@
     <Filter Include="Source Files\land\mob">
       <UniqueIdentifier>{8a4a9556-f575-43cc-91e5-76cf053cb96e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\stats">
+      <UniqueIdentifier>{b481f4d5-4b71-443b-97e8-85f81460f881}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="db.txt">
@@ -491,6 +494,27 @@
     </None>
     <None Include="src\common\collect.php">
       <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\stats\listing.php">
+      <Filter>Source Files\stats</Filter>
+    </None>
+    <None Include="src\stats\ny.php">
+      <Filter>Source Files\stats</Filter>
+    </None>
+    <None Include="src\stats\summary.php">
+      <Filter>Source Files\stats</Filter>
+    </None>
+    <None Include="src\stats\tratt.php">
+      <Filter>Source Files\stats</Filter>
+    </None>
+    <None Include="src\stats\createm.php">
+      <Filter>Source Files\stats</Filter>
+    </None>
+    <None Include="src\stats\index.php">
+      <Filter>Source Files\stats</Filter>
+    </None>
+    <None Include="src\stats\index2.php">
+      <Filter>Source Files\stats</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

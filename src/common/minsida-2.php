@@ -701,7 +701,7 @@ EOT;
 
 	$to->startTag('div', 'style="float: right;"');
 
-	$vd = file_get_contents("https://www.mind2excellence.se/site/common/validate.php?pid=" . $data->pid);
+	$vd = file_get_contents("https://www.mind2excellence.se/site/common/validate.php?dolink=true&pid=" . $data->pid);
 
 	if ($vd) $to->regLine($vd);
 

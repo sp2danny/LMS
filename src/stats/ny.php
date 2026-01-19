@@ -76,6 +76,26 @@ if ($result) while ($row = mysqli_fetch_array($result))
 echo "<br><br> total : " . $num . " <br> \n";
 
 
+echo "<br> <hr>\n";
+
+$query = "SELECT * FROM data WHERE type=54";
+$result = mysqli_query($emperator, $query);
+$arr = [];
+$num = 0;
+if ($result) while ($row = mysqli_fetch_array($result))
+{
+	$dd = $row['date'];
+	$arr = date_parse($dd);
+	if ($arr['year'] < $ymin) continue;
+	echo $dd;
+	echo " - " . $row['value_a'];
+	echo " <br> \n";
+	++$num;
+}
+
+echo "<br> k&ouml;p : " . $num . " <br> \n";
+
+
 ?>
 
 
