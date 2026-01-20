@@ -71,11 +71,15 @@ function index()
 	global $emperator;
 
 	$grp = "";
+	$pnam = "";
 
 	$query = "SELECT * FROM pers WHERE pers_id=" . $pid;
 	$res = mysqli_query( $emperator, $query );
 	if ($res) if ($row = mysqli_fetch_array($res))
+	{
 		$grp = $row['grupp'];
+		$pnam = $row['name'];
+	}
 
 	$pidlst = [];
 	$namlst = [];
@@ -139,10 +143,7 @@ echo "val_e =   [ 78, 25, 34, 98, 56, 33, 90, 34, 56, 67, 23, 99, 78, 56, 65, 23
 
 echo "val_b =   [ 55, 56, 23, 67, 76, 34, 78, 34, 99, 12, 34, 34, 78, 34, 99, 12, 34, 88, 34 ];  \n\n";
 
-
-echo "short_desc = [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',  \n";
-echo "               'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',  \n";
-echo "               'u', 'v', 'w', 'x', 'y', 'z' ];  \n\n";
+echo "short_desc = [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's' ];  \n\n";
 
 echo "</script>\n";
 
@@ -161,7 +162,7 @@ echo " </td> </tr> </table> </center> \n ";
 
 echo "<br> <div id='spdr'> </div> <br> \n";
 
-echo "<script> DrawSpider('SpiderCanvas', 19, targets, targ_s, val_e, val_b, short_desc, 'spindel' ); </script> \n";
+echo "<script> DrawSpider('SpiderCanvas', 19, targets, targ_s, val_e, val_b, short_desc, '$pnam' ); </script> \n";
 
 echo "<br><br>\n";
 
