@@ -45,26 +45,43 @@ function index()
 		return false;
 	}
 
+	$names = [];
+	$egens = [];
+
 	$vg = ROD('data', ['pers', 'type'], [$pid, 201], 'value_a', false);
+	$names[201] = "V&auml;rdegrund";
+	$egens[201] = $vg;
 	$to->regLine("V&auml;rdegrund : $vg <br> \n");
 
 	$ms = ROD('data', ['pers', 'type'], [$pid, 202], 'value_a', false);
+	$names[202] = "MissionStatement";
+	$egens[202] = $ms;
 	$to->regLine("MissionStatement : $ms <br> \n");
 
 	$mot = ROD('data', ['pers', 'type'], [$pid, 302], 'value_a', false);
+	$names[302] = "Motivation";
+	$egens[302] = $mot;
 	$to->regLine("Motivation : $mot <br> \n");
 
 	$sam = ROD('data', ['pers', 'type'], [$pid, 105], 'value_b', false);
+	$names[105] = "Samarbete";
+	$egens[105] = $sam;
 	$to->regLine("Samarbete : $sam <br> \n");
 
 	$str = ROD('data', ['pers', 'type'], [$pid, 101], 'value_b', false);
+	$names[101] = "Styrkor";
+	$egens[101] = $str;
 	$to->regLine("Styrkor : $str <br> \n");
 
 	$kom = ROD('data', ['pers', 'type'], [$pid, 103], 'value_b', false);
+	$names[103] = "Kommunikation";
+	$egens[103] = $kom;
 	$to->regLine("Kommunikation : $kom <br> \n");
 
 	$mal = ROD('data', ['pers', 'type'], [$pid, 104], 'value_a', false);
-	$to->regLine("M&aring;ls&auml;ttning : $kom <br> \n");
+	$names[104] = "M&aring;ls&auml;ttning";
+	$egens[104] = $mal;
+	$to->regLine("M&aring;ls&auml;ttning : $mal <br> \n");
 
 
 	// 2 - gruppskattning
@@ -167,7 +184,7 @@ echo " </td> </tr> </table> </center> \n ";
 
 echo "<br> <div id='spdr'> </div> <br> \n";
 
-echo "<script> DrawSpider('SpiderCanvas', 19, targets, targ_s, val_e, val_b, short_desc, '$pnam' ); </script> \n";
+echo "<script> DrawSpider('SpiderCanvas', 7, targets, targ_s, val_e, val_b, short_desc, '$pnam' ); </script> \n";
 
 echo "<br><br>\n";
 
