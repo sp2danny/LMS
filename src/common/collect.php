@@ -38,7 +38,12 @@ function index()
 	//$to->regLine('<hr>');
 	//$to->regLine('<h1> Egenskattning </h1>');
 
-	$pid = getparam("pid",0);
+	$pid = getparam("pid", false);
+
+	if (!$pid) {
+		$to->closeAll();
+		return false;
+	}
 
 	$vg = ROD('data', ['pers', 'type'], [$pid, 201], 'value_a', false);
 	$to->regLine("V&auml;rdegrund : $vg <br> \n");

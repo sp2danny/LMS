@@ -7,6 +7,7 @@ class tagNul
 {
 	public function startTag ($tag, $attr = '') {}
 	public function stopTag  ($tag)             {}
+	public function closeAll ()                 {}
 	public function scTag    ($tag, $attr = '') {}
 	public function regLine  ($line)            {}
 	public function bump     ($amnt)            {}
@@ -19,6 +20,8 @@ class tagOut
 	private int $ind = 0;
 
 	private $eol = "\n";
+
+	private $tags = [];
 
 	private function doInd() {
 		for ($i=0; $i < $this->ind; ++$i)
@@ -34,12 +37,21 @@ class tagOut
 			echo ' ' . $attr . ' ';
 		echo '>' . $this->eol;
 		$this->ind += 2;
+		$this->tags[] = $tag;
 	}
 	public function stopTag($tag) {
 		$this->ind -= 2;
 		$this->doInd();
 		echo '</' . $tag;
 		echo '>' . $this->eol;
+		$tt = array_pop($this->tags);
+		assert($tag == $tt);
+	}
+	public function closeAll() {
+		while (!empty($this->tags)) {
+			$tt = end($this->tags);
+			$this->stopTag($tt);
+		}
 	}
 	public function scTag($tag, $attr = '') {
 		$this->doInd();
@@ -64,6 +76,8 @@ class tagDefer
 	
 	private $lines = [];
 
+	private $tags = [];
+
 	private function doInd() {
 		$s = "";
 		for ($i=0; $i < $this->ind; ++$i)
@@ -80,6 +94,7 @@ class tagDefer
 			$s .= ' ' . $attr . ' ';
 		$s .= '>' . $this->eol;
 		$this->ind += 2;
+		$this->tags[] = $tag;
 		$lines[] = $s;
 	}
 
@@ -89,7 +104,18 @@ class tagDefer
 		$s .= '</' . $tag;
 		$s .= '>' . $this->eol;
 		$lines[] = $s;
+		$tt = array_pop($this->tags);
+		assert($tag == $tt);
 	}
+
+	public function closeAll() {
+		while (!empty($this->tags)) {
+			$tt = end($this->tags);
+			$this->stopTag($tt);
+		}
+	}
+
+
 	public function scTag($tag, $attr = '') {
 		$s = $this->doInd();
 		$s .= '<' . $tag;
