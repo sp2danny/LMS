@@ -84,6 +84,7 @@ foreach ($dts as $val)
 	}
 }
 
+/*
 if ($found)
 {
 	$ttt = date_format($dt, "Y-m-d H:i:s");
@@ -93,6 +94,7 @@ else {
 	$ttt = date_format($dt, "Y-m-d H:i:s");
 	debug_log("not found " . $ttt);
 }
+*/
 
 ?>
 
@@ -403,7 +405,7 @@ else {
 			$pr_img = '';
 			$query = "SELECT * FROM prod WHERE prod_id=" . $pid;
 
-			debug_log("got data for prod $pid");
+			//debug_log("got data for prod $pid");
 
 			$res = mysqli_query( $emperator, $query );
 			if ($res) if ($row = mysqli_fetch_array($res)) {

@@ -41,6 +41,7 @@
     <None Include="src\common\cmdparse.php" />
     <None Include="src\common\cockpit-2.php" />
     <None Include="src\common\cockpit.php" />
+    <None Include="src\common\collect-2.php" />
     <None Include="src\common\collect.php" />
     <None Include="src\common\common-2.php" />
     <None Include="src\common\common.php" />

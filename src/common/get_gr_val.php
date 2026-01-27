@@ -6,12 +6,12 @@ include_once "debug.php";
 
 function get_gr_val($by, $for, $num)
 {
-	debug_log("get_gr_val");
+	//debug_log("get_gr_val");
 
 	global $emperator;
 
 	$query = "SELECT * FROM surv WHERE name='group' AND type=$num AND pers=$for AND seq=$by";
-	debug_log($query);
+	//debug_log($query);
 	$res = mysqli_query($emperator, $query);
 	if (!$res) debug_log("no sid");
 	if ($res) while ($row = mysqli_fetch_array($res)) {

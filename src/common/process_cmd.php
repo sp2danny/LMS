@@ -58,10 +58,10 @@ function repl($data, $txt)
 function process_cmd($to, $data, $cmd, $args, $ret_to = "")
 {
 	
-	$dbglg = 'process_cmd(' . $cmd . "," . arr2str($args) . ")";
-	if ($ret_to != '')
-		$dbglg .= ' (' . $ret_to . ')';
-	debug_log($dbglg);
+	//$dbglg = 'process_cmd(' . $cmd . "," . arr2str($args) . ")";
+	//if ($ret_to != '')
+	//	$dbglg .= ' (' . $ret_to . ')';
+	//debug_log($dbglg);
 	
 	$eol = "\n";
 	

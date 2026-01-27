@@ -15,7 +15,7 @@ $sid = false;
 
 $query  = "SELECT * FROM surv WHERE name='group' AND type=$num AND pers=$for AND seq=$by";
 
-debug_log($query);
+//debug_log($query);
 
 $res = mysqli_query($emperator, $query);
 if ($res) if ($row = mysqli_fetch_array($res)) {
@@ -31,7 +31,7 @@ if ($sid === false)
 
 	$ok = true;
 
-	debug_log($query);
+	//debug_log($query);
 	$res = mysqli_query($emperator, $query);
 	if (!$res) $ok = false;
 
@@ -41,7 +41,7 @@ if ($sid === false)
 $query  = "INSERT INTO data (pers, type, value_a, value_b, surv) ";
 $query .= "VALUES ($for, $num, 1, $val, $sid); ";
 
-debug_log($query);
+//debug_log($query);
 
 $res = mysqli_query($emperator, $query);
 if (!$res) $ok = false;

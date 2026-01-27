@@ -12,7 +12,7 @@ function set_suv_val($i, $val, $lid)
 	$query = "INSERT INTO data (pers, type, value_a, value_b, surv) "
 		. "VALUES ('0', '56', '" . $i . "', '" . $val . "', '" . $lid . "');";
 		
-	debug_log($query);
+	//debug_log($query);
 
 	$res = mysqli_query( $emperator, $query );
 	return boolval($res);
@@ -23,7 +23,7 @@ function set_suv_val_pid($type, $i, $val, $pid, $surv)
 	global $emperator;
 	$query = "INSERT INTO data (pers, type, value_a, value_b, surv) "
 		. "VALUES ('$pid', '$type', '$i', '$val', '$surv');";
-	debug_log($query);
+	//debug_log($query);
 
 	$res = mysqli_query( $emperator, $query );
 	return boolval($res);
@@ -47,7 +47,7 @@ function add_surv($type, $pid, $name = false)
 	global $emperator;
 
 	$query = "SELECT * FROM surv WHERE type='$type' AND pers='$pid';";
-	debug_log($query);
+	//debug_log($query);
 	$res = mysqli_query( $emperator, $query );
 	if ($res) while ($row = mysqli_fetch_array($res))
 	{
@@ -59,7 +59,7 @@ function add_surv($type, $pid, $name = false)
 	
 	$query = "INSERT INTO surv (name, type, pers, seq) "
 		. "VALUES ('$name', '$type', '$pid', '$maxseq');";
-	debug_log($query);
+	//debug_log($query);
 	$res = mysqli_query( $emperator, $query );
 	
 	if ($res)

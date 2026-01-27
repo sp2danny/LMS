@@ -1,6 +1,8 @@
 
 <?php
 
+include_once("debug.php");
+
 // --- class tagNull : does nothing --------------------------------------------
 
 class tagNul
@@ -41,11 +43,27 @@ class tagOut
 	}
 	public function stopTag($tag) {
 		$this->ind -= 2;
+		if ($this->ind < 0) $this->ind = 0;
 		$this->doInd();
 		echo '</' . $tag;
 		echo '>' . $this->eol;
 		$tt = array_pop($this->tags);
-		assert($tag == $tt);
+		if ($tag != $tt) {
+			debug_log("tag mismatch " . $tag . " vs " . $tt);
+			$arr = debug_backtrace();
+			if (array_key_exists(0, $arr))
+			{
+				$aa = $arr[0];
+				$str = "at : ";
+				if (array_key_exists('file', $aa))
+					$str .= basename($aa['file']) . " ";
+				if (array_key_exists('line', $aa))
+					$str .= $aa['line'] . " ";
+				debug_log($str);
+			}
+			//debug_log(var_export($arr, true));
+		}
+		//assert($tag == $tt);
 	}
 	public function closeAll() {
 		while (!empty($this->tags)) {
@@ -100,12 +118,13 @@ class tagDefer
 
 	public function stopTag($tag) {
 		$this->ind -= 2;
+		if ($this->ind < 0) $this->ind = 0;
 		$s = $this->doInd();
 		$s .= '</' . $tag;
 		$s .= '>' . $this->eol;
 		$lines[] = $s;
 		$tt = array_pop($this->tags);
-		assert($tag == $tt);
+		//assert($tag == $tt);
 	}
 
 	public function closeAll() {
