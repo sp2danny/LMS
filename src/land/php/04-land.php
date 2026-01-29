@@ -84,17 +84,16 @@ foreach ($dts as $val)
 	}
 }
 
-/*
 if ($found)
 {
 	$ttt = date_format($dt, "Y-m-d H:i:s");
-	debug_log("found " . $ttt);
+	//debug_log("found " . $ttt);
 }
 else {
 	$ttt = date_format($dt, "Y-m-d H:i:s");
-	debug_log("not found " . $ttt);
+	//debug_log("not found " . $ttt);
 }
-*/
+
 
 ?>
 
@@ -510,10 +509,10 @@ else {
 
 			echo " <td colspan=3 > ";
 
-			echo " <h3> Best&auml;ll flera, f&aring; rabatt </h3>  \n" .
+			echo " <h3> Best&auml;ll flera, f&aring; rabatt </h3>  \n";
 
-				" <label for='qtt'> Antal: </label> \n" .
-				" <input onChange='upd_cnt()' value='1' type='number' id='qtt' name='qtt' min='1' > \n" ;
+			echo " <label for='qtt'> Antal: </label> \n" .
+				" <input style='font-size: 125%; width:125px; ' onChange='upd_cnt()' value='1' type='number' id='qtt' name='qtt' min='1' > \n" ;
 
 
 			//echo t(4) . " <div id='kmps' > ";
@@ -523,6 +522,25 @@ else {
 			echo " </td> </tr> <tr> ";
 
 			echo " <td colspan=3 > ";
+
+
+			$lnk_t = get_styr($styr, 'prod', "link.text", $variant);
+			$lnk_u = get_styr($styr, 'prod', "link.url", $variant);
+			if (strpos($lnk_u, '?'))
+				$lnk_u .= "&id=" . $lid;
+			else
+				$lnk_u .= "?id=" . $lid;
+			//$lnk_u .= "&prod=" . $pid;
+
+			$many = "04b-many.php?lid=" . $lid;
+			//echo " <a href='$many'> Best&auml;ll flera </a> <br> <br> \n";
+
+
+			echo " <button onClick='buynow(\"$lnk_u\")' disabled='true' id='bnb' class='shake_green' > V&auml;j produkt ovan </button> </a> ";
+
+
+			echo " </td> </tr> <tr> <td colspan=3 > ";
+
 
 			echo "<table> ";
 			echo " <tr> ";
@@ -538,19 +556,6 @@ else {
 
 			echo " </tr> </table> <br> \n";
 
-			$lnk_t = get_styr($styr, 'prod', "link.text", $variant);
-			$lnk_u = get_styr($styr, 'prod', "link.url", $variant);
-			if (strpos($lnk_u, '?'))
-				$lnk_u .= "&id=" . $lid;
-			else
-				$lnk_u .= "?id=" . $lid;
-			//$lnk_u .= "&prod=" . $pid;
-
-			$many = "04b-many.php?lid=" . $lid;
-			//echo " <a href='$many'> Best&auml;ll flera </a> <br> <br> \n";
-
-
-			echo " <button onClick='buynow(\"$lnk_u\")' disabled='true' id='bnb' class='shake_green' > V&auml;j produkt ovan </button> </a> ";
 			echo " </td> </tr> </table> ";
 
 		?>
