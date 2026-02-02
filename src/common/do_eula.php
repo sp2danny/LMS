@@ -123,7 +123,7 @@ body{
 	<div class="hb-content-wrapper">
 		<div class="hb-text-wrapper">
 			<div class="hb-headline-text">
-				<p><span>Mobilanpassning kommer under 2025</span></p>
+				<p><span>Mobilanpassning kommer under 2026</span></p>
 			</div>
 		</div>
 	</div>
