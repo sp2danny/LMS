@@ -577,7 +577,7 @@ function genericDrawSpider()
 		ctx.font="16px Myriad-pro";
 		ctx.fillStyle="#000";
 
-		txt = "anonym " +ii;
+		txt = spider_shrt_desc[ii]; // "anonym " +ii;
 		txt_w = ctx.measureText(txt).width;
 		ctx.fillText( txt, ww/2-txt_w/2, 28 + 40 );
 

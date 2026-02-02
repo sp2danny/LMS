@@ -44,6 +44,7 @@ function index()
 		return false;
 	}
 
+	/*
 	$to->regLine('<hr>');
 	$to->regLine('<h1 style="text-align: center;" > Egenskattning </h1>');
 
@@ -85,7 +86,7 @@ function index()
 	$egens[104] = $mal;
 	$to->regLine("M&aring;ls&auml;ttning : $mal <br> \n");
 
-
+	*/
 	// 2 - gruppskattning
 
 	$to->regLine('<hr>');
@@ -130,7 +131,7 @@ function index()
 		$by = $pp;
 		$nn = $namlst[$pp];
 
-		// $to->regLine("Gruppskattning utf�rd av : $nn ($pp) <br> \n");
+		// $to->regLine("Gruppskattning utförd av : $nn ($pp) <br> \n");
 
         /*
 		$cnt = 0;
@@ -185,9 +186,9 @@ echo "val_e =   [ 78, 25, 34, 98, 56, 33, 90, 34, 56, 67, 23, 99, 78, 56, 65, 23
 
 echo "val_b =   [ 55, 56, 23, 67, 76, 34, 78, 34, 99, 12, 34, 34, 78, 34, 99, 12, 34, 88, 34 ];  \n\n";
 
-echo "short_desc = [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's' ];  \n\n";
+echo "short_desc = [ 'Värdegrund', 'Mission', 'Utveckling', 'Disc', 'Styrkor', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's' ];  \n\n";
 
-echo "DrawSpider('SpiderCanvas', 7, targets, targ_s, val_e, val_b, short_desc, '$pnam' ); \n";
+echo "DrawSpider('SpiderCanvas', 5, targets, targ_s, val_e, val_b, short_desc, '$pnam' ); \n";
 
 echo "</script>\n";
 
@@ -226,27 +227,30 @@ google.charts.setOnLoadCallback(drawBarColors);
 
 function drawBarColors() {
       var data = google.visualization.arrayToDataTable([
-        ['City', '2010 Population', '2000 Population'],
-        ['New York City, NY', 8175000, 8008000],
-        ['Los Angeles, CA', 3792000, 3694000],
-        ['Chicago, IL', 2695000, 2896000],
-        ['Houston, TX', 2099000, 1953000],
-        ['Philadelphia, PA', 1526000, 1517000]
+        ['Mätområde', 'Ditt Värde', 'Alex & Nina'],
+        ['Äkta, Positiv & Relevant', 84, 100],
+        ['Tillit', 95, 100],
+        ['Motivation', 77, 100],
+        ['Omdömme', 78, 100],
+        ['Balans', 33, 100],
+        ['Genomförande', 25, 100]
       ]);
 
       var options = {
-        title: 'Population of Largest U.S. Cities',
-        chartArea: {width: '50%'},
-        colors: ['#b0120a', '#ffab91'],
-        hAxis: {
-          title: 'Total Population',
+        title: 'Självledarskap',
+        chartArea: {width: '150%'},
+        colors: ['#41D30E', '#0E21D3'],
+		width: 900,
+		height: 350,
+        vAxis: {
+          title: 'Värde',
           minValue: 0
         },
-        vAxis: {
-          title: 'City'
+        hAxis: {
+          title: 'Mätning'
         }
       };
-      var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+      var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
       chart.draw(data, options);
     }
 

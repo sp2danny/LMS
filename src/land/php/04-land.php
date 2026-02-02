@@ -94,6 +94,11 @@ else {
 	//debug_log("not found " . $ttt);
 }
 
+$lnk_none   =  get_styr($styr, 'prod', "link.none",  $variant);
+$lnk_total  =  get_styr($styr, 'prod', "link.total", $variant);
+$lnk_save   =  get_styr($styr, 'prod', "link.save",  $variant);
+$lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
+
 
 ?>
 
@@ -189,12 +194,57 @@ else {
 			return txt;
 		}
 
-		function on_update_3(ppp)
+		var first_many = true;
+
+		function nu_banger(ppp)
 		{
 			var canvas = document.getElementById("priceCanv");
 			var ctx = canvas.getContext("2d");
 			var img = document.getElementById("priceImg");
 			ctx.drawImage(img, 0, 0, 140, 140);
+			ctx.font = "32px roboto";
+
+			//var txt1 = nicep(ppp.toString());
+			var txt1 = "10 st";
+			var xx1 = (140 - ctx.measureText(txt1).width)/2;
+			ctx.fillText(txt1, xx1, 50);
+
+			var txt2 = (897).toString() + ":-";
+			var xx2 = (140 - ctx.measureText(txt2).width)/2;
+			ctx.fillText(txt2, xx2, 90);
+
+			var txt3 = "Betala via klarna";
+			ctx.font = "12px roboto";
+			var xx3 = (140 - ctx.measureText(txt3).width)/2;
+			ctx.fillText(txt3, xx3, 110);
+
+			//var canvas = document.getElementById("prisCanv2");
+			//var ctx = canvas.getContext("2d");
+			//ctx.drawImage(img, 0, 0, 140, 140);
+			//ctx.font = "32px roboto";
+			//ctx.fillText(txt1, xx1, 50);
+			//ctx.fillText(txt2, xx2, 90);
+			//ctx.font = "12px roboto";
+			//ctx.fillText(txt3, xx3, 110);
+
+			return true;
+		}
+
+		var sav;
+
+		function nu_price(ppp)
+		{
+			//if (numsel > 1) first_many = false;
+			//if (antal > 1) first_many = false;
+
+			//if (first_many)
+			
+			nu_banger(ppp);
+
+			var canvas = document.getElementById("priceCanv");
+			var ctx = canvas.getContext("2d");
+			var img = document.getElementById("priceImg");
+			//ctx.drawImage(img, 0, 0, 140, 140);
 			ctx.font = "32px roboto";
 
 			old_ppp = ppp;
@@ -211,19 +261,19 @@ else {
 			var txt1 = nicep(ppp.toString());
 			txt1 += ":-";
 			var xx1 = (140 - ctx.measureText(txt1).width)/2;
-			ctx.fillText(txt1, xx1, 90);
+			//ctx.fillText(txt1, xx1, 90);
 
-			var txt2 = "Nu!";
+			var txt2 = antal.toString() + " st";
 			var xx2 = (140 - ctx.measureText(txt2).width)/2;
-			ctx.fillText(txt2, xx2, 50);
+			//ctx.fillText(txt2, xx2, 50);
 
 			var txt3 = "Betala via klarna";
 			ctx.font = "12px roboto";
 			var xx3 = (140 - ctx.measureText(txt3).width)/2;
-			ctx.fillText(txt3, xx3, 110);
+			//ctx.fillText(txt3, xx3, 110);
 
-			canvas = document.getElementById("prisCanv2");
-			ctx = canvas.getContext("2d");
+			var canvas = document.getElementById("prisCanv2");
+			var ctx = canvas.getContext("2d");
 			ctx.drawImage(img, 0, 0, 140, 140);
 			ctx.font = "32px roboto";
 			ctx.fillText(txt1, xx1, 90);
@@ -231,18 +281,43 @@ else {
 			ctx.font = "12px roboto";
 			ctx.fillText(txt3, xx3, 110);
 
+			return true;
+		}
+
+		function on_update_3(ppp)
+		{
+			nu_price(ppp);
+
+			old_ppp = ppp;
+
+			let sumreb = (100-mkpr(numsel)) / 100;
+			sumreb *= (100-mkpr(antal)) / 100;
+			sumreb *= 100;
+			sumreb = Math.floor(100-sumreb);
+
+			ppp = Math.floor ( ppp * (100-sumreb) / 100 ) ;
+
+			sav = antal * numsel * (old_ppp-ppp);
+
+
 			var bnb = document.getElementById("bnb");
 			if (numsel == 0)
 			{
 				bnb.disabled = true;
-				txt = " V&auml;j produkt ovan ";
+				txt = <?php echo '"' . $lnk_none . '"'; ?> ;
 				bnb.innerHTML = txt; 
 			} else {
 				bnb.disabled = false;
-				var txt = "Totalt " + nicep((antal * numsel * ppp).toString()) + ":- <br> ";
-				if (sav > 0)
-					txt += " Du sparar " + nicep(sav.toString()) + ":- <br> ";
-				txt += " Boka h&auml;r redan nu! ";
+				var txt = <?php echo '"' . $lnk_total . '"'; ?> ;
+				txt = txt.replace("%tot%", nicep((antal * numsel * ppp).toString()));
+				//var txt = "Totalt " + nicep((antal * numsel * ppp).toString()) + ":- <br> ";
+				if (sav > 0) {
+					var savt = <?php echo '"' . $lnk_save . '"'; ?> ;
+					savt = savt.replace("%sav%", nicep(sav.toString()));
+					txt += " <br> " + savt; // Du sparar " + nicep(sav.toString()) + ":- <br> ";
+				}
+				cta = <?php echo '"' . $lnk_cta . '"'; ?> ;
+				txt += " <br> " + cta;
 				bnb.innerHTML = txt; 
 			}
 		}
@@ -524,7 +599,17 @@ else {
 			echo " <td colspan=3 > ";
 
 
-			$lnk_t = get_styr($styr, 'prod', "link.text", $variant);
+			// link.none = V�lj produkt ovan
+			// link.total = Totalt %tot% :-
+			// link.save = Du sparar %sav% :-
+			// link.cta = Boka h�r redan nu!
+
+
+			//$lnk_t = get_styr($styr, 'prod', "link.text", $variant);
+
+
+
+
 			$lnk_u = get_styr($styr, 'prod', "link.url", $variant);
 			if (strpos($lnk_u, '?'))
 				$lnk_u .= "&id=" . $lid;
@@ -536,7 +621,7 @@ else {
 			//echo " <a href='$many'> Best&auml;ll flera </a> <br> <br> \n";
 
 
-			echo " <button onClick='buynow(\"$lnk_u\")' disabled='true' id='bnb' class='shake_green' > V&auml;j produkt ovan </button> </a> ";
+			echo " <button onClick='buynow(\"$lnk_u\")' disabled='true' id='bnb' class='shake_green' > $lnk_none </button> </a> ";
 
 
 			echo " </td> </tr> <tr> <td colspan=3 > ";
