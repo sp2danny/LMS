@@ -519,6 +519,9 @@
     <None Include="src\common\collect-2.php">
       <Filter>Source Files\common</Filter>
     </None>
+    <None Include="src\common\mockup.php">
+      <Filter>Source Files\common</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\common\dologin.php">

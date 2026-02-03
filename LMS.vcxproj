@@ -90,6 +90,7 @@
     <None Include="src\common\mingrupp.php" />
     <None Include="src\common\minsida-2.php" />
     <None Include="src\common\minsida.php" />
+    <None Include="src\common\mockup.php" />
     <None Include="src\common\next.php" />
     <None Include="src\common\nypers.php" />
     <None Include="src\common\onesurv.php" />
