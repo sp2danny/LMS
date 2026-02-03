@@ -8,7 +8,7 @@ $variant = getparam('variant', 0);
 
 $name    = dirname($_SERVER['PHP_SELF']);
 $email   = "variant-" . $variant;
-$phone   = "special";
+$phone   = $_SERVER['REMOTE_ADDR'] ;
 
 $query  = "INSERT INTO lead (name, email, phone) ";
 $query .= "VALUES ('" . $name . "', '" . $email . "', '" . $phone . "')";

@@ -68,6 +68,13 @@ if ($result) while ($row = mysqli_fetch_array($result))
 		echo $dd;
 		if ($nn != 'special')
 			echo " " . $nn;
+
+		$nn = $row['phone'];
+		if ($nn != "special")
+		{
+			echo " - " . $nn;
+		}
+
 		echo " <br> \n";
 		++$num;
 	}
