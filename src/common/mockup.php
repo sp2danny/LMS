@@ -47,6 +47,8 @@ function sp(i)
 	val_b_2 =   [ 34, 78, 34, 99, 12, 34, 34, 78, 34, 99, 12, 34, 88, 34 ];
 	short_desc_2 = [ 'bb', 'cc', 'dd', 'ee', 'ff', 'gg' ];  
 
+	setSpiderColors("#070", "#0f0");
+
 	switch (i)
 	{
 		case 1:
