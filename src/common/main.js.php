@@ -442,6 +442,22 @@ var spider_gap_p;
 var spider_gap_tot_n;
 var spider_gap_tot_t;
 
+var spider_fill_black    = "#000";
+var spider_fill_white    = "#fff";
+var spider_fill_grey     = "#888";
+var spider_fill_inner    = "#0f0";
+var spider_fill_outer    = "#070";
+
+
+function setSpiderColors(sp_inner, sp_outer, sp_black = "#000", sp_white = "#fff", sp_grey = "#888" )
+{
+	spider_fill_black    = sp_black;
+	spider_fill_white    = sp_white;
+	spider_fill_grey     = sp_grey;
+	spider_fill_inner    = sp_inner;
+	spider_fill_outer    = sp_outer;
+}
+
 function DrawSpider( canvas, count, targets, targ_s, val_e, val_b, shrt_desc, title )
 {
 
@@ -530,11 +546,11 @@ function genericDrawSpider()
 	x1 = ww / 2;
 	y1 = (hh-80) / 2 + 80;
 
-	ctx.fillStyle="#fff";
+	ctx.fillStyle = spider_fill_white;
 	ctx.fillRect(0,0,ww,hh);
 
 	ctx.font="bold 20px Myriad-pro";
-	ctx.fillStyle="#000";
+	ctx.fillStyle = spider_fill_black;
 
 	txt = spider_title ;
 	//txt += ", medel ";
@@ -548,7 +564,7 @@ function genericDrawSpider()
 	txt_w = ctx.measureText(txt).width;
 	ctx.fillText( txt, ww/2-txt_w/2, 28 );
 
-	ctx.strokeStyle="#000";
+	ctx.strokeStyle = spider_fill_black;
 	ctx.lineWidth=1;
 	ctx.beginPath();
 	ctx.moveTo(0,40);
@@ -575,7 +591,7 @@ function genericDrawSpider()
 		ii = Math.floor(spider_count * ang / (2*Math.PI)) ;
 		ii = ii % spider_count;
 		ctx.font="16px Myriad-pro";
-		ctx.fillStyle="#000";
+		ctx.fillStyle = spider_fill_black;
 
 		txt = spider_shrt_desc[ii]; // "anonym " +ii;
 		txt_w = ctx.measureText(txt).width;
@@ -583,8 +599,8 @@ function genericDrawSpider()
 
 	}
 
-	ctx.strokeStyle="#888";
-	ctx.lineWidth=1;
+	ctx.strokeStyle = spider_fill_grey;
+	ctx.lineWidth = 1;
 
 	for( i=1; i<=5; ++i )
 	{
@@ -602,13 +618,13 @@ function genericDrawSpider()
 	for( i=0; i< spider_count; ++i )
 	{
 
-		ctx.strokeStyle="#7f7";
+		ctx.strokeStyle = spider_fill_inner;
 
 		ctx.beginPath();
 		ctx.arc(x1,y1,buff*spider_targets[i]/20,i*inc-pm,i*inc+pm);
 		ctx.stroke();
 
-		ctx.strokeStyle="#070";
+		ctx.strokeStyle = spider_fill_outer;
 		
 		if( spider_targ_s[i] > 0 )
 		{
@@ -621,14 +637,14 @@ function genericDrawSpider()
 	offs = 2 * Math.PI / 350;
 
 	ctx.font="8px Myriad-pro";
-	ctx.fillStyle="#000";
+	ctx.fillStyle = spider_fill_black;
 
 	for( i=0; i< spider_count; ++i )
 	{
 		x2 = x1 + buff * spider_val_e[i]/20 * Math.cos ( ( i * inc ) - offs );
 		y2 = y1 + buff * spider_val_e[i]/20 * Math.sin ( ( i * inc ) - offs );
 
-		ctx.strokeStyle="#ccc";
+		ctx.strokeStyle = spider_fill_grey;
 		ctx.lineWidth=5;
 
 		ctx.beginPath();
@@ -641,7 +657,7 @@ function genericDrawSpider()
 
 		if( i == ii )
 		{
-			ctx.strokeStyle="#0f0";
+			ctx.strokeStyle = "#0f0";
 			ctx.lineWidth=1;
 			ctx.beginPath();
 			ctx.arc(x2,y2,9,0,2*Math.PI);
@@ -649,7 +665,7 @@ function genericDrawSpider()
 		}
 
 		ctx.font="8px Myriad-pro";
-		ctx.fillStyle="#000";
+		ctx.fillStyle = spider_fill_black;
 		txt = "" + (i+1); 
 		mt = ctx.measureText(txt);
 		txt_w = mt.width;
@@ -658,7 +674,7 @@ function genericDrawSpider()
 
 	}
 
-	ctx.strokeStyle="#000";
+	ctx.strokeStyle = spider_fill_black;
 	ctx.lineWidth=2;
 
 	was_missing = false;
@@ -685,16 +701,16 @@ function genericDrawSpider()
 
 	ctx.lineWidth=5;
 	ctx.font="bold 12px Myriad-pro";
-	ctx.fillStyle="#000";
+	ctx.fillStyle = spider_fill_black;
 
-	ctx.strokeStyle="#ccc";
+	ctx.strokeStyle = spider_fill_grey;
 	ctx.beginPath();
 	ctx.moveTo(8,hh-8-12*2);
 	ctx.lineTo(28,hh-8-12*2);
 	ctx.stroke();
 	ctx.fillText("Egenskattning",32,hh-8-12*2+3);
 
-	ctx.strokeStyle="#000";
+	ctx.strokeStyle = spider_fill_black;
 	ctx.beginPath();
 	ctx.moveTo(8,hh-8-12*1);
 	ctx.lineTo(28,hh-8-12*1);

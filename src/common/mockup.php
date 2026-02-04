@@ -17,6 +17,23 @@ echo '<script type="text/javascript" src="https://www.gstatic.com/charts/loader.
 
 <script>
 
+function PopLst(lst, nn = -1)
+{
+	obj = document.getElementById("lstf");
+	if (nn==-1)
+		n = lst.length;
+	else
+		n = nn;
+	txt = "";
+	for (i=0; i<n; ++i)
+	{
+		if (i!=0) txt += " <br> ";
+		txt += (i+1).toString();
+		txt += " : ";
+		txt += lst[i];
+	}
+	obj.innerHTML = txt;
+}
 
 function sp(i)
 {
@@ -34,18 +51,23 @@ function sp(i)
 	{
 		case 1:
 			DrawSpider('SpiderCanvas', 5, targets, targ_s, val_e_1, val_b_1, short_desc_1, 'daniel' );
+			PopLst(short_desc_1, 5);
 			break;
 		case 2:
 			DrawSpider('SpiderCanvas', 6, targets, targ_s, val_e_2, val_b_2, short_desc_2, 'blubb' );
+			PopLst(short_desc_2, 6);
 			break;
 		case 3:
 			DrawSpider('SpiderCanvas', 7, targets, targ_s, val_e_1.slice(2), val_b_1.slice(2), short_desc_1, 'daniel2' );
+			PopLst(short_desc_1, 7);
 			break;
 		case 4:
 			DrawSpider('SpiderCanvas', 6, targets, targ_s, val_e_2.slice(1), val_b_2.slice(1), short_desc_2, 'blubb' );
+			PopLst(short_desc_2, 6);
 			break;
 		case 5:
 			DrawSpider('SpiderCanvas', 5, targets, targ_s, val_e_2.slice(2), val_b_2.slice(2), short_desc_2, 'blubb' );
+			PopLst(short_desc_2, 5);
 			break;
 	}
 }
@@ -114,7 +136,9 @@ function index()
 	$to->startTag('tr');
 
 	$to->startTag('td', '');
+	$to->startTag('div', 'id="lstf"');
 	$to->regLine('lista <br> med <br> forklaring  ');
+	$to->stopTag('div');
 	$to->stopTag('td');
 
 
