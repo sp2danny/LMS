@@ -45,7 +45,17 @@ function sp(i)
 
 	val_e_2 =   [ 34, 56, 67, 23, 99, 78, 56, 65, 23, 99, 78, 56 ];
 	val_b_2 =   [ 34, 78, 34, 99, 12, 34, 34, 78, 34, 99, 12, 34, 88, 34 ];
-	short_desc_2 = [ 'bb', 'cc', 'dd', 'ee', 'ff', 'gg' ];  
+	short_desc_2 = [ 'bb', 'cc', 'dd', 'ee', 'ff', 'gg' ];
+
+	for (ii=1; ii<=7; ++ii)
+	{
+		obj = document.getElementById("pl" + ii.toString());
+		if (i == ii)
+			ss = "gp.png";
+		else
+			ss = "emp.png";
+		obj.src = ss ;
+	}
 
 	setSpiderColors("#070", "#0f0");
 
@@ -68,6 +78,14 @@ function sp(i)
 			PopLst(short_desc_2, 6);
 			break;
 		case 5:
+			DrawSpider('SpiderCanvas', 5, targets, targ_s, val_e_2.slice(2), val_b_2.slice(2), short_desc_2, 'blubb' );
+			PopLst(short_desc_2, 5);
+			break;
+		case 6:
+			DrawSpider('SpiderCanvas', 6, targets, targ_s, val_e_2.slice(1), val_b_2.slice(1), short_desc_2, 'blubb' );
+			PopLst(short_desc_2, 6);
+			break;
+		case 7:
 			DrawSpider('SpiderCanvas', 5, targets, targ_s, val_e_2.slice(2), val_b_2.slice(2), short_desc_2, 'blubb' );
 			PopLst(short_desc_2, 5);
 			break;
@@ -108,30 +126,30 @@ function index()
 	$to->startTag('tr');
 
 	// spider
-	$to->startTag('td', 'width=350px rowspan=2');
+	$to->startTag('td', 'width=450px rowspan=2');
 
-	$to->regLine( '<canvas id="SpiderCanvas" width="350" height="350" style="border:1px solid #000000;">' );
+	$to->regLine( '<canvas id="SpiderCanvas" width="450" height="450" style="border:1px solid #000000;">' );
 	$to->regLine( ' Din browser st&ouml;der inte canvas </canvas> ' );
 
 	$to->stopTag('td');
 
 	// btns 1
-	$to->startTag('td', 'class="bbox" width=300px');
-	$to->regLine('<button onclick="sp(1)" > btn 1 </button> <br> ');
-	$to->regLine('<button onclick="sp(2)" > btn 2 </button> <br> ');
-	$to->regLine('<button onclick="sp(3)" > btn 3 </button> <br> ');
+	$to->startTag('td', 'class="bbox" width=300px height=200px');
+	$to->regLine('<img id="pl1" src="emp.png" /> <button style="width: 150px;" onclick="sp(1)" > btn 1 </button> <br> ');
+	$to->regLine('<img id="pl2" src="emp.png" /> <button style="width: 150px;" onclick="sp(2)" > btn 2 </button> <br> ');
+	$to->regLine('<img id="pl3" src="emp.png" /> <button style="width: 150px;" onclick="sp(3)" > btn 3 </button> <br> ');
 	$to->stopTag('td');
 
 	// btns 2
 	$to->startTag('td', 'class="bbox" width=300px');
-	$to->regLine('<button onclick="sp(4)" > btn 1 </button> <br> ');
-	$to->regLine('<button onclick="sp(5)" > btn 2 </button> <br> ');
+	$to->regLine('<div id="pl4"> <img src="emp.png" /> </div> <button width="150px" onclick="sp(4)" > btn 4 </button> <br> ');
+	$to->regLine('<div id="pl5"> <img src="emp.png" /> </div> <button width="150px" onclick="sp(5)" > btn 5 </button> <br> ');
 	$to->stopTag('td');
 
 	// b3
 	$to->startTag('td', 'class="bbox" width=300px');
-	$to->regLine('<button onclick="sp(4)" > btn 1 </button> <br> ');
-	$to->regLine('<button onclick="sp(5)" > btn 2 </button> <br> ');
+	$to->regLine('<div id="pl6"> <img src="emp.png" /> </div> <button width="150px" onclick="sp(6)" > btn 6 </button> <br> ');
+	$to->regLine('<div id="pl7"> <img src="emp.png" /> </div> <button width="150px" onclick="sp(7)" > btn 7 </button> <br> ');
 	$to->stopTag('td');
 
 	$to->stopTag('tr');
