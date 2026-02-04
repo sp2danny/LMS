@@ -84,33 +84,46 @@ function index()
 	$to->startTag('tr');
 
 	// spider
-	$to->startTag('td', 'width=660px');
+	$to->startTag('td', 'width=350px rowspan=2');
 
-	echo '<canvas id="SpiderCanvas" width="550" height="630" style="border:1px solid #000000;">' ;
-	echo ' Din browser st&ouml;der inte canvas </canvas> ' . "\n";
-
-	echo " </td> <td> ";
-
-	global $KAT;
-	$KAT = 'prod' ;
+	$to->regLine( '<canvas id="SpiderCanvas" width="350" height="350" style="border:1px solid #000000;">' );
+	$to->regLine( ' Din browser st&ouml;der inte canvas </canvas> ' );
 
 	$to->stopTag('td');
 
 	// btns 1
-	$to->startTag('td', 'width=300px');
+	$to->startTag('td', 'class="bbox" width=300px');
 	$to->regLine('<button onclick="sp(1)" > btn 1 </button> <br> ');
 	$to->regLine('<button onclick="sp(2)" > btn 2 </button> <br> ');
 	$to->regLine('<button onclick="sp(3)" > btn 3 </button> <br> ');
 	$to->stopTag('td');
 
 	// btns 2
-	$to->startTag('td', 'width=300px');
+	$to->startTag('td', 'class="bbox" width=300px');
 	$to->regLine('<button onclick="sp(4)" > btn 1 </button> <br> ');
 	$to->regLine('<button onclick="sp(5)" > btn 2 </button> <br> ');
 	$to->stopTag('td');
 
+	// b3
+	$to->startTag('td', 'class="bbox" width=300px');
+	$to->regLine('<button onclick="sp(4)" > btn 1 </button> <br> ');
+	$to->regLine('<button onclick="sp(5)" > btn 2 </button> <br> ');
+	$to->stopTag('td');
 
 	$to->stopTag('tr');
+	$to->startTag('tr');
+
+	$to->startTag('td', '');
+	$to->regLine('lista <br> med <br> forklaring  ');
+	$to->stopTag('td');
+
+
+	$to->startTag('td', 'colspan=2');
+	$to->regLine('<img src="gg.png" \> <br> ');
+	$to->stopTag('td');
+
+	$to->stopTag('tr');
+
 	$to->stopTag('table');
 
 

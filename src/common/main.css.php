@@ -27,6 +27,11 @@ tr.visitab {
     border: 1px solid black;
 }
 
+.bbox {
+  border: 1px solid black;
+  margin-top: 2px;
+}
+
 .hide {
     display: none;
 }
@@ -131,8 +136,10 @@ span.nxticon {
 }
 
 .main {
-    /*margin-left: 160px;  Same as the width of the sidenav */
-    margin-left: 25px;  Same as the width of the sidenav
+    /* margin-left: 160px;  Same as the width of the sidenav */
+    margin-left: 25px;
+    margin-bottom: 25px;
+
     font-size: 28px; /* Increased text to enable scrolling */
     padding: 0px 10px;
 }
