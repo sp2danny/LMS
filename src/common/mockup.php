@@ -10,6 +10,8 @@ include_once 'tagOut.php';
 include_once 'connect.php';
 include_once 'main.js.php';
 include_once 'util.php';
+include_once 'discdisplay.php';
+
 
 echo '<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>';
 
@@ -51,7 +53,7 @@ function sp(i)
 	{
 		obj = document.getElementById("pl" + ii.toString());
 		if (i == ii)
-			ss = "gp.png";
+			ss = "gp2.png";
 		else
 			ss = "emp.png";
 		obj.src = ss ;
@@ -92,7 +94,41 @@ function sp(i)
 	}
 }
 
+function rita_disc(canvas, bgimg, SZ, lr, ud)
+{
+	var ctx=canvas.getContext("2d");
+	ctx.fillStyle="#fff";
 
+	ctx.fillRect(0,0,SZ,SZ); 
+	
+	ctx.drawImage(bgimg, 0,0, SZ, SZ);
+	
+	ctx.beginPath(); 
+	ctx.fillStyle="#373"; 
+	ctx.strokeStyle="#000";
+	pt = SZ / 50;
+	ctx.arc( (SZ/2)+pt*lr , (SZ/2)+pt*ud ,9,0,2*Math.PI );
+	ctx.stroke();
+	ctx.fill(); 
+}
+
+
+function rita_more(canvas, SZ, lst)
+{
+	var ctx = canvas.getContext("2d");
+	
+	ctx.fillStyle = "#ef3";
+	ctx.strokeStyle = "#000";
+	pt = SZ / 50;
+	sz2 = SZ / 2;
+
+	for (const elem of lst) {
+		ctx.beginPath(); 
+		ctx.arc( sz2+pt*elem.x, sz2+pt*elem.y, 7, 0,2*Math.PI );
+		ctx.stroke();
+		ctx.fill(); 
+	}
+}
 
 </script>
 
@@ -107,6 +143,9 @@ function index()
 	$to = new tagOut;
 
 	$to->startTag("body");
+
+	$to->scTag("img", "id='Disc2' src='Disc3-3.png' hidden=true" );
+
 
 	$to->startTag('div', 'id="main" class="main"');
 	
@@ -131,6 +170,11 @@ function index()
 	$to->regLine( '<canvas id="SpiderCanvas" width="450" height="450" style="border:1px solid #000000;">' );
 	$to->regLine( ' Din browser st&ouml;der inte canvas </canvas> ' );
 
+	$to->startTag('script');
+	$to->regLine(' rita_disc( document.getElementById("SpiderCanvas"), document.getElementById("Disc2"), 450, -2,3); ');
+	$to->regLine(' rita_more( document.getElementById("SpiderCanvas"), 450, [{x:3,y:-3}, {x:6,y:8}] ); ');
+	$to->stopTag('script');
+
 	$to->stopTag('td');
 
 	// btns 1
@@ -141,15 +185,15 @@ function index()
 	$to->stopTag('td');
 
 	// btns 2
-	$to->startTag('td', 'class="bbox" width=300px');
-	$to->regLine('<div id="pl4"> <img src="emp.png" /> </div> <button width="150px" onclick="sp(4)" > btn 4 </button> <br> ');
-	$to->regLine('<div id="pl5"> <img src="emp.png" /> </div> <button width="150px" onclick="sp(5)" > btn 5 </button> <br> ');
+	$to->startTag('td', 'class="bbox" width=300px height=200px');
+	$to->regLine('<img id="pl4" src="emp.png" /> <button style="width: 150px;" onclick="sp(4)" > btn 4 </button> <br> ');
+	$to->regLine('<img id="pl5" src="emp.png" /> <button style="width: 150px;" onclick="sp(5)" > btn 5 </button> <br> ');
 	$to->stopTag('td');
 
 	// b3
 	$to->startTag('td', 'class="bbox" width=300px');
-	$to->regLine('<div id="pl6"> <img src="emp.png" /> </div> <button width="150px" onclick="sp(6)" > btn 6 </button> <br> ');
-	$to->regLine('<div id="pl7"> <img src="emp.png" /> </div> <button width="150px" onclick="sp(7)" > btn 7 </button> <br> ');
+	$to->regLine('<img id="pl6" src="emp.png" /> <button style="width: 150px;" onclick="sp(6)" > btn 6 </button> <br> ');
+	$to->regLine('<img id="pl7" src="emp.png" /> <button style="width: 150px;" onclick="sp(7)" > btn 7 </button> <br> ');
 	$to->stopTag('td');
 
 	$to->stopTag('tr');
