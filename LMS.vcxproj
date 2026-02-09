@@ -91,6 +91,7 @@
     <None Include="src\common\minsida-2.php" />
     <None Include="src\common\minsida.php" />
     <None Include="src\common\mockup.php" />
+    <None Include="src\common\mockup2.php" />
     <None Include="src\common\next.php" />
     <None Include="src\common\nypers.php" />
     <None Include="src\common\onesurv.php" />
@@ -157,6 +158,7 @@
     <None Include="src\stats\createm.php" />
     <None Include="src\stats\index.php" />
     <None Include="src\stats\index2.php" />
+    <None Include="src\stats\ip.php" />
     <None Include="src\stats\listing.php" />
     <None Include="src\stats\ny.php" />
     <None Include="src\stats\summary.php" />
