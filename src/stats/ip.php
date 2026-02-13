@@ -1,40 +1,44 @@
 
 
+<!doctype html>
+
 <html>
 
 	<head>
 		<title>
-			Stats
+			Stats IP
 		</title>
 
 		<style>
-			table {
-				border: 2px solid #000;
+			body {
+				margin-top:     50px;
+				margin-bottom:  50px;
+				margin-right:  150px;
+				margin-left:    80px;
 			}
 
-			td {
-				border: 1px solid #000;
-				padding-top: 2px;
-				padding-bottom: 2px;
-				padding-right: 7px;
-				padding-left: 7px;
+			table, th, td {
+				border: 1px solid black;
+				border-collapse: collapse;
+			
+				padding-top:     6px;
+				padding-left:   20px;
+				padding-right:  20px;
+				padding-bottom:  6px;
 			}
 
 			th {
-				background-color: #444;
-				color: #eee;
-				padding-top: 2px;
-				padding-bottom: 2px;
-				padding-right: 7px;
-				padding-left: 7px;
+				text-align: left;
+				background-color: #fff;
 			}
 
-			body {
-				margin-top: 50px;
-				margin-bottom: 50px;
-				margin-right: 150px;
-				margin-left: 80px;
+			tbody, tr:nth-child(odd) {
+				background-color: #fee;
 			}
+			tbody, tr:nth-child(even) {
+				background-color: #eef;
+			}
+
 		</style>
 
 	</head>
@@ -45,12 +49,10 @@
 		<h1> Utskick Lista </h1>
 		<br />
 
-
 <?php
 
 include "../site/common/connect.php";
 include "../site/common/getparam.php";
-
 
 $query = "SELECT * FROM lead";
 $result = mysqli_query($emperator, $query);
@@ -74,21 +76,27 @@ if ($result) while ($row = mysqli_fetch_array($result))
 		$stat[$ip] = 1;
 }
 
+echo "\t\t<table> <tr>\n";
+echo "\t\t\t<th> IP </th><th> Antal </th> \n";
+echo "\t\t</tr>";
+
+
 $n = 0;
 foreach ($stat as $key => $value)
 {
-	echo $key . " - " . $value . " st <br> \n";
+	echo "<tr>\n";
+	echo "\t\t\t <td> " . $key . " </td> <td> " . $value . " </td>\n";
+	echo "\t\t</tr>";
 	$n += 1;
 }
 
-echo "<br><br> unique : " . $n . "<br> \n";
+echo "\n\t\t</table>\n";
 
-echo "<br> <hr>\n";
+echo "\t\t<br><br> unique : " . $n . "<br> \n";
 
+echo "\t\t<br> <hr>\n";
 
 ?>
-
-
 
 	</div> </body>
 </html>
