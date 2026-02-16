@@ -110,6 +110,13 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 
 	<title> <?php echo get_styr($styr,"common","title",$variant); ?> </title>
 
+<!-- Privacy-friendly analytics by Plausible -->
+<script async src="https://plausible.io/js/pa-_BRYh01HblRT2nrTNkHQm.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
+
 	<link rel="stylesheet" href="../main-v03.css" />
 	<link rel="icon" href="../../site/common/favicon.ico" />
  
@@ -117,12 +124,16 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 
 	<?php
 		$pr_mr = '{"0":0}';
+		$pr_price = 0;
 		$pmain = get_styr($styr, 'prod', 'prod.main', $variant);
+		debug_log("pmain : " . $pmain);
 		$query = "SELECT * FROM prod WHERE prod_id=" . $pmain;
 		$res = mysqli_query( $emperator, $query );
 		if ($res) if ($row = mysqli_fetch_array($res)) {
 			$pr_mr = $row['MR'];
+			debug_log("pr_mr : " . $pr_mr);
 			$pr_price = $row['price'];
+			debug_log("pr_price : " . $pr_price);
 		}
 		$rebate = json_decode($pr_mr);
 
@@ -138,9 +149,51 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 			}
 			return $p;
 		}
-	?>
 
-	<script>
+
+		$select = get_styr($styr, 'prod', 'prod.select', $variant);
+		$subs = explode(",", $select);
+
+		$pr_title_arr = [];
+		$pr_desc_arr = [];
+		$pr_price_arr = [];
+		$pr_img_arr = [];
+
+		$nn = 0;
+
+		foreach ($subs as $k=>$v) {
+			$query = "SELECT * FROM prod WHERE prod_id=" . $v;
+			$res = mysqli_query( $emperator, $query );
+			if ($res) if ($row = mysqli_fetch_array($res)) {
+				$pr_title_arr[] = $row['name'];
+				$pr_desc_arr[]  = $row['pdesc'];
+				$pr_price_arr[] = $row['price'];
+				$pr_img_arr[]   = $row['image'];
+				++$nn;
+			}
+		}
+
+		echo "<script>\n";
+
+		echo "let sel = ["; // false, false, false]; \n";
+		for ($i=0; $i<$nn; ++$i) {
+			if ($i != 0) echo ", ";
+			echo "false";
+		}
+		echo "]; \n\n";
+
+
+		echo "function sel_p() { \n";
+		echo "  var sp = 0; \n";
+		for ($i=0; $i<$nn; ++$i)
+		{
+			echo "  if (sel[$i]) sp += " . $pr_price_arr[$i] . "; \n";
+		}
+		echo "  if (sp==0) sp = $pr_price; \n";
+		echo "  return sp;\n";
+		echo "}\n\n";
+
+	?>
 
 		function mkpr(i) {
 			switch (true) {
@@ -180,8 +233,7 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 			antal = parseInt(document.getElementById("qtt").value);
 			if (antal<1) antal=1;
 
-			pr = <?php echo $pr_price; ?> ;
-			on_update_3(pr);
+			on_update_3(sel_p());
 			on_update_2();
 		}
 
@@ -209,7 +261,12 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 			var xx1 = (140 - ctx.measureText(txt1).width)/2;
 			ctx.fillText(txt1, xx1, 50);
 
-			var txt2 = (897).toString() + ":-";
+			let reb = mkpr(10);
+			let pr = sel_p();
+			let rr = (100 - reb) / 100;
+			let ap = Math.floor(pr * rr);
+
+			var txt2 = (ap).toString() + ":-";
 			var xx2 = (140 - ctx.measureText(txt2).width)/2;
 			ctx.fillText(txt2, xx2, 90);
 
@@ -286,6 +343,7 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 
 		function on_update_3(ppp)
 		{
+			//debug_log("on_update_3 with ppp = " . $ppp);
 			nu_price(ppp);
 
 			old_ppp = ppp;
@@ -297,7 +355,7 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 
 			ppp = Math.floor ( ppp * (100-sumreb) / 100 ) ;
 
-			sav = antal * numsel * (old_ppp-ppp);
+			sav = antal * (old_ppp-ppp);
 
 
 			var bnb = document.getElementById("bnb");
@@ -309,7 +367,7 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 			} else {
 				bnb.disabled = false;
 				var txt = <?php echo '"' . $lnk_total . '"'; ?> ;
-				txt = txt.replace("%tot%", nicep((antal * numsel * ppp).toString()));
+				txt = txt.replace("%tot%", nicep((antal * ppp).toString()));
 				//var txt = "Totalt " + nicep((antal * numsel * ppp).toString()) + ":- <br> ";
 				if (sav > 0) {
 					var savt = <?php echo '"' . $lnk_save . '"'; ?> ;
@@ -322,10 +380,10 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 			}
 		}
 
-		let sel = [false, false, false];
 
 		function doclick(i)
 		{
+			//global $pr_price;
 			sel[i] = !sel[i];
 			numsel = 0;
 			for (let i = 0; i < 3; i++) {
@@ -335,7 +393,7 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 				if (sel[i]) ++numsel;
 			}
 
-			pr = <?php echo $pr_price; ?> ;
+			pr = sel_p();
 			on_update_3(pr);
 		}
 
@@ -469,7 +527,7 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 
 			$text = "";
 
-			$pid = get_styr($styr, 'prod', 'prod.num', $variant);
+			$pid = get_styr($styr, 'prod', 'prod.main', $variant);
 
 			$select = get_styr($styr, 'prod', 'prod.select', $variant);
 
@@ -488,6 +546,7 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 				$pr_price = $row['price'];
 				$pr_img   = $row['image'];
 				$pr_unl   = $row['unlocks'];
+				debug_log(" pr_price : $pr_price ");
 			}
 
 			echo t(4) . $text . "\n";
@@ -506,9 +565,6 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 			echo t(4) . "<div class='pitch'> " . $pitch . " </div>\n";
 
 			$many = "04b-many.php?lid=" . $lid;
-			// echo " <a href='$many'> Best&auml;ll flera </a> <br> <br> \n";
-
-
 
 			$subs = explode(",", $select);
 
@@ -527,6 +583,8 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 					$pr_img_arr[]   = $row['image'];
 				}
 			}
+
+			debug_log("pr_price_arr " . arr2str($pr_price_arr));
 
 			$i = 0; $n = count($subs);
 			//echo " <br> \n";
@@ -590,24 +648,9 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 				" <input style='font-size: 125%; width:125px; ' onChange='upd_cnt()' value='1' type='number' id='qtt' name='qtt' min='1' > \n" ;
 
 
-			//echo t(4) . " <div id='kmps' > ";
-			//echo t(4) . " <button onClick='kmps_btn()' class='shake_green_sml' > Kompisrabatt </button> ";
-			//echo t(4) . " </div> ";
-
 			echo " </td> </tr> <tr> ";
 
 			echo " <td colspan=3 > ";
-
-
-			// link.none = V�lj produkt ovan
-			// link.total = Totalt %tot% :-
-			// link.save = Du sparar %sav% :-
-			// link.cta = Boka h�r redan nu!
-
-
-			//$lnk_t = get_styr($styr, 'prod', "link.text", $variant);
-
-
 
 
 			$lnk_u = get_styr($styr, 'prod', "link.url", $variant);
@@ -653,7 +696,7 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 		<img id='circImg' src='../red-circle.png' onload='on_update_2()' /> 
 	</div>
 	<div style="display:none" >
-		<?php echo "<img id='priceImg' src='../pris.jpg' onload='on_update_3(" . $pr_price . ")' /> \n" ?>
+		<img id='priceImg' src='../pris.jpg' onload='on_update_3(sel_p())' /> \n";
 	</div>
 
 </body>
