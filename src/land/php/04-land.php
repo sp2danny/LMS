@@ -189,7 +189,7 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 		{
 			echo "  if (sel[$i]) sp += " . $pr_price_arr[$i] . "; \n";
 		}
-		if (numsel > 1)
+		//if (numsel > 1)
 			
 		echo "  if (sp==0) sp = $pr_price; \n";
 		echo "  return sp;\n";
@@ -598,7 +598,7 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 			}
 			echo " </tr> <tr> ";
 			for ($i=0; $i<$n; ++$i) {
-				echo " <td  onClick='doclick($i)' style='padding-right:12px' > <img width='300px' src='/article/";
+				echo " <td  onClick='doclick($i)' style='padding-right:12px' > <img width='575px' src='/article/";
 				echo $pr_img_arr[$i];
 				echo "' > </td> ";
 			}
