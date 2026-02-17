@@ -189,6 +189,8 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 		{
 			echo "  if (sel[$i]) sp += " . $pr_price_arr[$i] . "; \n";
 		}
+		if (numsel > 1)
+			
 		echo "  if (sp==0) sp = $pr_price; \n";
 		echo "  return sp;\n";
 		echo "}\n\n";
