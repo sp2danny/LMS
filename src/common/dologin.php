@@ -72,7 +72,11 @@ if (!$pid) {
 	}
 
 	if ($did_eula) {
-		$lnk = "minsida.php?pid=" . $pid;
+		$gp = getparam('ret', false);
+		if ($gp === false)
+			$lnk = "minsida.php?pid=" . $pid;
+		else
+			$lnk = $gp . ".php?pid=" . $pid;
 	} else {
 		$lnk = "do_eula.php?pid=" . $pid;
 	}

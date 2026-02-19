@@ -81,6 +81,7 @@
     <None Include="src\common\leader.php" />
     <None Include="src\common\login.php" />
     <None Include="src\common\login2.php" />
+    <None Include="src\common\logret.php" />
     <None Include="src\common\main-v03.css" />
     <None Include="src\common\main.css.php" />
     <None Include="src\common\main.js.php" />

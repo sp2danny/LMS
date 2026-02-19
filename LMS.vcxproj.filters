@@ -528,6 +528,9 @@
     <None Include="src\stats\ip.php">
       <Filter>Source Files\stats</Filter>
     </None>
+    <None Include="src\common\logret.php">
+      <Filter>Source Files\common</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\common\dologin.php">

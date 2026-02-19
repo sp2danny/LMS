@@ -249,6 +249,12 @@ function index($local, $common)
 		$prow = mysqli_fetch_array($res);
 	}
 
+	if (!$prow) {
+		$lnk = 'login.php';
+		echo "<meta http-equiv='refresh' content='0; url=$lnk' /> \n";
+		return ;
+	}
+
 	$name = $prow['name'];
 	$pid = $prow['pers_id'];
 	$data->pnr = $prow['pnr'];

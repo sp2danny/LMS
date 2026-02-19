@@ -1,0 +1,18 @@
+webinar 595
+egen coach 1995
+
+-----
+annat utshick, stress
+
+
+
+host:
+value:brevo-code:4d1b37ce23af80538d6ed974933d7277
+
+host:_dmarc
+value:v=DMARC1; p=none; rua=ereport@mind2excellence.se; ruf=ereport@mind2excellence.se
+
+host:mail._domainkey
+value:k=rsa;p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDeMVIzrCa3T14JsNY0IRv5/2V1/v2itlviLQBwXsa7shBD6TrBkswsFUToPyMRWC9tbR/5ey0nRBH0ZVxp+lsmTxid2Y2z+FApQ6ra2VsXfbJP3HE6wAO0YTVEJt1TmeczhEd2Jiz/fcabIISgXEdSpTYJhb0ct0VJRxcg4c8c7wIDAQAB
+
+

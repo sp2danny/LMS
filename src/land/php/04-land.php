@@ -111,11 +111,12 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 	<title> <?php echo get_styr($styr,"common","title",$variant); ?> </title>
 
 <!-- Privacy-friendly analytics by Plausible -->
-<script async src="https://plausible.io/js/pa-_BRYh01HblRT2nrTNkHQm.js"></script>
+<script async src="https://plausible.io/js/pa-MGh6IAp3Agp_E0QzY81MH.js"></script>
 <script>
   window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
   plausible.init()
 </script>
+
 
 	<link rel="stylesheet" href="../main-v03.css" />
 	<link rel="icon" href="../../site/common/favicon.ico" />

@@ -102,6 +102,13 @@ if ($result) while ($row = mysqli_fetch_array($result))
 
 echo "<br> k&ouml;p : " . $num . " <br> \n";
 
+$query = "SELECT NOW();";
+$result = mysqli_query($emperator, $query);
+if ($result) if ($row = mysqli_fetch_array($result))
+{
+	$dt = $row[0];
+	echo " <br> completed " . $dt . " <br> \n";
+}
 
 ?>
 
