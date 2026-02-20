@@ -3,28 +3,28 @@
 title = Testa här NU. Nå din maximala potential 
 
 [register]
-greeting = <b>Välkommen till gratistesten som lägger grunden till att göra dig fri och oberoende.</b><br><br>För att få hjälpen du behöver. Registrera dig och börja den kostnadsfria mätningen nu! <br><br>Stress är i grunden en bra sak för oss människor. En överlevnadsinstinkt som många gånger räddar liv. I normala fall så taggar det oss, får oss att skärpa våra sinnen och får oss att prestera bättre. När vi är i balans är detta scenario jättebra för oss. <br><br>Långvarig stress som ”aldrig tar slut” skapar obalans i vår kropp. Detta scenario kallar vi negativ stress. Negativ stress smyger sig ofta på oss, vi märker det inte till en början. Ofta är denna negativa stress orsakad av att vår närmiljö i dag skiljer sig helt och hållet från den miljö vi är skapta för att verka i. Världen idag är så olik livet på savannen på alla sätt. <br><br>Vi bör lyfta vår medvetenhet med utbildning och kunskap för att kunna anpassa våra liv för att nå en känsla av frihet och självbestämmande. Denna förändring kan vi permanenta med nya vanor. Effekten av förändringen blir mätbar först när vi mäter den. Det är anledningen till att vi hela tiden mäter förändringar. ”Det som mäts blir gjort”<br><br>Många allvarliga stressfaktorer som uppsägningar, ofrivilliga förändringar, skilsmässor, sorg efter dödsfall mm kan ibland behöva hjälp av en professionell coach eller psykolog. Var inte främmande för att ta hjälp om du känner att inte våra verktyg räcker för just dig.  Lycka till.<br><br>Din kostnadsfria stresstest ger dig dina första insikter och lägger grunden till din frihet och oberoende. <br> Du kan bli en bra ledare för dig själv och en vinnande deltagare i ett TEAM. <br> <br> <b>1:a steget är att mäta hur påverkad du är av negativ stress. Kan du nå din maximala potential, bli fri och oberoende? </b> <br><br> * Var i stresstratten ligger du? <br> * Har du tillgång till ditt fulla intellekt? <br> * Kan du nå din maximala potential och bli en vinnare?<br> <br>Registrera dig kostnadsfritt här:
+greeting = <b>Välkommen till stresstesten som lägger grunden till att göra dig fri och oberoende.</b><br><br>För att få hjälpen du behöver.  <br><br>Stress är i grunden en bra sak för oss människor. En överlevnadsinstinkt som många gånger räddar liv. I normala fall så taggar det oss, får oss att skärpa våra sinnen och får oss att prestera bättre. När vi är i balans är detta scenario jättebra för oss. <br><br>Långvarig stress som ”aldrig tar slut” skapar obalans i vår kropp. Detta scenario kallar vi negativ stress. Negativ stress smyger sig ofta på oss, vi märker det inte till en början. Ofta är denna negativa stress orsakad av att vår närmiljö i dag skiljer sig helt och hållet från den miljö vi är skapta för att verka i. Världen idag är så olik livet på savannen på alla sätt. <br><br>Vi bör lyfta vår medvetenhet med utbildning och kunskap för att kunna anpassa våra liv för att nå en känsla av frihet och självbestämmande. Denna förändring kan vi permanenta med nya vanor. Effekten av förändringen blir mätbar först när vi mäter den. Det är anledningen till att vi hela tiden mäter förändringar. ”Det som mäts blir gjort”<br><br>Många allvarliga stressfaktorer som uppsägningar, ofrivilliga förändringar, skilsmässor, sorg efter dödsfall mm kan ibland behöva hjälp av en professionell coach eller psykolog. Var inte främmande för att ta hjälp om du känner att inte våra verktyg räcker för just dig.  Lycka till.<br><br>Din kostnadsfria stresstest ger dig dina första insikter och lägger grunden till din frihet och oberoende. <br> Du kan bli en bra ledare för dig själv och en vinnande deltagare i ett TEAM. <br> <br> <b>1:a steget är att mäta hur påverkad du är av negativ stress. Kan du nå din maximala potential, bli fri och oberoende? </b> <br><br> * Var i stresstratten ligger du? <br> * Har du tillgång till ditt fulla intellekt? <br> * Kan du nå din maximala potential och bli en vinnare?<br> <br>Registrera dig kostnadsfritt här:
 
 
 [intro]
-text = <b>Välkommen till första steget i gratistesten som lägger grunden till att göra dig fri och oberoende.</b><br><br> <code> %email% </code> <br><br> I första steget skapar du en egen insikt i hur du och din hjärna är hårdkodade sedan 300 000 år. Du får förståelse för hur omgivningen runt dig, din hjärnas belöningssystem och stressen begränsar dig. Du lär dig sedan förstå dina dolda drivkrafter och hur du kan använda dessa till att skapa en långsiktigt hållbar motivation för dig själv. <br><br> "Kan du leda dig själv, kan du leda andra."<br><br> I nästa steg formar du ditt bästa jag och gör dig själv till en vinnare. Du skapar nya vanor som maximerar din egen personliga potential och når balans och långsiktig hållbarhet i förändringen.<br><br> I tredje steget lär du dig att grunderna för att maximalt verka i ett vinnande TEAM. Med utbildningen får du sedan verktygen att skapa egna elitteam. Under hela utbildningen mäts dina framsteg med vår Pulsgenerator. "Det som mäts blir gjort."<br><br> Efter detta når du insikten och får kunskapen att utvecklas till att nå din mentala toppform och dina sanna mål.<br><br><b> Genomför NU din egen personliga mätning: Hur påverkad är du av negativ stress? </b> <br><br> <img width="70%" src='../tratt.jpg'> <br><br> * Var i stresstratten ligger du? <br> * Har du tillgång till ditt fulla intellekt? <br> * Kan du nå din maximala potential och bli en vinnare?
+text = <b>Välkommen till första steget i stresstesten som lägger grunden till att göra dig fri och oberoende.</b><br><br> <code> %email% </code> <br><br> I första steget skapar du en egen insikt i hur du och din hjärna är hårdkodade sedan 300 000 år. Du får förståelse för hur omgivningen runt dig, din hjärnas belöningssystem och stressen begränsar dig. Du lär dig sedan förstå dina dolda drivkrafter och hur du kan använda dessa till att skapa en långsiktigt hållbar motivation för dig själv. <br><br> "Kan du leda dig själv, kan du leda andra."<br><br> I nästa steg formar du ditt bästa jag och gör dig själv till en vinnare. Du skapar nya vanor som maximerar din egen personliga potential och når balans och långsiktig hållbarhet i förändringen.<br><br> I tredje steget lär du dig att grunderna för att maximalt verka i ett vinnande TEAM. Med utbildningen får du sedan verktygen att skapa egna elitteam. Under hela utbildningen mäts dina framsteg med vår Pulsgenerator. "Det som mäts blir gjort."<br><br> Efter detta når du insikten och får kunskapen att utvecklas till att nå din mentala toppform och dina sanna mål.<br><br><b> Genomför NU din egen personliga mätning: Hur påverkad är du av negativ stress? </b> <br><br> <img width="70%" src='../tratt.jpg'> <br><br> * Var i stresstratten ligger du? <br> * Har du tillgång till ditt fulla intellekt? <br> * Kan du nå din maximala potential och bli en vinnare?
 
-button = Starta den kostnadsfria mätningen nu
+button = Starta mätningen nu
 
 
 [querys]
 
 button.text = Se ditt personliga resultat
 
-preamble.text = NU: Du får min. 2500:- i rabatt på våra produkter om fullföljer detta kostnadsfria test
+preamble.text = NU: Du får min. XXX:- i rabatt på våra produkter om fullföljer detta test
 preamble.font.family = roboto
 preamble.font.size = 22px
 
-postamble.text = På nästa sida får du ditt eget personliga resultat på detta kostnadsfria stresstest. <br> Du får även en kostnadsfri återhämtningsguide. Denna guide hjälper dig till ett bättre liv. <br> Skriv ut guiden och spara resultatet i din egen utbildningspärm, så att du kan följa din utveckling över tiden.
+postamble.text = På nästa sida får du ditt eget personliga resultat på detta stresstest. <br> Du får även en återhämtningsguide på köpet. Denna guide hjälper dig till ett bättre liv. <br> Skriv ut guiden och spara resultatet i din egen utbildningspärm, så att du kan följa din utveckling över tiden.
 postamble.font.family = roboto
 postamble.font.size = 22px
 
-instructions = Kostnadsfri självskattning: Hur påverkad är du av negativ stress den senaste månaden? <br> Du får även en kostnadsfri återhämtningsguide du kan skriva ut och spara. <br> <br> Ange värde mellan 0-100. Där 0 är stämmer inte alls och 100 är stämmer precis.<br>   * Tänk på att vara ärlig mot dig själv när du svarar.<br>   * Det finns inget bra eller dåligt i de svar du ger.<br>   * Använd maximalt 10 sekunder på varje fråga.<br> Starta ditt test nu. Lycka till
+instructions = Självskattning: Hur påverkad är du av negativ stress den senaste månaden? <br> Du får även en återhämtningsguide du kan skriva ut och spara. <br> <br> Ange värde mellan 0-100. Där 0 är stämmer inte alls och 100 är stämmer precis.<br>   * Tänk på att vara ärlig mot dig själv när du svarar.<br>   * Det finns inget bra eller dåligt i de svar du ger.<br>   * Använd maximalt 10 sekunder på varje fråga.<br> Starta ditt test nu. Lycka till
 
 num = 15
 kat = 5
@@ -43,11 +43,13 @@ kat = 5
 not = Stämmer inte alls
 full = Stämmer precis
 
-kat.1.name = Denna månad: <b>Ekonomi och Tid</b>
-kat.2.name = Denna månad: <b>Hälsa och Egen person</b>
-kat.3.name = Denna månad: <b>Arbete och Motivation</b>
-kat.4.name = Denna månad: <b>Familj och Vänner</b>
-kat.5.name = Denna månad: <b>Omvärld</b>
+kat.present = Denna månad: <b> %kat% </b>
+
+kat.1.name = Ekonomi och Tid
+kat.2.name = Hälsa och Egen person
+kat.3.name = Arbete och Motivation
+kat.4.name = Familj och Vänner
+kat.5.name = Omvärld
 
 kat.1.color = ffee33
 kat.2.color = 335577
@@ -136,6 +138,7 @@ warn.img = warn3.png
 blurb.font.family = robota
 blurb.font.size = 22
 
+pitch.text = 
 
 img=Stresstratt-7.png
 
