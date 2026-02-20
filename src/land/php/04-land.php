@@ -61,6 +61,8 @@ $eol = "\n";
 
 $dts = [];
 
+
+
 $n = get_styr($styr, "prod", "prod.num", $variant);
 for ($i = 1; $i<=$n; ++$i)
 {
@@ -111,7 +113,7 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 	<title> <?php echo get_styr($styr,"common","title",$variant); ?> </title>
 
 <!-- Privacy-friendly analytics by Plausible -->
-<script async src="https://plausible.io/js/pa-MGh6IAp3Agp_E0QzY81MH.js"></script>
+<script async src="https://plausible.io/js/pa-ZzOanw-GjvWU7ZiUXCaRB.js"></script>
 <script>
   window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
   plausible.init()
@@ -127,14 +129,14 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 		$pr_mr = '{"0":0}';
 		$pr_price = 0;
 		$pmain = get_styr($styr, 'prod', 'prod.main', $variant);
-		debug_log("pmain : " . $pmain);
+		//debug_log("pmain : " . $pmain);
 		$query = "SELECT * FROM prod WHERE prod_id=" . $pmain;
 		$res = mysqli_query( $emperator, $query );
 		if ($res) if ($row = mysqli_fetch_array($res)) {
 			$pr_mr = $row['MR'];
-			debug_log("pr_mr : " . $pr_mr);
+			//debug_log("pr_mr : " . $pr_mr);
 			$pr_price = $row['price'];
-			debug_log("pr_price : " . $pr_price);
+			//debug_log("pr_price : " . $pr_price);
 		}
 		$rebate = json_decode($pr_mr);
 
@@ -151,6 +153,14 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 			return $p;
 		}
 
+		$show_timeleft = get_styr($styr, 'show', 'timeleft', $variant, true);
+		$show_spots = get_styr($styr, 'show', 'spots', $variant, true);
+
+		if ($show_timeleft === "false") $show_timeleft = false;
+		if ($show_spots === "false") $show_spots = false;
+
+		//debug_log("show_timeleft : " . $show_timeleft);
+		//debug_log("show_spots : " . $show_spots);
 
 		$select = get_styr($styr, 'prod', 'prod.select', $variant);
 		$subs = explode(",", $select);
@@ -176,10 +186,19 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 
 		echo "<script>\n";
 
+		$numsel = 0;
 		echo "let sel = ["; // false, false, false]; \n";
 		for ($i=0; $i<$nn; ++$i) {
+
 			if ($i != 0) echo ", ";
-			echo "false";
+
+			$pre = get_styr($styr, "prod", "prod." . ($i+1) . ".preselect", $variant, false);
+			if ($pre) {
+				echo "true";
+				++$numsel;
+			} else {
+				echo "false";
+			}
 		}
 		echo "]; \n\n";
 
@@ -195,6 +214,9 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 		echo "  if (sp==0) sp = $pr_price; \n";
 		echo "  return sp;\n";
 		echo "}\n\n";
+
+		echo "\t var numsel = $numsel; \n";
+
 
 	?>
 
@@ -217,7 +239,6 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 			}
 		}
 
-		var numsel = 0;
 
 		var antal = 1;
 
@@ -429,7 +450,7 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 			window.location.href = lnk;
 		}
 
-		function on_update_2()
+		function on_update_platser()
 		{
 			var canvas = document.getElementById("circCanv");
 			var ctx = canvas.getContext("2d");
@@ -443,8 +464,6 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 
 			<?php 
 				echo t(4) . "var pkv = $pkv; \n";
-				//echo t(4) . "var txt = " . "'" . $pkv . " platser';\n";
-				echo t(4) . "var dt = new Date('" . $ttt . "').getTime();\n";
 			?>
 
 			var txt = (pkv-antal).toString() + ' platser';
@@ -454,9 +473,18 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 			txt = "kvar";
 			xx = (384 - ctx.measureText(txt).width)/2;
 			ctx.fillText(txt, xx, 255);
+		}
 
-			canvas = document.getElementById("timeCanv");
-			ctx = canvas.getContext("2d");
+		function on_update_time()
+		{
+			<?php 
+				echo t(4) . "var dt = new Date('" . $ttt . "').getTime();\n";
+			?>
+
+			var canvas = document.getElementById("timeCanv");
+			var ctx = canvas.getContext("2d");
+			var img = document.getElementById("circImg");
+
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
 			ctx.globalAlpha = 0.4;
 			ctx.drawImage(img, 0, 0); 
@@ -474,8 +502,8 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 			var start = 145;
 			var offs = 28;
 
-			txt = days.toString() + " dagar"
-			xx = (384 - ctx.measureText(txt).width)/2;
+			var txt = days.toString() + " dagar"
+			var xx = (384 - ctx.measureText(txt).width)/2;
 			ctx.fillText(txt, xx, start + 0*offs);
 				
 			txt = hours.toString() + " timmar"
@@ -493,6 +521,15 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 			txt = "kvar";
 			xx = (384 - ctx.measureText(txt).width)/2;
 			ctx.fillText(txt, xx, start + 4*offs);
+
+		}
+
+		function on_update_2()
+		{
+			<?php
+			if ($show_spots)    echo t(4) . "on_update_platser(); \n";
+			if ($show_timeleft) echo t(4) . "on_update_time();    \n";
+			?>
 				
 			setTimeout(on_update_2, 333);
 		}
@@ -549,7 +586,7 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 				$pr_price = $row['price'];
 				$pr_img   = $row['image'];
 				$pr_unl   = $row['unlocks'];
-				debug_log(" pr_price : $pr_price ");
+				//debug_log(" pr_price : $pr_price ");
 			}
 
 			echo t(4) . $text . "\n";
@@ -587,7 +624,7 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 				}
 			}
 
-			debug_log("pr_price_arr " . arr2str($pr_price_arr));
+			//debug_log("pr_price_arr " . arr2str($pr_price_arr));
 
 			$i = 0; $n = count($subs);
 			//echo " <br> \n";
@@ -616,6 +653,8 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 
 				$dd = get_styr($styr, "prod", "prod." . ($i+1) . ".date", $variant);
 
+				$pre = get_styr($styr, "prod", "prod." . ($i+1) . ".preselect", $variant, false);
+
 				echo "	<td> \n";
 				echo "		<table> \n";
 				echo "			<tr> \n";
@@ -629,7 +668,7 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 				echo "					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \n";
 				echo "				</td> \n";
 				echo "				<td> \n";
-				echo "					<input id='cb_$i' type='checkbox' onclick='doclick($i)' > \n";
+				echo "					<input id='cb_$i' type='checkbox' onclick='doclick($i)' " . ($pre?"checked":"") .  " > \n";
 				echo "					V&auml;lj h&auml;r \n ";
 				//if ($i==0) echo "<br> &nbsp;&nbsp;&nbsp;4 dec kl 10 \n";
 				//if ($i==1) echo "<br> &nbsp;&nbsp;&nbsp;11 dec kl 10 \n";
