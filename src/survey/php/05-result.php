@@ -532,7 +532,7 @@ $variant = 1;
 					echo " <canvas id='priceCanv' width='140' height='140' > </canvas> ";
 					echo " </td> </tr> </table> \n";
 
-					$pitch = get_styr($styr, 'result', 'pitch.text', $variant);
+					$pitch = get_styr($styr, 'result', 'pitch.text', $variant, "");
 					$pitch = str_replace("%price%", $pr_price, $pitch);
 					
 					echo t(4) . "<div class='pitch'> " . $pitch . " </div>\n";
