@@ -682,7 +682,7 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 
 			echo " </tr> <tr> ";
 
-			echo " <td colspan=3 > ";
+			echo " <td colspan=2 > ";
 
 			echo " <h3> Best&auml;ll flera, f&aring; rabatt </h3>  \n";
 
@@ -692,7 +692,7 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 
 			echo " </td> </tr> <tr> ";
 
-			echo " <td colspan=3 > ";
+			echo " <td colspan=2 > ";
 
 
 			$lnk_u = get_styr($styr, 'prod', "link.url", $variant);
@@ -709,7 +709,7 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 			echo " <button onClick='buynow(\"$lnk_u\")' disabled='true' id='bnb' class='shake_green' > $lnk_none </button> </a> ";
 
 
-			echo " </td> </tr> <tr> <td colspan=3 > ";
+			echo " </td> </tr> <tr> <td colspan=2 > ";
 
 
 			echo "<table> ";
@@ -719,9 +719,9 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 			echo " <td> &nbsp;&nbsp; </td> ";
 			echo " <td> <canvas id='timeCanv' width='384' height='384' > </canvas> </td> ";
 			echo " <td> &nbsp;&nbsp; </td> ";
-			echo " </tr> </table> ";
+			//echo " </tr> </table> ";
 
-			echo " </td> ";
+			//echo " </td> ";
 			echo " <td> <canvas id='prisCanv2' width='140' height='140' > </canvas> </td> ";
 
 			echo " </tr> </table> <br> \n";
