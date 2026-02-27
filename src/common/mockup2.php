@@ -37,6 +37,17 @@ function PopLst(lst, nn = -1)
 	obj.innerHTML = txt;
 }
 
+function clearall()
+{
+	for (i=1; i<=3; ++i) {
+		for (j=1; j<=6; ++j) {
+			obj = document.getElementById("pl" + i.toString() + j.toString());
+			obj.src = "emp.png" ;
+		}
+	}
+
+}
+
 function sp(i)
 {
 	targets = [ 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99 ];
@@ -49,25 +60,25 @@ function sp(i)
 	val_b_2 =   [ 34, 78, 34, 99, 12, 34, 34, 78, 34, 99, 12, 34, 88, 34 ];
 	short_desc_2 = [ 'bb', 'cc', 'dd', 'ee', 'ff', 'gg' ];
 
-	for (ii=1; ii<=7; ++ii)
-	{
-		obj = document.getElementById("pl" + ii.toString());
-		if (i == ii)
-			ss = "gp2.png";
-		else
-			ss = "emp.png";
-		obj.src = ss ;
-	}
+	clearall();
+
+	obj = document.getElementById("pl1" + i.toString());
+	ss = "gp2.png";
+	obj.src = ss ;
 
 	setSpiderColors("#070", "#0f0");
+
+	mhd = document.getElementById("mainhdr");
 
 	switch (i)
 	{
 		case 1:
+			mhd.innerHTML = "Värdegrund";
 			DrawSpider('SpiderCanvas', 5, targets, targ_s, val_e_1, val_b_1, short_desc_1, 'daniel' );
 			PopLst(short_desc_1, 5);
 			break;
 		case 2:
+			mhd.innerHTML = "PÄR";
 			DrawSpider('SpiderCanvas', 6, targets, targ_s, val_e_2, val_b_2, short_desc_2, 'blubb' );
 			PopLst(short_desc_2, 6);
 			break;
@@ -92,6 +103,21 @@ function sp(i)
 			PopLst(short_desc_2, 5);
 			break;
 	}
+}
+
+function tx(i)
+{
+	clearall();
+
+	obj = document.getElementById("pl15");
+	ss = "gp2.png";
+	obj.src = ss ;
+
+	canvas = document.getElementById("SpiderCanvas");
+	var ctx=canvas.getContext("2d");
+	ctx.fillStyle="#fff";
+
+	ctx.fillRect(0,0,SZ,SZ); 
 }
 
 function rita_disc(canvas, bgimg, SZ, lr, ud)
@@ -167,6 +193,8 @@ function index()
 	// spider
 	$to->startTag('td', 'width=450px rowspan=2');
 
+	$to->regLine(" <div id='mainhdr' style='text-align:center;' > Personlighet (DISC) </div> ");
+
 	$to->regLine( '<canvas id="SpiderCanvas" width="450" height="450" style="border:1px solid #000000;">' );
 	$to->regLine( ' Din browser st&ouml;der inte canvas </canvas> ' );
 
@@ -179,21 +207,37 @@ function index()
 
 	// btns 1
 	$to->startTag('td', 'class="bbox" width=300px height=200px');
-	$to->regLine('<img id="pl1" src="emp.png" /> <button style="width: 150px;" onclick="sp(1)" > Värdegrund </button> <br> ');
-	$to->regLine('<img id="pl2" src="emp.png" /> <button style="width: 150px;" onclick="sp(2)" > Utveckling </button> <br> ');
-	$to->regLine('<img id="pl3" src="emp.png" /> <button style="width: 150px;" onclick="sp(3)" > Stress </button> <br> ');
+	$to->regLine('<h4> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mitt Jag </h4>');
+	$to->regLine('<img id="pl11" src="emp.png" /> <button style="width: 150px;" onclick="sp(1)" > Värdegrund </button> <br> ');
+	$to->regLine('<img id="pl12" src="emp.png" /> <button style="width: 150px;" onclick="sp(2)" > PÄR (omtyckt) </button> <br> ');
+	$to->regLine('<img id="pl13" src="emp.png" /> <button style="width: 150px;" onclick="sp(3)" > ÄTO (klokskap) </button> <br> ');
+	$to->regLine('<img id="pl14" src="emp.png" /> <button style="width: 150px;" onclick="sp(4)" > MMG (mästarklass) </button> <br> ');
+	$to->regLine('<img id="pl15" src="emp.png" /> <button style="width: 150px;" onclick="tx(1)" > Min Fysik </button> <br> ');
+	$to->regLine('<img id="pl16" src="emp.png" />  <br> ');
 	$to->stopTag('td');
 
 	// btns 2
 	$to->startTag('td', 'class="bbox" width=300px height=200px');
-	$to->regLine('<img id="pl4" src="emp.png" /> <button style="width: 150px;" onclick="sp(4)" > Motivation </button> <br> ');
-	$to->regLine('<img id="pl5" src="emp.png" /> <button style="width: 150px;" onclick="sp(5)" > Samarbete </button> <br> ');
+	$to->regLine('<h4> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Min Väg </h4>');
+	$to->regLine('<img id="pl21" src="emp.png" /> <button style="width: 150px;" onclick="st(1)" > Mål </button> <br> ');
+	$to->regLine('<img id="pl22" src="emp.png" /> <button style="width: 150px;" onclick="st(2)" > Stress </button> <br> ');
+	$to->regLine('<img id="pl23" src="emp.png" /> <button style="width: 150px;" onclick="st(3)" > Kommunikation </button> <br> ');
+	$to->regLine('<img id="pl24" src="emp.png" /> <button style="width: 150px;" onclick="st(4)" > Motivation </button> <br> ');
+	$to->regLine('<img id="pl25" src="emp.png" /> <button style="width: 150px;" onclick="st(5)" > Samarbete </button> <br> ');
+	$to->regLine('<img id="pl26" src="emp.png" />  <br> ');
 	$to->stopTag('td');
+
 
 	// b3
 	$to->startTag('td', 'class="bbox" width=300px');
-	$to->regLine('<img id="pl6" src="emp.png" /> <button style="width: 150px;" onclick="sp(6)" > btn 6 </button> <br> ');
-	$to->regLine('<img id="pl7" src="emp.png" /> <button style="width: 150px;" onclick="sp(7)" > btn 7 </button> <br> ');
+	$to->regLine('<h4> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Åtgärdsplan </h4>');
+	$to->regLine('<h6> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <small> Nå ditt sanna jag </small> </h6>');
+	$to->regLine('<img id="pl31" src="emp.png" /> <button style="width: 150px;" onclick="sp(0)" > Steg 1 </button> <br> ');
+	$to->regLine('<img id="pl32" src="emp.png" /> <button style="width: 150px;" onclick="sp(0)" > Steg 2 </button> <br> ');
+	$to->regLine('<img id="pl33" src="emp.png" /> <button style="width: 150px;" onclick="sp(0)" > Steg 3 </button> <br> ');
+	$to->regLine('<img id="pl34" src="emp.png" />  <br> ');
+	$to->regLine('<img id="pl35" src="emp.png" />  <br> ');
+	$to->regLine('<img id="pl36" src="emp.png" />  <br> ');
 	$to->stopTag('td');
 
 	$to->stopTag('tr');
