@@ -158,9 +158,39 @@ function rita_more(canvas, SZ, lst)
 
 </script>
 
+<style>
+
+	.bhb {
+		text-align: center;
+		font-size: 24px;
+		font-weight: bold;
+	}
+	.bhs {
+		text-align: center;
+		font-size: 11px;
+	}
+
+</style>
+
+<title> Mockup </title>
 
 <?php
 
+function outBtn( $to, $blbl, $onclck, $ttl )
+{
+	$to->startTag('tr');
+	$to->startTag('td');
+	$to->regLine("<img id='$blbl' src='emp.png' />");
+	$to->stopTag('td');
+	$to->startTag('td');
+	if ($ttl) {
+		$to->startTag("button", "style='width:150px;' onclick='$onclck'");
+		$to->regLine($ttl);
+		$to->stopTag('button');
+	}
+	$to->stopTag('td');
+	$to->stopTag('tr');
+}
 
 echo "\n</head>\n";
 
@@ -207,37 +237,74 @@ function index()
 
 	// btns 1
 	$to->startTag('td', 'class="bbox" width=300px height=200px');
-	$to->regLine('<h4> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mitt Jag </h4>');
-	$to->regLine('<img id="pl11" src="emp.png" /> <button style="width: 150px;" onclick="sp(1)" > Värdegrund </button> <br> ');
-	$to->regLine('<img id="pl12" src="emp.png" /> <button style="width: 150px;" onclick="sp(2)" > PÄR (omtyckt) </button> <br> ');
-	$to->regLine('<img id="pl13" src="emp.png" /> <button style="width: 150px;" onclick="sp(3)" > ÄTO (klokskap) </button> <br> ');
-	$to->regLine('<img id="pl14" src="emp.png" /> <button style="width: 150px;" onclick="sp(4)" > MMG (mästarklass) </button> <br> ');
-	$to->regLine('<img id="pl15" src="emp.png" /> <button style="width: 150px;" onclick="tx(1)" > Min Fysik </button> <br> ');
-	$to->regLine('<img id="pl16" src="emp.png" />  <br> ');
+	$to->startTag('table');
+	$to->startTag('tr');
+	$to->regLine('<td> </td>');
+	$to->regLine('<td> <div class="bhb"> Mitt Jag </div> </td> ');
+	$to->stopTag('tr');
+
+	$to->startTag('tr');
+	$to->regLine('<td> </td>');
+	$to->regLine('<td> <div class="bhs"> &nbsp; </div> </td> ');
+	$to->stopTag('tr');
+
+	outBtn($to, "pl11", "sp(1)", "Värdegrund");
+	outBtn($to, "pl12", "sp(2)", "PÄR (omtyckt)");
+	outBtn($to, "pl13", "sp(3)", "ÄTO (klokskap)");
+	outBtn($to, "pl14", "sp(4)", "MMG (mästarklass)");
+	outBtn($to, "pl15", "tx(1)", "Min Fysik");
+	outBtn($to, "pl16", "", false);
+	$to->stopTag('table');
+
 	$to->stopTag('td');
 
 	// btns 2
+
 	$to->startTag('td', 'class="bbox" width=300px height=200px');
-	$to->regLine('<h4> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Min Väg </h4>');
-	$to->regLine('<img id="pl21" src="emp.png" /> <button style="width: 150px;" onclick="st(1)" > Mål </button> <br> ');
-	$to->regLine('<img id="pl22" src="emp.png" /> <button style="width: 150px;" onclick="st(2)" > Stress </button> <br> ');
-	$to->regLine('<img id="pl23" src="emp.png" /> <button style="width: 150px;" onclick="st(3)" > Kommunikation </button> <br> ');
-	$to->regLine('<img id="pl24" src="emp.png" /> <button style="width: 150px;" onclick="st(4)" > Motivation </button> <br> ');
-	$to->regLine('<img id="pl25" src="emp.png" /> <button style="width: 150px;" onclick="st(5)" > Samarbete </button> <br> ');
-	$to->regLine('<img id="pl26" src="emp.png" />  <br> ');
+	$to->startTag('table');
+	$to->startTag('tr');
+	$to->regLine('<td> </td>');
+	$to->regLine('<td> <div class="bhb"> Min Väg </div> </td> ');
+	$to->stopTag('tr');
+
+	$to->startTag('tr');
+	$to->regLine('<td> </td>');
+	$to->regLine('<td> <div class="bhs"> &nbsp; </div> </td> ');
+	$to->stopTag('tr');
+
+	outBtn($to, "pl21", "st(1)", "Mål");
+	outBtn($to, "pl22", "st(2)", "Stress");
+	outBtn($to, "pl23", "st(3)", "Kommunikation");
+	outBtn($to, "pl24", "st(4)", "Motivation");
+	outBtn($to, "pl25", "st(5)", "Samarbete");
+	outBtn($to, "pl26", "", false);
+	$to->stopTag('table');
+
 	$to->stopTag('td');
 
 
 	// b3
-	$to->startTag('td', 'class="bbox" width=300px');
-	$to->regLine('<h4> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Åtgärdsplan </h4>');
-	$to->regLine('<h6> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <small> Nå ditt sanna jag </small> </h6>');
-	$to->regLine('<img id="pl31" src="emp.png" /> <button style="width: 150px;" onclick="sp(0)" > Steg 1 </button> <br> ');
-	$to->regLine('<img id="pl32" src="emp.png" /> <button style="width: 150px;" onclick="sp(0)" > Steg 2 </button> <br> ');
-	$to->regLine('<img id="pl33" src="emp.png" /> <button style="width: 150px;" onclick="sp(0)" > Steg 3 </button> <br> ');
-	$to->regLine('<img id="pl34" src="emp.png" />  <br> ');
-	$to->regLine('<img id="pl35" src="emp.png" />  <br> ');
-	$to->regLine('<img id="pl36" src="emp.png" />  <br> ');
+
+	$to->startTag('td', 'class="bbox" width=300px height=200px');
+	$to->startTag('table');
+	$to->startTag('tr');
+	$to->regLine('<td> </td>');
+	$to->regLine('<td> <div class="bhb"> Åtgärdsplan </div> </td> ');
+	$to->stopTag('tr');
+
+	$to->startTag('tr');
+	$to->regLine('<td> </td>');
+	$to->regLine('<td> <div class="bhs"> Nå ditt sanna jag </div> </td> ');
+	$to->stopTag('tr');
+
+	outBtn($to, "pl31", "sp(0)", "Steg 1");
+	outBtn($to, "pl32", "sp(0)", "Steg 2");
+	outBtn($to, "pl33", "sp(0)", "Steg 3");
+	outBtn($to, "pl34", "", false);
+	outBtn($to, "pl35", "", false);
+	outBtn($to, "pl36", "", false);
+	$to->stopTag('table');
+
 	$to->stopTag('td');
 
 	$to->stopTag('tr');
