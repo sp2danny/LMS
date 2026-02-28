@@ -54,11 +54,14 @@ function sp(i)
 	targ_s  = [ 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85  ];
 	val_e_1 =   [ 78, 25, 34, 98, 56, 33, 90, 34, 56, 67, 23, 99, 78, 56, 65, 23, 99, 78, 56 ];
 	val_b_1 =   [ 55, 56, 23, 67, 76, 34, 78, 34, 99, 12, 34, 34, 78, 34, 99, 12, 34, 88, 34 ];
-	short_desc_1 = [ 'Värdegrund', 'Mission', 'Utveckling', 'Disc', 'Styrkor', 'xx', 'xx'];  
 
 	val_e_2 =   [ 34, 56, 67, 23, 99, 78, 56, 65, 23, 99, 78, 56 ];
 	val_b_2 =   [ 34, 78, 34, 99, 12, 34, 34, 78, 34, 99, 12, 34, 88, 34 ];
-	short_desc_2 = [ 'bb', 'cc', 'dd', 'ee', 'ff', 'gg' ];
+
+	short_desc_1 = ['Värdegrund', 'Missionstatement'];
+	short_desc_2 = ['Positiv', 'Äkta', 'Relevant'];
+	short_desc_3 = ['Ärlig', 'Tillitsfull', 'Omdömesfull'];
+	short_desc_4 = ['Motivation', 'Målsättning', 'Genomförande'];
 
 	clearall();
 
@@ -74,34 +77,25 @@ function sp(i)
 	{
 		case 1:
 			mhd.innerHTML = "Värdegrund";
-			DrawSpider('SpiderCanvas', 5, targets, targ_s, val_e_1, val_b_1, short_desc_1, 'daniel' );
-			PopLst(short_desc_1, 5);
+			DrawSpider('SpiderCanvas', 2, targets, targ_s, val_e_1, val_b_1, short_desc_1, "Värdegrund" );
+			PopLst(short_desc_1, 2);
 			break;
 		case 2:
 			mhd.innerHTML = "PÄR";
-			DrawSpider('SpiderCanvas', 6, targets, targ_s, val_e_2, val_b_2, short_desc_2, 'blubb' );
-			PopLst(short_desc_2, 6);
+			DrawSpider('SpiderCanvas', 3, targets, targ_s, val_e_2, val_b_2, short_desc_2, 'PÄR' );
+			PopLst(short_desc_2, 3);
 			break;
 		case 3:
-			DrawSpider('SpiderCanvas', 7, targets, targ_s, val_e_1.slice(2), val_b_1.slice(2), short_desc_1, 'daniel2' );
-			PopLst(short_desc_1, 7);
+			mhd.innerHTML = "ÄTO";
+			DrawSpider('SpiderCanvas', 3, targets, targ_s, val_e_1.slice(2), val_b_1.slice(2), short_desc_3, 'ÄTO' );
+			PopLst(short_desc_3, 3);
 			break;
 		case 4:
-			DrawSpider('SpiderCanvas', 6, targets, targ_s, val_e_2.slice(1), val_b_2.slice(1), short_desc_2, 'blubb' );
-			PopLst(short_desc_2, 6);
+			mhd.innerHTML = "MMG";
+			DrawSpider('SpiderCanvas', 3, targets, targ_s, val_e_2.slice(1), val_b_2.slice(1), short_desc_4, 'MMG' );
+			PopLst(short_desc_4, 3);
 			break;
-		case 5:
-			DrawSpider('SpiderCanvas', 5, targets, targ_s, val_e_2.slice(2), val_b_2.slice(2), short_desc_2, 'blubb' );
-			PopLst(short_desc_2, 5);
-			break;
-		case 6:
-			DrawSpider('SpiderCanvas', 6, targets, targ_s, val_e_2.slice(1), val_b_2.slice(1), short_desc_2, 'blubb' );
-			PopLst(short_desc_2, 6);
-			break;
-		case 7:
-			DrawSpider('SpiderCanvas', 5, targets, targ_s, val_e_2.slice(2), val_b_2.slice(2), short_desc_2, 'blubb' );
-			PopLst(short_desc_2, 5);
-			break;
+
 	}
 }
 
@@ -109,15 +103,29 @@ function tx(i)
 {
 	clearall();
 
+	document.getElementById("mainhdr").innerHTML = "Min Fysik";
+
 	obj = document.getElementById("pl15");
 	ss = "gp2.png";
 	obj.src = ss ;
 
+	PopLst([], 0);
+
 	canvas = document.getElementById("SpiderCanvas");
+	var SZ = canvas.width;
 	var ctx=canvas.getContext("2d");
 	ctx.fillStyle="#fff";
 
 	ctx.fillRect(0,0,SZ,SZ); 
+
+	ctx.font="bold 20px Myriad-pro";
+	ctx.fillStyle="#000";
+
+	txt = "Lite text" ;
+
+	txt_w = ctx.measureText(txt).width;
+	ctx.fillText( txt, SZ/2-txt_w/2, 28 );
+
 }
 
 function rita_disc(canvas, bgimg, SZ, lr, ud)
