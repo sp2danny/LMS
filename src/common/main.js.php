@@ -442,23 +442,31 @@ var spider_gap_p;
 var spider_gap_tot_n;
 var spider_gap_tot_t;
 
-var spider_fill_black    = "#000";
-var spider_fill_white    = "#fff";
-var spider_fill_grey     = "#888";
-var spider_fill_inner    = "#0f0";
-var spider_fill_outer    = "#070";
+var spider_boxline       = "#000";
+var spider_back          = "#fff";
+var spider_targ_inner    = "#888";
+var spider_targ_outer    = "#0f0";
+var spider_egen          = "#070";
+var spider_grupp         = "#770";
 
 
-function setSpiderColors(sp_inner, sp_outer, sp_black = "#000", sp_white = "#fff", sp_grey = "#888" )
+function setSpiderColors(
+	boxline       = "#000",
+	back          = "#fff",
+	targ_inner    = "#888",
+	targ_outer    = "#0f0",
+	egen          = "#070",
+	grupp         = "#770" )
 {
-	spider_fill_black    = sp_black;
-	spider_fill_white    = sp_white;
-	spider_fill_grey     = sp_grey;
-	spider_fill_inner    = sp_inner;
-	spider_fill_outer    = sp_outer;
+	spider_boxline       = boxline   ;
+	spider_back          = back      ;
+	spider_targ_inner    = targ_inner;
+	spider_targ_outer    = targ_outer;
+	spider_egen          = egen      ;
+	spider_grupp         = grupp     ;
 }
 
-function DrawSpider( canvas, count, targets, targ_s, val_e, val_b, shrt_desc, title )
+function DrawSpider( canvas, count, targets, targ_s, val_e, val_b, shrt_desc, title, wide = false )
 {
 
 	spider_canvas = document.getElementById(canvas);
@@ -519,9 +527,18 @@ function DrawSpider( canvas, count, targets, targ_s, val_e, val_b, shrt_desc, ti
 	spider_gap_tot_n =  ( accu_n / cnt );
 	spider_gap_tot_p =  ( accu_p / cnt );
 
-	spider_canvas.addEventListener( 'mousemove', spiderMouseMove, false );
+	spider_canvas.removeEventListener( 'mousemove', wideSpiderMouseMove, false );
+	spider_canvas.removeEventListener( 'mousemove', spiderMouseMove, false );
 
-	genericDrawSpider();
+	if (wide)
+		spider_canvas.addEventListener( 'mousemove', wideSpiderMouseMove, false );
+	else
+		spider_canvas.addEventListener( 'mousemove', spiderMouseMove, false );
+
+	if (wide)
+		wideDrawSpider();
+	else
+		genericDrawSpider();
 }
 
 function getMousePos(canvas, evt)
@@ -546,11 +563,11 @@ function genericDrawSpider()
 	x1 = ww / 2;
 	y1 = (hh-80) / 2 + 80;
 
-	ctx.fillStyle = spider_fill_white;
+	ctx.fillStyle = spider_back;
 	ctx.fillRect(0,0,ww,hh);
 
 	ctx.font="bold 20px Myriad-pro";
-	ctx.fillStyle = spider_fill_black;
+	ctx.fillStyle = spider_boxline;
 
 	txt = spider_title ;
 	//txt += ", medel ";
@@ -564,7 +581,7 @@ function genericDrawSpider()
 	txt_w = ctx.measureText(txt).width;
 	ctx.fillText( txt, ww/2-txt_w/2, 28 );
 
-	ctx.strokeStyle = spider_fill_black;
+	ctx.strokeStyle = spider_boxline;
 	ctx.lineWidth=1;
 	ctx.beginPath();
 	ctx.moveTo(0,40);
@@ -591,7 +608,7 @@ function genericDrawSpider()
 		ii = Math.floor(spider_count * ang / (2*Math.PI)) ;
 		ii = ii % spider_count;
 		ctx.font="16px Myriad-pro";
-		ctx.fillStyle = spider_fill_black;
+		ctx.fillStyle = spider_boxline;
 
 		txt = spider_shrt_desc[ii]; // "anonym " +ii;
 		txt_w = ctx.measureText(txt).width;
@@ -599,7 +616,7 @@ function genericDrawSpider()
 
 	}
 
-	ctx.strokeStyle = spider_fill_grey;
+	ctx.strokeStyle = "#777";
 	ctx.lineWidth = 1;
 
 	for( i=1; i<=5; ++i )
@@ -618,13 +635,13 @@ function genericDrawSpider()
 	for( i=0; i< spider_count; ++i )
 	{
 
-		ctx.strokeStyle = spider_fill_inner;
+		ctx.strokeStyle = spider_targ_inner;
 
 		ctx.beginPath();
 		ctx.arc(x1,y1,buff*spider_targets[i]/20,i*inc-pm,i*inc+pm);
 		ctx.stroke();
 
-		ctx.strokeStyle = spider_fill_outer;
+		ctx.strokeStyle = spider_targ_outer;
 		
 		if( spider_targ_s[i] > 0 )
 		{
@@ -637,14 +654,14 @@ function genericDrawSpider()
 	offs = 2 * Math.PI / 350;
 
 	ctx.font="8px Myriad-pro";
-	ctx.fillStyle = spider_fill_black;
+	ctx.fillStyle = spider_boxline;
 
 	for( i=0; i< spider_count; ++i )
 	{
 		x2 = x1 + buff * spider_val_e[i]/20 * Math.cos ( ( i * inc ) - offs );
 		y2 = y1 + buff * spider_val_e[i]/20 * Math.sin ( ( i * inc ) - offs );
 
-		ctx.strokeStyle = spider_fill_grey;
+		ctx.strokeStyle = spider_egen;
 		ctx.lineWidth=5;
 
 		ctx.beginPath();
@@ -665,7 +682,7 @@ function genericDrawSpider()
 		}
 
 		ctx.font="8px Myriad-pro";
-		ctx.fillStyle = spider_fill_black;
+		ctx.fillStyle = spider_boxline;
 		txt = "" + (i+1); 
 		mt = ctx.measureText(txt);
 		txt_w = mt.width;
@@ -674,7 +691,7 @@ function genericDrawSpider()
 
 	}
 
-	ctx.strokeStyle = spider_fill_black;
+	ctx.strokeStyle = spider_grupp;
 	ctx.lineWidth=2;
 
 	was_missing = false;
@@ -699,18 +716,18 @@ function genericDrawSpider()
 
 	// legend
 
-	ctx.lineWidth=5;
+	ctx.lineWidth = 7;
 	ctx.font="bold 12px Myriad-pro";
-	ctx.fillStyle = spider_fill_black;
+	ctx.fillStyle = spider_boxline;
 
-	ctx.strokeStyle = spider_fill_grey;
+	ctx.strokeStyle = spider_egen;
 	ctx.beginPath();
 	ctx.moveTo(8,hh-8-12*2);
 	ctx.lineTo(28,hh-8-12*2);
 	ctx.stroke();
 	ctx.fillText("Egenskattning",32,hh-8-12*2+3);
 
-	ctx.strokeStyle = spider_fill_black;
+	ctx.strokeStyle = spider_grupp;
 	ctx.beginPath();
 	ctx.moveTo(8,hh-8-12*1);
 	ctx.lineTo(28,hh-8-12*1);
@@ -729,6 +746,220 @@ function genericDrawSpider()
 
 }
 
+function wideDrawSpider()
+{
+	var ctx=spider_canvas.getContext("2d");
+	ww = spider_canvas.width;
+	hh = spider_canvas.height;
+
+	x1 = ww / 2;
+	y1 = (hh-80) / 2 + 80;
+
+	ctx.fillStyle = spider_back;
+	ctx.fillRect(0,0,ww,hh);
+
+	ctx.font="bold 20px Myriad-pro";
+	ctx.fillStyle = spider_boxline;
+
+	txt = spider_title ;
+	sum=0;
+	for( i=0; i< spider_count; ++i )
+	{
+		sum += spider_gap_n[i];
+	}
+
+	txt_w = ctx.measureText(txt).width;
+	ctx.fillText( txt, ww/2-txt_w/2, 28 );
+
+	ctx.strokeStyle = spider_boxline;
+	ctx.lineWidth=1;
+	ctx.beginPath();
+	ctx.moveTo(0,40);
+	ctx.lineTo(ww,40);
+	ctx.moveTo(0,80);
+	ctx.lineTo(ww,80);
+	ctx.stroke();
+
+	sz = Math.min( ww*0.45, (hh-80)*0.45 );
+
+	buff = sz / 5;
+
+	dx = spider_mx - x1;
+	dy = spider_my - y1;
+	dist = Math.sqrt( dx*dx + dy*dy );
+
+	ii = -1;
+
+	if( dist < 5*buff )
+	{
+		ang = Math.atan2( dy, dx );
+		ang += 4*Math.PI;
+		ang += (2*Math.PI)/(2*spider_count);
+		ii = Math.floor(spider_count * ang / (2*Math.PI)) ;
+		ii = ii % spider_count;
+		ctx.font="16px Myriad-pro";
+		ctx.fillStyle = spider_boxline;
+
+		txt = spider_shrt_desc[ii]; // "anonym " +ii;
+		txt_w = ctx.measureText(txt).width;
+		ctx.fillText( txt, ww/2-txt_w/2, 28 + 40 );
+
+	}
+
+	ctx.strokeStyle = "#777";
+	ctx.lineWidth = 1;
+
+	for( i=1; i<=5; ++i )
+	{
+		ctx.beginPath();
+		ctx.arc(x1,y1,buff*i,0,2*Math.PI);
+		ctx.stroke();
+	}
+
+	ctx.strokeStyle="#f00";
+	ctx.lineWidth=5;
+
+	pm = Math.PI / spider_count;
+	inc = 2*pm;
+
+	/*
+	for( i=0; i< spider_count; ++i )
+	{
+
+		ctx.strokeStyle = spider_targ_inner;
+
+		ctx.beginPath();
+		ctx.arc(x1,y1,buff*spider_targets[i]/20,i*inc-pm,i*inc+pm);
+		ctx.stroke();
+
+		ctx.strokeStyle = spider_targ_outer;
+		
+		if( spider_targ_s[i] > 0 )
+		{
+			ctx.beginPath();
+			ctx.arc(x1,y1,buff*spider_targ_s[i]/20,i*inc-pm,i*inc+pm);
+			ctx.stroke();
+		}
+	}
+	*/
+
+	offs = 2 * Math.PI / 350;
+
+	ctx.font="8px Myriad-pro";
+	ctx.fillStyle = spider_boxline;
+
+	var wide = 2 * Math.PI / (spider_count * 6);
+
+	for( i=0; i< spider_count; ++i )
+	{
+		x2 = x1 + buff * spider_val_e[i]/20 * Math.cos ( ( i * inc ) - offs );
+		y2 = y1 + buff * spider_val_e[i]/20 * Math.sin ( ( i * inc ) - offs );
+
+		x2_1 = x1 + buff * spider_val_e[i]/20 * Math.cos ( ( i * inc ) - offs - wide );
+		y2_1 = y1 + buff * spider_val_e[i]/20 * Math.sin ( ( i * inc ) - offs - wide );
+
+		ctx.strokeStyle = "#111";
+		ctx.lineWidth = 3;
+		ctx.fillStyle = spider_egen;
+
+		ctx.beginPath();
+		ctx.moveTo(x1,y1);
+		ctx.lineTo(x2_1,y2_1);
+		ctx.arc(x1,y1,buff*spider_val_e[i]/20,i*inc-wide,i*inc);
+		ctx.lineTo(x1,y1);
+		ctx.fill();
+		//ctx.stroke();
+
+
+		x2 = x1 + buff * 5.3 * Math.cos ( ( i * inc ) - offs );
+		y2 = y1 + buff * 5.3 * Math.sin ( ( i * inc ) - offs );
+
+		if( i == ii )
+		{
+			ctx.strokeStyle = "#0f0";
+			ctx.lineWidth=1;
+			ctx.beginPath();
+			ctx.arc(x2,y2,9,0,2*Math.PI);
+			ctx.stroke();
+		}
+
+		ctx.font = "14px Myriad-pro";
+		ctx.fillStyle = spider_boxline;
+		txt = "" + (i+1); 
+		mt = ctx.measureText(txt);
+		txt_w = mt.width;
+		txt_h = 8;
+		ctx.fillText( txt, x2-txt_w/2, y2+txt_h/2 );
+
+	}
+
+	ctx.strokeStyle = spider_boxline;
+	ctx.lineWidth=2;
+
+	was_missing = false;
+
+	for( i=0; i< spider_count; ++i )
+	{
+		if( ! spider_val_b[i] )
+		{
+		}
+		else
+		{
+			x2 = x1 + buff * spider_val_b[i]/20 * Math.cos ( ( i * inc ) + offs );
+			y2 = y1 + buff * spider_val_b[i]/20 * Math.sin ( ( i * inc ) + offs );
+
+			x2_1 = x1 + buff * spider_val_b[i]/20 * Math.cos ( ( i * inc ) - offs + wide );
+			y2_1 = y1 + buff * spider_val_b[i]/20 * Math.sin ( ( i * inc ) - offs + wide );
+
+			ctx.strokeStyle = "#111";
+			ctx.lineWidth = 3;
+			ctx.fillStyle = spider_grupp;
+
+			ctx.beginPath();
+			ctx.moveTo(x1,y1);
+			ctx.lineTo(x2,y2);
+			ctx.arc(x1,y1,buff*spider_val_b[i]/20,i*inc,i*inc+wide);
+			ctx.lineTo(x1,y1);
+			ctx.fill();
+			//ctx.stroke();
+
+		}
+
+	}
+
+	// legend
+
+	ctx.lineWidth=5;
+	ctx.font="bold 12px Myriad-pro";
+	ctx.fillStyle = spider_boxline;
+
+	ctx.strokeStyle = spider_egen;
+	ctx.beginPath();
+	ctx.moveTo(8,hh-8-12*2);
+	ctx.lineTo(28,hh-8-12*2);
+	ctx.stroke();
+	ctx.fillText("Egenskattning",32,hh-8-12*2+3);
+
+	ctx.strokeStyle = spider_grupp;
+	ctx.beginPath();
+	ctx.moveTo(8,hh-8-12*1);
+	ctx.lineTo(28,hh-8-12*1);
+	ctx.stroke();
+	ctx.fillText("Gruppskattning",32,hh-8-12*1+3);
+
+	if(was_missing)
+	{
+		ctx.strokeStyle="#f00";
+		ctx.beginPath();
+		ctx.moveTo(8,hh-8-12*0);
+		ctx.lineTo(28,hh-8-12*0);
+		ctx.stroke();
+		ctx.fillText("Värde saknas",32,hh-8-12*0+3);
+	}
+
+}
+
+
 function spiderMouseMove(event)
 {
 	mousePos = getMousePos(spider_canvas, event);
@@ -736,6 +967,15 @@ function spiderMouseMove(event)
 	spider_my = mousePos.y;
 	genericDrawSpider();
 }
+
+function wideSpiderMouseMove(event)
+{
+	mousePos = getMousePos(spider_canvas, event);
+	spider_mx = mousePos.x;
+	spider_my = mousePos.y;
+	wideDrawSpider();
+}
+
 
 function DrawSpiderTst( canvas, count, targets, val_e, val_b, shrt_desc, title )
 {

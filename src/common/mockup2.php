@@ -77,7 +77,7 @@ function sp(i)
 	{
 		case 1:
 			mhd.innerHTML = "Värdegrund";
-			DrawSpider('SpiderCanvas', 2, targets, targ_s, val_e_1, val_b_1, short_desc_1, "Värdegrund" );
+			DrawSpider('SpiderCanvas', 2, targets, targ_s, val_e_1, val_b_1, short_desc_1, "Värdegrund", true );
 			PopLst(short_desc_1, 2);
 			break;
 		case 2:
@@ -260,7 +260,7 @@ function index()
 	outBtn($to, "pl12", "sp(2)", "PÄR (omtyckt)");
 	outBtn($to, "pl13", "sp(3)", "ÄTO (klokskap)");
 	outBtn($to, "pl14", "sp(4)", "MMG (mästarklass)");
-	outBtn($to, "pl15", "tx(1)", "Min Fysik");
+	outBtn($to, "pl15", "dsk()", "Disc");
 	outBtn($to, "pl16", "", false);
 	$to->stopTag('table');
 
@@ -309,7 +309,7 @@ function index()
 	outBtn($to, "pl32", "sp(0)", "Steg 2");
 	outBtn($to, "pl33", "sp(0)", "Steg 3");
 	outBtn($to, "pl34", "", false);
-	outBtn($to, "pl35", "", false);
+	outBtn($to, "pl35", "tx(1)", "Min Fysik");
 	outBtn($to, "pl36", "", false);
 	$to->stopTag('table');
 

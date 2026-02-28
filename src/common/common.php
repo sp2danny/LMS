@@ -81,7 +81,7 @@ var spider_gap_p;
 var spider_gap_tot_n;
 var spider_gap_tot_t;
 
-function DrawSpider( canvas, count, targets, targ_s, val_e, val_b, shrt_desc, title )
+function DrawSpider( canvas, count, targets, targ_s, val_e, val_b, shrt_desc, title, wide = false )
 {
 
 	spider_canvas = document.getElementById(canvas);
@@ -144,7 +144,10 @@ function DrawSpider( canvas, count, targets, targ_s, val_e, val_b, shrt_desc, ti
 
 	spider_canvas.addEventListener( 'mousemove', spiderMouseMove, false );
 
-	genericDrawSpider();
+	//if (wide)
+	//	wideDrawSpider();
+	//else
+		genericDrawSpider();
 }
 
 
