@@ -42,6 +42,19 @@ function rel(es, gs)
 	return 100 - Math.abs(es-gs);
 }
 
+function bed(num)
+{
+	txt = " <img src='";
+	if (num>=85)
+		txt += "gs_gp.png";
+	else if (num>=70)
+		txt += "gs_yp.png";
+	else
+		txt += "gs_rp.png";
+	txt += "' > " + (num).toString();
+	return txt;
+}
+
 function mkTbl(nm, es, gs, utv)
 {
 	var n = nm.length;
@@ -50,18 +63,23 @@ function mkTbl(nm, es, gs, utv)
 	txt += " <th class='visitab' > # </th> ";
 	txt += " <th class='visitab' > Kategori </th> ";
 	txt += " <th class='visitab' > Jag </th> ";
-	txt += " <th class='visitab' > Gruppen </th> ";
-	txt += " <th class='visitab' > Relevans </th> ";
-	txt += " <th class='visitab' > Utveckling </th> </tr> ";
+	txt += " <th class='visitab' > Grupp </th> ";
+	txt += " <th class='visitab' > Självbild </th> ";
+	txt += " <th class='visitab' > Utv. </th> ";
+	txt += " </tr> ";
 	for (i=0; i<n; ++i)
 	{
 		txt += " <tr class='visitabrow' > ";
 		txt += " <td class='visitabbx' > " + (i+1).toString() + " </td> ";
 		txt += " <td class='visitabbx' > " + nm[i] + " </td> ";
-		txt += " <td class='visitabbx' > " + es[i] + " </td> ";
+		txt += " <td class='visitabbx' > " + bed(es[i]) + " </td> ";
 		txt += " <td class='visitabbx' > " + gs[i] + " </td> ";
-		txt += " <td class='visitabbx' > " + rel(es[i],gs[i]).toString() + " </td> ";
+		sb = rel(es[i], gs[i]);
+		txt += " <td class='visitabbx' > " + bed(sb) + "% </td> ";
 		txt += " <td class='visitabbx' > " + "+" + utv[i].toString() + "%" + " </td> ";
+
+		txt += " </tr> ";
+
 	}
 
 	txt += " </table> ";
@@ -119,12 +137,14 @@ function sp(i)
 		case 2:
 			mhd.innerHTML = "Omtyckt";
 			DrawSpider('SpiderCanvas', 3, targets, targ_s, val_e_2, val_b_2, short_desc_2, 'PÄR', true );
-			PopLst(short_desc_2, 3);
+			//PopLst(short_desc_2, 3);
+			mkTbl(short_desc_2, val_e_2, val_b_2, [4,5,6]);
 			break;
 		case 3:
 			mhd.innerHTML = "Klokskap";
 			DrawSpider('SpiderCanvas', 3, targets, targ_s, val_e_1.slice(2), val_b_1.slice(2), short_desc_3, 'ÄTO', true );
-			PopLst(short_desc_3, 3);
+			//PopLst(short_desc_3, 3);
+			mkTbl(short_desc_3, val_e_3, val_b_3, [4,5,6]);
 			break;
 		case 4:
 			mhd.innerHTML = "Mästarklass";
