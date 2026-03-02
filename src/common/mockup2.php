@@ -1,7 +1,7 @@
 
 <?php
 
-$RETURNTO = 'collect';
+$RETURNTO = 'mockup2';
 
 include_once 'debug.php';
 include_once 'head.php';
@@ -22,7 +22,7 @@ echo '<script type="text/javascript" src="https://www.gstatic.com/charts/loader.
 function PopLst(lst, nn = -1)
 {
 	obj = document.getElementById("lstf");
-	if (nn==-1)
+	if (nn == -1)
 		n = lst.length;
 	else
 		n = nn;
@@ -37,6 +37,58 @@ function PopLst(lst, nn = -1)
 	obj.innerHTML = txt;
 }
 
+function rel(es, gs)
+{
+	return 100 - Math.abs(es-gs);
+}
+
+function bed(num)
+{
+	txt = " <img src='";
+	if (num>=85)
+		txt += "gs_gp.png";
+	else if (num>=70)
+		txt += "gs_yp.png";
+	else
+		txt += "gs_rp.png";
+	txt += "' > " + (num).toString();
+	return txt;
+}
+
+function mkTbl(nm, es, gs, utv)
+{
+	var n = nm.length;
+	var txt = "<table class='visitab' > ";
+	txt += " <tr class='visitab' > ";
+	txt += " <th class='visitab' > # </th> ";
+	txt += " <th class='visitab' > Kategori </th> ";
+	txt += " <th class='visitab' > Jag </th> ";
+	txt += " <th class='visitab' > Grupp </th> ";
+	txt += " <th class='visitab' > Självbild </th> ";
+	txt += " <th class='visitab' > Utv. </th> ";
+	txt += " </tr> ";
+	for (i=0; i<n; ++i)
+	{
+		txt += " <tr class='visitabrow' > ";
+		txt += " <td class='visitabbx' > " + (i+1).toString() + " </td> ";
+		txt += " <td class='visitabbx' > " + nm[i] + " </td> ";
+		txt += " <td class='visitabbx' > " + bed(es[i]) + " </td> ";
+		txt += " <td class='visitabbx' > " + gs[i] + " </td> ";
+		sb = rel(es[i], gs[i]);
+		txt += " <td class='visitabbx' > " + bed(sb) + "% </td> ";
+		txt += " <td class='visitabbx' > " + "+" + utv[i].toString() + "%" + " </td> ";
+
+		txt += " </tr> ";
+
+	}
+
+	txt += " </table> ";
+
+	obj = document.getElementById("lstf");
+	obj.innerHTML = txt;
+
+}
+
 function clearall()
 {
 	for (i=1; i<=3; ++i) {
@@ -48,8 +100,16 @@ function clearall()
 
 }
 
+function restSpdr()
+{
+	MA = document.getElementById("mainarea");
+	MA.innerHTML = '<canvas id="SpiderCanvas" width="450" height="450" style="border:1px solid #000000;"> Din browser st&ouml;der inte canvas </canvas> '
+}
+
 function sp(i)
 {
+	restSpdr();
+
 	targets = [ 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99 ];
 	targ_s  = [ 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85  ];
 	val_e_1 =   [ 78, 25, 34, 98, 56, 33, 90, 34, 56, 67, 23, 99, 78, 56, 65, 23, 99, 78, 56 ];
@@ -69,7 +129,7 @@ function sp(i)
 	ss = "gp2.png";
 	obj.src = ss ;
 
-	setSpiderColors("#070", "#0f0");
+	setSpiderColors("#000", "#fff", "#777", "#888", "#2d1", "#fe0" );
 
 	mhd = document.getElementById("mainhdr");
 
@@ -78,21 +138,25 @@ function sp(i)
 		case 1:
 			mhd.innerHTML = "Värdegrund";
 			DrawSpider('SpiderCanvas', 2, targets, targ_s, val_e_1, val_b_1, short_desc_1, "Värdegrund", true );
-			PopLst(short_desc_1, 2);
+			//function mkTbl(nm, es, gs, utv)
+			//PopLst(short_desc_1, 2);
+			mkTbl(short_desc_1, val_e_1, val_b_1, [4,5,6]);
 			break;
 		case 2:
-			mhd.innerHTML = "PÄR";
-			DrawSpider('SpiderCanvas', 3, targets, targ_s, val_e_2, val_b_2, short_desc_2, 'PÄR' );
-			PopLst(short_desc_2, 3);
+			mhd.innerHTML = "Omtyckt";
+			DrawSpider('SpiderCanvas', 3, targets, targ_s, val_e_2, val_b_2, short_desc_2, 'PÄR', true );
+			//PopLst(short_desc_2, 3);
+			mkTbl(short_desc_2, val_e_2, val_b_2, [4,5,6]);
 			break;
 		case 3:
-			mhd.innerHTML = "ÄTO";
-			DrawSpider('SpiderCanvas', 3, targets, targ_s, val_e_1.slice(2), val_b_1.slice(2), short_desc_3, 'ÄTO' );
-			PopLst(short_desc_3, 3);
+			mhd.innerHTML = "Klokskap";
+			DrawSpider('SpiderCanvas', 3, targets, targ_s, val_e_1.slice(2), val_b_1.slice(2), short_desc_3, 'ÄTO', true );
+			//PopLst(short_desc_3, 3);
+			mkTbl(short_desc_3, val_e_3, val_b_3, [4,5,6]);
 			break;
 		case 4:
-			mhd.innerHTML = "MMG";
-			DrawSpider('SpiderCanvas', 3, targets, targ_s, val_e_2.slice(1), val_b_2.slice(1), short_desc_4, 'MMG' );
+			mhd.innerHTML = "Mästarklass";
+			DrawSpider('SpiderCanvas', 3, targets, targ_s, val_e_2.slice(1), val_b_2.slice(1), short_desc_4, 'MMG', true );
 			PopLst(short_desc_4, 3);
 			break;
 
@@ -101,11 +165,13 @@ function sp(i)
 
 function tx(i)
 {
+	restSpdr();
+
 	clearall();
 
 	document.getElementById("mainhdr").innerHTML = "Min Fysik";
 
-	obj = document.getElementById("pl15");
+	obj = document.getElementById("pl35");
 	ss = "gp2.png";
 	obj.src = ss ;
 
@@ -164,6 +230,52 @@ function rita_more(canvas, SZ, lst)
 	}
 }
 
+function dsk()
+{
+	restSpdr();
+
+	clearall();
+
+	document.getElementById("mainhdr").innerHTML = "Disk";
+
+	obj = document.getElementById("pl15");
+	ss = "gp2.png";
+	obj.src = ss ;
+
+	obj = document.getElementById("lstf");
+	obj.innerHTML = ' &#128994; Egenskattning <br> &#128993; Gruppskattning ';
+
+	rita_disc( document.getElementById("SpiderCanvas"), document.getElementById("Disc2"), 450, -2,3);
+	rita_more( document.getElementById("SpiderCanvas"), 450, [{x:3,y:-3}, {x:6,y:8}] );
+	
+}
+
+function st(i)
+{
+	clearall();
+
+	obj = document.getElementById("pl2" + i.toString());
+	ss = "gp2.png";
+	obj.src = ss ;
+
+	obj = document.getElementById("lstf");
+	obj.innerHTML = '';
+
+	mhd = document.getElementById("mainhdr");
+
+	switch(i)
+	{
+		case 1:
+			mhd.innerHTML = "Mål";
+			func_1();
+			break;
+		case 2:
+			mhd.innerHTML = "Stress";
+			func_2();
+			break;
+	}
+}
+
 </script>
 
 <style>
@@ -178,11 +290,81 @@ function rita_more(canvas, SZ, lst)
 		font-size: 11px;
 	}
 
+
+	.visitab  {
+		border: 1px solid black;
+		border-collapse: collapse;
+			
+		padding-top:     6px;
+		padding-left:   20px;
+		padding-right:  20px;
+		padding-bottom:  6px;
+		text-align: left;
+		background-color: #fff;
+	}
+
+	.visitabbx  {
+		border: 1px solid black;
+		border-collapse: collapse;
+			
+		padding-top:     6px;
+		padding-left:   20px;
+		padding-right:  20px;
+		padding-bottom:  6px;
+		text-align: left;
+		/* background-color: #fff; */
+	}
+
+	.visitabrow:nth-child(odd) {
+		background-color: #fee;
+	}
+	.visitabrow:nth-child(even) {
+		background-color: #eef;
+	}
+
+
 </style>
 
 <title> Mockup </title>
 
 <?php
+
+function survOut($tn, $filt)
+{
+	global $emperator;
+
+	$pnr = "19721106-4634";
+	$pid = 15;
+	if ($pnr && ! $pid) {
+		$query = "SELECT * FROM pers WHERE pnr='$pnr'";
+		$res = mysqli_query($emperator, $query);
+		if ($res) if ($row = mysqli_fetch_array($res))
+			$pid = $row['pers_id'];
+	}
+
+	$n = 0;
+	$query = "SELECT * FROM surv WHERE type='$tn' AND pers='$pid';";
+	debug_log("query : " . $query);
+	$res = mysqli_query( $emperator, $query );
+	if ($res) while ($row = mysqli_fetch_array($res)) {
+		$seq = $row['seq'];
+		$sid = $row['surv_id'];
+		++$n;
+	}
+	
+	if ($n<=0) {
+		return ' --- inga surveys ännu ---';
+	} else if ($n==1) {
+		$lnk = "onesurv.php?sid=$sid&seq=$seq&pid=$pid&st=$tn&filt=$filt";
+		debug_log('embed link : ' . $lnk);
+		return "<embed type='text/html' src='$lnk' width='450' height='450' >";
+	} else {
+		$lnk = "allsurv.php?pid=$pid&st=$tn&filt=$filt";
+		debug_log('embed link : ' . $lnk);
+		return "<embed type='text/html' src='$lnk' width='450' height='450' >";
+	}
+}
+
 
 function outBtn( $to, $blbl, $onclck, $ttl )
 {
@@ -200,11 +382,30 @@ function outBtn( $to, $blbl, $onclck, $ttl )
 	$to->stopTag('tr');
 }
 
-echo "\n</head>\n";
 
 function index()
 {
+	debug_log("index()");
+
 	$to = new tagOut;
+
+	$to->startTag('script');
+
+	$to->regline('function func_1() {');
+	$to->regline(' obj = document.getElementById("mainarea"); ');
+	$txt = " obj.innerHTML = " . '"' . survOut(104, 11) . '"';
+	$to->regline($txt);
+	$to->regline("}");
+
+	$to->regline('function func_2() {');
+	$to->regline(' obj = document.getElementById("mainarea"); ');
+	$txt = " obj.innerHTML = " . '"' . survOut(101, 3) . '"';
+	$to->regline($txt);
+	$to->regline("}");
+	
+	$to->stopTag('script');
+
+	$to->regLine( "\n</head>\n" );
 
 	$to->startTag("body");
 
@@ -233,8 +434,10 @@ function index()
 
 	$to->regLine(" <div id='mainhdr' style='text-align:center;' > Personlighet (DISC) </div> ");
 
+	$to->regLine( '<div id="mainarea">' );
 	$to->regLine( '<canvas id="SpiderCanvas" width="450" height="450" style="border:1px solid #000000;">' );
 	$to->regLine( ' Din browser st&ouml;der inte canvas </canvas> ' );
+	$to->regLine( '</div>' );
 
 	$to->startTag('script');
 	$to->regLine(' rita_disc( document.getElementById("SpiderCanvas"), document.getElementById("Disc2"), 450, -2,3); ');
@@ -257,9 +460,9 @@ function index()
 	$to->stopTag('tr');
 
 	outBtn($to, "pl11", "sp(1)", "Värdegrund");
-	outBtn($to, "pl12", "sp(2)", "PÄR (omtyckt)");
-	outBtn($to, "pl13", "sp(3)", "ÄTO (klokskap)");
-	outBtn($to, "pl14", "sp(4)", "MMG (mästarklass)");
+	outBtn($to, "pl12", "sp(2)", "Omtyckt (PÄR)");
+	outBtn($to, "pl13", "sp(3)", "Klokskap (ÄTO)");
+	outBtn($to, "pl14", "sp(4)", "Mästarklass (MMG)");
 	outBtn($to, "pl15", "dsk()", "Disc");
 	outBtn($to, "pl16", "", false);
 	$to->stopTag('table');
@@ -318,16 +521,16 @@ function index()
 	$to->stopTag('tr');
 	$to->startTag('tr');
 
-	$to->startTag('td', '');
+	$to->startTag('td', 'colspan=3');
 	$to->startTag('div', 'id="lstf"');
 	$to->regLine('&#128994; Egenskattning <br> &#128993; Gruppskattning ');
 	$to->stopTag('div');
 	$to->stopTag('td');
 
 
-	$to->startTag('td', 'colspan=2');
-	$to->regLine('<img src="gg.png" \> <br> ');
-	$to->stopTag('td');
+	//$to->startTag('td', 'colspan=2');
+	//$to->regLine('<img src="gg.png" \> <br> ');
+	//$to->stopTag('td');
 
 	$to->stopTag('tr');
 

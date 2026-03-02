@@ -1,7 +1,7 @@
 
 <?php
 
-$RETURNTO = 'collect';
+$RETURNTO = 'mockup2';
 
 include_once 'debug.php';
 include_once 'head.php';
@@ -100,8 +100,16 @@ function clearall()
 
 }
 
+function restSpdr()
+{
+	MA = document.getElementById("mainarea");
+	MA.innerHTML = '<canvas id="SpiderCanvas" width="450" height="450" style="border:1px solid #000000;"> Din browser st&ouml;der inte canvas </canvas> '
+}
+
 function sp(i)
 {
+	restSpdr();
+
 	targets = [ 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99 ];
 	targ_s  = [ 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85  ];
 	val_e_1 =   [ 78, 25, 34, 98, 56, 33, 90, 34, 56, 67, 23, 99, 78, 56, 65, 23, 99, 78, 56 ];
@@ -144,12 +152,13 @@ function sp(i)
 			mhd.innerHTML = "Klokskap";
 			DrawSpider('SpiderCanvas', 3, targets, targ_s, val_e_1.slice(2), val_b_1.slice(2), short_desc_3, 'ÄTO', true );
 			//PopLst(short_desc_3, 3);
-			mkTbl(short_desc_3, val_e_3, val_b_3, [4,5,6]);
+			mkTbl(short_desc_3, val_e_1.slice(2), val_b_1.slice(2), [4,5,6]);
 			break;
 		case 4:
 			mhd.innerHTML = "Mästarklass";
 			DrawSpider('SpiderCanvas', 3, targets, targ_s, val_e_2.slice(1), val_b_2.slice(1), short_desc_4, 'MMG', true );
-			PopLst(short_desc_4, 3);
+			mkTbl(short_desc_4, val_e_2.slice(1), val_b_2.slice(1), [4,5,6]);
+			//PopLst(short_desc_4, 3);
 			break;
 
 	}
@@ -157,6 +166,8 @@ function sp(i)
 
 function tx(i)
 {
+	restSpdr();
+
 	clearall();
 
 	document.getElementById("mainhdr").innerHTML = "Min Fysik";
@@ -222,6 +233,7 @@ function rita_more(canvas, SZ, lst)
 
 function dsk()
 {
+	restSpdr();
 
 	clearall();
 
@@ -237,6 +249,32 @@ function dsk()
 	rita_disc( document.getElementById("SpiderCanvas"), document.getElementById("Disc2"), 450, -2,3);
 	rita_more( document.getElementById("SpiderCanvas"), 450, [{x:3,y:-3}, {x:6,y:8}] );
 	
+}
+
+function st(i)
+{
+	clearall();
+
+	obj = document.getElementById("pl2" + i.toString());
+	ss = "gp2.png";
+	obj.src = ss ;
+
+	obj = document.getElementById("lstf");
+	obj.innerHTML = '';
+
+	mhd = document.getElementById("mainhdr");
+
+	switch(i)
+	{
+		case 1:
+			mhd.innerHTML = "Mål";
+			func_1();
+			break;
+		case 2:
+			mhd.innerHTML = "Stress";
+			func_2();
+			break;
+	}
 }
 
 </script>
@@ -292,6 +330,43 @@ function dsk()
 
 <?php
 
+function survOut($tn, $filt)
+{
+	global $emperator;
+
+	$pnr = "19721106-4634";
+	$pid = 15;
+	if ($pnr && ! $pid) {
+		$query = "SELECT * FROM pers WHERE pnr='$pnr'";
+		$res = mysqli_query($emperator, $query);
+		if ($res) if ($row = mysqli_fetch_array($res))
+			$pid = $row['pers_id'];
+	}
+
+	$n = 0;
+	$query = "SELECT * FROM surv WHERE type='$tn' AND pers='$pid';";
+	debug_log("query : " . $query);
+	$res = mysqli_query( $emperator, $query );
+	if ($res) while ($row = mysqli_fetch_array($res)) {
+		$seq = $row['seq'];
+		$sid = $row['surv_id'];
+		++$n;
+	}
+	
+	if ($n<=0) {
+		return ' --- inga surveys ännu ---';
+	} else if ($n==1) {
+		$lnk = "onesurv.php?sid=$sid&seq=$seq&pid=$pid&st=$tn&filt=$filt";
+		debug_log('embed link : ' . $lnk);
+		return "<embed type='text/html' src='$lnk' width='450' height='450' >";
+	} else {
+		$lnk = "allsurv.php?pid=$pid&st=$tn&filt=$filt";
+		debug_log('embed link : ' . $lnk);
+		return "<embed type='text/html' src='$lnk' width='450' height='450' >";
+	}
+}
+
+
 function outBtn( $to, $blbl, $onclck, $ttl )
 {
 	$to->startTag('tr');
@@ -308,11 +383,30 @@ function outBtn( $to, $blbl, $onclck, $ttl )
 	$to->stopTag('tr');
 }
 
-echo "\n</head>\n";
 
 function index()
 {
+	debug_log("index()");
+
 	$to = new tagOut;
+
+	$to->startTag('script');
+
+	$to->regline('function func_1() {');
+	$to->regline(' obj = document.getElementById("mainarea"); ');
+	$txt = " obj.innerHTML = " . '"' . survOut(104, 11) . '"';
+	$to->regline($txt);
+	$to->regline("}");
+
+	$to->regline('function func_2() {');
+	$to->regline(' obj = document.getElementById("mainarea"); ');
+	$txt = " obj.innerHTML = " . '"' . survOut(101, 3) . '"';
+	$to->regline($txt);
+	$to->regline("}");
+	
+	$to->stopTag('script');
+
+	$to->regLine( "\n</head>\n" );
 
 	$to->startTag("body");
 
@@ -341,8 +435,10 @@ function index()
 
 	$to->regLine(" <div id='mainhdr' style='text-align:center;' > Personlighet (DISC) </div> ");
 
+	$to->regLine( '<div id="mainarea">' );
 	$to->regLine( '<canvas id="SpiderCanvas" width="450" height="450" style="border:1px solid #000000;">' );
 	$to->regLine( ' Din browser st&ouml;der inte canvas </canvas> ' );
+	$to->regLine( '</div>' );
 
 	$to->startTag('script');
 	$to->regLine(' rita_disc( document.getElementById("SpiderCanvas"), document.getElementById("Disc2"), 450, -2,3); ');
