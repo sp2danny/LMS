@@ -152,12 +152,13 @@ function sp(i)
 			mhd.innerHTML = "Klokskap";
 			DrawSpider('SpiderCanvas', 3, targets, targ_s, val_e_1.slice(2), val_b_1.slice(2), short_desc_3, 'ÄTO', true );
 			//PopLst(short_desc_3, 3);
-			mkTbl(short_desc_3, val_e_3, val_b_3, [4,5,6]);
+			mkTbl(short_desc_3, val_e_1.slice(2), val_b_1.slice(2), [4,5,6]);
 			break;
 		case 4:
 			mhd.innerHTML = "Mästarklass";
 			DrawSpider('SpiderCanvas', 3, targets, targ_s, val_e_2.slice(1), val_b_2.slice(1), short_desc_4, 'MMG', true );
-			PopLst(short_desc_4, 3);
+			//PopLst(short_desc_4, 3);
+			mkTbl(short_desc_4, val_e_2.slice(1), val_b_2.slice(1), [4,5,6]);
 			break;
 
 	}
@@ -267,11 +268,23 @@ function st(i)
 	{
 		case 1:
 			mhd.innerHTML = "Mål";
-			func_1();
+			myway(1);
 			break;
 		case 2:
 			mhd.innerHTML = "Stress";
-			func_2();
+			myway(2);
+			break;
+		case 3:
+			mhd.innerHTML = "Kommunikation";
+			myway(3);
+			break;
+		case 4:
+			mhd.innerHTML = "Motivation";
+			myway(4);
+			break;
+		case 5:
+			mhd.innerHTML = "Samarbete";
+			myway(5);
 			break;
 	}
 }
@@ -382,7 +395,6 @@ function outBtn( $to, $blbl, $onclck, $ttl )
 	$to->stopTag('tr');
 }
 
-
 function index()
 {
 	debug_log("index()");
@@ -391,18 +403,18 @@ function index()
 
 	$to->startTag('script');
 
-	$to->regline('function func_1() {');
+	$to->regline('function myway(i) {');
 	$to->regline(' obj = document.getElementById("mainarea"); ');
-	$txt = " obj.innerHTML = " . '"' . survOut(104, 11) . '"';
-	$to->regline($txt);
+	$to->regline(' switch (i) { ');
+	$to->regLine('  case 1: txt = "' . survOut(104, 11) . '"; break; ');
+	$to->regLine('  case 2: txt = "' . survOut(101,  3) . '"; break; ');
+	$to->regLine('  case 3: txt = "' . survOut(103, 10) . '"; break; ');
+	$to->regLine('  case 4: txt = "' . survOut(102,  8) . '"; break; ');
+	$to->regLine('  case 5: txt = "' . survOut(105,  9) . '"; break; ');
+	$to->regLine(' }');
+	$to->regLine('obj.innerHTML = txt;');
 	$to->regline("}");
 
-	$to->regline('function func_2() {');
-	$to->regline(' obj = document.getElementById("mainarea"); ');
-	$txt = " obj.innerHTML = " . '"' . survOut(101, 3) . '"';
-	$to->regline($txt);
-	$to->regline("}");
-	
 	$to->stopTag('script');
 
 	$to->regLine( "\n</head>\n" );
