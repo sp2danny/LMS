@@ -278,6 +278,14 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 
 			on_update_3(sel_p());
 			on_update_2();
+
+			obj = document.getElementById('p20');
+			if (extra == 20)
+				obj.style.visibility = 'visible';
+			else
+				obj.style.visibility = 'hidden';
+
+
 		}
 
 
@@ -716,7 +724,7 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 				" <br> \n" .
 				" <h3> Har du rabatt-kod, skriv in den h&auml;r </h3>  \n" .
 				" <label for='kod'> Kod: </label> \n" .
-				" <input style='font-size: 125%; width:125px;' oninput='upd_kod()' value='' type='text' id='kod' name='kod'  > \n" ;
+				" <input style='font-size: 125%; width:125px;' oninput='upd_kod()' value='' type='text' id='kod' name='kod'  >  <img id='p20' src='../20p.png' style='visibility: hidden; vertical-align:bottom;' > \n" ;
 
 			echo " </div> </td> </tr> <tr> ";
 
