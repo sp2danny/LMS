@@ -714,7 +714,7 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 
 			echo
 				" <br> \n" .
-				" <h3> Har du rabatt-kod, skriv in den h&auml;r </h3> <br /> \n" .
+				" <h3> Har du rabatt-kod, skriv in den h&auml;r </h3>  \n" .
 				" <label for='kod'> Kod: </label> \n" .
 				" <input style='font-size: 125%; width:125px;' oninput='upd_kod()' value='' type='text' id='kod' name='kod'  > \n" ;
 
