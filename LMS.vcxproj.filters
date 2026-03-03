@@ -531,6 +531,9 @@
     <None Include="src\common\logret.php">
       <Filter>Source Files\common</Filter>
     </None>
+    <None Include="src\land\php\04-land-kod.php">
+      <Filter>Source Files\land\php</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\common\dologin.php">
