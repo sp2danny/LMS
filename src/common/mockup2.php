@@ -106,7 +106,7 @@ function restSpdr()
 	MA.innerHTML = '<canvas id="SpiderCanvas" width="450" height="450" style="border:1px solid #000000;"> Din browser st&ouml;der inte canvas </canvas> '
 }
 
-function sp(i)
+async function sp(i)
 {
 	restSpdr();
 
@@ -137,10 +137,13 @@ function sp(i)
 	{
 		case 1:
 			mhd.innerHTML = "Värdegrund";
-			DrawSpider('SpiderCanvas', 2, targets, targ_s, val_e_1, val_b_1, short_desc_1, "Värdegrund", true );
+			const url = "../data/vg.php?pid=" + <?php echo getparam('pid', 0); ?> ;
+		    const response = await fetch(url);
+		    const result = await response.json();
+			DrawSpider('SpiderCanvas', 2, targets, targ_s, result.egen, result.grupp, short_desc_1, "Värdegrund", true );
 			//function mkTbl(nm, es, gs, utv)
 			//PopLst(short_desc_1, 2);
-			mkTbl(short_desc_1, val_e_1, val_b_1, [4,5,6]);
+			mkTbl(short_desc_1, result.egen, result.grupp, result.utv);
 			break;
 		case 2:
 			mhd.innerHTML = "Omtyckt";
