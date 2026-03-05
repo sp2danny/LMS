@@ -32,6 +32,9 @@
     <Filter Include="Source Files\stats">
       <UniqueIdentifier>{b481f4d5-4b71-443b-97e8-85f81460f881}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\data">
+      <UniqueIdentifier>{b300e8fd-1df2-4b86-a4fc-cfd582c2c6a0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="db.txt">
@@ -533,6 +536,9 @@
     </None>
     <None Include="src\land\php\04-land-kod.php">
       <Filter>Source Files\land\php</Filter>
+    </None>
+    <None Include="src\data\vg.php">
+      <Filter>Source Files\data</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

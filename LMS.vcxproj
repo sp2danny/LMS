@@ -132,6 +132,7 @@
     <None Include="src\common\utveckling.php" />
     <None Include="src\common\validate.php" />
     <None Include="src\common\worldclass.php" />
+    <None Include="src\data\vg.php" />
     <None Include="src\klarna\php\buy.php" />
     <None Include="src\klarna\php\checkout.php" />
     <None Include="src\klarna\php\confirmation.php" />
