@@ -65,7 +65,7 @@ function DrawData($title, $num, $dps, $to)
 	$to->regLine('  chart.draw(data, options);');
 	$to->regLine("}");
 	$to->stopTag("script");
-	$to->regLine('<div id="bar_chart_' . $num . '" style="width: 450px; height: 250px"></div>');
+	$to->regLine('<div id="bar_chart_' . $num . '" style="width: 425px; height: 225px"></div>');
 
 	// <div id = "container" style = "width: 550px; height: 400px; margin: 0 auto"> </div>
 
@@ -217,9 +217,9 @@ echo "</table>\n";
 
 echo "<hr>\n";
 
-echo $n . "<br> \n";
+//echo $n . "<br> \n";
 
-echo "<hr>\n";
+//echo "<hr>\n";
 
 $to = new tagOut;
 

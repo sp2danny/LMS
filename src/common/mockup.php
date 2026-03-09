@@ -122,6 +122,8 @@ function sp(i)
 	short_desc_3 = ['Ärlig', 'Tillitsfull', 'Omdömesfull'];
 	short_desc_4 = ['Motivation', 'Målsättning', 'Genomförande'];
 
+	//short_desc_5 = ['Motivation', 'Målsättning', 'Genomförande'];
+
 	clearall();
 
 	obj = document.getElementById("pl1" + i.toString());
@@ -162,6 +164,67 @@ function sp(i)
 
 	}
 }
+
+function mm(i)
+{
+	restSpdr();
+
+	targets = [ 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99 ];
+	targ_s  = [ 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85  ];
+	val_e_1 =   [ 78, 25, 34, 98, 56, 33, 90, 34, 56, 67, 23, 99, 78, 56, 65, 23, 99, 78, 56 ];
+	val_b_1 =   [ 55, 56, 23, 67, 76, 34, 78, 34, 99, 12, 34, 34, 78, 34, 99, 12, 34, 88, 34 ];
+
+	val_e_2 =   [ 34, 56, 67, 23, 99, 78, 56, 65, 23, 99, 78, 56 ];
+	val_b_2 =   [ 34, 78, 34, 99, 12, 34, 34, 78, 34, 99, 12, 34, 88, 34 ];
+
+	short_desc_1 = ['Värdegrund', 'Missionstatement'];
+	short_desc_2 = ['Positiv', 'Äkta', 'Relevant'];
+	short_desc_3 = ['Ärlig', 'Tillitsfull', 'Omdömesfull'];
+	short_desc_4 = ['Motivation', 'Målsättning', 'Genomförande'];
+
+	//short_desc_5 = ['Motivation', 'Målsättning', 'Genomförande'];
+
+	clearall();
+
+	obj = document.getElementById("pl1" + i.toString());
+	ss = "gp2.png";
+	obj.src = ss ;
+
+	setSpiderColors("#000", "#fff", "#777", "#888", "#2d1", "#fe0" );
+
+	mhd = document.getElementById("mainhdr");
+
+	switch (i)
+	{
+		case 1:
+			mhd.innerHTML = "Värdegrund";
+			DrawSpider('SpiderCanvas', 2, targets, targ_s, val_e_1, val_b_1, short_desc_1, "Värdegrund", true );
+			//function mkTbl(nm, es, gs, utv)
+			//PopLst(short_desc_1, 2);
+			mkTbl(short_desc_1, val_e_1, val_b_1, [4,5,6]);
+			break;
+		case 2:
+			mhd.innerHTML = "Omtyckt";
+			DrawSpider('SpiderCanvas', 3, targets, targ_s, val_e_2, val_b_2, short_desc_2, 'PÄR', true );
+			//PopLst(short_desc_2, 3);
+			mkTbl(short_desc_2, val_e_2, val_b_2, [4,5,6]);
+			break;
+		case 3:
+			mhd.innerHTML = "Klokskap";
+			DrawSpider('SpiderCanvas', 3, targets, targ_s, val_e_1.slice(2), val_b_1.slice(2), short_desc_3, 'ÄTO', true );
+			//PopLst(short_desc_3, 3);
+			mkTbl(short_desc_3, val_e_1.slice(2), val_b_1.slice(2), [4,5,6]);
+			break;
+		case 4:
+			mhd.innerHTML = "Mästarklass";
+			DrawSpider('SpiderCanvas', 3, targets, targ_s, val_e_2.slice(1), val_b_2.slice(1), short_desc_4, 'MMG', true );
+			//PopLst(short_desc_4, 3);
+			mkTbl(short_desc_4, val_e_2.slice(1), val_b_2.slice(1), [4,5,6]);
+			break;
+
+	}
+}
+
 
 function tx(i)
 {
@@ -481,6 +544,30 @@ function index()
 	$to->stopTag('td');
 
 	// btns 2
+	$to->startTag('td', 'class="bbox" width=300px height=200px');
+	$to->startTag('table');
+	$to->startTag('tr');
+	$to->regLine('<td> </td>');
+	$to->regLine('<td> <div class="bhb"> Styrkor mm </div> </td> ');
+	$to->stopTag('tr');
+
+	$to->startTag('tr');
+	$to->regLine('<td> </td>');
+	$to->regLine('<td> <div class="bhs"> &nbsp; </div> </td> ');
+	$to->stopTag('tr');
+
+	outBtn($to, "pl41", "mm(1)", "Styrkor");
+	outBtn($to, "pl42", "mm(2)", "Svagheter");
+	outBtn($to, "pl43", "mm(3)", "Motivatorer");
+	outBtn($to, "pl44", "mm(4)", "Proaktivitet");
+	outBtn($to, "pl45", "mm(5)", "Synergier");
+	outBtn($to, "pl46", "", false);
+	$to->stopTag('table');
+
+	$to->stopTag('td');
+
+
+	// btns 3
 
 	$to->startTag('td', 'class="bbox" width=300px height=200px');
 	$to->startTag('table');

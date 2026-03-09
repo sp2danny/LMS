@@ -345,6 +345,18 @@ function st(i)
 		font-size: 11px;
 	}
 
+	table.wtelf {
+		border: 2px solid #000;
+		margin-top: 25px;
+		border-collapse: collapse;
+	}
+	td.wtelf {
+		border: 1px solid #222;
+		margin-top: 7px;
+		margin-bottom: 7px;
+		border-collapse: collapse;
+	}
+
 
 	.visitab  {
 		border: 1px solid black;
@@ -380,7 +392,7 @@ function st(i)
 
 </style>
 
-<title> Mockup </title>
+<title> Gruppskattning </title>
 
 <?php
 
@@ -430,6 +442,36 @@ function outBtn( $to, $blbl, $onclck, $ttl )
 	$to->stopTag('tr');
 }
 
+function ptbl($to, $prow, $mynt, $score=0)
+{
+	$heartfile = fopen("heart.txt", "r");
+	$txt = "";
+	if ($heartfile) {
+		$arr = [];
+		while (true) {
+			$buffer = fgets($heartfile, 4096);
+			if (!$buffer) break;
+			$buffer = trim($buffer);
+			$len = strlen($buffer);
+			if ($len == 0) continue;
+			$arr[] = $buffer;
+		}
+		$top = count($arr)-1;
+		if ($top > 0)
+			$txt = $arr[rand(0,$top)];
+	}
+
+	$div = "<div> <img src='heart.png' style='vertical-align: middle;' width='100px' /> <span style='vertical-align: middle;'> $txt </span> ";
+
+	$wtelf = '""';
+	$to->startTag('table', "class=$wtelf");
+	$to->regLine("<tr> <td class=$wtelf > Kundnummer    </td> <td class=$wtelf > " . $prow[ 'pers_id' ] . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td> <td class=$wtelf > Guldmynt     </td> <td class=$wtelf > $mynt   </td> </tr>");
+	$to->regLine("<tr> <td class=$wtelf > Namn          </td> <td class=$wtelf > " . $prow[ 'name'    ] . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td> <td class=$wtelf > Po&auml;ng   </td> <td class=$wtelf > $score  </td> </tr>");
+	$to->regLine("<tr> <td class=$wtelf >               </td> <td class=$wtelf > " . ""                 . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td> <td colspan=2 rowspan=2 class=$wtelf > $div </td>  </tr>");
+	$to->regLine("<tr> <td class=$wtelf > Medlem sedan  </td> <td class=$wtelf > " . $prow[ 'date'    ] . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td>  </tr>");
+	$to->stopTag('table');
+}
+
 function index()
 {
 	debug_log("index()");
@@ -454,10 +496,9 @@ function index()
 
 	$to->regLine( "\n</head>\n" );
 
-	$to->startTag("body");
+	$to->startTag("body", "onload='dsk()'");
 
 	$to->scTag("img", "id='Disc2' src='Disc3-3.png' hidden=true" );
-
 
 	$to->startTag('div', 'id="main" class="main"');
 	
@@ -471,7 +512,19 @@ function index()
 	$to->stopTag('div');
 	$to->scTag('hr');
 
-	$state = getparam("state", 0);
+
+
+	global $emperator;
+
+	$pid = getparam('pid');
+	$query = "SELECT * FROM pers WHERE pers_id=$pid";
+	$res = mysqli_query( $emperator, $query );
+	if ($res) if ($row = mysqli_fetch_array($res))
+	{
+	}
+
+	ptbl($to, $row, 0);
+	$to->scTag('hr');
 
 	$to->startTag('table');
 	$to->startTag('tr');

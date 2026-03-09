@@ -74,6 +74,7 @@
     <None Include="src\common\get_gr_val.php" />
     <None Include="src\common\grp-sk-2.php" />
     <None Include="src\common\grplst.php" />
+    <None Include="src\common\gruppskattning.php" />
     <None Include="src\common\head.php" />
     <None Include="src\common\index.php" />
     <None Include="src\common\justsurv.php" />
@@ -119,6 +120,7 @@
     <None Include="src\common\spindel.php" />
     <None Include="src\common\stapel_disp.php" />
     <None Include="src\common\styrkor.php" />
+    <None Include="src\common\styrkor_save.php" />
     <None Include="src\common\styrkor_skatta.php" />
     <None Include="src\common\tagOut.php" />
     <None Include="src\common\test.php" />
@@ -132,6 +134,10 @@
     <None Include="src\common\utveckling.php" />
     <None Include="src\common\validate.php" />
     <None Include="src\common\worldclass.php" />
+    <None Include="src\data\ato.php" />
+    <None Include="src\data\dsk.php" />
+    <None Include="src\data\mmg.php" />
+    <None Include="src\data\par.php" />
     <None Include="src\data\vg.php" />
     <None Include="src\klarna\php\buy.php" />
     <None Include="src\klarna\php\checkout.php" />

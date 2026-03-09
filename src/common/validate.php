@@ -53,7 +53,7 @@ foreach ($pidlst as $pp)
 
 // <img src="source of image" alt="alternative text" title="this will be displayed as a tooltip"/>
 
-$lnk = 'collect.php?pid=' . $pid;
+$lnk = 'gruppskattning.php?pid=' . $pid;
 
 $tt = "";
 

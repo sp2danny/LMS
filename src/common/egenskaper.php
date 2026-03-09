@@ -115,10 +115,20 @@ function index()
 	{
 		$query = "SELECT * FROM pers WHERE pnr='$grpsk';";
 		$res = mysqli_query($emperator, $query);
-		if ($res)
+		if ($res) {
 			$prow = mysqli_fetch_array($res);
-		$pid = $prow['pers_id'];
-		$nn = $prow['name'];
+			$pid = $prow['pers_id'];
+			$nn = $prow['name'];
+		} else {
+			$query = "SELECT * FROM pers WHERE pid='$grpsk';";
+			$res = mysqli_query($emperator, $query);
+			if ($res) {
+				$prow = mysqli_fetch_array($res);
+				$pid = $prow['pers_id'];
+				$nn = $prow['name'];
+			}
+		}
+
 		echo " + '&for=" . $pid . "'";
 	}
 

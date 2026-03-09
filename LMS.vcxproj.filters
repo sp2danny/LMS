@@ -540,6 +540,24 @@
     <None Include="src\data\vg.php">
       <Filter>Source Files\data</Filter>
     </None>
+    <None Include="src\data\par.php">
+      <Filter>Source Files\data</Filter>
+    </None>
+    <None Include="src\data\ato.php">
+      <Filter>Source Files\data</Filter>
+    </None>
+    <None Include="src\data\mmg.php">
+      <Filter>Source Files\data</Filter>
+    </None>
+    <None Include="src\data\dsk.php">
+      <Filter>Source Files\data</Filter>
+    </None>
+    <None Include="src\common\styrkor_save.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\gruppskattning.php">
+      <Filter>Source Files\common</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\common\dologin.php">
