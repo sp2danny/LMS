@@ -280,12 +280,12 @@ function mm(i)
 			break;
 		case 4:
 			mhd.innerHTML = "Proaktivitet";
-			DrawSpider('SpiderCanvas', 2, targets, targ_s, val_e_1.slice(2), val_b_1.slice(2), short_desc_1, 'Proaktivitet', true );
+			DrawSpider('SpiderCanvas', 2, targets, targ_s, val_e_1.slice(2), val_b_1.slice(2), short_desc_2, 'Proaktivitet', true );
 			mkTbl(short_desc_2, val_e_1.slice(2), val_b_1.slice(2), false);
 			break;
 		case 5:
 			mhd.innerHTML = "Synergier";
-			DrawSpider('SpiderCanvas', 2, targets, targ_s, val_e_1, val_b_1, short_desc_2, 'Synergier', true );
+			DrawSpider('SpiderCanvas', 2, targets, targ_s, val_e_1, val_b_1, short_desc_1, 'Synergier', true );
 			mkTbl(short_desc_1, val_e_1, val_b_1, false);
 			break;
 
