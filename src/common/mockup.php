@@ -90,10 +90,11 @@ function mkTbl(nm, es, gs, utv)
 
 function clearall()
 {
-	for (i=1; i<=3; ++i) {
+	for (i=1; i<=4; ++i) {
 		for (j=1; j<=6; ++j) {
 			obj = document.getElementById("pl" + i.toString() + j.toString());
-			obj.src = "emp.png" ;
+			if (obj)
+				obj.src = "emp.png" ;
 		}
 	}
 
@@ -104,6 +105,75 @@ function restSpdr()
 	MA = document.getElementById("mainarea");
 	MA.innerHTML = '<canvas id="SpiderCanvas" width="450" height="450" style="border:1px solid #000000;"> Din browser st&ouml;der inte canvas </canvas> '
 }
+
+function set_ma(ttl, lst)
+{
+
+	MA = document.getElementById("mainarea");
+
+	txt = "<div style='width:450px; height:450px; border:1px solid #000000;' > \n";
+
+	txt += ttl + ":\n <ul>\n";
+
+	for (i=1; i<=5; ++i)
+	{
+		txt += "\t<li> " + i.toString() + " &nbsp;&nbsp;&nbsp;";
+		txt += "<input readonly type='text' value='" + lst[i-1] + "' /> \n";
+		txt += "</li>\n";
+	}
+
+	txt += "</ul>\n<br />\n";
+	txt += " </div> ";
+
+	MA.innerHTML = txt;
+
+}
+
+function styrkor()
+{
+	ttl = "Detta är mina styrkor";
+
+	lst = [
+		"Verbal förmåga"                   ,
+		"Måla upp en vision"               ,
+		"Hitta bra människor"              ,
+		"Motivera medarbetare"             ,
+		"Anpassa mig efter svängningar"
+	];
+
+	set_ma(ttl, lst);
+}
+
+function svag()
+{
+	ttl = "Detta är mina svagheter";
+
+	lst = [
+		"Otålig"               ,
+		"Dålig på detaljer"    ,
+		"Dålig på struktur"    ,
+		"Lyssna"               ,
+		"Tala i rätt ton"
+	];
+
+	set_ma(ttl, lst);
+}
+
+function motiv()
+{
+	ttl = "Detta är mina motivatorer";
+
+	lst = [
+		"Meningsfulla mål",
+		"Ha kul",
+		"Omväxling",
+		"Bra vänner",
+		"Bra samtal"
+	];
+
+	set_ma(ttl, lst);
+}
+
 
 function sp(i)
 {
@@ -169,24 +239,9 @@ function mm(i)
 {
 	restSpdr();
 
-	targets = [ 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99 ];
-	targ_s  = [ 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85  ];
-	val_e_1 =   [ 78, 25, 34, 98, 56, 33, 90, 34, 56, 67, 23, 99, 78, 56, 65, 23, 99, 78, 56 ];
-	val_b_1 =   [ 55, 56, 23, 67, 76, 34, 78, 34, 99, 12, 34, 34, 78, 34, 99, 12, 34, 88, 34 ];
-
-	val_e_2 =   [ 34, 56, 67, 23, 99, 78, 56, 65, 23, 99, 78, 56 ];
-	val_b_2 =   [ 34, 78, 34, 99, 12, 34, 34, 78, 34, 99, 12, 34, 88, 34 ];
-
-	short_desc_1 = ['Värdegrund', 'Missionstatement'];
-	short_desc_2 = ['Positiv', 'Äkta', 'Relevant'];
-	short_desc_3 = ['Ärlig', 'Tillitsfull', 'Omdömesfull'];
-	short_desc_4 = ['Motivation', 'Målsättning', 'Genomförande'];
-
-	//short_desc_5 = ['Motivation', 'Målsättning', 'Genomförande'];
-
 	clearall();
 
-	obj = document.getElementById("pl1" + i.toString());
+	obj = document.getElementById("pl4" + i.toString());
 	ss = "gp2.png";
 	obj.src = ss ;
 
@@ -197,29 +252,24 @@ function mm(i)
 	switch (i)
 	{
 		case 1:
-			mhd.innerHTML = "Värdegrund";
-			DrawSpider('SpiderCanvas', 2, targets, targ_s, val_e_1, val_b_1, short_desc_1, "Värdegrund", true );
-			//function mkTbl(nm, es, gs, utv)
-			//PopLst(short_desc_1, 2);
-			mkTbl(short_desc_1, val_e_1, val_b_1, [4,5,6]);
+			mhd.innerHTML = "Styrkor";
+			styrkor();
 			break;
 		case 2:
-			mhd.innerHTML = "Omtyckt";
-			DrawSpider('SpiderCanvas', 3, targets, targ_s, val_e_2, val_b_2, short_desc_2, 'PÄR', true );
-			//PopLst(short_desc_2, 3);
-			mkTbl(short_desc_2, val_e_2, val_b_2, [4,5,6]);
+			mhd.innerHTML = "Svagheter";
+			svag();
 			break;
 		case 3:
-			mhd.innerHTML = "Klokskap";
-			DrawSpider('SpiderCanvas', 3, targets, targ_s, val_e_1.slice(2), val_b_1.slice(2), short_desc_3, 'ÄTO', true );
-			//PopLst(short_desc_3, 3);
-			mkTbl(short_desc_3, val_e_1.slice(2), val_b_1.slice(2), [4,5,6]);
+			mhd.innerHTML = "Motivatorer";
+			motiv();
 			break;
 		case 4:
-			mhd.innerHTML = "Mästarklass";
-			DrawSpider('SpiderCanvas', 3, targets, targ_s, val_e_2.slice(1), val_b_2.slice(1), short_desc_4, 'MMG', true );
-			//PopLst(short_desc_4, 3);
-			mkTbl(short_desc_4, val_e_2.slice(1), val_b_2.slice(1), [4,5,6]);
+			mhd.innerHTML = "Proaktivitet";
+			motiv();
+			break;
+		case 5:
+			mhd.innerHTML = "Synergier";
+			motiv();
 			break;
 
 	}
