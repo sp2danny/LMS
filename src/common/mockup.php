@@ -64,7 +64,8 @@ function mkTbl(nm, es, gs, utv)
 	txt += " <th class='visitab' > Jag </th> ";
 	txt += " <th class='visitab' > Grupp </th> ";
 	txt += " <th class='visitab' > Självbild </th> ";
-	txt += " <th class='visitab' > Utv. </th> ";
+	if (utv !== false)
+		txt += " <th class='visitab' > Utv. </th> ";
 	txt += " </tr> ";
 	for (i=0; i<n; ++i)
 	{
@@ -75,7 +76,9 @@ function mkTbl(nm, es, gs, utv)
 		txt += " <td class='visitabbx' > " + gs[i] + " </td> ";
 		sb = rel(es[i], gs[i]);
 		txt += " <td class='visitabbx' > " + bed(sb) + "% </td> ";
-		txt += " <td class='visitabbx' > " + "+" + utv[i].toString() + "%" + " </td> ";
+
+		if (utv !== false)
+			txt += " <td class='visitabbx' > " + "+" + utv[i].toString() + "%" + " </td> ";
 
 		txt += " </tr> ";
 
@@ -249,27 +252,41 @@ function mm(i)
 
 	mhd = document.getElementById("mainhdr");
 
+	targets = [ 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99 ];
+	targ_s  = [ 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85  ];
+	val_e_1 =   [ 78, 25, 34, 98, 56, 33, 90, 34, 56, 67, 23, 99, 78, 56, 65, 23, 99, 78, 56 ];
+	val_b_1 =   [ 55, 56, 23, 67, 76, 34, 78, 34, 99, 12, 34, 34, 78, 34, 99, 12, 34, 88, 34 ];
+
+	short_desc_1 = ['Synergier med andras styrkor', 'Stötta andras svagheter'];
+	short_desc_2 = ['Socialt proaktiv', 'Fatta proaktiva beslut'];
+
+
 	switch (i)
 	{
 		case 1:
 			mhd.innerHTML = "Styrkor";
 			styrkor();
+			mkTbl(["styrkor"], [88], [85], false);
 			break;
 		case 2:
 			mhd.innerHTML = "Svagheter";
 			svag();
+			mkTbl(["Svagheter"], [74], [74], false);
 			break;
 		case 3:
 			mhd.innerHTML = "Motivatorer";
 			motiv();
+			mkTbl(["Motivatorer"], [99], [70], false);
 			break;
 		case 4:
 			mhd.innerHTML = "Proaktivitet";
-			motiv();
+			DrawSpider('SpiderCanvas', 2, targets, targ_s, val_e_1.slice(2), val_b_1.slice(2), short_desc_1, 'Proaktivitet', true );
+			mkTbl(short_desc_2, val_e_1.slice(2), val_b_1.slice(2), false);
 			break;
 		case 5:
 			mhd.innerHTML = "Synergier";
-			motiv();
+			DrawSpider('SpiderCanvas', 2, targets, targ_s, val_e_1, val_b_1, short_desc_2, 'Synergier', true );
+			mkTbl(short_desc_1, val_e_1, val_b_1, false);
 			break;
 
 	}
