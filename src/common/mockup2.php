@@ -553,7 +553,7 @@ function outBtn( $to, $blbl, $onclck, $ttl )
 	$to->stopTag('tr');
 }
 
-function ptbl($to, $prow, $mynt, $score=0)
+function ptbl($to, $prow, $score=0)
 {
 	$heartfile = fopen("heart.txt", "r");
 	$txt = "";
@@ -571,6 +571,15 @@ function ptbl($to, $prow, $mynt, $score=0)
 		if ($top > 0)
 			$txt = $arr[rand(0,$top)];
 	}
+
+	global $emperator;
+
+	$query = 'SELECT * FROM data WHERE pers=' . getpid() . ' AND type=4';
+	$res = mysqli_query($emperator, $query);
+	if ($row = mysqli_fetch_array($res)) {
+		$mynt = $row['value_a'];
+	}
+
 
 	$div = "<div> <img src='heart.png' style='vertical-align: middle;' width='100px' /> <span style='vertical-align: middle;'> $txt </span> ";
 
@@ -634,7 +643,26 @@ function index()
 	{
 	}
 
-	ptbl($to, $row, 0);
+	$to->startTag('table');
+	$to->startTag('tr');
+	$to->startTag('td');
+	ptbl($to, $row);
+	$to->stopTag('td');
+	$to->startTag('td', "style='width:80px;' ");
+
+	$to->regLine('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+
+	$to->stopTag('td');
+	$to->startTag('td');
+
+	$to->regLine("<img src='gs_gp.png'> 85%-100% <br>");
+	$to->regLine("<img src='gs_yp.png'> 70%-84% <br>");
+	$to->regLine("<img src='gs_rp.png'> 0%-69% <br>");
+	
+	$to->stopTag('td');
+	$to->stopTag('tr');
+	$to->stopTag('table');
+
 	$to->scTag('hr');
 
 	$to->startTag('table');
@@ -662,7 +690,7 @@ function index()
 	$to->startTag('table');
 	$to->startTag('tr');
 	$to->regLine('<td> </td>');
-	$to->regLine('<td> <div class="bhb"> Mitt Jag </div> </td> ');
+	$to->regLine('<td> <div class="bhb"> Mitt Jag <img src="gs_gp.png"> <img src="gs_yp.png">  </div> </td> ');
 	$to->stopTag('tr');
 
 	$to->startTag('tr');
@@ -685,7 +713,7 @@ function index()
 	$to->startTag('table');
 	$to->startTag('tr');
 	$to->regLine('<td> </td>');
-	$to->regLine('<td> <div class="bhb"> Styrkor mm </div> </td> ');
+	$to->regLine('<td> <div class="bhb"> Styrkor mm  <img src="gs_rp.png"> <img src="gs_yp.png"> </div> </td> ');
 	$to->stopTag('tr');
 
 	$to->startTag('tr');
@@ -769,6 +797,19 @@ function index()
 
 	$to->stopTag('table');
 
+	$to->regLine('<hr>');
+	$to->startTag('table');
+	$to->startTag('tr');
+	$to->startTag('td');
+	$to->regLine("<img src='level.png' >");
+	$to->stopTag('td');
+	$to->startTag('td');
+
+	$to->regLine('77% nöjd <br> nivå 3.2 <br> 16.2h totalt <br> 22 mätningar');
+
+	$to->stopTag('td');
+	$to->stopTag('tr');
+	$to->stopTag('table');
 
 	$to->stopTag('div'); //main
 	$to->stopTag('body');

@@ -1,7 +1,7 @@
 
 <?php
 
-$RETURNTO = 'mockup';
+$RETURNTO = 'mockup2';
 
 include_once 'debug.php';
 include_once 'head.php';
@@ -12,7 +12,13 @@ include_once 'main.js.php';
 include_once 'util.php';
 include_once 'discdisplay.php';
 
+
 echo '<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>';
+
+function getpid()
+{
+	return getparam('pid', 16);
+}
 
 ?>
 
@@ -96,8 +102,7 @@ function clearall()
 	for (i=1; i<=4; ++i) {
 		for (j=1; j<=6; ++j) {
 			obj = document.getElementById("pl" + i.toString() + j.toString());
-			if (obj)
-				obj.src = "emp.png" ;
+			obj.src = "emp.png" ;
 		}
 	}
 
@@ -132,70 +137,17 @@ function set_ma(ttl, lst)
 
 }
 
-function styrkor()
-{
-	ttl = "Detta är mina styrkor";
-
-	lst = [
-		"Verbal förmåga"                   ,
-		"Måla upp en vision"               ,
-		"Hitta bra människor"              ,
-		"Motivera medarbetare"             ,
-		"Anpassa mig efter svängningar"
-	];
-
-	set_ma(ttl, lst);
-}
-
-function svag()
-{
-	ttl = "Detta är mina svagheter";
-
-	lst = [
-		"Otålig"               ,
-		"Dålig på detaljer"    ,
-		"Dålig på struktur"    ,
-		"Lyssna"               ,
-		"Tala i rätt ton"
-	];
-
-	set_ma(ttl, lst);
-}
-
-function motiv()
-{
-	ttl = "Detta är mina motivatorer";
-
-	lst = [
-		"Meningsfulla mål",
-		"Ha kul",
-		"Omväxling",
-		"Bra vänner",
-		"Bra samtal"
-	];
-
-	set_ma(ttl, lst);
-}
-
-
-function sp(i)
+async function sp(i)
 {
 	restSpdr();
 
 	targets = [ 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99 ];
 	targ_s  = [ 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85  ];
-	val_e_1 =   [ 78, 25, 34, 98, 56, 33, 90, 34, 56, 67, 23, 99, 78, 56, 65, 23, 99, 78, 56 ];
-	val_b_1 =   [ 55, 56, 23, 67, 76, 34, 78, 34, 99, 12, 34, 34, 78, 34, 99, 12, 34, 88, 34 ];
-
-	val_e_2 =   [ 34, 56, 67, 23, 99, 78, 56, 65, 23, 99, 78, 56 ];
-	val_b_2 =   [ 34, 78, 34, 99, 12, 34, 34, 78, 34, 99, 12, 34, 88, 34 ];
 
 	short_desc_1 = ['Värdegrund', 'Missionstatement'];
 	short_desc_2 = ['Positiv', 'Äkta', 'Relevant'];
 	short_desc_3 = ['Ärlig', 'Tillitsfull', 'Omdömesfull'];
 	short_desc_4 = ['Motivation', 'Målsättning', 'Genomförande'];
-
-	//short_desc_5 = ['Motivation', 'Målsättning', 'Genomförande'];
 
 	clearall();
 
@@ -211,34 +163,53 @@ function sp(i)
 	{
 		case 1:
 			mhd.innerHTML = "Värdegrund";
-			DrawSpider('SpiderCanvas', 2, targets, targ_s, val_e_1, val_b_1, short_desc_1, "Värdegrund", true );
-			//function mkTbl(nm, es, gs, utv)
-			//PopLst(short_desc_1, 2);
-			mkTbl(short_desc_1, val_e_1, val_b_1, [4,5,6]);
+			{
+			const url = "../data/vg.php?pid=" + <?php echo getpid(); ?> ;
+		    const response = await fetch(url);
+		    const result = await response.json();
+
+			DrawSpider('SpiderCanvas', 2, targets, targ_s, result.egen, result.grupp, short_desc_1, "Värdegrund", true );
+			mkTbl(short_desc_1, result.egen, result.grupp, result.utv);
+			}
 			break;
 		case 2:
 			mhd.innerHTML = "Omtyckt";
-			DrawSpider('SpiderCanvas', 3, targets, targ_s, val_e_2, val_b_2, short_desc_2, 'PÄR', true );
-			//PopLst(short_desc_2, 3);
-			mkTbl(short_desc_2, val_e_2, val_b_2, [4,5,6]);
+			{
+			const url = "../data/par.php?pid=" + <?php echo getpid(); ?> ;
+		    const response = await fetch(url);
+		    const result = await response.json();
+
+			DrawSpider('SpiderCanvas', 3, targets, targ_s, result.egen, result.grupp, short_desc_2, 'PÄR', true );
+			mkTbl(short_desc_2, result.egen, result.grupp, result.utv);
+			}
 			break;
 		case 3:
 			mhd.innerHTML = "Klokskap";
-			DrawSpider('SpiderCanvas', 3, targets, targ_s, val_e_1.slice(2), val_b_1.slice(2), short_desc_3, 'ÄTO', true );
-			//PopLst(short_desc_3, 3);
-			mkTbl(short_desc_3, val_e_1.slice(2), val_b_1.slice(2), [4,5,6]);
+			{
+			const url = "../data/ato.php?pid=" + <?php echo getpid(); ?> ;
+		    const response = await fetch(url);
+		    const result = await response.json();
+
+			DrawSpider('SpiderCanvas', 3, targets, targ_s, result.egen, result.grupp, short_desc_2, 'PÄR', true );
+			mkTbl(short_desc_3, result.egen, result.grupp, result.utv);
+			}
 			break;
 		case 4:
 			mhd.innerHTML = "Mästarklass";
-			DrawSpider('SpiderCanvas', 3, targets, targ_s, val_e_2.slice(1), val_b_2.slice(1), short_desc_4, 'MMG', true );
-			//PopLst(short_desc_4, 3);
-			mkTbl(short_desc_4, val_e_2.slice(1), val_b_2.slice(1), [4,5,6]);
-			break;
+			{
+			const url = "../data/mmg.php?pid=" + <?php echo getpid(); ?> ;
+		    const response = await fetch(url);
+		    const result = await response.json();
 
+			DrawSpider('SpiderCanvas', 3, targets, targ_s, result.egen, result.grupp, short_desc_2, 'PÄR', true );
+			mkTbl(short_desc_4, result.egen, result.grupp, result.utv);
+			}
+			break;
 	}
 }
 
-function mm(i)
+
+async function mm(i)
 {
 	restSpdr();
 
@@ -254,8 +225,6 @@ function mm(i)
 
 	targets = [ 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99 ];
 	targ_s  = [ 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85  ];
-	val_e_1 =   [ 78, 25, 34, 98, 56, 33, 90, 34, 56, 67, 23, 99, 78, 56, 65, 23, 99, 78, 56 ];
-	val_b_1 =   [ 55, 56, 23, 67, 76, 34, 78, 34, 99, 12, 34, 34, 78, 34, 99, 12, 34, 88, 34 ];
 
 	short_desc_1 = ['Synergier med andras styrkor', 'Stötta andras svagheter'];
 	short_desc_2 = ['Socialt proaktiv', 'Fatta proaktiva beslut'];
@@ -265,33 +234,64 @@ function mm(i)
 	{
 		case 1:
 			mhd.innerHTML = "Styrkor";
-			styrkor();
-			mkTbl(["styrkor"], [88], [85], false);
+			{
+			const url = "../data/sty.php?pid=" + <?php echo getpid(); ?> ;
+		    const response = await fetch(url);
+		    const result = await response.json();
+
+			set_ma("Detta är mina styrkor", result.list);
+
+			mkTbl(["Styrkor"], result.egen, result.grupp, false);
+			}
 			break;
 		case 2:
 			mhd.innerHTML = "Svagheter";
-			svag();
-			mkTbl(["Svagheter"], [74], [74], false);
+			{
+			const url = "../data/sva.php?pid=" + <?php echo getpid(); ?> ;
+		    const response = await fetch(url);
+		    const result = await response.json();
+
+			set_ma("Detta är mina svagheter", result.list);
+
+			mkTbl(["Svagheter"], result.egen, result.grupp, false);
+			}
 			break;
 		case 3:
 			mhd.innerHTML = "Motivatorer";
-			motiv();
-			mkTbl(["Motivatorer"], [99], [70], false);
+			{
+			const url = "../data/mot.php?pid=" + <?php echo getpid(); ?> ;
+		    const response = await fetch(url);
+		    const result = await response.json();
+
+			set_ma("Detta är mina motivatorer", result.list);
+
+			mkTbl(["Motivatorer"], result.egen, result.grupp, false);
+			}
 			break;
 		case 4:
 			mhd.innerHTML = "Proaktivitet";
-			DrawSpider('SpiderCanvas', 2, targets, targ_s, val_e_1.slice(2), val_b_1.slice(2), short_desc_2, 'Proaktivitet', true );
-			mkTbl(short_desc_2, val_e_1.slice(2), val_b_1.slice(2), false);
+			{
+			const url = "../data/pro.php?pid=" + <?php echo getpid(); ?> ;
+		    const response = await fetch(url);
+		    const result = await response.json();
+
+			DrawSpider('SpiderCanvas', 2, targets, targ_s, result.egen, result.grupp, short_desc_2, 'Proaktivitet', true );
+			mkTbl(short_desc_2, result.egen, result.grupp, false);
+			}
 			break;
 		case 5:
 			mhd.innerHTML = "Synergier";
-			DrawSpider('SpiderCanvas', 2, targets, targ_s, val_e_1, val_b_1, short_desc_1, 'Synergier', true );
-			mkTbl(short_desc_1, val_e_1, val_b_1, false);
+			{
+			const url = "../data/syn.php?pid=" + <?php echo getpid(); ?> ;
+		    const response = await fetch(url);
+		    const result = await response.json();
+			DrawSpider('SpiderCanvas', 2, targets, targ_s, result.egen, result.grupp, short_desc_1, 'Synergier', true );
+			mkTbl(short_desc_1, result.egen, result.grupp, false);
+			}
 			break;
 
 	}
 }
-
 
 function tx(i)
 {
@@ -360,7 +360,24 @@ function rita_more(canvas, SZ, lst)
 	}
 }
 
-function dsk()
+function rita_more_lrud(canvas, SZ, lst)
+{
+	var ctx = canvas.getContext("2d");
+	
+	ctx.fillStyle = "#ef3";
+	ctx.strokeStyle = "#000";
+	pt = SZ / 50;
+	sz2 = SZ / 2;
+
+	for (const elem of lst) {
+		ctx.beginPath(); 
+		ctx.arc( sz2+pt*elem.lr, sz2+pt*elem.ud, 7, 0,2*Math.PI );
+		ctx.stroke();
+		ctx.fill(); 
+	}
+}
+
+async function dsk()
 {
 	restSpdr();
 
@@ -375,8 +392,15 @@ function dsk()
 	obj = document.getElementById("lstf");
 	obj.innerHTML = ' &#128994; Egenskattning <br> &#128993; Gruppskattning ';
 
-	rita_disc( document.getElementById("SpiderCanvas"), document.getElementById("Disc2"), 450, -2,3);
-	rita_more( document.getElementById("SpiderCanvas"), 450, [{x:3,y:-3}, {x:6,y:8}] );
+	const url = "../data/dsk.php?pid=" + <?php echo getpid(); ?> ;
+	const response = await fetch(url);
+	const result = await response.json();
+
+	rita_disc( document.getElementById("SpiderCanvas"), document.getElementById("Disc2"), 450, result.egen.lr, result.egen.ud );
+
+	rita_more_lrud( document.getElementById("SpiderCanvas"), 450, result.grupp );
+
+	//rita_more( document.getElementById("SpiderCanvas"), 450, [{x:3,y:-3}, {x:6,y:8}] );
 	
 }
 
@@ -432,6 +456,18 @@ function st(i)
 		font-size: 11px;
 	}
 
+	table.wtelf {
+		border: 2px solid #000;
+		margin-top: 25px;
+		border-collapse: collapse;
+	}
+	td.wtelf {
+		border: 1px solid #222;
+		margin-top: 7px;
+		margin-bottom: 7px;
+		border-collapse: collapse;
+	}
+
 
 	.visitab  {
 		border: 1px solid black;
@@ -467,7 +503,7 @@ function st(i)
 
 </style>
 
-<title> Mockup </title>
+<title> Gruppskattning </title>
 
 <?php
 
@@ -475,14 +511,7 @@ function survOut($tn, $filt)
 {
 	global $emperator;
 
-	$pnr = "19721106-4634";
-	$pid = 15;
-	if ($pnr && ! $pid) {
-		$query = "SELECT * FROM pers WHERE pnr='$pnr'";
-		$res = mysqli_query($emperator, $query);
-		if ($res) if ($row = mysqli_fetch_array($res))
-			$pid = $row['pers_id'];
-	}
+	$pid = getpid();
 
 	$n = 0;
 	$query = "SELECT * FROM surv WHERE type='$tn' AND pers='$pid';";
@@ -496,10 +525,10 @@ function survOut($tn, $filt)
 	
 	if ($n<=0) {
 		return ' --- inga surveys ännu ---';
-	} else if ($n==1) {
-		$lnk = "onesurv.php?sid=$sid&seq=$seq&pid=$pid&st=$tn&filt=$filt";
-		debug_log('embed link : ' . $lnk);
-		return "<embed type='text/html' src='$lnk' width='450' height='450' >";
+	//} else if ($n==1) {
+	//	$lnk = "onesurv.php?sid=$sid&seq=$seq&pid=$pid&st=$tn&filt=$filt";
+	//	debug_log('embed link : ' . $lnk);
+	//	return "<embed type='text/html' src='$lnk' width='450' height='450' >";
 	} else {
 		$lnk = "allsurv.php?pid=$pid&st=$tn&filt=$filt";
 		debug_log('embed link : ' . $lnk);
@@ -522,6 +551,45 @@ function outBtn( $to, $blbl, $onclck, $ttl )
 	}
 	$to->stopTag('td');
 	$to->stopTag('tr');
+}
+
+function ptbl($to, $prow, $score=0)
+{
+	$heartfile = fopen("heart.txt", "r");
+	$txt = "";
+	if ($heartfile) {
+		$arr = [];
+		while (true) {
+			$buffer = fgets($heartfile, 4096);
+			if (!$buffer) break;
+			$buffer = trim($buffer);
+			$len = strlen($buffer);
+			if ($len == 0) continue;
+			$arr[] = $buffer;
+		}
+		$top = count($arr)-1;
+		if ($top > 0)
+			$txt = $arr[rand(0,$top)];
+	}
+
+	global $emperator;
+
+	$query = 'SELECT * FROM data WHERE pers=' . getpid() . ' AND type=4';
+	$res = mysqli_query($emperator, $query);
+	if ($row = mysqli_fetch_array($res)) {
+		$mynt = $row['value_a'];
+	}
+
+
+	$div = "<div> <img src='heart.png' style='vertical-align: middle;' width='100px' /> <span style='vertical-align: middle;'> $txt </span> ";
+
+	$wtelf = '""';
+	$to->startTag('table', "class=$wtelf");
+	$to->regLine("<tr> <td class=$wtelf > Kundnummer    </td> <td class=$wtelf > " . $prow[ 'pers_id' ] . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td> <td class=$wtelf > Guldmynt     </td> <td class=$wtelf > $mynt   </td> </tr>");
+	$to->regLine("<tr> <td class=$wtelf > Namn          </td> <td class=$wtelf > " . $prow[ 'name'    ] . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td> <td class=$wtelf > Po&auml;ng   </td> <td class=$wtelf > $score  </td> </tr>");
+	$to->regLine("<tr> <td class=$wtelf >               </td> <td class=$wtelf > " . ""                 . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td> <td colspan=2 rowspan=2 class=$wtelf > $div </td>  </tr>");
+	$to->regLine("<tr> <td class=$wtelf > Medlem sedan  </td> <td class=$wtelf > " . $prow[ 'date'    ] . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td>  </tr>");
+	$to->stopTag('table');
 }
 
 function index()
@@ -548,10 +616,9 @@ function index()
 
 	$to->regLine( "\n</head>\n" );
 
-	$to->startTag("body");
+	$to->startTag("body", "onload='dsk()'");
 
 	$to->scTag("img", "id='Disc2' src='Disc3-3.png' hidden=true" );
-
 
 	$to->startTag('div', 'id="main" class="main"');
 	
@@ -565,7 +632,38 @@ function index()
 	$to->stopTag('div');
 	$to->scTag('hr');
 
-	$state = getparam("state", 0);
+
+
+	global $emperator;
+
+	$pid = getpid();
+	$query = "SELECT * FROM pers WHERE pers_id=$pid";
+	$res = mysqli_query( $emperator, $query );
+	if ($res) if ($row = mysqli_fetch_array($res))
+	{
+	}
+
+	$to->startTag('table');
+	$to->startTag('tr');
+	$to->startTag('td');
+	ptbl($to, $row);
+	$to->stopTag('td');
+	$to->startTag('td', "style='width:80px;' ");
+
+	$to->regLine('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+
+	$to->stopTag('td');
+	$to->startTag('td');
+
+	$to->regLine("<img src='gs_gp.png'> 85%-100% <br>");
+	$to->regLine("<img src='gs_yp.png'> 70%-84% <br>");
+	$to->regLine("<img src='gs_rp.png'> 0%-69% <br>");
+	
+	$to->stopTag('td');
+	$to->stopTag('tr');
+	$to->stopTag('table');
+
+	$to->scTag('hr');
 
 	$to->startTag('table');
 	$to->startTag('tr');
@@ -592,7 +690,7 @@ function index()
 	$to->startTag('table');
 	$to->startTag('tr');
 	$to->regLine('<td> </td>');
-	$to->regLine('<td> <div class="bhb"> Mitt Jag </div> </td> ');
+	$to->regLine('<td> <div class="bhb"> Mitt Jag <img src="gs_gp.png"> <img src="gs_yp.png">  </div> </td> ');
 	$to->stopTag('tr');
 
 	$to->startTag('tr');
@@ -615,7 +713,7 @@ function index()
 	$to->startTag('table');
 	$to->startTag('tr');
 	$to->regLine('<td> </td>');
-	$to->regLine('<td> <div class="bhb"> Styrkor mm </div> </td> ');
+	$to->regLine('<td> <div class="bhb"> Styrkor mm  <img src="gs_rp.png"> <img src="gs_yp.png"> </div> </td> ');
 	$to->stopTag('tr');
 
 	$to->startTag('tr');
@@ -633,9 +731,7 @@ function index()
 
 	$to->stopTag('td');
 
-
 	// btns 3
-
 	$to->startTag('td', 'class="bbox" width=300px height=200px');
 	$to->startTag('table');
 	$to->startTag('tr');
@@ -658,7 +754,8 @@ function index()
 
 	$to->stopTag('td');
 
-	// b3
+
+	// b4
 
 	$to->startTag('td', 'class="bbox" width=300px height=200px');
 	$to->startTag('table');
@@ -691,6 +788,7 @@ function index()
 	$to->stopTag('div');
 	$to->stopTag('td');
 
+
 	//$to->startTag('td', 'colspan=2');
 	//$to->regLine('<img src="gg.png" \> <br> ');
 	//$to->stopTag('td');
@@ -699,10 +797,26 @@ function index()
 
 	$to->stopTag('table');
 
+	$to->regLine('<hr>');
+	$to->startTag('table');
+	$to->startTag('tr');
+	$to->startTag('td');
+	$to->regLine("<img src='level.png' >");
+	$to->stopTag('td');
+	$to->startTag('td');
+
+	$to->regLine('77% nöjd <br> nivå 3.2 <br> 16.2h totalt <br> 22 mätningar');
+
+	$to->stopTag('td');
+	$to->stopTag('tr');
+	$to->stopTag('table');
+
 	$to->stopTag('div'); //main
 	$to->stopTag('body');
 
+
 }
+
 
 index();
 

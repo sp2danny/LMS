@@ -137,7 +137,12 @@
     <None Include="src\data\ato.php" />
     <None Include="src\data\dsk.php" />
     <None Include="src\data\mmg.php" />
+    <None Include="src\data\mot.php" />
     <None Include="src\data\par.php" />
+    <None Include="src\data\pro.php" />
+    <None Include="src\data\sty.php" />
+    <None Include="src\data\sva.php" />
+    <None Include="src\data\syn.php" />
     <None Include="src\data\vg.php" />
     <None Include="src\klarna\php\buy.php" />
     <None Include="src\klarna\php\checkout.php" />

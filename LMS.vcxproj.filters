@@ -558,6 +558,21 @@
     <None Include="src\common\gruppskattning.php">
       <Filter>Source Files\common</Filter>
     </None>
+    <None Include="src\data\sty.php">
+      <Filter>Source Files\data</Filter>
+    </None>
+    <None Include="src\data\sva.php">
+      <Filter>Source Files\data</Filter>
+    </None>
+    <None Include="src\data\mot.php">
+      <Filter>Source Files\data</Filter>
+    </None>
+    <None Include="src\data\pro.php">
+      <Filter>Source Files\data</Filter>
+    </None>
+    <None Include="src\data\syn.php">
+      <Filter>Source Files\data</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\common\dologin.php">
