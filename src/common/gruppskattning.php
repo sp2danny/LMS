@@ -15,6 +15,11 @@ include_once 'discdisplay.php';
 
 echo '<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>';
 
+function getpid()
+{
+	return getparam('pid', 16);
+}
+
 ?>
 
 <script>
@@ -65,7 +70,8 @@ function mkTbl(nm, es, gs, utv)
 	txt += " <th class='visitab' > Jag </th> ";
 	txt += " <th class='visitab' > Grupp </th> ";
 	txt += " <th class='visitab' > Självbild </th> ";
-	txt += " <th class='visitab' > Utv. </th> ";
+	if (utv !== false)
+		txt += " <th class='visitab' > Utv. </th> ";
 	txt += " </tr> ";
 	for (i=0; i<n; ++i)
 	{
@@ -76,7 +82,9 @@ function mkTbl(nm, es, gs, utv)
 		txt += " <td class='visitabbx' > " + gs[i] + " </td> ";
 		sb = rel(es[i], gs[i]);
 		txt += " <td class='visitabbx' > " + bed(sb) + "% </td> ";
-		txt += " <td class='visitabbx' > " + "+" + utv[i].toString() + "%" + " </td> ";
+
+		if (utv !== false)
+			txt += " <td class='visitabbx' > " + "+" + utv[i].toString() + "%" + " </td> ";
 
 		txt += " </tr> ";
 
@@ -91,7 +99,7 @@ function mkTbl(nm, es, gs, utv)
 
 function clearall()
 {
-	for (i=1; i<=3; ++i) {
+	for (i=1; i<=4; ++i) {
 		for (j=1; j<=6; ++j) {
 			obj = document.getElementById("pl" + i.toString() + j.toString());
 			obj.src = "emp.png" ;
@@ -106,17 +114,35 @@ function restSpdr()
 	MA.innerHTML = '<canvas id="SpiderCanvas" width="450" height="450" style="border:1px solid #000000;"> Din browser st&ouml;der inte canvas </canvas> '
 }
 
+function set_ma(ttl, lst)
+{
+
+	MA = document.getElementById("mainarea");
+
+	txt = "<div style='width:450px; height:450px; border:1px solid #000000;' > \n";
+
+	txt += ttl + ":\n <ul>\n";
+
+	for (i=1; i<=5; ++i)
+	{
+		txt += "\t<li> " + i.toString() + " &nbsp;&nbsp;&nbsp;";
+		txt += "<input readonly type='text' value='" + lst[i-1] + "' /> \n";
+		txt += "</li>\n";
+	}
+
+	txt += "</ul>\n<br />\n";
+	txt += " </div> ";
+
+	MA.innerHTML = txt;
+
+}
+
 async function sp(i)
 {
 	restSpdr();
 
 	targets = [ 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99 ];
 	targ_s  = [ 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85  ];
-	val_e_1 =   [ 78, 25, 34, 98, 56, 33, 90, 34, 56, 67, 23, 99, 78, 56, 65, 23, 99, 78, 56 ];
-	val_b_1 =   [ 55, 56, 23, 67, 76, 34, 78, 34, 99, 12, 34, 34, 78, 34, 99, 12, 34, 88, 34 ];
-
-	val_e_2 =   [ 34, 56, 67, 23, 99, 78, 56, 65, 23, 99, 78, 56 ];
-	val_b_2 =   [ 34, 78, 34, 99, 12, 34, 34, 78, 34, 99, 12, 34, 88, 34 ];
 
 	short_desc_1 = ['Värdegrund', 'Missionstatement'];
 	short_desc_2 = ['Positiv', 'Äkta', 'Relevant'];
@@ -138,7 +164,7 @@ async function sp(i)
 		case 1:
 			mhd.innerHTML = "Värdegrund";
 			{
-			const url = "../data/vg.php?pid=" + <?php echo getparam('pid', 0); ?> ;
+			const url = "../data/vg.php?pid=" + <?php echo getpid(); ?> ;
 		    const response = await fetch(url);
 		    const result = await response.json();
 
@@ -149,7 +175,7 @@ async function sp(i)
 		case 2:
 			mhd.innerHTML = "Omtyckt";
 			{
-			const url = "../data/par.php?pid=" + <?php echo getparam('pid', 0); ?> ;
+			const url = "../data/par.php?pid=" + <?php echo getpid(); ?> ;
 		    const response = await fetch(url);
 		    const result = await response.json();
 
@@ -160,7 +186,7 @@ async function sp(i)
 		case 3:
 			mhd.innerHTML = "Klokskap";
 			{
-			const url = "../data/ato.php?pid=" + <?php echo getparam('pid', 0); ?> ;
+			const url = "../data/ato.php?pid=" + <?php echo getpid(); ?> ;
 		    const response = await fetch(url);
 		    const result = await response.json();
 
@@ -171,7 +197,7 @@ async function sp(i)
 		case 4:
 			mhd.innerHTML = "Mästarklass";
 			{
-			const url = "../data/mmg.php?pid=" + <?php echo getparam('pid', 0); ?> ;
+			const url = "../data/mmg.php?pid=" + <?php echo getpid(); ?> ;
 		    const response = await fetch(url);
 		    const result = await response.json();
 
@@ -179,6 +205,91 @@ async function sp(i)
 			mkTbl(short_desc_4, result.egen, result.grupp, result.utv);
 			}
 			break;
+	}
+}
+
+
+async function mm(i)
+{
+	restSpdr();
+
+	clearall();
+
+	obj = document.getElementById("pl4" + i.toString());
+	ss = "gp2.png";
+	obj.src = ss ;
+
+	setSpiderColors("#000", "#fff", "#777", "#888", "#2d1", "#fe0" );
+
+	mhd = document.getElementById("mainhdr");
+
+	targets = [ 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99 ];
+	targ_s  = [ 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85  ];
+
+	short_desc_1 = ['Synergier med andras styrkor', 'Stötta andras svagheter'];
+	short_desc_2 = ['Socialt proaktiv', 'Fatta proaktiva beslut'];
+
+
+	switch (i)
+	{
+		case 1:
+			mhd.innerHTML = "Styrkor";
+			{
+			const url = "../data/sty.php?pid=" + <?php echo getpid(); ?> ;
+		    const response = await fetch(url);
+		    const result = await response.json();
+
+			set_ma("Detta är mina styrkor", result.list);
+
+			mkTbl(["Styrkor"], result.egen, result.grupp, false);
+			}
+			break;
+		case 2:
+			mhd.innerHTML = "Svagheter";
+			{
+			const url = "../data/sva.php?pid=" + <?php echo getpid(); ?> ;
+		    const response = await fetch(url);
+		    const result = await response.json();
+
+			set_ma("Detta är mina svagheter", result.list);
+
+			mkTbl(["Svagheter"], result.egen, result.grupp, false);
+			}
+			break;
+		case 3:
+			mhd.innerHTML = "Motivatorer";
+			{
+			const url = "../data/mot.php?pid=" + <?php echo getpid(); ?> ;
+		    const response = await fetch(url);
+		    const result = await response.json();
+
+			set_ma("Detta är mina motivatorer", result.list);
+
+			mkTbl(["Motivatorer"], result.egen, result.grupp, false);
+			}
+			break;
+		case 4:
+			mhd.innerHTML = "Proaktivitet";
+			{
+			const url = "../data/pro.php?pid=" + <?php echo getpid(); ?> ;
+		    const response = await fetch(url);
+		    const result = await response.json();
+
+			DrawSpider('SpiderCanvas', 2, targets, targ_s, result.egen, result.grupp, short_desc_2, 'Proaktivitet', true );
+			mkTbl(short_desc_2, result.egen, result.grupp, false);
+			}
+			break;
+		case 5:
+			mhd.innerHTML = "Synergier";
+			{
+			const url = "../data/syn.php?pid=" + <?php echo getpid(); ?> ;
+		    const response = await fetch(url);
+		    const result = await response.json();
+			DrawSpider('SpiderCanvas', 2, targets, targ_s, result.egen, result.grupp, short_desc_1, 'Synergier', true );
+			mkTbl(short_desc_1, result.egen, result.grupp, false);
+			}
+			break;
+
 	}
 }
 
@@ -281,7 +392,7 @@ async function dsk()
 	obj = document.getElementById("lstf");
 	obj.innerHTML = ' &#128994; Egenskattning <br> &#128993; Gruppskattning ';
 
-	const url = "../data/dsk.php?pid=" + <?php echo getparam('pid', 0); ?> ;
+	const url = "../data/dsk.php?pid=" + <?php echo getpid(); ?> ;
 	const response = await fetch(url);
 	const result = await response.json();
 
@@ -400,7 +511,7 @@ function survOut($tn, $filt)
 {
 	global $emperator;
 
-	$pid = getparam("pid", 0);
+	$pid = getpid();
 
 	$n = 0;
 	$query = "SELECT * FROM surv WHERE type='$tn' AND pers='$pid';";
@@ -516,7 +627,7 @@ function index()
 
 	global $emperator;
 
-	$pid = getparam('pid');
+	$pid = getpid();
 	$query = "SELECT * FROM pers WHERE pers_id=$pid";
 	$res = mysqli_query( $emperator, $query );
 	if ($res) if ($row = mysqli_fetch_array($res))
@@ -570,7 +681,29 @@ function index()
 	$to->stopTag('td');
 
 	// btns 2
+	$to->startTag('td', 'class="bbox" width=300px height=200px');
+	$to->startTag('table');
+	$to->startTag('tr');
+	$to->regLine('<td> </td>');
+	$to->regLine('<td> <div class="bhb"> Styrkor mm </div> </td> ');
+	$to->stopTag('tr');
 
+	$to->startTag('tr');
+	$to->regLine('<td> </td>');
+	$to->regLine('<td> <div class="bhs"> &nbsp; </div> </td> ');
+	$to->stopTag('tr');
+
+	outBtn($to, "pl41", "mm(1)", "Styrkor");
+	outBtn($to, "pl42", "mm(2)", "Svagheter");
+	outBtn($to, "pl43", "mm(3)", "Motivatorer");
+	outBtn($to, "pl44", "mm(4)", "Proaktivitet");
+	outBtn($to, "pl45", "mm(5)", "Synergier");
+	outBtn($to, "pl46", "", false);
+	$to->stopTag('table');
+
+	$to->stopTag('td');
+
+	// btns 3
 	$to->startTag('td', 'class="bbox" width=300px height=200px');
 	$to->startTag('table');
 	$to->startTag('tr');
@@ -594,7 +727,7 @@ function index()
 	$to->stopTag('td');
 
 
-	// b3
+	// b4
 
 	$to->startTag('td', 'class="bbox" width=300px height=200px');
 	$to->startTag('table');
