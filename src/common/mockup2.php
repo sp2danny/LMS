@@ -65,7 +65,8 @@ function mkTbl(nm, es, gs, utv)
 	txt += " <th class='visitab' > Jag </th> ";
 	txt += " <th class='visitab' > Grupp </th> ";
 	txt += " <th class='visitab' > Självbild </th> ";
-	txt += " <th class='visitab' > Utv. </th> ";
+	if (utv !== false)
+		txt += " <th class='visitab' > Utv. </th> ";
 	txt += " </tr> ";
 	for (i=0; i<n; ++i)
 	{
@@ -76,7 +77,9 @@ function mkTbl(nm, es, gs, utv)
 		txt += " <td class='visitabbx' > " + gs[i] + " </td> ";
 		sb = rel(es[i], gs[i]);
 		txt += " <td class='visitabbx' > " + bed(sb) + "% </td> ";
-		txt += " <td class='visitabbx' > " + "+" + utv[i].toString() + "%" + " </td> ";
+
+		if (utv !== false)
+			txt += " <td class='visitabbx' > " + "+" + utv[i].toString() + "%" + " </td> ";
 
 		txt += " </tr> ";
 
@@ -91,7 +94,7 @@ function mkTbl(nm, es, gs, utv)
 
 function clearall()
 {
-	for (i=1; i<=3; ++i) {
+	for (i=1; i<=4; ++i) {
 		for (j=1; j<=6; ++j) {
 			obj = document.getElementById("pl" + i.toString() + j.toString());
 			obj.src = "emp.png" ;
@@ -106,17 +109,81 @@ function restSpdr()
 	MA.innerHTML = '<canvas id="SpiderCanvas" width="450" height="450" style="border:1px solid #000000;"> Din browser st&ouml;der inte canvas </canvas> '
 }
 
+function set_ma(ttl, lst)
+{
+
+	MA = document.getElementById("mainarea");
+
+	txt = "<div style='width:450px; height:450px; border:1px solid #000000;' > \n";
+
+	txt += ttl + ":\n <ul>\n";
+
+	for (i=1; i<=5; ++i)
+	{
+		txt += "\t<li> " + i.toString() + " &nbsp;&nbsp;&nbsp;";
+		txt += "<input readonly type='text' value='" + lst[i-1] + "' /> \n";
+		txt += "</li>\n";
+	}
+
+	txt += "</ul>\n<br />\n";
+	txt += " </div> ";
+
+	MA.innerHTML = txt;
+
+}
+
+function styrkor()
+{
+	ttl = "Detta är mina styrkor";
+
+	lst = [
+		"Verbal förmåga"                   ,
+		"Måla upp en vision"               ,
+		"Hitta bra människor"              ,
+		"Motivera medarbetare"             ,
+		"Anpassa mig efter svängningar"
+	];
+
+	set_ma(ttl, lst);
+}
+
+function svag()
+{
+	ttl = "Detta är mina svagheter";
+
+	lst = [
+		"Otålig"               ,
+		"Dålig på detaljer"    ,
+		"Dålig på struktur"    ,
+		"Lyssna"               ,
+		"Tala i rätt ton"
+	];
+
+	set_ma(ttl, lst);
+}
+
+function motiv()
+{
+	ttl = "Detta är mina motivatorer";
+
+	lst = [
+		"Meningsfulla mål",
+		"Ha kul",
+		"Omväxling",
+		"Bra vänner",
+		"Bra samtal"
+	];
+
+	set_ma(ttl, lst);
+}
+
+
 async function sp(i)
 {
 	restSpdr();
 
 	targets = [ 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99 ];
 	targ_s  = [ 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85  ];
-	val_e_1 =   [ 78, 25, 34, 98, 56, 33, 90, 34, 56, 67, 23, 99, 78, 56, 65, 23, 99, 78, 56 ];
-	val_b_1 =   [ 55, 56, 23, 67, 76, 34, 78, 34, 99, 12, 34, 34, 78, 34, 99, 12, 34, 88, 34 ];
-
-	val_e_2 =   [ 34, 56, 67, 23, 99, 78, 56, 65, 23, 99, 78, 56 ];
-	val_b_2 =   [ 34, 78, 34, 99, 12, 34, 34, 78, 34, 99, 12, 34, 88, 34 ];
 
 	short_desc_1 = ['Värdegrund', 'Missionstatement'];
 	short_desc_2 = ['Positiv', 'Äkta', 'Relevant'];
@@ -179,6 +246,60 @@ async function sp(i)
 			mkTbl(short_desc_4, result.egen, result.grupp, result.utv);
 			}
 			break;
+	}
+}
+
+function mm(i)
+{
+	restSpdr();
+
+	clearall();
+
+	obj = document.getElementById("pl4" + i.toString());
+	ss = "gp2.png";
+	obj.src = ss ;
+
+	setSpiderColors("#000", "#fff", "#777", "#888", "#2d1", "#fe0" );
+
+	mhd = document.getElementById("mainhdr");
+
+	targets = [ 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99 ];
+	targ_s  = [ 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85  ];
+	val_e_1 =   [ 78, 25, 34, 98, 56, 33, 90, 34, 56, 67, 23, 99, 78, 56, 65, 23, 99, 78, 56 ];
+	val_b_1 =   [ 55, 56, 23, 67, 76, 34, 78, 34, 99, 12, 34, 34, 78, 34, 99, 12, 34, 88, 34 ];
+
+	short_desc_1 = ['Synergier med andras styrkor', 'Stötta andras svagheter'];
+	short_desc_2 = ['Socialt proaktiv', 'Fatta proaktiva beslut'];
+
+
+	switch (i)
+	{
+		case 1:
+			mhd.innerHTML = "Styrkor";
+			styrkor();
+			mkTbl(["styrkor"], [88], [85], false);
+			break;
+		case 2:
+			mhd.innerHTML = "Svagheter";
+			svag();
+			mkTbl(["Svagheter"], [74], [74], false);
+			break;
+		case 3:
+			mhd.innerHTML = "Motivatorer";
+			motiv();
+			mkTbl(["Motivatorer"], [99], [70], false);
+			break;
+		case 4:
+			mhd.innerHTML = "Proaktivitet";
+			DrawSpider('SpiderCanvas', 2, targets, targ_s, val_e_1.slice(2), val_b_1.slice(2), short_desc_2, 'Proaktivitet', true );
+			mkTbl(short_desc_2, val_e_1.slice(2), val_b_1.slice(2), false);
+			break;
+		case 5:
+			mhd.innerHTML = "Synergier";
+			DrawSpider('SpiderCanvas', 2, targets, targ_s, val_e_1, val_b_1, short_desc_1, 'Synergier', true );
+			mkTbl(short_desc_1, val_e_1, val_b_1, false);
+			break;
+
 	}
 }
 
@@ -345,6 +466,18 @@ function st(i)
 		font-size: 11px;
 	}
 
+	table.wtelf {
+		border: 2px solid #000;
+		margin-top: 25px;
+		border-collapse: collapse;
+	}
+	td.wtelf {
+		border: 1px solid #222;
+		margin-top: 7px;
+		margin-bottom: 7px;
+		border-collapse: collapse;
+	}
+
 
 	.visitab  {
 		border: 1px solid black;
@@ -380,7 +513,7 @@ function st(i)
 
 </style>
 
-<title> Mockup </title>
+<title> Gruppskattning </title>
 
 <?php
 
@@ -430,6 +563,36 @@ function outBtn( $to, $blbl, $onclck, $ttl )
 	$to->stopTag('tr');
 }
 
+function ptbl($to, $prow, $mynt, $score=0)
+{
+	$heartfile = fopen("heart.txt", "r");
+	$txt = "";
+	if ($heartfile) {
+		$arr = [];
+		while (true) {
+			$buffer = fgets($heartfile, 4096);
+			if (!$buffer) break;
+			$buffer = trim($buffer);
+			$len = strlen($buffer);
+			if ($len == 0) continue;
+			$arr[] = $buffer;
+		}
+		$top = count($arr)-1;
+		if ($top > 0)
+			$txt = $arr[rand(0,$top)];
+	}
+
+	$div = "<div> <img src='heart.png' style='vertical-align: middle;' width='100px' /> <span style='vertical-align: middle;'> $txt </span> ";
+
+	$wtelf = '""';
+	$to->startTag('table', "class=$wtelf");
+	$to->regLine("<tr> <td class=$wtelf > Kundnummer    </td> <td class=$wtelf > " . $prow[ 'pers_id' ] . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td> <td class=$wtelf > Guldmynt     </td> <td class=$wtelf > $mynt   </td> </tr>");
+	$to->regLine("<tr> <td class=$wtelf > Namn          </td> <td class=$wtelf > " . $prow[ 'name'    ] . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td> <td class=$wtelf > Po&auml;ng   </td> <td class=$wtelf > $score  </td> </tr>");
+	$to->regLine("<tr> <td class=$wtelf >               </td> <td class=$wtelf > " . ""                 . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td> <td colspan=2 rowspan=2 class=$wtelf > $div </td>  </tr>");
+	$to->regLine("<tr> <td class=$wtelf > Medlem sedan  </td> <td class=$wtelf > " . $prow[ 'date'    ] . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td>  </tr>");
+	$to->stopTag('table');
+}
+
 function index()
 {
 	debug_log("index()");
@@ -454,10 +617,9 @@ function index()
 
 	$to->regLine( "\n</head>\n" );
 
-	$to->startTag("body");
+	$to->startTag("body", "onload='dsk()'");
 
 	$to->scTag("img", "id='Disc2' src='Disc3-3.png' hidden=true" );
-
 
 	$to->startTag('div', 'id="main" class="main"');
 	
@@ -471,7 +633,19 @@ function index()
 	$to->stopTag('div');
 	$to->scTag('hr');
 
-	$state = getparam("state", 0);
+
+
+	global $emperator;
+
+	$pid = getparam('pid');
+	$query = "SELECT * FROM pers WHERE pers_id=$pid";
+	$res = mysqli_query( $emperator, $query );
+	if ($res) if ($row = mysqli_fetch_array($res))
+	{
+	}
+
+	ptbl($to, $row, 0);
+	$to->scTag('hr');
 
 	$to->startTag('table');
 	$to->startTag('tr');
@@ -517,7 +691,29 @@ function index()
 	$to->stopTag('td');
 
 	// btns 2
+	$to->startTag('td', 'class="bbox" width=300px height=200px');
+	$to->startTag('table');
+	$to->startTag('tr');
+	$to->regLine('<td> </td>');
+	$to->regLine('<td> <div class="bhb"> Styrkor mm </div> </td> ');
+	$to->stopTag('tr');
 
+	$to->startTag('tr');
+	$to->regLine('<td> </td>');
+	$to->regLine('<td> <div class="bhs"> &nbsp; </div> </td> ');
+	$to->stopTag('tr');
+
+	outBtn($to, "pl41", "mm(1)", "Styrkor");
+	outBtn($to, "pl42", "mm(2)", "Svagheter");
+	outBtn($to, "pl43", "mm(3)", "Motivatorer");
+	outBtn($to, "pl44", "mm(4)", "Proaktivitet");
+	outBtn($to, "pl45", "mm(5)", "Synergier");
+	outBtn($to, "pl46", "", false);
+	$to->stopTag('table');
+
+	$to->stopTag('td');
+
+	// btns 3
 	$to->startTag('td', 'class="bbox" width=300px height=200px');
 	$to->startTag('table');
 	$to->startTag('tr');
@@ -541,7 +737,7 @@ function index()
 	$to->stopTag('td');
 
 
-	// b3
+	// b4
 
 	$to->startTag('td', 'class="bbox" width=300px height=200px');
 	$to->startTag('table');

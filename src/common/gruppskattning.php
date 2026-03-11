@@ -1,7 +1,7 @@
 
 <?php
 
-$RETURNTO = 'mockup2';
+$RETURNTO = 'gruppskattning';
 
 include_once 'debug.php';
 include_once 'head.php';
