@@ -15,6 +15,11 @@ include_once 'discdisplay.php';
 
 echo '<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>';
 
+function getpid()
+{
+	return getparam('pid', 16);
+}
+
 ?>
 
 <script>
@@ -132,52 +137,6 @@ function set_ma(ttl, lst)
 
 }
 
-function styrkor()
-{
-	ttl = "Detta är mina styrkor";
-
-	lst = [
-		"Verbal förmåga"                   ,
-		"Måla upp en vision"               ,
-		"Hitta bra människor"              ,
-		"Motivera medarbetare"             ,
-		"Anpassa mig efter svängningar"
-	];
-
-	set_ma(ttl, lst);
-}
-
-function svag()
-{
-	ttl = "Detta är mina svagheter";
-
-	lst = [
-		"Otålig"               ,
-		"Dålig på detaljer"    ,
-		"Dålig på struktur"    ,
-		"Lyssna"               ,
-		"Tala i rätt ton"
-	];
-
-	set_ma(ttl, lst);
-}
-
-function motiv()
-{
-	ttl = "Detta är mina motivatorer";
-
-	lst = [
-		"Meningsfulla mål",
-		"Ha kul",
-		"Omväxling",
-		"Bra vänner",
-		"Bra samtal"
-	];
-
-	set_ma(ttl, lst);
-}
-
-
 async function sp(i)
 {
 	restSpdr();
@@ -205,7 +164,7 @@ async function sp(i)
 		case 1:
 			mhd.innerHTML = "Värdegrund";
 			{
-			const url = "../data/vg.php?pid=" + <?php echo getparam('pid', 0); ?> ;
+			const url = "../data/vg.php?pid=" + <?php echo getpid(); ?> ;
 		    const response = await fetch(url);
 		    const result = await response.json();
 
@@ -216,7 +175,7 @@ async function sp(i)
 		case 2:
 			mhd.innerHTML = "Omtyckt";
 			{
-			const url = "../data/par.php?pid=" + <?php echo getparam('pid', 0); ?> ;
+			const url = "../data/par.php?pid=" + <?php echo getpid(); ?> ;
 		    const response = await fetch(url);
 		    const result = await response.json();
 
@@ -227,7 +186,7 @@ async function sp(i)
 		case 3:
 			mhd.innerHTML = "Klokskap";
 			{
-			const url = "../data/ato.php?pid=" + <?php echo getparam('pid', 0); ?> ;
+			const url = "../data/ato.php?pid=" + <?php echo getpid(); ?> ;
 		    const response = await fetch(url);
 		    const result = await response.json();
 
@@ -238,7 +197,7 @@ async function sp(i)
 		case 4:
 			mhd.innerHTML = "Mästarklass";
 			{
-			const url = "../data/mmg.php?pid=" + <?php echo getparam('pid', 0); ?> ;
+			const url = "../data/mmg.php?pid=" + <?php echo getpid(); ?> ;
 		    const response = await fetch(url);
 		    const result = await response.json();
 
@@ -249,7 +208,8 @@ async function sp(i)
 	}
 }
 
-function mm(i)
+
+async function mm(i)
 {
 	restSpdr();
 
@@ -265,8 +225,6 @@ function mm(i)
 
 	targets = [ 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99 ];
 	targ_s  = [ 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85  ];
-	val_e_1 =   [ 78, 25, 34, 98, 56, 33, 90, 34, 56, 67, 23, 99, 78, 56, 65, 23, 99, 78, 56 ];
-	val_b_1 =   [ 55, 56, 23, 67, 76, 34, 78, 34, 99, 12, 34, 34, 78, 34, 99, 12, 34, 88, 34 ];
 
 	short_desc_1 = ['Synergier med andras styrkor', 'Stötta andras svagheter'];
 	short_desc_2 = ['Socialt proaktiv', 'Fatta proaktiva beslut'];
@@ -276,28 +234,60 @@ function mm(i)
 	{
 		case 1:
 			mhd.innerHTML = "Styrkor";
-			styrkor();
-			mkTbl(["styrkor"], [88], [85], false);
+			{
+			const url = "../data/sty.php?pid=" + <?php echo getpid(); ?> ;
+		    const response = await fetch(url);
+		    const result = await response.json();
+
+			set_ma("Detta är mina styrkor", result.list);
+
+			mkTbl(["Styrkor"], result.egen, result.grupp, false);
+			}
 			break;
 		case 2:
 			mhd.innerHTML = "Svagheter";
-			svag();
-			mkTbl(["Svagheter"], [74], [74], false);
+			{
+			const url = "../data/sva.php?pid=" + <?php echo getpid(); ?> ;
+		    const response = await fetch(url);
+		    const result = await response.json();
+
+			set_ma("Detta är mina svagheter", result.list);
+
+			mkTbl(["Svagheter"], result.egen, result.grupp, false);
+			}
 			break;
 		case 3:
 			mhd.innerHTML = "Motivatorer";
-			motiv();
-			mkTbl(["Motivatorer"], [99], [70], false);
+			{
+			const url = "../data/mot.php?pid=" + <?php echo getpid(); ?> ;
+		    const response = await fetch(url);
+		    const result = await response.json();
+
+			set_ma("Detta är mina motivatorer", result.list);
+
+			mkTbl(["Motivatorer"], result.egen, result.grupp, false);
+			}
 			break;
 		case 4:
 			mhd.innerHTML = "Proaktivitet";
-			DrawSpider('SpiderCanvas', 2, targets, targ_s, val_e_1.slice(2), val_b_1.slice(2), short_desc_2, 'Proaktivitet', true );
-			mkTbl(short_desc_2, val_e_1.slice(2), val_b_1.slice(2), false);
+			{
+			const url = "../data/pro.php?pid=" + <?php echo getpid(); ?> ;
+		    const response = await fetch(url);
+		    const result = await response.json();
+
+			DrawSpider('SpiderCanvas', 2, targets, targ_s, result.egen, result.grupp, short_desc_2, 'Proaktivitet', true );
+			mkTbl(short_desc_2, result.egen, result.grupp, false);
+			}
 			break;
 		case 5:
 			mhd.innerHTML = "Synergier";
-			DrawSpider('SpiderCanvas', 2, targets, targ_s, val_e_1, val_b_1, short_desc_1, 'Synergier', true );
-			mkTbl(short_desc_1, val_e_1, val_b_1, false);
+			{
+			const url = "../data/syn.php?pid=" + <?php echo getpid(); ?> ;
+		    const response = await fetch(url);
+		    const result = await response.json();
+			DrawSpider('SpiderCanvas', 2, targets, targ_s, result.egen, result.grupp, short_desc_1, 'Synergier', true );
+			mkTbl(short_desc_1, result.egen, result.grupp, false);
+			}
 			break;
 
 	}
@@ -402,7 +392,7 @@ async function dsk()
 	obj = document.getElementById("lstf");
 	obj.innerHTML = ' &#128994; Egenskattning <br> &#128993; Gruppskattning ';
 
-	const url = "../data/dsk.php?pid=" + <?php echo getparam('pid', 0); ?> ;
+	const url = "../data/dsk.php?pid=" + <?php echo getpid(); ?> ;
 	const response = await fetch(url);
 	const result = await response.json();
 
@@ -521,7 +511,7 @@ function survOut($tn, $filt)
 {
 	global $emperator;
 
-	$pid = getparam("pid", 0);
+	$pid = getpid();
 
 	$n = 0;
 	$query = "SELECT * FROM surv WHERE type='$tn' AND pers='$pid';";
@@ -637,7 +627,7 @@ function index()
 
 	global $emperator;
 
-	$pid = getparam('pid');
+	$pid = getpid();
 	$query = "SELECT * FROM pers WHERE pers_id=$pid";
 	$res = mysqli_query( $emperator, $query );
 	if ($res) if ($row = mysqli_fetch_array($res))

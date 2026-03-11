@@ -1,6 +1,4 @@
 
-<!-- inlude debug.php -->
-
 <?php
 
 function arr2str($arr)
