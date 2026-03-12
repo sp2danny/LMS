@@ -390,7 +390,7 @@ async function dsk()
 	obj.src = ss ;
 
 	obj = document.getElementById("lstf");
-	obj.innerHTML = ' &#128994; Egenskattning <br> &#128993; Gruppskattning ';
+	obj.innerHTML = ' &#128994; Egenskattning Disk<br> &#128993; Gruppskattning Disk';
 
 	const url = "../data/dsk.php?pid=" + <?php echo getpid(); ?> ;
 	const response = await fetch(url);
@@ -784,7 +784,7 @@ function index()
 
 	$to->startTag('td', 'colspan=3');
 	$to->startTag('div', 'id="lstf"');
-	$to->regLine('&#128994; Egenskattning <br> &#128993; Gruppskattning ');
+	$to->regLine('&#128994; Egenskattning Disk<br> &#128993; Gruppskattning Disk');
 	$to->stopTag('div');
 	$to->stopTag('td');
 
