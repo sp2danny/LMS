@@ -442,6 +442,37 @@ function st(i)
 	}
 }
 
+function dcs()
+{
+	const lvlcnv = document.getElementById("lvlcnv");
+	const ctx = lvlcnv.getContext("2d");
+	const lvlimg = document.getElementById("lvlimg");
+
+	ctx.fillStyle = "#fff";
+	ctx.fillRect(0, 0, 650, 300);
+	ctx.drawImage(lvlimg, 0, 0); 
+
+	ctx.font = "20px Georgia";
+	ctx.fillStyle = "#000";
+	const h2 = 10;
+	ctx.fillText("lvl 1", 550, 256  + h2 );
+	ctx.fillText("lvl 2", 550, 194  + h2 );
+	ctx.fillText("lvl 3", 550, 141  + h2 );
+	ctx.fillText("lvl 4", 550, 86   + h2 );
+	ctx.fillText("lvl 5", 550, 34   + h2 );
+
+	/*
+	n1  256
+	n2  194
+	n3  141
+	n4   86
+	n5   34
+
+	$to->regLine("<canvas id='lvlcnv' width='650' height='300' >  </canvas> ");
+	$to->regLine("<img style='visibility:hidden;' id='lvlimg' src='level.png' onload="dcs()" >");
+*/
+}
+
 </script>
 
 <style>
@@ -537,7 +568,7 @@ function survOut($tn, $filt)
 }
 
 
-function outBtn( $to, $blbl, $onclck, $ttl )
+function outBtn( $to, $blbl, $onclck, $ttl, $dopl = true )
 {
 	$to->startTag('tr');
 	$to->startTag('td');
@@ -548,6 +579,8 @@ function outBtn( $to, $blbl, $onclck, $ttl )
 		$to->startTag("button", "style='width:150px;' onclick='$onclck'");
 		$to->regLine($ttl);
 		$to->stopTag('button');
+		if ($dopl)
+			$to->regLine(' <img src="gs_gp.png"> <img src="gs_yp.png"> ');
 	}
 	$to->stopTag('td');
 	$to->stopTag('tr');
@@ -655,6 +688,18 @@ function index()
 	$to->stopTag('td');
 	$to->startTag('td');
 
+	$to->regLine("<img src='glad.png'> <br>");
+	$to->regLine("<center> Kundnöjdhet </center> ");
+	$to->regLine("<center> 77% </center> ");
+
+	$to->stopTag('td');
+	$to->startTag('td', "style='width:80px;' ");
+
+	$to->regLine('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+
+	$to->stopTag('td');
+	$to->startTag('td');
+
 	$to->regLine("<img src='gs_gp.png'> 85%-100% <br>");
 	$to->regLine("<img src='gs_yp.png'> 70%-84% <br>");
 	$to->regLine("<img src='gs_rp.png'> 0%-69% <br>");
@@ -744,11 +789,11 @@ function index()
 	$to->regLine('<td> <div class="bhs"> &nbsp; </div> </td> ');
 	$to->stopTag('tr');
 
-	outBtn($to, "pl21", "st(1)", "Mål");
-	outBtn($to, "pl22", "st(2)", "Stress");
-	outBtn($to, "pl23", "st(3)", "Kommunikation");
-	outBtn($to, "pl24", "st(4)", "Motivation");
-	outBtn($to, "pl25", "st(5)", "Samarbete");
+	outBtn($to, "pl21", "st(1)", "Mål", false);
+	outBtn($to, "pl22", "st(2)", "Stress", false);
+	outBtn($to, "pl23", "st(3)", "Kommunikation", false);
+	outBtn($to, "pl24", "st(4)", "Motivation", false);
+	outBtn($to, "pl25", "st(5)", "Samarbete", false);
 	outBtn($to, "pl26", "", false);
 	$to->stopTag('table');
 
@@ -769,11 +814,11 @@ function index()
 	$to->regLine('<td> <div class="bhs"> Nå ditt sanna jag </div> </td> ');
 	$to->stopTag('tr');
 
-	outBtn($to, "pl31", "sp(0)", "Steg 1");
-	outBtn($to, "pl32", "sp(0)", "Steg 2");
-	outBtn($to, "pl33", "sp(0)", "Steg 3");
+	outBtn($to, "pl31", "sp(0)", "Steg 1", false);
+	outBtn($to, "pl32", "sp(0)", "Steg 2", false);
+	outBtn($to, "pl33", "sp(0)", "Steg 3", false);
 	outBtn($to, "pl34", "", false);
-	outBtn($to, "pl35", "tx(1)", "Min Fysik");
+	outBtn($to, "pl35", "tx(1)", "Min Fysik", false);
 	outBtn($to, "pl36", "", false);
 	$to->stopTag('table');
 
@@ -801,7 +846,9 @@ function index()
 	$to->startTag('table');
 	$to->startTag('tr');
 	$to->startTag('td');
-	$to->regLine("<img src='level.png' >");
+	$to->regLine("<canvas id='lvlcnv' width='650' height='300' >  </canvas> ");
+	$to->regLine("<img style='visibility:hidden; display:none;' id='lvlimg' src='level.png' onload='dcs()' >");
+
 	$to->stopTag('td');
 	$to->startTag('td');
 
