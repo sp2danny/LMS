@@ -735,7 +735,8 @@ function index()
 	$to->startTag('table');
 	$to->startTag('tr');
 	$to->regLine('<td> </td>');
-	$to->regLine('<td> <div class="bhb"> Mitt Jag <img src="gs_gp.png"> <img src="gs_yp.png">  </div> </td> ');
+	$ttt = "Mitt Jag"; // <img src="gs_gp.png"> <img src="gs_yp.png">
+	$to->regLine("<td> <div class='bhb'> Mitt Jag $ttt </div> </td> ");
 	$to->stopTag('tr');
 
 	$to->startTag('tr');
@@ -758,7 +759,8 @@ function index()
 	$to->startTag('table');
 	$to->startTag('tr');
 	$to->regLine('<td> </td>');
-	$to->regLine('<td> <div class="bhb"> Styrkor mm  <img src="gs_rp.png"> <img src="gs_yp.png"> </div> </td> ');
+	$ttt = "Styrkor mm"; // <img src="gs_gp.png"> <img src="gs_yp.png">
+	$to->regLine("<td> <div class='bhb'> $ttt </div> </td> ");
 	$to->stopTag('tr');
 
 	$to->startTag('tr');

@@ -67,7 +67,7 @@ $pr_price = floor( $pr_price * (100-$reb)/100 );
 debug_log("pr : " . $pr_price );
 */
 
-$url = 'https://api.klarna.com/checkout/v3/orders';
+$url = 'https://api.kustom.co/checkout/v3/orders';
 
 $mu = [
     "terms"         =>  "https://mind2excellence.se/klarna/php/terms.php?id=" . $id,
