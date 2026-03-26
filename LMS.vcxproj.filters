@@ -573,6 +573,12 @@
     <None Include="src\data\syn.php">
       <Filter>Source Files\data</Filter>
     </None>
+    <None Include="src\common\mu3.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\data\grp1.php">
+      <Filter>Source Files\data</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\common\dologin.php">

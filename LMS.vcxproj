@@ -94,6 +94,7 @@
     <None Include="src\common\minsida.php" />
     <None Include="src\common\mockup.php" />
     <None Include="src\common\mockup2.php" />
+    <None Include="src\common\mu3.php" />
     <None Include="src\common\next.php" />
     <None Include="src\common\nypers.php" />
     <None Include="src\common\onesurv.php" />
@@ -136,6 +137,7 @@
     <None Include="src\common\worldclass.php" />
     <None Include="src\data\ato.php" />
     <None Include="src\data\dsk.php" />
+    <None Include="src\data\grp1.php" />
     <None Include="src\data\mmg.php" />
     <None Include="src\data\mot.php" />
     <None Include="src\data\par.php" />

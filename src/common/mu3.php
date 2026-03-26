@@ -1,0 +1,874 @@
+
+<?php
+
+$RETURNTO = 'mu3';
+
+include_once 'debug.php';
+include_once 'head.php';
+include_once 'common_php.php';
+include_once 'tagOut.php';
+include_once 'connect.php';
+include_once 'main.js.php';
+include_once 'util.php';
+include_once 'discdisplay.php';
+
+
+echo '<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>';
+
+function getpid()
+{
+	return getparam('pid', 16);
+}
+
+?>
+
+<script>
+
+function PopLst(lst, nn = -1)
+{
+	obj = document.getElementById("lstf");
+	if (nn == -1)
+		n = lst.length;
+	else
+		n = nn;
+	txt = "";
+	for (i=0; i<n; ++i)
+	{
+		if (i!=0) txt += " <br> ";
+		txt += (i+1).toString();
+		txt += " : ";
+		txt += lst[i];
+	}
+	obj.innerHTML = txt;
+}
+
+function rel(es, gs)
+{
+	return 100 - Math.abs(es-gs);
+}
+
+function bed(num)
+{
+	txt = " <img src='";
+	if (num>=85)
+		txt += "gs_gp.png";
+	else if (num>=70)
+		txt += "gs_yp.png";
+	else
+		txt += "gs_rp.png";
+	txt += "' > " + (num).toString();
+	return txt;
+}
+
+function mkTbl(nm, es, gs, utv)
+{
+	var n = nm.length;
+	var txt = "<table class='visitab' > ";
+	txt += " <tr class='visitab' > ";
+	txt += " <th class='visitab' > # </th> ";
+	txt += " <th class='visitab' > Kategori </th> ";
+	txt += " <th class='visitab' > Jag </th> ";
+	txt += " <th class='visitab' > Grupp </th> ";
+	txt += " <th class='visitab' > Självbild </th> ";
+	if (utv !== false)
+		txt += " <th class='visitab' > Utv. </th> ";
+	txt += " </tr> ";
+	for (i=0; i<n; ++i)
+	{
+		txt += " <tr class='visitabrow' > ";
+		txt += " <td class='visitabbx' > " + (i+1).toString() + " </td> ";
+		txt += " <td class='visitabbx' > " + nm[i] + " </td> ";
+		txt += " <td class='visitabbx' > " + bed(es[i]) + " </td> ";
+		txt += " <td class='visitabbx' > " + gs[i] + " </td> ";
+		sb = rel(es[i], gs[i]);
+		txt += " <td class='visitabbx' > " + bed(sb) + "% </td> ";
+
+		if (utv !== false)
+			txt += " <td class='visitabbx' > " + "+" + utv[i].toString() + "%" + " </td> ";
+
+		txt += " </tr> ";
+
+	}
+
+	txt += " </table> ";
+
+	obj = document.getElementById("lstf");
+	obj.innerHTML = txt;
+
+}
+
+function clearall()
+{
+	for (i=1; i<=4; ++i) {
+		for (j=1; j<=6; ++j) {
+			obj = document.getElementById("pl" + i.toString() + j.toString());
+			obj.src = "emp.png" ;
+		}
+	}
+
+}
+
+function restSpdr()
+{
+	MA = document.getElementById("mainarea");
+	MA.innerHTML = '<canvas id="SpiderCanvas" width="450" height="450" style="border:1px solid #000000;"> Din browser st&ouml;der inte canvas </canvas> '
+}
+
+function set_ma(ttl, lst)
+{
+
+	MA = document.getElementById("mainarea");
+
+	txt = "<div style='width:450px; height:450px; border:1px solid #000000;' > \n";
+
+	txt += ttl + ":\n <ul>\n";
+
+	for (i=1; i<=5; ++i)
+	{
+		txt += "\t<li> " + i.toString() + " &nbsp;&nbsp;&nbsp;";
+		txt += "<input readonly type='text' value='" + lst[i-1] + "' /> \n";
+		txt += "</li>\n";
+	}
+
+	txt += "</ul>\n<br />\n";
+	txt += " </div> ";
+
+	MA.innerHTML = txt;
+
+}
+
+async function sp(i)
+{
+	restSpdr();
+
+	targets = [ 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99 ];
+	targ_s  = [ 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85  ];
+
+	short_desc_1 = ['Värdegrund', 'Missionstatement'];
+	short_desc_2 = ['Positiv', 'Äkta', 'Relevant'];
+	short_desc_3 = ['Ärlig', 'Tillitsfull', 'Omdömesfull'];
+	short_desc_4 = ['Motivation', 'Målsättning', 'Genomförande'];
+
+	clearall();
+
+	obj = document.getElementById("pl1" + i.toString());
+	ss = "gp2.png";
+	obj.src = ss ;
+
+	setSpiderColors("#000", "#fff", "#777", "#888", "#2d1", "#fe0" );
+
+	mhd = document.getElementById("mainhdr");
+
+	switch (i)
+	{
+		case 1:
+			mhd.innerHTML = "Värdegrund";
+			{
+			const url = "../data/vg.php?pid=" + <?php echo getpid(); ?> ;
+		    const response = await fetch(url);
+		    const result = await response.json();
+
+			DrawSpider('SpiderCanvas', 2, targets, targ_s, result.egen, result.grupp, short_desc_1, "Värdegrund", true );
+			mkTbl(short_desc_1, result.egen, result.grupp, result.utv);
+			}
+			break;
+		case 2:
+			mhd.innerHTML = "Omtyckt";
+			{
+			const url = "../data/par.php?pid=" + <?php echo getpid(); ?> ;
+		    const response = await fetch(url);
+		    const result = await response.json();
+
+			DrawSpider('SpiderCanvas', 3, targets, targ_s, result.egen, result.grupp, short_desc_2, 'PÄR', true );
+			mkTbl(short_desc_2, result.egen, result.grupp, result.utv);
+			}
+			break;
+		case 3:
+			mhd.innerHTML = "Klokskap";
+			{
+			const url = "../data/ato.php?pid=" + <?php echo getpid(); ?> ;
+		    const response = await fetch(url);
+		    const result = await response.json();
+
+			DrawSpider('SpiderCanvas', 3, targets, targ_s, result.egen, result.grupp, short_desc_2, 'PÄR', true );
+			mkTbl(short_desc_3, result.egen, result.grupp, result.utv);
+			}
+			break;
+		case 4:
+			mhd.innerHTML = "Mästarklass";
+			{
+			const url = "../data/mmg.php?pid=" + <?php echo getpid(); ?> ;
+		    const response = await fetch(url);
+		    const result = await response.json();
+
+			DrawSpider('SpiderCanvas', 3, targets, targ_s, result.egen, result.grupp, short_desc_2, 'PÄR', true );
+			mkTbl(short_desc_4, result.egen, result.grupp, result.utv);
+			}
+			break;
+	}
+}
+
+
+async function mm(i)
+{
+	restSpdr();
+
+	clearall();
+
+	obj = document.getElementById("pl4" + i.toString());
+	ss = "gp2.png";
+	obj.src = ss ;
+
+	setSpiderColors("#000", "#fff", "#777", "#888", "#2d1", "#fe0" );
+
+	mhd = document.getElementById("mainhdr");
+
+	targets = [ 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99 ];
+	targ_s  = [ 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85  ];
+
+	short_desc_1 = ['Synergier med andras styrkor', 'Stötta andras svagheter'];
+	short_desc_2 = ['Socialt proaktiv', 'Fatta proaktiva beslut'];
+
+
+	switch (i)
+	{
+		case 1:
+			mhd.innerHTML = "Styrkor";
+			{
+			const url = "../data/sty.php?pid=" + <?php echo getpid(); ?> ;
+		    const response = await fetch(url);
+		    const result = await response.json();
+
+			set_ma("Detta är mina styrkor", result.list);
+
+			mkTbl(["Styrkor"], result.egen, result.grupp, false);
+			}
+			break;
+		case 2:
+			mhd.innerHTML = "Svagheter";
+			{
+			const url = "../data/sva.php?pid=" + <?php echo getpid(); ?> ;
+		    const response = await fetch(url);
+		    const result = await response.json();
+
+			set_ma("Detta är mina svagheter", result.list);
+
+			mkTbl(["Svagheter"], result.egen, result.grupp, false);
+			}
+			break;
+		case 3:
+			mhd.innerHTML = "Motivatorer";
+			{
+			const url = "../data/mot.php?pid=" + <?php echo getpid(); ?> ;
+		    const response = await fetch(url);
+		    const result = await response.json();
+
+			set_ma("Detta är mina motivatorer", result.list);
+
+			mkTbl(["Motivatorer"], result.egen, result.grupp, false);
+			}
+			break;
+		case 4:
+			mhd.innerHTML = "Proaktivitet";
+			{
+			const url = "../data/pro.php?pid=" + <?php echo getpid(); ?> ;
+		    const response = await fetch(url);
+		    const result = await response.json();
+
+			DrawSpider('SpiderCanvas', 2, targets, targ_s, result.egen, result.grupp, short_desc_2, 'Proaktivitet', true );
+			mkTbl(short_desc_2, result.egen, result.grupp, false);
+			}
+			break;
+		case 5:
+			mhd.innerHTML = "Synergier";
+			{
+			const url = "../data/syn.php?pid=" + <?php echo getpid(); ?> ;
+		    const response = await fetch(url);
+		    const result = await response.json();
+			DrawSpider('SpiderCanvas', 2, targets, targ_s, result.egen, result.grupp, short_desc_1, 'Synergier', true );
+			mkTbl(short_desc_1, result.egen, result.grupp, false);
+			}
+			break;
+
+	}
+}
+
+function tx(i)
+{
+	restSpdr();
+
+	clearall();
+
+	document.getElementById("mainhdr").innerHTML = "Min Fysik";
+
+	obj = document.getElementById("pl35");
+	ss = "gp2.png";
+	obj.src = ss ;
+
+	PopLst([], 0);
+
+	canvas = document.getElementById("SpiderCanvas");
+	var SZ = canvas.width;
+	var ctx=canvas.getContext("2d");
+	ctx.fillStyle="#fff";
+
+	ctx.fillRect(0,0,SZ,SZ); 
+
+	ctx.font="bold 20px Myriad-pro";
+	ctx.fillStyle="#000";
+
+	txt = "Lite text" ;
+
+	txt_w = ctx.measureText(txt).width;
+	ctx.fillText( txt, SZ/2-txt_w/2, 28 );
+
+}
+
+function rita_disc(canvas, bgimg, SZ, lr, ud)
+{
+	var ctx=canvas.getContext("2d");
+	ctx.fillStyle="#fff";
+
+	ctx.fillRect(0,0,SZ,SZ); 
+	
+	ctx.drawImage(bgimg, 0,0, SZ, SZ);
+	
+	ctx.beginPath(); 
+	ctx.fillStyle="#373"; 
+	ctx.strokeStyle="#000";
+	pt = SZ / 50;
+	ctx.arc( (SZ/2)+pt*lr , (SZ/2)+pt*ud ,9,0,2*Math.PI );
+	ctx.stroke();
+	ctx.fill(); 
+}
+
+
+function rita_more(canvas, SZ, lst)
+{
+	var ctx = canvas.getContext("2d");
+	
+	ctx.fillStyle = "#ef3";
+	ctx.strokeStyle = "#000";
+	pt = SZ / 50;
+	sz2 = SZ / 2;
+
+	for (const elem of lst) {
+		ctx.beginPath(); 
+		ctx.arc( sz2+pt*elem.x, sz2+pt*elem.y, 7, 0,2*Math.PI );
+		ctx.stroke();
+		ctx.fill(); 
+	}
+}
+
+function rita_more_lrud(canvas, SZ, lst)
+{
+	var ctx = canvas.getContext("2d");
+	
+	ctx.fillStyle = "#ef3";
+	ctx.strokeStyle = "#000";
+	pt = SZ / 50;
+	sz2 = SZ / 2;
+
+	for (const elem of lst) {
+		ctx.beginPath(); 
+		ctx.arc( sz2+pt*elem.lr, sz2+pt*elem.ud, 7, 0,2*Math.PI );
+		ctx.stroke();
+		ctx.fill(); 
+	}
+}
+
+async function dsk()
+{
+	restSpdr();
+
+	clearall();
+
+	document.getElementById("mainhdr").innerHTML = "Disk";
+
+	obj = document.getElementById("pl15");
+	ss = "gp2.png";
+	obj.src = ss ;
+
+	obj = document.getElementById("lstf");
+	obj.innerHTML = ' &#128994; Egenskattning Disk<br> &#128993; Gruppskattning Disk';
+
+	const url = "../data/dsk.php?pid=" + <?php echo getpid(); ?> ;
+	const response = await fetch(url);
+	const result = await response.json();
+
+	rita_disc( document.getElementById("SpiderCanvas"), document.getElementById("Disc2"), 450, result.egen.lr, result.egen.ud );
+
+	rita_more_lrud( document.getElementById("SpiderCanvas"), 450, result.grupp );
+
+	//rita_more( document.getElementById("SpiderCanvas"), 450, [{x:3,y:-3}, {x:6,y:8}] );
+	
+}
+
+function st(i)
+{
+	clearall();
+
+	obj = document.getElementById("pl2" + i.toString());
+	ss = "gp2.png";
+	obj.src = ss ;
+
+	obj = document.getElementById("lstf");
+	obj.innerHTML = '';
+
+	mhd = document.getElementById("mainhdr");
+
+	switch(i)
+	{
+		case 1:
+			mhd.innerHTML = "Mål";
+			myway(1);
+			break;
+		case 2:
+			mhd.innerHTML = "Stress";
+			myway(2);
+			break;
+		case 3:
+			mhd.innerHTML = "Kommunikation";
+			myway(3);
+			break;
+		case 4:
+			mhd.innerHTML = "Motivation";
+			myway(4);
+			break;
+		case 5:
+			mhd.innerHTML = "Samarbete";
+			myway(5);
+			break;
+	}
+}
+
+function dcs()
+{
+	const lvlcnv = document.getElementById("lvlcnv");
+	const ctx = lvlcnv.getContext("2d");
+	const lvlimg = document.getElementById("lvlimg");
+
+	ctx.fillStyle = "#fff";
+	ctx.fillRect(0, 0, 650, 300);
+	ctx.drawImage(lvlimg, 0, 0); 
+
+	ctx.font = "20px Georgia";
+	ctx.fillStyle = "#000";
+	const h2 = 10;
+	ctx.fillText("lvl 1", 550, 256  + h2 );
+	ctx.fillText("lvl 2", 550, 194  + h2 );
+	ctx.fillText("lvl 3", 550, 141  + h2 );
+	ctx.fillText("lvl 4", 550, 86   + h2 );
+	ctx.fillText("lvl 5", 550, 34   + h2 );
+
+	/*
+	n1  256
+	n2  194
+	n3  141
+	n4   86
+	n5   34
+
+	$to->regLine("<canvas id='lvlcnv' width='650' height='300' >  </canvas> ");
+	$to->regLine("<img style='visibility:hidden;' id='lvlimg' src='level.png' onload="dcs()" >");
+*/
+}
+
+</script>
+
+<style>
+
+	.bhb {
+		text-align: center;
+		font-size: 24px;
+		font-weight: bold;
+	}
+	.bhs {
+		text-align: center;
+		font-size: 11px;
+	}
+
+	table.wtelf {
+		border: 2px solid #000;
+		margin-top: 25px;
+		border-collapse: collapse;
+	}
+	td.wtelf {
+		border: 1px solid #222;
+		margin-top: 7px;
+		margin-bottom: 7px;
+		border-collapse: collapse;
+	}
+
+
+	.visitab  {
+		border: 1px solid black;
+		border-collapse: collapse;
+			
+		padding-top:     6px;
+		padding-left:   20px;
+		padding-right:  20px;
+		padding-bottom:  6px;
+		text-align: left;
+		background-color: #fff;
+	}
+
+	.visitabbx  {
+		border: 1px solid black;
+		border-collapse: collapse;
+			
+		padding-top:     6px;
+		padding-left:   20px;
+		padding-right:  20px;
+		padding-bottom:  6px;
+		text-align: left;
+		/* background-color: #fff; */
+	}
+
+	.visitabrow:nth-child(odd) {
+		background-color: #fee;
+	}
+	.visitabrow:nth-child(even) {
+		background-color: #eef;
+	}
+
+
+</style>
+
+<title> Gruppskattning </title>
+
+<?php
+
+function survOut($tn, $filt)
+{
+	global $emperator;
+
+	$pid = getpid();
+
+	$n = 0;
+	$query = "SELECT * FROM surv WHERE type='$tn' AND pers='$pid';";
+	debug_log("query : " . $query);
+	$res = mysqli_query( $emperator, $query );
+	if ($res) while ($row = mysqli_fetch_array($res)) {
+		$seq = $row['seq'];
+		$sid = $row['surv_id'];
+		++$n;
+	}
+	
+	if ($n<=0) {
+		return ' --- inga surveys ännu ---';
+	//} else if ($n==1) {
+	//	$lnk = "onesurv.php?sid=$sid&seq=$seq&pid=$pid&st=$tn&filt=$filt";
+	//	debug_log('embed link : ' . $lnk);
+	//	return "<embed type='text/html' src='$lnk' width='450' height='450' >";
+	} else {
+		$lnk = "allsurv.php?pid=$pid&st=$tn&filt=$filt";
+		debug_log('embed link : ' . $lnk);
+		return "<embed type='text/html' src='$lnk' width='450' height='450' >";
+	}
+}
+
+
+function outBtn( $to, $blbl, $onclck, $ttl, $dopl = true )
+{
+	$to->startTag('tr');
+	$to->startTag('td');
+	$to->regLine("<img id='$blbl' src='emp.png' />");
+	$to->stopTag('td');
+	$to->startTag('td');
+	if ($ttl) {
+		$to->startTag("button", "style='width:150px;' onclick='$onclck'");
+		$to->regLine($ttl);
+		$to->stopTag('button');
+		if ($dopl)
+			$to->regLine(' <img src="gs_gp.png"> <img src="gs_yp.png"> ');
+	}
+	$to->stopTag('td');
+	$to->stopTag('tr');
+}
+
+function ptbl($to, $prow, $score=0)
+{
+	$heartfile = fopen("heart.txt", "r");
+	$txt = "";
+	if ($heartfile) {
+		$arr = [];
+		while (true) {
+			$buffer = fgets($heartfile, 4096);
+			if (!$buffer) break;
+			$buffer = trim($buffer);
+			$len = strlen($buffer);
+			if ($len == 0) continue;
+			$arr[] = $buffer;
+		}
+		$top = count($arr)-1;
+		if ($top > 0)
+			$txt = $arr[rand(0,$top)];
+	}
+
+	global $emperator;
+
+	$query = 'SELECT * FROM data WHERE pers=' . getpid() . ' AND type=4';
+	$res = mysqli_query($emperator, $query);
+	if ($row = mysqli_fetch_array($res)) {
+		$mynt = $row['value_a'];
+	}
+
+
+	$div = "<div> <img src='heart.png' style='vertical-align: middle;' width='100px' /> <span style='vertical-align: middle;'> $txt </span> ";
+
+	$wtelf = '""';
+	$to->startTag('table', "class=$wtelf");
+	$to->regLine("<tr> <td class=$wtelf > Kundnummer    </td> <td class=$wtelf > " . $prow[ 'pers_id' ] . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td> <td class=$wtelf > Guldmynt     </td> <td class=$wtelf > $mynt   </td> </tr>");
+	$to->regLine("<tr> <td class=$wtelf > Namn          </td> <td class=$wtelf > " . $prow[ 'name'    ] . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td> <td class=$wtelf > Po&auml;ng   </td> <td class=$wtelf > $score  </td> </tr>");
+	$to->regLine("<tr> <td class=$wtelf >               </td> <td class=$wtelf > " . ""                 . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td> <td colspan=2 rowspan=2 class=$wtelf > $div </td>  </tr>");
+	$to->regLine("<tr> <td class=$wtelf > Medlem sedan  </td> <td class=$wtelf > " . $prow[ 'date'    ] . "</td> <td class=$wtelf > &nbsp;&nbsp;&nbsp; </td>  </tr>");
+	$to->stopTag('table');
+}
+
+function index()
+{
+	debug_log("index()");
+
+	$to = new tagOut;
+
+	$to->startTag('script');
+
+	$to->regline('function myway(i) {');
+	$to->regline(' obj = document.getElementById("mainarea"); ');
+	$to->regline(' switch (i) { ');
+	$to->regLine('  case 1: txt = "' . survOut(104, 11) . '"; break; ');
+	$to->regLine('  case 2: txt = "' . survOut(101,  3) . '"; break; ');
+	$to->regLine('  case 3: txt = "' . survOut(103, 10) . '"; break; ');
+	$to->regLine('  case 4: txt = "' . survOut(102,  8) . '"; break; ');
+	$to->regLine('  case 5: txt = "' . survOut(105,  9) . '"; break; ');
+	$to->regLine(' }');
+	$to->regLine('obj.innerHTML = txt;');
+	$to->regline("}");
+
+	$to->stopTag('script');
+
+	$to->regLine( "\n</head>\n" );
+
+	$to->startTag("body", "onload='dsk()'");
+
+	$to->scTag("img", "id='Disc2' src='Disc3-3.png' hidden=true" );
+
+	$to->startTag('div', 'id="main" class="main"');
+	
+	$to->startTag('div', 'id="lbl"');
+	$to->stopTag('div');
+	$to->scTag('br');
+	
+	$to->startTag('div'); //logo
+	$to->scTag('br');
+	$to->scTag('img', 'width=50% src="logo.png"');
+	$to->stopTag('div');
+	$to->scTag('hr');
+
+
+
+	global $emperator;
+
+	$pid = getpid();
+	$query = "SELECT * FROM pers WHERE pers_id=$pid";
+	$res = mysqli_query( $emperator, $query );
+	if ($res) if ($row = mysqli_fetch_array($res))
+	{
+	}
+
+	$to->startTag('table');
+	$to->startTag('tr');
+	$to->startTag('td');
+	ptbl($to, $row);
+	$to->stopTag('td');
+	$to->startTag('td', "style='width:80px;' ");
+
+	$to->regLine('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+
+	$to->stopTag('td');
+	$to->startTag('td');
+
+	$to->regLine("<img src='glad.png'> <br>");
+	$to->regLine("<center> Kundnöjdhet </center> ");
+	$to->regLine("<center> 77% </center> ");
+
+	$to->stopTag('td');
+	$to->startTag('td', "style='width:80px;' ");
+
+	$to->regLine('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+
+	$to->stopTag('td');
+	$to->startTag('td');
+
+	$to->regLine("<img src='gs_gp.png'> 85%-100% <br>");
+	$to->regLine("<img src='gs_yp.png'> 70%-84% <br>");
+	$to->regLine("<img src='gs_rp.png'> 0%-69% <br>");
+	
+	$to->stopTag('td');
+	$to->stopTag('tr');
+	$to->stopTag('table');
+
+	$to->scTag('hr');
+
+	$to->startTag('table');
+	$to->startTag('tr');
+
+	// spider
+	$to->startTag('td', 'width=450px rowspan=2');
+
+	$to->regLine(" <div id='mainhdr' style='text-align:center;' > Personlighet (DISC) </div> ");
+
+	$to->regLine( '<div id="mainarea">' );
+	$to->regLine( '<canvas id="SpiderCanvas" width="450" height="450" style="border:1px solid #000000;">' );
+	$to->regLine( ' Din browser st&ouml;der inte canvas </canvas> ' );
+	$to->regLine( '</div>' );
+
+	$to->startTag('script');
+	$to->regLine(' rita_disc( document.getElementById("SpiderCanvas"), document.getElementById("Disc2"), 450, -2,3); ');
+	$to->regLine(' rita_more( document.getElementById("SpiderCanvas"), 450, [{x:3,y:-3}, {x:6,y:8}] ); ');
+	$to->stopTag('script');
+
+	$to->stopTag('td');
+
+	// btns 1
+	$to->startTag('td', 'class="bbox" width=300px height=200px');
+	$to->startTag('table');
+	$to->startTag('tr');
+	$to->regLine('<td> </td>');
+	$ttt = "Mitt Jag"; // <img src="gs_gp.png"> <img src="gs_yp.png">
+	$to->regLine("<td> <div class='bhb'> Mitt Jag $ttt </div> </td> ");
+	$to->stopTag('tr');
+
+	$to->startTag('tr');
+	$to->regLine('<td> </td>');
+	$to->regLine('<td> <div class="bhs"> &nbsp; </div> </td> ');
+	$to->stopTag('tr');
+
+	outBtn($to, "pl11", "sp(1)", "Värdegrund");
+	outBtn($to, "pl12", "sp(2)", "Omtyckt (PÄR)");
+	outBtn($to, "pl13", "sp(3)", "Klokskap (ÄTO)");
+	outBtn($to, "pl14", "sp(4)", "Mästarklass (MMG)");
+	outBtn($to, "pl15", "dsk()", "Disc");
+	outBtn($to, "pl16", "", false);
+	$to->stopTag('table');
+
+	$to->stopTag('td');
+
+	// btns 2
+	$to->startTag('td', 'class="bbox" width=300px height=200px');
+	$to->startTag('table');
+	$to->startTag('tr');
+	$to->regLine('<td> </td>');
+	$ttt = "Styrkor mm"; // <img src="gs_gp.png"> <img src="gs_yp.png">
+	$to->regLine("<td> <div class='bhb'> $ttt </div> </td> ");
+	$to->stopTag('tr');
+
+	$to->startTag('tr');
+	$to->regLine('<td> </td>');
+	$to->regLine('<td> <div class="bhs"> &nbsp; </div> </td> ');
+	$to->stopTag('tr');
+
+	outBtn($to, "pl41", "mm(1)", "Styrkor");
+	outBtn($to, "pl42", "mm(2)", "Svagheter");
+	outBtn($to, "pl43", "mm(3)", "Motivatorer");
+	outBtn($to, "pl44", "mm(4)", "Proaktivitet");
+	outBtn($to, "pl45", "mm(5)", "Synergier");
+	outBtn($to, "pl46", "", false);
+	$to->stopTag('table');
+
+	$to->stopTag('td');
+
+	// btns 3
+	$to->startTag('td', 'class="bbox" width=300px height=200px');
+	$to->startTag('table');
+	$to->startTag('tr');
+	$to->regLine('<td> </td>');
+	$to->regLine('<td> <div class="bhb"> Min Väg </div> </td> ');
+	$to->stopTag('tr');
+
+	$to->startTag('tr');
+	$to->regLine('<td> </td>');
+	$to->regLine('<td> <div class="bhs"> &nbsp; </div> </td> ');
+	$to->stopTag('tr');
+
+	outBtn($to, "pl21", "st(1)", "Mål", false);
+	outBtn($to, "pl22", "st(2)", "Stress", false);
+	outBtn($to, "pl23", "st(3)", "Kommunikation", false);
+	outBtn($to, "pl24", "st(4)", "Motivation", false);
+	outBtn($to, "pl25", "st(5)", "Samarbete", false);
+	outBtn($to, "pl26", "", false);
+	$to->stopTag('table');
+
+	$to->stopTag('td');
+
+
+	// b4
+
+	$to->startTag('td', 'class="bbox" width=300px height=200px');
+	$to->startTag('table');
+	$to->startTag('tr');
+	$to->regLine('<td> </td>');
+	$to->regLine('<td> <div class="bhb"> Åtgärdsplan </div> </td> ');
+	$to->stopTag('tr');
+
+	$to->startTag('tr');
+	$to->regLine('<td> </td>');
+	$to->regLine('<td> <div class="bhs"> Nå ditt sanna jag </div> </td> ');
+	$to->stopTag('tr');
+
+	outBtn($to, "pl31", "sp(0)", "Steg 1", false);
+	outBtn($to, "pl32", "sp(0)", "Steg 2", false);
+	outBtn($to, "pl33", "sp(0)", "Steg 3", false);
+	outBtn($to, "pl34", "", false);
+	outBtn($to, "pl35", "tx(1)", "Min Fysik", false);
+	outBtn($to, "pl36", "", false);
+	$to->stopTag('table');
+
+	$to->stopTag('td');
+
+	$to->stopTag('tr');
+	$to->startTag('tr');
+
+	$to->startTag('td', 'colspan=3');
+	$to->startTag('div', 'id="lstf"');
+	$to->regLine('&#128994; Egenskattning Disk<br> &#128993; Gruppskattning Disk');
+	$to->stopTag('div');
+	$to->stopTag('td');
+
+
+	//$to->startTag('td', 'colspan=2');
+	//$to->regLine('<img src="gg.png" \> <br> ');
+	//$to->stopTag('td');
+
+	$to->stopTag('tr');
+
+	$to->stopTag('table');
+
+	$to->regLine('<hr>');
+	$to->startTag('table');
+	$to->startTag('tr');
+	$to->startTag('td');
+	$to->regLine("<canvas id='lvlcnv' width='650' height='300' >  </canvas> ");
+	$to->regLine("<img style='visibility:hidden; display:none;' id='lvlimg' src='level.png' onload='dcs()' >");
+
+	$to->stopTag('td');
+	$to->startTag('td');
+
+	$to->regLine('77% nöjd <br> nivå 3.2 <br> 16.2h totalt <br> 22 mätningar');
+
+	$to->stopTag('td');
+	$to->stopTag('tr');
+	$to->stopTag('table');
+
+	$to->stopTag('div'); //main
+	$to->stopTag('body');
+
+
+}
+
+
+index();
+
+?>
+
+</html>
