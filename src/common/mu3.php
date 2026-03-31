@@ -11,7 +11,7 @@ include_once 'connect.php';
 include_once 'main.js.php';
 include_once 'util.php';
 include_once 'discdisplay.php';
-
+include_once 'debug.php';
 
 echo '<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>';
 
@@ -730,13 +730,18 @@ function index()
 
 	$to->stopTag('td');
 
+	$url = "https://mind2excellence.se/site/data/grp1.php?pid=" . getpid() ;
+	$fc = file_get_contents($url, true);
+	$data =  json_decode($fc);
+	debug_log ( print_r($data, true) );
+
 	// btns 1
 	$to->startTag('td', 'class="bbox" width=300px height=200px');
 	$to->startTag('table');
 	$to->startTag('tr');
 	$to->regLine('<td> </td>');
 	$ttt = "Mitt Jag"; // <img src="gs_gp.png"> <img src="gs_yp.png">
-	$to->regLine("<td> <div class='bhb'> Mitt Jag $ttt </div> </td> ");
+	$to->regLine("<td> <div class='bhb'> $ttt </div> </td> ");
 	$to->stopTag('tr');
 
 	$to->startTag('tr');
