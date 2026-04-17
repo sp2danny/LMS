@@ -271,16 +271,16 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 		{
 			kod = document.getElementById("kod").value;
 			
-			if (kod == "xkcd")
-				extra = 20;
+			if (kod == "VIPKUND")
+				extra = 50;
 			else
 				extra = 0;
 
 			on_update_3(sel_p());
 			on_update_2();
 
-			obj = document.getElementById('p20');
-			if (extra == 20)
+			obj = document.getElementById('p50');
+			if (extra == 50)
 				obj.style.visibility = 'visible';
 			else
 				obj.style.visibility = 'hidden';
@@ -627,7 +627,11 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 			echo " &nbsp;&nbsp; ";
 
 			echo " </td> <td> ";
-			echo " <canvas id='priceCanv' width='140' height='140' > </canvas> ";
+			$dobang = get_styr($styr, 'prod', 'prod.dobang', $variant, "true") == "true";
+			if ($dobang)
+				echo " <canvas id='priceCanv' width='140' height='140' > </canvas> ";
+			else
+				echo " <canvas hidden id='priceCanv' width='140' height='140' > </canvas> ";
 			echo " </td> </tr> </table> \n";
 
 			$pitch = get_styr($styr, 'result', 'pitch.text', $variant);
@@ -715,8 +719,13 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 
 			echo " <td colspan=2 > ";
 
-			echo " <div id='kmps'> <h3> Best&auml;ll flera, f&aring; rabatt </h3>  \n";
-
+			echo " <div id='kmps'>";
+			
+			if ($dobang)
+				echo " <h3> Best&auml;ll flera, f&aring; rabatt </h3>  \n";
+			else
+				echo " <h3> Best&auml;ll här. Biljett kommer på epost. </h3>  \n";
+			
 			echo " <label for='qtt'> Antal: </label> \n" .
 				" <input style='font-size: 125%; width:125px;' onChange='upd_cnt()' value='1' type='number' id='qtt' name='qtt' min='1' > \n" ;
 
@@ -724,7 +733,7 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 				" <br> \n" .
 				" <h3> Har du rabatt-kod, skriv in den h&auml;r </h3>  \n" .
 				" <label for='kod'> Kod: </label> \n" .
-				" <input style='font-size: 125%; width:125px;' oninput='upd_kod()' value='' type='text' id='kod' name='kod'  >  <img id='p20' src='../20p.png' style='visibility: hidden; vertical-align:bottom;' > \n" ;
+				" <input style='font-size: 125%; width:125px;' oninput='upd_kod()' value='' type='text' id='kod' name='kod'  >  <img id='p50' src='../50p.png' style='visibility: hidden; vertical-align:bottom;' > \n" ;
 
 			echo " </div> </td> </tr> <tr> ";
 
