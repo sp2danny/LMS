@@ -28,12 +28,13 @@ $res = mysqli_query( $emperator, $query );
 $str = "validation.customer.kvp:";
 $first = true;
 
-foreach ($_POST['customer'] as $key => $val) {
+$str .= print_r($_POST['customer'], true);
+/*foreach ($_POST['customer'] as $key => $val) {
 	if (!$first)
 		$str .= ",";
 	$str .= '[' . $key . ':' . $val . ']';
 	$first = false;
-}
+}*/
 
 $query = "INSERT INTO data (type, pers, value_a, value_c) VALUES (52, 0, $id, '$str')";
 $res = mysqli_query( $emperator, $query );

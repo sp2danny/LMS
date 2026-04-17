@@ -27,11 +27,9 @@ if ($email != "")
 {
     $em_to   = $email;
     $em_subj = 'Orderbekräftelse från min2excellence.se';
-    $em_msg  = 'Välkommen som kund' . "\r\n";
-    $em_msg .= 'Här är din inloggningslänk' . "\r\n";
-    $em_msg .= 'https://www.mind2excellence.se/site/common/login.php' . "\r\n";
-    $em_msg .= 'Här är din zoomlänk' . "\r\n";
-    $em_msg .= 'https://www.mind2excellence.se/site/common/sendlink.php?pid=' . $id . "\r\n";
+    $em_msg  = 'Välkommen!' . "\r\n";
+    $em_msg .= 'Här är din biljett' . "\r\n";
+    $em_msg .= 'https://www.mind2excellence.se/biljett' . "\r\n";
     $em_hdr  = [];
     $em_hdr['From']     = 'kundtjanst@mind2excellence.se';
     $em_hdr['Reply-To'] = 'kundtjanst@mind2excellence.se';
@@ -76,6 +74,7 @@ END;
 
 echo $em_res;
 
+/*
 echo <<<END
 
 <br>
@@ -107,6 +106,16 @@ echo <<<END
 <input type="submit" value="Skapa Konto">
 
 </form>
+
+*/
+
+echo <<<END
+
+<br>
+
+<a href='https://www.mind2excellence.se/biljett'> Biljett </a>
+
+
 </div>
 </body>
 </html>

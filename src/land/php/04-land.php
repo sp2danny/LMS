@@ -596,7 +596,11 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 			echo " &nbsp;&nbsp; ";
 
 			echo " </td> <td> ";
-			echo " <canvas id='priceCanv' width='140' height='140' > </canvas> ";
+			$dobang = get_styr($styr, 'prod', 'prod.dobang', $variant, "true") == "true";
+			if ($dobang)
+				echo " <canvas id='priceCanv' width='140' height='140' > </canvas> ";
+			else
+				echo " <canvas hidden id='priceCanv' width='140' height='140' > </canvas> ";
 			echo " </td> </tr> </table> \n";
 
 			$pitch = get_styr($styr, 'result', 'pitch.text', $variant);
@@ -684,7 +688,10 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 
 			echo " <td colspan=2 > ";
 
-			echo " <h3> Best&auml;ll flera, f&aring; rabatt </h3>  \n";
+			if ($dobang)
+				echo " <h3> Best&auml;ll flera, f&aring; rabatt </h3>  \n";
+			else
+				echo " <h3> Best&auml;ll här. Biljett kommer på epost. </h3>  \n";
 
 			echo " <label for='qtt'> Antal: </label> \n" .
 				" <input style='font-size: 125%; width:125px; ' onChange='upd_cnt()' value='1' type='number' id='qtt' name='qtt' min='1' > \n" ;
