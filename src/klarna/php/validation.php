@@ -56,6 +56,18 @@ $query = "INSERT INTO data (type, pers, value_a, value_c) VALUES (53, 0, " . $id
 if (($id!=0) && ($email!=""))
 	$res = mysqli_query( $emperator, $query );
 
+$fullname = "";
+if (isset($_POST['billing_address']))
+	if (isset($_POST['billing_address']['given_name']))
+		$fullname = $_POST['billing_address']['given_name'] . " " . $_POST['billing_address']['family_name'];
+if (isset($_POST['shipping_address']))
+	if (isset($_POST['shipping_address']['given_name']))
+		$fullname = $_POST['shipping_address']['given_name'] . " " . $_POST['shipping_address']['family_name'];
+
+$query = "INSERT INTO data (type, pers, value_a, value_c) VALUES (54, 0, " . $id . ", '" . $fullname . "')";
+if (($id!=0) && ($fullname!=""))
+	$res = mysqli_query( $emperator, $query );
+
 $kid = $_POST['order_id'];
 $query = "INSERT INTO data (type, pers, value_a, value_c) VALUES (55, 0, " . $id . ", '" . $kid . "')";
 if (($id!=0) && ($kid!=""))

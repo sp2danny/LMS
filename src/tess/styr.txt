@@ -1,0 +1,47 @@
+
+[common]
+title = Theréses vardagsrum
+
+font.family = robota
+font.size = 22
+
+[land]
+
+num = 1
+
+text.1 = <h2>En kväll för din personliga utveckling </h2> 
+
+
+text.2 = 🎵 Vi börjar kvällen med live musik och AW på uteserveringen – en perfekt start för att landa, mingla och sätta tonen för resten av kvällen.<br> Leffe Strömberg talar också entusiastiskt om hur man skapar vinnande TEAM inom idrotten 🌿
+
+
+text.3 = Välkommen till en inspirerande, varm och energifylld kväll på vackra Grillska Huset i hjärtat av Gamla Stan – med en atmosfär som bjuder in till både utveckling och gemenskap.
+
+
+[prod]
+
+prod.dobang = false
+
+prod.text =  🎵 Vi börjar kvällen med live musik och AW på uteserveringen – en perfekt start för att landa, mingla och sätta tonen för resten av kvällen. <br><br> Therése Neaimé är kvällens värdinna, sjunger och uppträder. Leffe Strömberg talar entusiastiskt om hur man skapar vinnande TEAM inom idrotten 🌿 <br><br> <img src='../tess50.jpg'> <br> <h3> Välkommen till en inspirerande, varm och energifylld kväll på vackra Grillska Huset i hjärtat av Gamla Stan – med en atmosfär som bjuder in till både utveckling och gemenskap. </h3> <br> 🌿 En upplevelse utöver det vanliga <br><br> Det här är mer än ett event – det är starten på en rörelse. <br><br> Under kvällen får du uppleva:<br>    🎤 Inspirerande föreläsningar inom personlig utveckling<br>    🎵 Liveframträdanden med musik som berör<br>    🛠️ Interaktiva workshopbrs<br>    🎙️ Poddstudio och kreativa inslag<br>    🤝 Mingel med drivna och likasinnade människor<br>    🍸 Bar öppen hela kvällen (möjlighet att handla i baren)<br>    🌿 Uteservering för en extra härlig atmosfär <br><br>Vi samlar människor som vill framåt – som vill växa, utvecklas och skapa något större tillsammans.<br><br>📍 När & Var<br><br>Onsdag 6 maj kl. 17:00 <br> Grillska Huset <br> Stortorget 3, Gamla Stan, Stockholm <br><br> 🥂 Pris <br> 295 kr inkl. smörgås & bubbel <br><br>⚡ Viktigt att veta<br>Antalet platser är begränsat – först till kvarn gäller.<br><br>💫 En återkommande upplevelse <br> Detta är bara början. <br>Kvällen blir starten på ett koncept som vi kommer att fortsätta med en gång i månaden.<br><br>💫 För vem? <br>För dig som:<br><ul><li>Vill utvecklas både personligt och professionellt</li><li>Söker inspiration, nya perspektiv och nya kontakter </li><li> Vill vara en del av ett sammanhang med energi, värme och ambition </li> </ul> <br> 🎯 Syftet med kvällen <br> Att samla människor, inspirera till utveckling och skapa nya möjligheter – både individuellt och tillsammans. <br><br> 👤 Arrangör <br> Mind²Excellence i samarbete med Theréses Vardagsrum
+
+
+
+link.url = https://mind2excellence.se/klarna/php/buy.php
+
+link.none = Välj produkt ovan.
+link.total = Totalt %tot% :-
+link.save = Du sparar %sav% :-
+link.cta = Boka här redan nu!<br>Biljett kommer på epost
+
+prod.num = 1
+prod.select = 1007
+prod.main = 1007
+
+prod.1.cdate = 20260506
+prod.1.date = 6 maj kl 17
+prod.1.link = mind2excellence.se/site/common/sendlink.php
+prod.1.spot = 100
+prod.1.preselect = true
+
+
+
