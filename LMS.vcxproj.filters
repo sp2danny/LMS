@@ -579,8 +579,11 @@
     <None Include="src\data\grp1.php">
       <Filter>Source Files\data</Filter>
     </None>
-    <None Include="kund.php">
+    <None Include="src\stats\kund.php">
       <Filter>Source Files\stats</Filter>
+    </None>
+    <None Include="src\klarna\php\debug.php">
+      <Filter>Source Files\klarna</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

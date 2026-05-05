@@ -17,7 +17,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="debug.php" />
-    <None Include="kund.php" />
     <None Include="src\coach\add_group.php" />
     <None Include="src\coach\buttons.php" />
     <None Include="src\coach\edit_prod.php" />
@@ -151,6 +150,7 @@
     <None Include="src\klarna\php\checkout.php" />
     <None Include="src\klarna\php\confirmation.php" />
     <None Include="src\klarna\php\db.php" />
+    <None Include="src\klarna\php\debug.php" />
     <None Include="src\klarna\php\dologin.php" />
     <None Include="src\klarna\php\getparam.php" />
     <None Include="src\klarna\php\login.php" />
@@ -176,6 +176,7 @@
     <None Include="src\stats\index.php" />
     <None Include="src\stats\index2.php" />
     <None Include="src\stats\ip.php" />
+    <None Include="src\stats\kund.php" />
     <None Include="src\stats\listing.php" />
     <None Include="src\stats\ny.php" />
     <None Include="src\stats\summary.php" />

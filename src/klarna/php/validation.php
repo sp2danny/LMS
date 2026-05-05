@@ -65,15 +65,27 @@ if (isset($_POST['shipping_address']))
 	if (isset($_POST['shipping_address']['given_name']))
 		$fullname = $_POST['shipping_address']['given_name'] . " " . $_POST['shipping_address']['family_name'];
 
-$query = "INSERT INTO data (type, pers, value_a, value_c) VALUES (57, 0, " . $id . ", '" . $fullname . "')";
+$query = "INSERT INTO data (type, pers, value_a, value_c) VALUES (58, 0, " . $id . ", '" . $fullname . "')";
 if (($id!=0) && ($fullname!=""))
 	$res = mysqli_query( $emperator, $query );
 
 
-$str = "POST:" . print_r($_POST, true);
-$query = "INSERT INTO data (type, pers, value_a, value_c) VALUES (59, 0, " . $id . ", '" . $str . "')";
+$phone = "";
+if (isset($_POST['billing_address']))
+	if (isset($_POST['billing_address']['phone']))
+		$phone = $_POST['billing_address']['phone'];
+if (isset($_POST['shipping_address']))
+	if (isset($_POST['shipping_address']['phone']))
+		$phone = $_POST['shipping_address']['phone'];
 
-debug_log($str);
+$query = "INSERT INTO data (type, pers, value_a, value_c) VALUES (59, 0, " . $id . ", '" . $phone . "')";
+if (($id!=0) && ($fullname!=""))
+	$res = mysqli_query( $emperator, $query );
+
+//$str = "POST:" . print_r($_POST, true);
+//$query = "INSERT INTO data (type, pers, value_a, value_c) VALUES (59, 0, " . $id . ", '" . $str . "')";
+
+//debug_log($str);
 
 $kid = $_POST['order_id'];
 $query = "INSERT INTO data (type, pers, value_a, value_c) VALUES (55, 0, " . $id . ", '" . $kid . "')";
