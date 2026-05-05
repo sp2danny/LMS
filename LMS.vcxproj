@@ -17,6 +17,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="debug.php" />
+    <None Include="kund.php" />
     <None Include="src\coach\add_group.php" />
     <None Include="src\coach\buttons.php" />
     <None Include="src\coach\edit_prod.php" />

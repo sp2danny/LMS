@@ -4,6 +4,7 @@
 include "getparam.php";
 include "db.php";
 
+
 include_once "../../site/common/debug.php";
 
 
@@ -62,6 +63,7 @@ echo <<<END
 		margin-bottom: 100px;
 		margin-right: 150px;
 		margin-left: 80px;
+        font-size: 22px;
 	}
 </style>
 </head>

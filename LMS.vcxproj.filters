@@ -579,6 +579,9 @@
     <None Include="src\data\grp1.php">
       <Filter>Source Files\data</Filter>
     </None>
+    <None Include="kund.php">
+      <Filter>Source Files\stats</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\common\dologin.php">

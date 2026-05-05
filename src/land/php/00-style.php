@@ -18,7 +18,8 @@ echo <<<EOT
 		}
 
 		div {
-			font-family:    roboto;
+			font-family: roboto;
+			font-size: 20px;
 		}
 
 		td {

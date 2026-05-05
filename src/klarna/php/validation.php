@@ -3,6 +3,7 @@
 
 include "getparam.php";
 include "db.php";
+include "debug.php";
 
 $id = getparam("id", 0);
 
@@ -64,9 +65,15 @@ if (isset($_POST['shipping_address']))
 	if (isset($_POST['shipping_address']['given_name']))
 		$fullname = $_POST['shipping_address']['given_name'] . " " . $_POST['shipping_address']['family_name'];
 
-$query = "INSERT INTO data (type, pers, value_a, value_c) VALUES (54, 0, " . $id . ", '" . $fullname . "')";
+$query = "INSERT INTO data (type, pers, value_a, value_c) VALUES (57, 0, " . $id . ", '" . $fullname . "')";
 if (($id!=0) && ($fullname!=""))
 	$res = mysqli_query( $emperator, $query );
+
+
+$str = "POST:" . print_r($_POST, true);
+$query = "INSERT INTO data (type, pers, value_a, value_c) VALUES (59, 0, " . $id . ", '" . $str . "')";
+
+debug_log($str);
 
 $kid = $_POST['order_id'];
 $query = "INSERT INTO data (type, pers, value_a, value_c) VALUES (55, 0, " . $id . ", '" . $kid . "')";
