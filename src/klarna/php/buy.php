@@ -10,6 +10,7 @@ $id = getparam("id");
 $pid = getparam("prod");
 $qtt = getparam("qtt", 1);
 $reb = getparam("reb", 0);
+$kod = getparam("kod", false);
 
 $pr_title = 'fel';
 $pr_price = 200;
@@ -19,6 +20,12 @@ $ol = [];
 $pids = explode(",", $pid);
 
 $tot_pr = 0;
+
+
+if ($kod) {
+    $query = "INSERT INTO data (type, pers, value_a, value_c) VALUES (60, 0, " . $id . ", '" . $kod . "')";
+    $res = mysqli_query($emperator, $query);
+}
 
 foreach ($pids as $val)
 {
@@ -86,6 +93,7 @@ $data = [
     "order_tax_amount" => 20 * $tot_pr * $qtt,
     "order_lines" => $ol, // json_encode($ol),
     'merchant_urls' => $mu,
+    'merchant_reference2' => $id
 ];
 
 $ch = curl_init($url);

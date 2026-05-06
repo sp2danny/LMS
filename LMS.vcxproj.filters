@@ -26,14 +26,14 @@
     <Filter Include="Source Files\land\php">
       <UniqueIdentifier>{9f4c88d7-efb0-4fde-8c0f-6e50e5f97b2c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\land\mob">
-      <UniqueIdentifier>{8a4a9556-f575-43cc-91e5-76cf053cb96e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\stats">
       <UniqueIdentifier>{b481f4d5-4b71-443b-97e8-85f81460f881}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\data">
       <UniqueIdentifier>{b300e8fd-1df2-4b86-a4fc-cfd582c2c6a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\land\php\mob">
+      <UniqueIdentifier>{8a4a9556-f575-43cc-91e5-76cf053cb96e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -484,10 +484,10 @@
       <Filter>Source Files\land\php</Filter>
     </None>
     <None Include="src\land\php\m.04-land.php">
-      <Filter>Source Files\land\mob</Filter>
+      <Filter>Source Files\land\php\mob</Filter>
     </None>
     <None Include="src\land\php\m.00-style.php">
-      <Filter>Source Files\land\mob</Filter>
+      <Filter>Source Files\land\php\mob</Filter>
     </None>
     <None Include="src\land\test.php">
       <Filter>Source Files\land</Filter>
@@ -587,6 +587,9 @@
     </None>
     <None Include="src\stats\kund2.php">
       <Filter>Source Files\stats</Filter>
+    </None>
+    <None Include="src\land\php\04-land-kod-2.php">
+      <Filter>Source Files\land\php</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

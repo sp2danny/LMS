@@ -82,6 +82,12 @@ typer
 
 	klarna-id   55
 
+	email       53
+	fullname    58
+	phone       59
+	kod         60
+
+
 	tratt-res   56           index        value                     lid
 
 	pdf dl cnt  57           antal        lead

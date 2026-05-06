@@ -474,6 +474,12 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 					first = false;
 				}
 			}
+
+			kod = document.getElementById("kod").value;
+			if (kod != "")
+				lnk += "&kod=" + kod;
+
+
 			let sumreb = (100-mkpr(numsel)) / 100;
 			sumreb *= (100-mkpr(antal)) / 100;
 			sumreb *= (100-extra) / 100;
