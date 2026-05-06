@@ -585,6 +585,9 @@
     <None Include="src\klarna\php\debug.php">
       <Filter>Source Files\klarna</Filter>
     </None>
+    <None Include="src\stats\kund2.php">
+      <Filter>Source Files\stats</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\common\dologin.php">

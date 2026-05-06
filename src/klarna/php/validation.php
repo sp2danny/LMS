@@ -79,7 +79,7 @@ if (isset($_POST['shipping_address']))
 		$phone = $_POST['shipping_address']['phone'];
 
 $query = "INSERT INTO data (type, pers, value_a, value_c) VALUES (59, 0, " . $id . ", '" . $phone . "')";
-if (($id!=0) && ($fullname!=""))
+if (($id!=0) && (phone!=""))
 	$res = mysqli_query( $emperator, $query );
 
 //$str = "POST:" . print_r($_POST, true);

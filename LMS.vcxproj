@@ -177,6 +177,7 @@
     <None Include="src\stats\index2.php" />
     <None Include="src\stats\ip.php" />
     <None Include="src\stats\kund.php" />
+    <None Include="src\stats\kund2.php" />
     <None Include="src\stats\listing.php" />
     <None Include="src\stats\ny.php" />
     <None Include="src\stats\summary.php" />
