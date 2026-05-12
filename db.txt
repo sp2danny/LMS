@@ -86,6 +86,7 @@ typer
 	fullname    58
 	phone       59
 	kod         60
+	kanal       61
 
 
 	tratt-res   56           index        value                     lid

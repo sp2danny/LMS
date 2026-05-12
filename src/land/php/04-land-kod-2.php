@@ -413,12 +413,20 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 
 			sav = antal * (old_ppp-ppp);
 
+			var gdpr = document.getElementById("gdpr");
 
 			var bnb = document.getElementById("bnb");
+
 			if (numsel == 0)
 			{
 				bnb.disabled = true;
 				txt = <?php echo '"' . $lnk_none . '"'; ?> ;
+				bnb.innerHTML = txt; 
+			}
+			else if (!gdpr.checked)
+			{
+				bnb.disabled = true;
+				txt = <?php echo '"' . "Godkänn databehandlingspolicyn" . '"'; ?> ;
 				bnb.innerHTML = txt; 
 			} else {
 				bnb.disabled = false;
@@ -764,6 +772,8 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 
 			echo " </td> </tr> <tr> <td colspan=2 > ";
 
+			echo " <input id='gdpr' onclick='upd_cnt()' type='checkbox'> Jag godkänner att mina uppgifter behandlas enligt integritetspolicyn. </input> \n";
+			echo " <a href='https://mind2excellence.se/site/GDPR.pdf'> Våra villkor: Så hanterar vi dina personuppgifter </a> \n";
 
 			echo "<table> ";
 			echo " <tr> ";
