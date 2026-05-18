@@ -22,13 +22,23 @@ if ($res) if ($row = mysqli_fetch_array($res)) {
 	$email = $row['value_c'];
 }
 
+$name = false;
+$query = "SELECT * FROM data WHERE type=58 AND value_a=" . $id;
+$res = mysqli_query( $emperator, $query );
+if ($res) if ($row = mysqli_fetch_array($res)) {
+	$name = $row['value_c'];
+}
+
 $em_res = 'hittade ingen email adress';
 
 if ($email != "")
 {
     $em_to   = $email;
     $em_subj = 'Orderbekräftelse från min2excellence.se';
-    $em_msg  = 'Välkommen!' . "\r\n";
+    if ($name)
+        $em_msg  = "Välkommen $name!" . "\r\n";
+    else
+        $em_msg  = 'Välkommen!' . "\r\n";
     $em_msg .= 'Här är din biljett' . "\r\n";
     $em_msg .= 'https://www.mind2excellence.se/biljett' . "\r\n";
     $em_hdr  = [];
