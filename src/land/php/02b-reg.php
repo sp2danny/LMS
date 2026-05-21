@@ -48,7 +48,7 @@ $noskip = boolval($flags & 1);
 //if ($noskip)
 //	$url = "03-intro.php?lid=$last_id";
 //else
-	$url = "04-land-kod.php?lid=$last_id";
+	$url = "04-land-kod-2.php?lid=$last_id";
 
 ?> 
 

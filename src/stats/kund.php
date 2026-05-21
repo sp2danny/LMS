@@ -180,7 +180,23 @@ if ($result) while ($row = mysqli_fetch_array($result))
 	$tot_p += $ta;
 	$tot_n += $qt;
 
+	switch ($ch)
+	{
+		case 1:
+			$ch = "Tess";
+			break;
+		case 2:
+			$ch = "Email";
+			break;
+		case 3:
+			$ch = "Hasse";
+			break;
+		default:
+			$ch = "ingen";
+	}
+
 	echo "\t\t<tr>\n";
+	//echo "\t\t\t<td> " . $id . " </td>\n";
 	echo "\t\t\t<td> " . $dd . " </td>\n";
 	echo "\t\t\t<td> " . $ch . " </td>\n";
 	echo "\t\t\t<td> " . $em . " </td>\n";

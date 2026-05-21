@@ -745,6 +745,8 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 			echo " <label for='qtt'> Antal: </label> \n" .
 				" <input style='font-size: 125%; width:125px;' onChange='upd_cnt()' value='1' type='number' id='qtt' name='qtt' min='1' > \n" ;
 
+			echo " <input id='gdpr' onclick='upd_cnt()' type='checkbox'> Jag godkänner att mina uppgifter behandlas enligt integritetspolicyn. </input> <br> \n";
+
 			echo
 				" <br> \n" .
 				"  <br> Har du vipkod, skriv in den h&auml;r <br> \n" .
@@ -772,8 +774,8 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 
 			echo " </td> </tr> <tr> <td colspan=2 > ";
 
-			echo " <input id='gdpr' onclick='upd_cnt()' type='checkbox'> Jag godkänner att mina uppgifter behandlas enligt integritetspolicyn. </input> \n";
-			echo " <a href='https://mind2excellence.se/site/GDPR.pdf'> Våra villkor: Så hanterar vi dina personuppgifter </a> \n";
+			//echo " <input id='gdpr' onclick='upd_cnt()' type='checkbox'> Jag godkänner att mina uppgifter behandlas enligt integritetspolicyn. </input> \n";
+			//echo " <a href='https://mind2excellence.se/site/GDPR.pdf'> Våra villkor: Så hanterar vi dina personuppgifter </a> \n";
 
 			echo "<table> ";
 			echo " <tr> ";
@@ -790,6 +792,8 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 			echo " </tr> </table> <br> \n";
 
 			echo " </td> </tr> </table> ";
+
+			echo " <a href='https://mind2excellence.se/site/GDPR.pdf'> Våra villkor: Så hanterar vi dina personuppgifter </a> \n";
 
 		?>
 
