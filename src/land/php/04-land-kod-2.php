@@ -254,7 +254,7 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 				" <label for='qtt'> Antal: </label> \n" +
 				" <input onChange='upd_cnt()' value='1' type='number' id='qtt' name='qtt' min='1' > \n" +
 				" <br> \n" +
-				"  Har du vipkod, skriv in den h&auml;r  <br /> \n" +
+				"  Har du presentkod, skriv in den h&auml;r  <br /> \n" +
 				" <label for='kod'> Kod: </label> \n" +
 				" <input onkeydown='upd_kod()' onkeyup='upd_kod()' onChange='upd_kod()' value='' type='text' id='kod' name='kod'  > \n" ;
 
@@ -749,7 +749,7 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 
 			echo
 				" <br> \n" .
-				"  <br> Har du vipkod, skriv in den h&auml;r <br> \n" .
+				"  <br> Har du presentkod, skriv in den h&auml;r <br> \n" .
 				" <label for='kod'> Kod: </label> \n" .
 				" <input style='font-size: 125%; width:125px;' oninput='upd_kod()' value='' type='text' id='kod' name='kod'  >  <img id='p50' src='../50p.png' style='visibility: hidden; vertical-align:bottom;' > \n" ;
 

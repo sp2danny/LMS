@@ -133,7 +133,7 @@ $kund[] = [ "bjorn@gavert.com",                  "Björn",      "Gävert",      
 $kund[] = [ "ewa.saric@hotmail.com",             "Ewa",        "Saric",            "+46704520097",  147, "0" ];
 $kund[] = [ "info@erikpalm.com",                 "Erik",       "Palm",             "+46739496720",  147, "0" ];
 $kund[] = [ "madeleinh@hotmail.com",             "Madelein",   "Hellström",        "+46707710868",  295, "0" ];
-$kund[] = [ "georgios.kontorinis@ifmetall.se",   "Georgios",   "Kontorinis",       "+46706921818",  590, "0" ];
+//$kund[] = [ "georgios.kontorinis@ifmetall.se",   "Georgios",   "Kontorinis",       "+46706921818",  590, "0" ];
 $kund[] = [ "ana.wahlstrom@skansen-akvariet.se", "Ana Karina", "Wahlström",        "+46735437546",  885, "0" ];
 $kund[] = [ "eva.holmberg.eh@gmail.com",         "Eva",        "Holmberg",         "+46762100050",  885, "0" ];
 
@@ -143,6 +143,11 @@ $tot_p = 0;
 foreach ($kund as $k)
 {
 	echo "\t\t<tr>\n";
+
+	$dd = $k[5];
+
+	echo "\t\t\t<td> " . (($dd=="0")?"":$dd) . " </td>\n";
+
 
 	$em = $k[0];
 	$tn = $k[1] . " " . $k[2];
@@ -177,6 +182,9 @@ foreach ($kund as $k)
 
 $pd = 0;
 
+$has_alr = [];
+
+
 $query = "SELECT * FROM data WHERE type=54 AND value_c='payed'";
 $result = mysqli_query($emperator, $query);
 if ($result) while ($row = mysqli_fetch_array($result))
@@ -185,10 +193,13 @@ if ($result) while ($row = mysqli_fetch_array($result))
 
 	$dd = $row['date'];
 
-	if ($dd < "2026-05-06 00:00:00") continue;
-	//if ($dd < "2026-05-04 00:00:00") continue;
+	if ($dd > "2026-05-06 00:00:00") continue;
+	if ($dd < "2026-04-04 00:00:00") continue;
 
 	$id = $row['value_a'];
+
+	if (array_key_exists($id, $has_alr))
+		continue;
 
 	$ol = "";
 	$query2 = "SELECT * FROM data WHERE type=52 AND value_a=$id";
@@ -232,10 +243,16 @@ if ($result) while ($row = mysqli_fetch_array($result))
 	$ta = $dta[0]['total_amount']/100;
 	$qt = $dta[0]['quantity'];
 
+	if ($ta < 99) continue;
+
 	$tot_p += $ta;
 	$tot_n += $qt;
+	
+	$has_alr[$id] = true;
+
 
 	echo "\t\t<tr>\n";
+	echo "\t\t\t<td> " . $dd . " </td>\n";
 	echo "\t\t\t<td> " . $em . " </td>\n";
 	echo "\t\t\t<td> " . $fn . " </td>\n";
 	echo "\t\t\t<td> " . $ph . " </td>\n";
@@ -249,7 +266,7 @@ if ($result) while ($row = mysqli_fetch_array($result))
 }
 
 echo "\t\t<tr>\n";
-echo "\t\t\t<td colspan=3>   </td>\n";
+echo "\t\t\t<td colspan=4>   </td>\n";
 echo "\t\t\t<td> " . $tot_p . " :- </td>\n";
 echo "\t\t\t<td> " . $tot_n . " st. </td>\n";
 echo "\t\t</tr>\n";

@@ -594,6 +594,9 @@
     <None Include="src\land\php\02b-reg.php">
       <Filter>Source Files\land\php</Filter>
     </None>
+    <None Include="src\stats\kunda.php">
+      <Filter>Source Files\stats</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\common\dologin.php">

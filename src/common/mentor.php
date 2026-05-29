@@ -149,6 +149,13 @@ button.ilbbaicl {
   width: 100%;
 }
 
+button.ilbbaicl9 {
+  font-size: 24px;
+  font-weight: bold;
+  width: 100%;
+  border-radius: 9px;
+}
+
 h5.regular {
   font-size: 16px;
   font-weight: normal;
@@ -353,6 +360,31 @@ EOT;
 	$tit = array();
 
 	$n = count($tit);
+
+	$to->scTag("hr");
+
+	$to->startTag("table");
+	$to->startTag("tr");
+
+
+	$to->startTag("td");
+	$to->startTag("a", "href='https://mind2excellence.se/stats/kund-0505.php'");
+	$to->startTag("button", "class='ilbbaicl9'" );
+	$to->regLine("Tess 0505");
+	$to->stopTag("button");
+	$to->stopTag("a");
+	$to->stopTag("td");
+
+	$to->startTag("td");
+	$to->startTag("a", "href='https://mind2excellence.se/stats/kund-0603.php'");
+	$to->startTag("button", "class='ilbbaicl9'" );
+	$to->regLine("Tess 0603");
+	$to->stopTag("button");
+	$to->stopTag("a");
+	$to->stopTag("td");
+
+	$to->stopTag("tr");
+	$to->stopTag("table");
 
 	$to->scTag("hr");
 

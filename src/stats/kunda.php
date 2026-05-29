@@ -112,6 +112,80 @@ $tot_n = 0;
 $tot_p = 0;
 
 
+$kund = [];
+
+$kund[] = [ "mats_owe@yahoo.se",                 "Mats-Owe",   "Gustafsson Sköld", "+46739647875",  294, "2026-05-05T18:34:49Z" ];
+$kund[] = [ "joelthulin@gmail.com",              "Joel",       "Thulin",           "+46705548275",  294, "2026-05-05T16:40:40Z" ];
+$kund[] = [ "kent.eliasson@arch.se",             "Kent",       "Eliasson",         "+46735669440",  295, "2026-05-05T07:50:08Z" ];
+$kund[] = [ "santessondoina@gmail.com",          "Doina",      "Santesson",        "+46762850475",  294, "2026-05-04T17:57:17Z" ];
+$kund[] = [ "jier59@hotmail.com",                "Sven Jimmy", "Ernström",         "+46703159983",  295, "2026-05-04T12:02:43Z" ];
+$kund[] = [ "claes.mittjas@hotmail.com",         "Claes",      "Mittjas",          "+46722420073",  147, "0" ];
+$kund[] = [ "lars@tsse.se",                      "Lars",       "Falkenius",        "+46735363606",  295, "0" ];
+$kund[] = [ "jessicaljohansson92@gmail.com",     "Jessica",    "Johansson",        "+46702854609",  294, "0" ];
+$kund[] = [ "halina.bartoszek@yahoo.com",        "Halina",     "Bartoszek",        "+46704953930",  147, "0" ];
+$kund[] = [ "roger.bolander@live.com",           "Roger",      "Bolander",         "+46707750545",  147, "0" ];
+$kund[] = [ "martina.orlop@gmail.com",           "Martina",    "Orlop",            "+46708559935",  590, "0" ];
+$kund[] = [ "thomas@gut.se",                     "Thomas",     "Gut",              "+46704841203",  295, "0" ];
+$kund[] = [ "johan.angert@gmail.com",            "Johan",      "Angert",           "+46707420268",  295, "0" ];
+$kund[] = [ "christina.hildebrand@hotmail.com",  "Christina",  "Hildebrand",       "+46762040652",  294, "0" ];
+$kund[] = [ "hans.engberg@gmail.com",            "Hans",       "Engberg",          "+46735152378",  147, "0" ];
+$kund[] = [ "annelidaborn@hotmail.com",          "Annelie",    "EngbergDaborn",    "+46709640972",  147, "0" ];
+$kund[] = [ "christina.hildebrand@hotmail.com",  "Christina",  "Hildebrand",       "+46762040652",  294, "0" ];
+$kund[] = [ "marie.stenulv@gmail.com",           "Marie",      "Stenulv",          "+46739201725",  295, "0" ];
+$kund[] = [ "martina.orlop@gmail.com",           "Martina",    "Orlop",            "+46708559935",  295, "0" ];
+$kund[] = [ "christian.landstrom1960@gmail.com", "Christian",  "Landström",        "+46709268706",  294, "0" ];
+$kund[] = [ "bjorn@gavert.com",                  "Björn",      "Gävert",           "+46731831500",  295, "0" ];
+$kund[] = [ "ewa.saric@hotmail.com",             "Ewa",        "Saric",            "+46704520097",  147, "0" ];
+$kund[] = [ "info@erikpalm.com",                 "Erik",       "Palm",             "+46739496720",  147, "0" ];
+$kund[] = [ "madeleinh@hotmail.com",             "Madelein",   "Hellström",        "+46707710868",  295, "0" ];
+//$kund[] = [ "georgios.kontorinis@ifmetall.se",   "Georgios",   "Kontorinis",       "+46706921818",  590, "0" ];
+$kund[] = [ "ana.wahlstrom@skansen-akvariet.se", "Ana Karina", "Wahlström",        "+46735437546",  885, "0" ];
+$kund[] = [ "eva.holmberg.eh@gmail.com",         "Eva",        "Holmberg",         "+46762100050",  885, "0" ];
+
+$tot_n = 0;
+$tot_p = 0;
+
+foreach ($kund as $k)
+{
+	echo "\t\t<tr>\n";
+
+	echo "\t\t\t<td> </td>\n";
+	echo "\t\t\t<td> </td>\n";
+
+
+	$em = $k[0];
+	$tn = $k[1] . " " . $k[2];
+	$ph = $k[3];
+
+	echo "\t\t\t<td> " . $em . " </td>\n";
+	echo "\t\t\t<td> " . $tn . " </td>\n";
+	echo "\t\t\t<td> " . $ph . " </td>\n";
+
+	$p = $k[4];
+
+	echo "\t\t\t<td> " . $p . " :- </td>\n";
+
+	$tot_p += $p;
+
+	$s = "?";
+	if (($p%147)==0)
+		$s = $p / 147;
+	else if (($p%295)==0)
+		$s = $p / 295;
+	else
+		$s = round($p / 295.0 , 0);
+
+	echo "\t\t\t<td> " . $s . " st. </td>\n";
+
+	$tot_n += $s;
+
+
+	echo "\t\t</tr>\n";
+}
+
+//echo "</table>\n";
+//echo "<table>\n";
+
 $pd = 0;
 
 $has_alr = [];
@@ -124,7 +198,7 @@ if ($result) while ($row = mysqli_fetch_array($result))
 
 	$dd = $row['date'];
 
-	if ($dd < "2026-05-05 18:00:00") continue;
+	//if ($dd < "2026-05-05 18:00:00") continue;
 
 	//if ($dd == "2026-05-26 06:15:06") continue;
 
@@ -151,8 +225,6 @@ if ($result) while ($row = mysqli_fetch_array($result))
 	}
 	if ($ol == "") continue;
 	if (!$val) continue;
-
-	$has_alr[$id] = true;
 
 	$dta = print_r_reverse($ol);
 
@@ -192,9 +264,14 @@ if ($result) while ($row = mysqli_fetch_array($result))
 
 	$ta = $dta[0]['total_amount']/100;
 	$qt = $dta[0]['quantity'];
+	
+	if ($ta < 99) continue;
 
 	$tot_p += $ta;
 	$tot_n += $qt;
+	
+	$has_alr[$id] = true;
+	
 
 	switch ($ch)
 	{
