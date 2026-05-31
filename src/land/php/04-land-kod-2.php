@@ -6,6 +6,8 @@ include "00-connect.php";
 
 include_once "../../site/common/debug.php";
 
+$doint = false;
+
 $styr = LoadIni("../styr.txt");
 
 $lid      = getparam('lid');
@@ -273,7 +275,7 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 		{
 			kod = document.getElementById("kod").value;
 			
-			if (kod == "VIPKUND")
+			if (kod.trim() == "VIPKUND")
 				extra = 50;
 			else
 				extra = 0;
@@ -422,12 +424,13 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 				bnb.disabled = true;
 				txt = <?php echo '"' . $lnk_none . '"'; ?> ;
 				bnb.innerHTML = txt; 
-			}
-			else if (!gdpr.checked)
-			{
-				bnb.disabled = true;
-				txt = <?php echo '"' . "Godkänn databehandlingspolicyn" . '"'; ?> ;
-				bnb.innerHTML = txt; 
+			<?php
+			if ($doint)
+				echo 
+					"} else if (!gdpr.checked) {\n" . 
+					"	bnb.disabled = true;\n" .
+					"	bnb.innerHTML = 'Godkänn databehandlingspolicyn'; \n";
+			?>
 			} else {
 				bnb.disabled = false;
 				var txt = <?php echo '"' . $lnk_total . '"'; ?> ;
@@ -745,7 +748,8 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 			echo " <label for='qtt'> Antal: </label> \n" .
 				" <input style='font-size: 125%; width:125px;' onChange='upd_cnt()' value='1' type='number' id='qtt' name='qtt' min='1' > \n" ;
 
-			echo " <input id='gdpr' onclick='upd_cnt()' type='checkbox'> Jag godkänner att mina uppgifter behandlas enligt integritetspolicyn. </input> <br> \n";
+			if ($doint)
+				echo " <input id='gdpr' onclick='upd_cnt()' type='checkbox'> Jag godkänner att mina uppgifter behandlas enligt integritetspolicyn. </input> <br> \n";
 
 			echo
 				" <br> \n" .
@@ -793,7 +797,8 @@ $lnk_cta    =  get_styr($styr, 'prod', "link.cta",   $variant);
 
 			echo " </td> </tr> </table> ";
 
-			echo " <a href='https://mind2excellence.se/site/GDPR.pdf'> Våra villkor: Så hanterar vi dina personuppgifter </a> \n";
+			if ($doint)
+				echo " <a href='https://mind2excellence.se/site/GDPR.pdf'> Våra villkor: Så hanterar vi dina personuppgifter </a> \n";
 
 		?>
 

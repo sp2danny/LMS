@@ -207,6 +207,9 @@ if ($result) while ($row = mysqli_fetch_array($result))
 		case 3:
 			$ch = "Hasse";
 			break;
+		case 21:
+			$ch = "Email - 1";
+			break;
 		default:
 			$ch = "ingen";
 	}
