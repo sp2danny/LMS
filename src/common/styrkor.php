@@ -231,9 +231,9 @@ if ($have_grp === false)
 	echo <<<EOT
 	<table> <tr>
 
-	<td> <img style="width: 682px; height: 511px" src="styrkor.png" /> </td>
+	<td> <h2> Styrkor &amp; Svagheter </h2> <img style="width: 682px; height: 511px" src="styrkor.png" /> </td>
 
-	<td> <img style="width: 682px; height: 511px" src="proaktiv.jpg" /> </td>
+	<td> <h2> Proaktivitet </h2> <img style="width: 682px; height: 511px" src="proaktiv.jpg" /> </td>
 
 	</tr> <tr>
 
