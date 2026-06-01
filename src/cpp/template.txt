@@ -1,0 +1,50 @@
+
+
+<html>
+
+<head>
+
+	<title> Kundlista </title>
+
+</head>
+
+<style>
+
+	body {
+		margin-top:     50px;
+		margin-bottom:  50px;
+		margin-right:  150px;
+		margin-left:    80px;
+	}
+
+	table, th, td {
+		border: 1px solid black;
+		border-collapse: collapse;
+			
+		padding-top:     6px;
+		padding-left:   20px;
+		padding-right:  20px;
+		padding-bottom:  6px;
+	}
+
+	th {
+		text-align: left;
+		background-color: #fff;
+	}
+
+	tbody, tr:nth-child(odd) {
+		background-color: #fee;
+	}
+	tbody, tr:nth-child(even) {
+		background-color: #eef;
+	}
+
+
+</style>
+
+<body>
+
+
+
+</body>
+</html>
