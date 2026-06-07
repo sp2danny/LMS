@@ -133,8 +133,10 @@ void out_report(std::ostream& out, const VS& hdr, const VVS& data)
         if (l[17] == "y") continue;
 
         auto dt = l[4];
+        // 2026-05-25T11:45:47Z
         std::string ymd = dt.substr(0, 10);
-        if (ymd <= "2026-05-05") continue;
+        if (ymd > "2026-05-06") continue;
+        std::string hms = dt.substr(11, 8);
         int pr = std::stoi(l[12]);
         if (pr < 9900) continue;
         int ant = 1;

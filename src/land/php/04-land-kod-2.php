@@ -43,6 +43,7 @@ $query = "SELECT * FROM data WHERE type=50 AND pers=0";
 $res = mysqli_query( $emperator, $query );
 if ($res) if ($row = mysqli_fetch_array($res)) {
 	$pkv = $row['value_a'];
+	if ($pkv<8) $pkv=8;
 	$dagar = $row['value_b'];
 	$startd = $row['date'];
 }

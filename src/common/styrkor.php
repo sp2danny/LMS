@@ -171,7 +171,6 @@ function grp_sk(fr, by, id, val)
 
 <div class='main'>
 
-<br /> <br />
 
 <?php
 
@@ -231,9 +230,9 @@ if ($have_grp === false)
 	echo <<<EOT
 	<table> <tr>
 
-	<td> <h2> Styrkor &amp; Svagheter </h2> <img style="width: 682px; height: 511px" src="styrkor.png" /> </td>
+	<td> <h2> Styrkor &amp; Svagheter </h2> <img style="width: 682px; height: 511px" src="styrkor.png" /> <br><br> </td>
 
-	<td> <h2> Proaktivitet </h2> <img style="width: 682px; height: 511px" src="proaktiv.jpg" /> </td>
+	<td> <h2> Proaktivitet &amp; Sinnesbalans </h2> <img style="width: 682px; height: 511px" src="proaktiv.jpg" /> <br><br> </td>
 
 	</tr> <tr>
 
