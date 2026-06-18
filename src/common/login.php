@@ -225,6 +225,27 @@ if ($logtxt)
 					else 
 						echo '<img width="' . $cmd->params[0] . '%" src="../' . $cmd->params[1] . '"> <br>' . $eol;
 					break;
+				case "video":
+					$n = count($cmd->params);
+					$img = trim($cmd->params[0]);
+					$pro = 100;
+					if ($n>=2) {
+						$pro = $cmd->params[0];
+						$img = trim($cmd->params[1]);
+					}
+					$w = intval(1024 * $pro / 100);
+					$h = intval(576 * $pro / 100);
+					if ($n>=3)
+					{
+						$w = $cmd->params[0];
+						$h = $cmd->params[1];
+						$img = trim($cmd->params[2]);
+					}
+					echo '<iframe width="' . $w
+						. '" height="' . $h . '" src="https://player.vimeo.com/video/' . $img
+						. '"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>' . $eol;
+					break;
+
 			}
 			
 		} else {
