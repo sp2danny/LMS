@@ -597,6 +597,12 @@
     <None Include="src\stats\kunda.php">
       <Filter>Source Files\stats</Filter>
     </None>
+    <None Include="src\common\mockup3.php">
+      <Filter>Source Files\common</Filter>
+    </None>
+    <None Include="src\common\ptbl.php">
+      <Filter>Source Files\common</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\common\dologin.php">

@@ -94,6 +94,7 @@
     <None Include="src\common\minsida.php" />
     <None Include="src\common\mockup.php" />
     <None Include="src\common\mockup2.php" />
+    <None Include="src\common\mockup3.php" />
     <None Include="src\common\mu3.php" />
     <None Include="src\common\next.php" />
     <None Include="src\common\nypers.php" />
@@ -106,6 +107,7 @@
     <None Include="src\common\post_disc.php" />
     <None Include="src\common\process_cmd.php" />
     <None Include="src\common\progress.php" />
+    <None Include="src\common\ptbl.php" />
     <None Include="src\common\pulselst.php" />
     <None Include="src\common\rateit.php" />
     <None Include="src\common\regpers.php" />
